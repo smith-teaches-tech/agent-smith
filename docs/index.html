@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>agent-smith / us</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0e12;
+    --bg-panel: #15171d;
+    --bg-elevated: #1c1f27;
+    --border: #2a2e38;
+    --text: #e8e6e0;
+    --text-dim: #8a8d96;
+    --text-bright: #ffffff;
+    --accent: #d4a574;
+    --green: #6db97f;
+    --red: #d4736b;
+    --amber: #d4a574;
+    --blue: #7da3c4;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --serif: 'Fraunces', Georgia, serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+  }
+  header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    color: var(--text-bright);
+  }
+  h1 .slash { color: var(--accent); font-weight: 400; }
+  h1 .sub { color: var(--text-dim); font-weight: 400; font-size: 24px; }
+  .meta { color: var(--text-dim); font-size: 12px; text-align: right; }
+  .meta a { color: var(--blue); text-decoration: none; }
+  .meta a:hover { text-decoration: underline; }
+
+  .summary {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.6;
+    font-style: italic;
+    color: var(--text);
+  }
+
+  section { margin-bottom: 32px; }
+  h2 {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+  }
+  h2 .count {
+    color: var(--accent);
+    margin-left: 8px;
+    font-weight: 400;
+  }
+
+  /* Context grid */
+  .context-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .ctx {
+    background: var(--bg-panel);
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .ctx .ticker { color: var(--text-dim); font-size: 10px; letter-spacing: 0.05em; }
+  .ctx .price { color: var(--text-bright); font-weight: 500; font-size: 13px; }
+  .ctx .change { font-size: 11px; font-weight: 500; }
+  .pos { color: var(--green); }
+  .neg { color: var(--red); }
+  .flat { color: var(--text-dim); }
+
+  /* Discovery cards */
+  .discoveries { display: grid; gap: 12px; }
+  .card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    padding: 18px 20px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 20px;
+    align-items: start;
+  }
+  .card .ident {
+    min-width: 140px;
+  }
+  .card .ticker-big {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text-bright);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .card .name { color: var(--text-dim); font-size: 11px; line-height: 1.3; }
+  .card .sector {
+    color: var(--text-dim);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 6px;
+  }
+
+  .card .body { display: flex; flex-direction: column; gap: 10px; }
+  .card .row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: 1px solid;
+  }
+  .badge.likely-overdone { color: var(--green); border-color: var(--green); }
+  .badge.likely-underdone { color: var(--blue); border-color: var(--blue); }
+  .badge.partially-rational { color: var(--amber); border-color: var(--amber); }
+  .badge.likely-rational { color: var(--text-dim); border-color: var(--text-dim); }
+  .badge.unclear { color: var(--text-dim); border-color: var(--text-dim); }
+  .conf { color: var(--text-dim); font-size: 11px; }
+  .conf .stars { color: var(--accent); }
+
+  .mech {
+    color: var(--text);
+    font-family: var(--serif);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .mech-label {
+    color: var(--text-dim);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .pointers { padding-left: 16px; color: var(--text); }
+  .pointers li { margin-bottom: 2px; font-size: 12px; }
+  .falsify {
+    background: var(--bg-elevated);
+    border-left: 2px solid var(--red);
+    padding: 8px 12px;
+    font-size: 12px;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  .card .move {
+    text-align: right;
+    min-width: 100px;
+  }
+  .card .move-pct {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .card .move-vol {
+    color: var(--text-dim);
+    font-size: 11px;
+    margin-top: 4px;
+  }
+
+  /* Catalyst chains */
+  .chains { display: grid; gap: 10px; }
+  .chain {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    padding: 14px 18px;
+  }
+  .chain .primary {
+    font-family: var(--serif);
+    font-size: 15px;
+    color: var(--text-bright);
+    margin-bottom: 8px;
+  }
+  .chain .primary .ptkr { color: var(--accent); font-weight: 600; }
+  .chain .secondaries {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .secondary {
+    background: var(--bg-elevated);
+    padding: 4px 10px;
+    font-size: 11px;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .secondary .stkr { color: var(--text-bright); font-weight: 600; }
+  .secondary .rel { color: var(--text-dim); font-size: 10px; }
+
+  /* AI section */
+  .ai-announce {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--blue);
+    padding: 16px 20px;
+    margin-bottom: 12px;
+  }
+  .ai-source {
+    color: var(--blue);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .ai-source.anthropic-flag::after {
+    content: "⚠ self-bias check";
+    color: var(--amber);
+    margin-left: 12px;
+    font-size: 10px;
+    font-style: italic;
+  }
+  .ai-headline {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin-bottom: 10px;
+  }
+  .ai-affected {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+  }
+  .ai-stock {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    font-size: 12px;
+  }
+  .ai-stock:last-child { border-bottom: none; }
+
+  /* Trump signals */
+  .trump-signal {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .trump-signal .post {
+    color: var(--text);
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+
+  .empty {
+    color: var(--text-dim);
+    font-style: italic;
+    padding: 16px;
+    text-align: center;
+    background: var(--bg-panel);
+    border: 1px dashed var(--border);
+  }
+
+  .error {
+    background: #2a1518;
+    border: 1px solid var(--red);
+    color: var(--red);
+    padding: 12px;
+  }
+
+  .nav {
+    display: inline-flex;
+    gap: 0;
+    border: 1px solid var(--border);
+    margin-top: 8px;
+  }
+  .nav a {
+    padding: 4px 12px;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-right: 1px solid var(--border);
+  }
+  .nav a:last-child { border-right: none; }
+  .nav a.active { background: var(--accent); color: var(--bg); }
+  .nav a:hover:not(.active) { background: var(--bg-elevated); color: var(--text); }
+
+  .footer {
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 700px) {
+    body { padding: 16px; }
+    h1 { font-size: 24px; }
+    .card { grid-template-columns: 1fr; }
+    .card .move { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>agent<span class="slash">/</span>smith <span class="sub">us</span></h1>
+    <nav class="nav">
+      <a href="index.html" class="active">us</a>
+      <a href="tw.html">tw</a>
+    </nav>
+  </div>
+  <div class="meta">
+    <div id="ts">loading...</div>
+    <div id="counts"></div>
+  </div>
+</header>
+
+<div id="root"></div>
+
+<div class="footer">
+  pointers, not recommendations · always research before acting<br>
+  data sourced from yfinance, RSS feeds, public APIs · analysis by claude
+</div>
+
+<script>
+const fmt = {
+  pct: n => n == null ? '—' : (n > 0 ? '+' : '') + n.toFixed(2) + '%',
+  cls: n => n == null ? 'flat' : n > 0.05 ? 'pos' : n < -0.05 ? 'neg' : 'flat',
+  badge: c => (c || 'unclear').toLowerCase().replace(/\s+/g, '-'),
+  stars: n => n == null ? '' : '★'.repeat(n) + '☆'.repeat(5 - n),
+  date: iso => {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleString('en-US', {
+      timeZone: 'Asia/Riyadh',
+      dateStyle: 'medium',
+      timeStyle: 'short'
+    }) + ' AST';
+  }
+};
+
+async function load() {
+  try {
+    const r = await fetch('data/latest_us.json?_=' + Date.now());
+    if (!r.ok) throw new Error('No data yet — first run hasn\'t completed');
+    const d = await r.json();
+    render(d);
+  } catch (e) {
+    document.getElementById('root').innerHTML =
+      `<div class="error">Could not load analysis: ${e.message}</div>`;
+  }
+}
+
+function render(d) {
+  document.getElementById('ts').textContent = fmt.date(d.generated_at);
+  document.getElementById('counts').textContent =
+    `${d.movers_count} movers · ${d.news_count} news · ${d.trump_posts_count || 0} posts`;
+
+  const root = document.getElementById('root');
+  const a = d.discovery || {};
+  const ai = d.ai_analysis || {};
+  let html = '';
+
+  if (a.run_summary) {
+    html += `<div class="summary">${escape(a.run_summary)}</div>`;
+  }
+
+  // Context bar
+  html += renderContext(d.market_context);
+
+  // Discoveries
+  const discoveries = a.discoveries || [];
+  html += `<section><h2>discoveries <span class="count">${discoveries.length}</span></h2>`;
+  if (discoveries.length === 0) {
+    html += `<div class="empty">${escape(a.no_signals_note || 'No interesting movers identified this run')}</div>`;
+  } else {
+    html += '<div class="discoveries">';
+    discoveries.forEach(item => html += renderDiscovery(item));
+    html += '</div>';
+  }
+  html += '</section>';
+
+  // Catalyst chains
+  const chains = a.catalyst_chains || [];
+  if (chains.length) {
+    html += `<section><h2>catalyst chains <span class="count">${chains.length}</span></h2><div class="chains">`;
+    chains.forEach(c => html += renderChain(c));
+    html += '</div></section>';
+  }
+
+  // AI announcements
+  const announces = ai.ai_announcements || [];
+  if (announces.length) {
+    html += `<section><h2>ai catalysts <span class="count">${announces.length}</span></h2>`;
+    announces.forEach(an => html += renderAI(an));
+    html += '</section>';
+  } else if (ai.no_signals_note) {
+    html += `<section><h2>ai catalysts</h2><div class="empty">${escape(ai.no_signals_note)}</div></section>`;
+  }
+
+  // Trump signals
+  const trump = a.trump_signals || [];
+  if (trump.length) {
+    html += `<section><h2>political signals <span class="count">${trump.length}</span></h2>`;
+    trump.forEach(t => html += renderTrump(t));
+    html += '</section>';
+  }
+
+  root.innerHTML = html;
+}
+
+function renderContext(ctx) {
+  if (!ctx) return '';
+  let html = '<section><h2>market context</h2><div class="context-grid">';
+  for (const [tkr, q] of Object.entries(ctx)) {
+    if (q.error) continue;
+    const cls = fmt.cls(q.change_pct);
+    html += `<div class="ctx">
+      <div class="ticker">${escape(tkr)}</div>
+      <div class="price">${q.price?.toFixed(2) ?? '—'}</div>
+      <div class="change ${cls}">${fmt.pct(q.change_pct)}</div>
+    </div>`;
+  }
+  html += '</div></section>';
+  return html;
+}
+
+function renderDiscovery(d) {
+  const moveCls = fmt.cls(d.move_pct);
+  const badgeCls = fmt.badge(d.classification);
+  return `<div class="card">
+    <div class="ident">
+      <div class="ticker-big">${escape(d.ticker || '?')}</div>
+      <div class="name">${escape(d.name || '')}</div>
+      <div class="sector">${escape(d.sector || '')}</div>
+    </div>
+    <div class="body">
+      <div class="row">
+        <span class="badge ${badgeCls}">${escape(d.classification || 'unclear')}</span>
+        <span class="conf">conf <span class="stars">${fmt.stars(d.confidence)}</span></span>
+        ${d.time_horizon ? `<span class="conf">⏱ ${escape(d.time_horizon)}</span>` : ''}
+      </div>
+      ${d.catalyst ? `<div><div class="mech-label">catalyst</div><div class="mech">${escape(d.catalyst)}</div></div>` : ''}
+      ${d.mechanism ? `<div><div class="mech-label">mechanism</div><div class="mech">${escape(d.mechanism)}</div></div>` : ''}
+      ${(d.research_pointers || []).length ? `
+        <div>
+          <div class="mech-label">research</div>
+          <ul class="pointers">${d.research_pointers.map(p => `<li>${escape(p)}</li>`).join('')}</ul>
+        </div>` : ''}
+      ${d.what_would_falsify ? `<div class="falsify">falsify: ${escape(d.what_would_falsify)}</div>` : ''}
+    </div>
+    <div class="move">
+      <div class="move-pct ${moveCls}">${fmt.pct(d.move_pct)}</div>
+      ${d.volume_multiple ? `<div class="move-vol">vol ${d.volume_multiple}×</div>` : ''}
+    </div>
+  </div>`;
+}
+
+function renderChain(c) {
+  return `<div class="chain">
+    <div class="primary"><span class="ptkr">${escape(c.primary_ticker || '')}</span> · ${escape(c.primary_event || '')}</div>
+    <div class="secondaries">
+      ${(c.secondary_opportunities || []).map(s => `
+        <div class="secondary">
+          <span class="stkr">${escape(s.ticker)}</span>
+          <span class="rel">${escape(s.relationship)} · ${escape(s.expected_direction)} · conf ${s.confidence}</span>
+        </div>
+      `).join('')}
+    </div>
+  </div>`;
+}
+
+function renderAI(an) {
+  const flagClass = an.is_from_anthropic ? 'anthropic-flag' : '';
+  return `<div class="ai-announce">
+    <div class="ai-source ${flagClass}">${escape(an.source || '')}</div>
+    <div class="ai-headline">${escape(an.headline || '')}</div>
+    <div>${escape(an.summary || '')}</div>
+    <div class="ai-affected">
+      ${(an.affected_stocks || []).map(s => `
+        <div class="ai-stock">
+          <strong>${escape(s.ticker)}</strong>
+          <div>
+            overlap: ${escape(s.direct_overlap)} ·
+            switching cost: ${escape(s.switching_cost)} ·
+            horizon: ${escape(s.time_horizon)}<br>
+            <em>${escape(s.counter_thesis || '')}</em>
+          </div>
+          <div style="text-align:right;">
+            <span class="badge ${fmt.badge(s.verdict)}">${escape(s.verdict)}</span><br>
+            <span class="conf"><span class="stars">${fmt.stars(s.confidence)}</span></span>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  </div>`;
+}
+
+function renderTrump(t) {
+  return `<div class="trump-signal">
+    <div class="post">"${escape(t.post_summary || '')}"</div>
+    <div>affected: ${(t.potentially_affected || []).map(escape).join(', ') || '—'}</div>
+    <div style="color:var(--text-dim);margin-top:4px;">${escape(t.note || '')}</div>
+  </div>`;
+}
+
+function escape(s) {
+  if (s == null) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+load();
+</script>
+</body>
+</html>

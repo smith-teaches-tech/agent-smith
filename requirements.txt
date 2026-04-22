@@ -1,0 +1,7 @@
+anthropic>=0.40.0
+yfinance>=0.2.40
+feedparser>=6.0.11
+requests>=2.32.0
+python-dateutil>=2.9.0
+beautifulsoup4>=4.12.0
+lxml>=5.0.0

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>agent-smith / 台灣</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0e12;
+    --bg-panel: #15171d;
+    --bg-elevated: #1c1f27;
+    --border: #2a2e38;
+    --text: #e8e6e0;
+    --text-dim: #8a8d96;
+    --text-bright: #ffffff;
+    --accent: #c47d7d;     /* warm red — Taiwan flag inspired */
+    --green: #6db97f;
+    --red: #d4736b;
+    --amber: #d4a574;
+    --blue: #7da3c4;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --serif: 'Fraunces', Georgia, serif;
+    --serif-tc: 'Noto Serif TC', 'PingFang TC', serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+  }
+  header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    color: var(--text-bright);
+  }
+  h1 .slash { color: var(--accent); font-weight: 400; }
+  h1 .sub {
+    font-family: var(--serif-tc);
+    color: var(--text-dim);
+    font-weight: 400;
+    font-size: 24px;
+    margin-left: 4px;
+  }
+  .meta { color: var(--text-dim); font-size: 12px; text-align: right; }
+
+  .summary-pair {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .summary-pair .en {
+    font-family: var(--serif);
+    font-size: 15px;
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .summary-pair .zh {
+    font-family: var(--serif-tc);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text);
+    border-left: 1px dashed var(--border);
+    padding-left: 24px;
+  }
+
+  section { margin-bottom: 32px; }
+  h2 {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+  }
+  h2 .zh-label {
+    font-family: var(--serif-tc);
+    color: var(--text-dim);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    margin-left: 8px;
+    font-size: 12px;
+  }
+
+  .context-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .ctx {
+    background: var(--bg-panel);
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .ctx .ticker { color: var(--text-dim); font-size: 10px; letter-spacing: 0.05em; }
+  .ctx .price { color: var(--text-bright); font-weight: 500; font-size: 13px; }
+  .ctx .change { font-size: 11px; font-weight: 500; }
+  .pos { color: var(--green); }
+  .neg { color: var(--red); }
+  .flat { color: var(--text-dim); }
+
+  .story {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    padding: 20px;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .story .col { display: flex; flex-direction: column; gap: 10px; }
+  .story .col.zh { font-family: var(--serif-tc); border-left: 1px dashed var(--border); padding-left: 20px; }
+  .story .headline {
+    font-weight: 600;
+    color: var(--text-bright);
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  .story .col.en .headline { font-family: var(--serif); }
+  .story .col.zh .headline { font-family: var(--serif-tc); font-size: 17px; }
+  .story .analysis {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .story .col.zh .analysis { font-size: 14px; line-height: 1.7; }
+  .story .meta-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: 1px solid;
+  }
+  .badge.overdone { color: var(--green); border-color: var(--green); }
+  .badge.underdone { color: var(--blue); border-color: var(--blue); }
+  .badge.rational { color: var(--text-dim); border-color: var(--text-dim); }
+  .conf .stars { color: var(--accent); }
+  .tickers { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tickers .tkr {
+    background: var(--bg-elevated);
+    padding: 2px 6px;
+    color: var(--text-bright);
+    font-size: 11px;
+  }
+
+  .arb {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    padding: 14px 18px;
+    margin-bottom: 8px;
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+  }
+  .arb .pair {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: var(--text-bright);
+    font-weight: 600;
+    min-width: 180px;
+  }
+  .arb .div-pct {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .empty {
+    color: var(--text-dim);
+    font-style: italic;
+    padding: 16px;
+    text-align: center;
+    background: var(--bg-panel);
+    border: 1px dashed var(--border);
+  }
+  .error {
+    background: #2a1518;
+    border: 1px solid var(--red);
+    color: var(--red);
+    padding: 12px;
+  }
+
+  .nav {
+    display: inline-flex;
+    gap: 0;
+    border: 1px solid var(--border);
+    margin-top: 8px;
+  }
+  .nav a {
+    padding: 4px 12px;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-right: 1px solid var(--border);
+  }
+  .nav a:last-child { border-right: none; }
+  .nav a.active { background: var(--accent); color: var(--bg); }
+  .nav a:hover:not(.active) { background: var(--bg-elevated); color: var(--text); }
+
+  .footer {
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.6;
+  }
+  .footer .zh { font-family: var(--serif-tc); margin-top: 4px; }
+
+  @media (max-width: 800px) {
+    body { padding: 16px; }
+    h1 { font-size: 24px; }
+    .summary-pair, .story { grid-template-columns: 1fr; }
+    .summary-pair .zh, .story .col.zh {
+      border-left: none;
+      border-top: 1px dashed var(--border);
+      padding-left: 0;
+      padding-top: 16px;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>agent<span class="slash">/</span>smith <span class="sub">台灣</span></h1>
+    <nav class="nav">
+      <a href="index.html">us</a>
+      <a href="tw.html" class="active">tw</a>
+    </nav>
+  </div>
+  <div class="meta">
+    <div id="ts">loading...</div>
+    <div id="counts"></div>
+  </div>
+</header>
+
+<div id="root"></div>
+
+<div class="footer">
+  pointers, not recommendations · always research before acting
+  <div class="zh">參考方向，非投資建議 · 請務必自行研究後再做決定</div>
+</div>
+
+<script>
+const fmt = {
+  pct: n => n == null ? '—' : (n > 0 ? '+' : '') + n.toFixed(2) + '%',
+  cls: n => n == null ? 'flat' : n > 0.05 ? 'pos' : n < -0.05 ? 'neg' : 'flat',
+  badge: c => (c || 'unclear').toLowerCase().replace(/\s+/g, '-'),
+  stars: n => n == null ? '' : '★'.repeat(n) + '☆'.repeat(5 - n),
+  date: iso => {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleString('en-US', {
+      timeZone: 'Asia/Riyadh',
+      dateStyle: 'medium',
+      timeStyle: 'short'
+    }) + ' AST';
+  }
+};
+
+async function load() {
+  try {
+    const r = await fetch('data/latest_tw.json?_=' + Date.now());
+    if (!r.ok) throw new Error('No data yet — first Taiwan run hasn\'t completed');
+    const d = await r.json();
+    render(d);
+  } catch (e) {
+    document.getElementById('root').innerHTML =
+      `<div class="error">Could not load analysis: ${e.message}</div>`;
+  }
+}
+
+function render(d) {
+  document.getElementById('ts').textContent = fmt.date(d.generated_at);
+  const nc = d.news_counts || {};
+  document.getElementById('counts').textContent =
+    `${nc.zh || 0} 中文 · ${nc.en || 0} EN news`;
+
+  const root = document.getElementById('root');
+  const a = d.analysis || {};
+  let html = '';
+
+  if (a.summary_en || a.summary_zh) {
+    html += `<div class="summary-pair">
+      <div class="en">${escape(a.summary_en || '')}</div>
+      <div class="zh">${escape(a.summary_zh || '')}</div>
+    </div>`;
+  }
+
+  html += renderContext(d.market_context);
+
+  const stories = a.key_stories || [];
+  html += `<section><h2>key stories <span class="zh-label">重點新聞</span></h2>`;
+  if (stories.length === 0) {
+    html += `<div class="empty">${escape(a.no_signals_note || 'Quiet session — no key stories')}</div>`;
+  } else {
+    stories.forEach(s => html += renderStory(s));
+  }
+  html += '</section>';
+
+  const arb = a.adr_arbitrage || d.adr_arbitrage || [];
+  if (arb.length) {
+    html += `<section><h2>ADR arbitrage <span class="zh-label">ADR 套利機會</span></h2>`;
+    arb.forEach(x => html += renderArb(x));
+    html += '</section>';
+  }
+
+  root.innerHTML = html;
+}
+
+function renderContext(ctx) {
+  if (!ctx) return '';
+  let html = '<section><h2>market context <span class="zh-label">市場概況</span></h2><div class="context-grid">';
+  for (const [tkr, q] of Object.entries(ctx)) {
+    if (q.error) continue;
+    const cls = fmt.cls(q.change_pct);
+    html += `<div class="ctx">
+      <div class="ticker">${escape(tkr)}</div>
+      <div class="price">${q.price?.toFixed(2) ?? '—'}</div>
+      <div class="change ${cls}">${fmt.pct(q.change_pct)}</div>
+    </div>`;
+  }
+  html += '</div></section>';
+  return html;
+}
+
+function renderStory(s) {
+  return `<div class="story">
+    <div class="col en">
+      <div class="headline">${escape(s.headline_en || '')}</div>
+      <div class="analysis">${escape(s.analysis_en || '')}</div>
+      <div class="meta-row">
+        <span class="badge ${fmt.badge(s.verdict)}">${escape(s.verdict || '')}</span>
+        <span class="conf"><span class="stars">${fmt.stars(s.confidence)}</span></span>
+        <div class="tickers">${(s.affected_tickers || []).map(t => `<span class="tkr">${escape(t)}</span>`).join('')}</div>
+      </div>
+    </div>
+    <div class="col zh">
+      <div class="headline">${escape(s.headline_zh || '')}</div>
+      <div class="analysis">${escape(s.analysis_zh || '')}</div>
+    </div>
+  </div>`;
+}
+
+function renderArb(a) {
+  const cls = fmt.cls(a.divergence_pct);
+  return `<div class="arb">
+    <div class="pair">${escape(a.pair || '')}</div>
+    <div>
+      <div style="font-size:12px;color:var(--text-dim);margin-bottom:4px;">EN</div>
+      <div>${escape(a.interpretation_en || '')}</div>
+      <div style="font-family:var(--serif-tc);font-size:13px;color:var(--text);margin-top:8px;">${escape(a.interpretation_zh || '')}</div>
+    </div>
+    <div class="div-pct ${cls}">${fmt.pct(a.divergence_pct)}</div>
+  </div>`;
+}
+
+function escape(s) {
+  if (s == null) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+load();
+</script>
+</body>
+</html>

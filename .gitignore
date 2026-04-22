@@ -1,0 +1,30 @@
+# Secrets — NEVER commit
+.env
+.env.local
+.env.*
+*.key
+secrets/
+credentials.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Local test outputs
+test_output/
+scratch/
+*.log
