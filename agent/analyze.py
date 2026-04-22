@@ -162,7 +162,6 @@ def run_discovery_pass(
     msg = client.messages.create(
         model=config.CLAUDE_MODEL,
         max_tokens=config.CLAUDE_MAX_TOKENS,
-        temperature=config.CLAUDE_TEMPERATURE,
         system=DISCOVERY_SYSTEM,
         messages=[{"role": "user", "content": user_content}],
     )
@@ -299,7 +298,6 @@ def run_ai_pass(
     msg = client.messages.create(
         model=config.CLAUDE_MODEL,
         max_tokens=config.CLAUDE_MAX_TOKENS,
-        temperature=config.CLAUDE_TEMPERATURE,
         system=AI_PASS_SYSTEM,
         messages=[{"role": "user", "content": user_content}],
     )
@@ -396,7 +394,6 @@ def run_taiwan_pass(
     msg = client.messages.create(
         model=config.CLAUDE_MODEL,
         max_tokens=config.CLAUDE_MAX_TOKENS,
-        temperature=config.CLAUDE_TEMPERATURE,
         system=TAIWAN_SYSTEM,
         messages=[{"role": "user", "content": user_content}],
     )
