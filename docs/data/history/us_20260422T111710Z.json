@@ -1,0 +1,412 @@
+{
+  "generated_at": "2026-04-22T11:17:10.098076+00:00",
+  "market_context": {
+    "SPY": {
+      "price": 704.08,
+      "change_pct": -0.65,
+      "volume": 58571700,
+      "high": 711.28,
+      "low": 702.64
+    },
+    "QQQ": {
+      "price": 644.33,
+      "change_pct": -0.38,
+      "volume": 39420800,
+      "high": 650.2,
+      "low": 642.21
+    },
+    "DIA": {
+      "price": 491.36,
+      "change_pct": -0.6,
+      "volume": 4311400,
+      "high": 498.38,
+      "low": 490.32
+    },
+    "IWM": {
+      "price": 274.51,
+      "change_pct": -1.02,
+      "volume": 32188600,
+      "high": 279.79,
+      "low": 273.76
+    },
+    "^VIX": {
+      "price": 19.11,
+      "change_pct": -2.0,
+      "volume": 0,
+      "high": 19.36,
+      "low": 19.0
+    },
+    "XLK": {
+      "price": 154.69,
+      "change_pct": 0.08,
+      "volume": 12642900,
+      "high": 156.07,
+      "low": 154.15
+    },
+    "XLF": {
+      "price": 52.3,
+      "change_pct": -0.63,
+      "volume": 34123800,
+      "high": 53.19,
+      "low": 52.2
+    },
+    "XLE": {
+      "price": 55.87,
+      "change_pct": 1.45,
+      "volume": 41244500,
+      "high": 55.96,
+      "low": 54.92
+    },
+    "XLV": {
+      "price": 145.92,
+      "change_pct": -1.02,
+      "volume": 8734500,
+      "high": 148.56,
+      "low": 145.88
+    },
+    "XLI": {
+      "price": 171.44,
+      "change_pct": -1.41,
+      "volume": 8752700,
+      "high": 174.69,
+      "low": 170.93
+    },
+    "XLP": {
+      "price": 81.84,
+      "change_pct": -0.67,
+      "volume": 8709800,
+      "high": 82.45,
+      "low": 81.74
+    },
+    "XLY": {
+      "price": 118.97,
+      "change_pct": -0.75,
+      "volume": 7208300,
+      "high": 120.91,
+      "low": 118.68
+    },
+    "XLU": {
+      "price": 44.95,
+      "change_pct": -1.75,
+      "volume": 19594600,
+      "high": 45.95,
+      "low": 44.91
+    },
+    "XLB": {
+      "price": 51.77,
+      "change_pct": -0.88,
+      "volume": 9557700,
+      "high": 52.57,
+      "low": 51.64
+    },
+    "XLRE": {
+      "price": 43.78,
+      "change_pct": -1.93,
+      "volume": 5080900,
+      "high": 44.65,
+      "low": 43.75
+    },
+    "XLC": {
+      "price": 117.16,
+      "change_pct": -1.34,
+      "volume": 3862300,
+      "high": 119.13,
+      "low": 116.99
+    },
+    "SMH": {
+      "price": 464.66,
+      "change_pct": 0.15,
+      "volume": 5587500,
+      "high": 468.43,
+      "low": 462.24
+    },
+    "XBI": {
+      "price": 136.39,
+      "change_pct": -1.02,
+      "volume": 6751900,
+      "high": 138.25,
+      "low": 135.79
+    },
+    "ITA": {
+      "price": 223.09,
+      "change_pct": -3.78,
+      "volume": 954600,
+      "high": 230.79,
+      "low": 222.25
+    },
+    "KRE": {
+      "price": 69.63,
+      "change_pct": -1.43,
+      "volume": 15671800,
+      "high": 70.91,
+      "low": 69.42
+    },
+    "NVDA": {
+      "price": 199.88,
+      "change_pct": -1.08,
+      "volume": 107561800,
+      "high": 202.75,
+      "low": 199.0
+    },
+    "MSFT": {
+      "price": 424.16,
+      "change_pct": 1.46,
+      "volume": 31992100,
+      "high": 427.18,
+      "low": 417.2
+    },
+    "AAPL": {
+      "price": 266.17,
+      "change_pct": -2.52,
+      "volume": 50154100,
+      "high": 272.8,
+      "low": 265.4
+    },
+    "GOOGL": {
+      "price": 332.29,
+      "change_pct": -1.52,
+      "volume": 23091100,
+      "high": 339.34,
+      "low": 331.35
+    },
+    "AMZN": {
+      "price": 249.91,
+      "change_pct": 0.66,
+      "volume": 42833300,
+      "high": 255.09,
+      "low": 249.1
+    },
+    "META": {
+      "price": 668.84,
+      "change_pct": -0.31,
+      "volume": 8636000,
+      "high": 676.2,
+      "low": 667.33
+    },
+    "TSLA": {
+      "price": 386.42,
+      "change_pct": -1.55,
+      "volume": 50345800,
+      "high": 393.95,
+      "low": 385.22
+    },
+    "AVGO": {
+      "price": 402.17,
+      "change_pct": 0.64,
+      "volume": 16220600,
+      "high": 403.6,
+      "low": 394.57
+    },
+    "TSM": {
+      "price": 368.08,
+      "change_pct": 0.5,
+      "volume": 9779000,
+      "high": 370.75,
+      "low": 365.11
+    },
+    "ORCL": {
+      "price": 181.17,
+      "change_pct": 2.02,
+      "volume": 39496500,
+      "high": 185.34,
+      "low": 176.01
+    }
+  },
+  "movers_count": 8,
+  "news_count": 81,
+  "trump_posts_count": 29,
+  "discovery": {
+    "run_summary": "Risk-off tone with IWM -1.02% and defensives (XLU, XLRE) selling off harder than tech. Notable: ITA (defense ETF) -3.78% on Iran ceasefire extension, while XLE +1.45% on Strait of Hormuz tanker attacks. Mixed signals around Middle East — ceasefire hopes pressuring defense names, but escalation risk supporting energy.",
+    "market_context": {
+      "tone": "risk-off",
+      "notable_index_moves": [
+        "ITA -3.78% — defense sector hit hard on Iran ceasefire extension despite Hormuz attacks",
+        "XLE +1.45% — energy up on Hormuz shipping attacks",
+        "XLU -1.75% and XLRE -1.93% — rate-sensitives weak despite mortgage rate story (suggests yields up on UK inflation/BIF debt concerns)",
+        "KRE -1.43% following Capital One bad debt miss — regional bank credit contagion read",
+        "VIX -2% at 19.11 despite broad selling — muted fear"
+      ]
+    },
+    "discoveries": [
+      {
+        "ticker": "AVAV",
+        "name": "AeroVironment, Inc.",
+        "sector": "Industrials",
+        "move_pct": 6.51,
+        "volume_multiple": 2.05,
+        "classification": "UNCLEAR",
+        "confidence": 3,
+        "mechanism": "AVAV rallying +6.5% while ITA defense ETF is -3.78% — strong divergence from sector. Possible drone/UAV-specific catalyst (Hormuz ship attacks would increase demand for maritime ISR drones) or company-specific contract news not in provided feed.",
+        "catalyst": "Two ships attacked in Strait of Hormuz — small/tactical drones like Switchblade and Puma are exactly the tools used for maritime surveillance/counter-attack. Despite broader ceasefire narrative hurting prime contractors, AVAV's product mix leans to tactical ISR.",
+        "research_pointers": [
+          "Check for AVAV-specific contract announcements or analyst upgrades in last 24h",
+          "Review DoD Switchblade/JUMP 20 recent orders tied to CENTCOM",
+          "Compare to peers KTOS, RCAT — is this idiosyncratic or small-drone sympathy?",
+          "Check short interest and options flow given the ITA divergence"
+        ],
+        "what_would_falsify": "If peers (KTOS, RCAT) are flat/down, this is idiosyncratic news and move may be fully justified. If a specific contract win is announced, the move is rational not an opportunity.",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "BMI",
+        "name": "Badger Meter, Inc.",
+        "sector": "Technology",
+        "move_pct": 6.6,
+        "volume_multiple": 2.48,
+        "classification": "UNCLEAR",
+        "confidence": 3,
+        "mechanism": "5-day change is -25% with today's +6.6% rebound on 2.5x volume — classic post-earnings-disappointment bounce pattern. Likely earnings reported recently and stock may have been oversold, or could be dead-cat bounce.",
+        "catalyst": "No news in provided feed. The -25% 5-day move suggests a major negative catalyst (likely earnings) that needs investigation before assessing whether today's bounce is reversion or continuation.",
+        "research_pointers": [
+          "Pull BMI Q1 2026 earnings transcript — what specifically missed?",
+          "Check if water utility capex cycle or any specific customer issue drove the sell-off",
+          "Gauge analyst revisions since earnings — are estimates bottoming?",
+          "Compare to peers ROP, XYL, MWA for sector read"
+        ],
+        "what_would_falsify": "If BMI's guidance cut was structural (permanent loss of market share, pricing pressure), today's bounce is likely a trap.",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "ALK",
+        "name": "Alaska Air Group",
+        "sector": "Industrials",
+        "move_pct": -4.8,
+        "volume_multiple": 1.68,
+        "classification": "UNCLEAR",
+        "confidence": 2,
+        "mechanism": "ALK -4.8% and JBLU -5.04% together on heavy volume — airline-specific weakness. Could be fuel cost concerns from Hormuz-driven oil spike, or an earnings reaction from one of them dragging sympathy.",
+        "catalyst": "XLE +1.45% / Hormuz attacks raise jet fuel cost concerns. Airlines typically underperform when crude rallies sharply.",
+        "research_pointers": [
+          "Check ALK and JBLU earnings calendars — did either report?",
+          "Review crude/jet fuel forward curves since Hormuz news",
+          "Look at LUV, UAL, DAL to gauge whether entire group is down — if only ALK/JBLU, idiosyncratic"
+        ],
+        "what_would_falsify": "If UAL/DAL/LUV are flat, ALK weakness is company-specific (earnings or guide); if they're all down 3-5%, it's fuel-cost sympathy and potentially overdone since Hormuz attacks haven't actually closed the strait.",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "EXEL",
+        "name": "Exelixis, Inc.",
+        "sector": "Healthcare",
+        "move_pct": 5.23,
+        "volume_multiple": 1.44,
+        "classification": "UNCLEAR",
+        "confidence": 2,
+        "mechanism": "Strong green print against XBI -1.02% and XLV -1.02% — significant sector divergence suggests company-specific news (trial data, M&A rumor, or analyst action).",
+        "catalyst": "No catalyst visible in provided feed.",
+        "research_pointers": [
+          "Check for EXEL clinical trial readouts (cabozantinib pipeline)",
+          "Scan for FDA action or label expansion news",
+          "Review recent analyst upgrades/price target hikes",
+          "Look for M&A chatter"
+        ],
+        "what_would_falsify": "If a clear catalyst (data, contract, upgrade) emerges, move is rational and not an opportunity.",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "FIVE",
+        "name": "Five Below, Inc.",
+        "sector": "Consumer Cyclical",
+        "move_pct": -4.28,
+        "volume_multiple": 1.18,
+        "classification": "UNCLEAR",
+        "confidence": 2,
+        "mechanism": "FIVE -4.28% on only 1.18x volume despite +7.85% 5-day run. Could be profit-taking ahead of a known event, or sympathy from broader consumer weakness (XLY -0.75%). The light volume suggests this is not a panic flush.",
+        "catalyst": "No specific news. Best Buy CEO change and general risk-off tape may be weighing on discretionary retail.",
+        "research_pointers": [
+          "Check if FIVE has analyst day or investor event approaching",
+          "Review peer action (DLTR, DG, OLLI) for dollar-store read",
+          "Tariff exposure — FIVE's China sourcing is high; any tariff news moves this stock"
+        ],
+        "what_would_falsify": "If peer dollar stores are flat or up, FIVE weakness is idiosyncratic and may need company-specific explanation.",
+        "time_horizon": "days"
+      }
+    ],
+    "catalyst_chains": [
+      {
+        "primary_event": "Strait of Hormuz ship attacks amid US-Iran ceasefire extension — creating conflicting signals (ceasefire bearish for primes, tanker attacks bullish for energy and small-drone ISR)",
+        "primary_ticker": "ITA",
+        "secondary_opportunities": [
+          {
+            "ticker": "AVAV",
+            "relationship": "sympathy-divergence",
+            "expected_direction": "up",
+            "confidence": 3
+          },
+          {
+            "ticker": "XLE",
+            "relationship": "direct-beneficiary",
+            "expected_direction": "up",
+            "confidence": 4
+          },
+          {
+            "ticker": "ALK",
+            "relationship": "inverse-customer (jet fuel cost)",
+            "expected_direction": "down",
+            "confidence": 2
+          },
+          {
+            "ticker": "JBLU",
+            "relationship": "inverse-customer (jet fuel cost)",
+            "expected_direction": "down",
+            "confidence": 2
+          }
+        ]
+      },
+      {
+        "primary_event": "Capital One double miss with 72% jump in credit loss provisions",
+        "primary_ticker": "COF",
+        "secondary_opportunities": [
+          {
+            "ticker": "KRE",
+            "relationship": "sympathy — consumer credit quality contagion",
+            "expected_direction": "down",
+            "confidence": 3
+          }
+        ]
+      }
+    ],
+    "trump_signals": [
+      {
+        "post_summary": "Trump post referencing Supreme Court tariff decision that required $159B in tariff refunds — expressing anger at ruling. Also linked to steel tariff interview.",
+        "potentially_affected": [
+          "X",
+          "CLF",
+          "NUE",
+          "STLD"
+        ],
+        "note": "Post is retrospective (complaining about a past SCOTUS ruling) rather than announcing new action. Low immediate market impact but suggests continued political pressure for tariff reinstatement in new forms. Steel names (CLF, NUE, STLD, X) worth watching for any follow-up executive action. Confidence: 2."
+      }
+    ],
+    "no_signals_note": "Multiple discoveries flagged UNCLEAR because the provided news feed lacks company-specific catalysts for BMI, EXEL, AVAV. Michael should verify earnings calendars and press releases before acting on any of these — the moves are real but the 'why' is not in this dataset."
+  },
+  "ai_analysis": {
+    "ai_announcements": [
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": true,
+        "headline": "Unauthorized group has gained access to Anthropic's exclusive cyber tool Mythos, report claims",
+        "summary": "Report alleges unauthorized access to Anthropic's Mythos cyber tool; Anthropic says no evidence of system impact. Separately, Altman called Mythos 'fear-based marketing.'",
+        "affected_stocks": [],
+        "note_on_bias": "Anthropic-related news. No listed moving stocks in cybersecurity sector (CRWD, PANW, S, FTNT, ZS not in data). Cannot flag sympathy moves without data. If Mythos access claim is real, counter-thesis favors cyber incumbents (more demand for defense), not a threat."
+      },
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": false,
+        "headline": "SpaceX working with Cursor, option to buy for $60B",
+        "summary": "SpaceX/xAI partnership with Cursor; article notes neither has proprietary models matching Anthropic/OpenAI, who now compete directly in developer tools.",
+        "affected_stocks": [],
+        "note": "No publicly traded pure-play affected in market_data. MSFT/GitHub Copilot not moving in data provided."
+      },
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": false,
+        "headline": "OpenAI ChatGPT Images 2.0 released",
+        "summary": "New OpenAI image generation model with strong text rendering capability.",
+        "affected_stocks": [],
+        "note": "Adobe (ADBE), Getty, Shutterstock not in market_data move list. No sympathy move to analyze."
+      }
+    ],
+    "no_signals_note": "None of the moving stocks in market_data have a clear mechanistic link to today's AI announcements. BMI (+6.6% after -25% five-day) looks like a bounce on unrelated earnings/water-meter news. AVAV, AMR, EXEL, ALK, JBLU, FIVE, EXTR moves appear driven by non-AI catalysts (airlines on fuel/demand, coal, biotech pipeline, retail). No actionable AI-driven mispricings identified in this dataset."
+  }
+}

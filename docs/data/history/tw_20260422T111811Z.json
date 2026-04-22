@@ -1,0 +1,193 @@
+{
+  "generated_at": "2026-04-22T11:18:11.474303+00:00",
+  "market_context": {
+    "2330.TW": {
+      "price": 2050.0,
+      "change_pct": 0.0,
+      "volume": 26371952,
+      "high": 2070.0,
+      "low": 2040.0
+    },
+    "2454.TW": {
+      "price": 2295.0,
+      "change_pct": 9.81,
+      "volume": 24287309,
+      "high": 2295.0,
+      "low": 2110.0
+    },
+    "2317.TW": {
+      "price": 221.0,
+      "change_pct": 4.74,
+      "volume": 139061095,
+      "high": 223.5,
+      "low": 212.5
+    },
+    "2308.TW": {
+      "price": 2015.0,
+      "change_pct": 0.0,
+      "volume": 10646904,
+      "high": 2045.0,
+      "low": 1995.0
+    },
+    "2382.TW": {
+      "price": 335.0,
+      "change_pct": -1.47,
+      "volume": 18419652,
+      "high": 345.0,
+      "low": 333.5
+    },
+    "3008.TW": {
+      "price": 2585.0,
+      "change_pct": -2.27,
+      "volume": 1712311,
+      "high": 2680.0,
+      "low": 2580.0
+    },
+    "3711.TW": {
+      "price": 465.0,
+      "change_pct": -1.48,
+      "volume": 16139657,
+      "high": 473.0,
+      "low": 460.5
+    },
+    "2303.TW": {
+      "price": 78.6,
+      "change_pct": 3.15,
+      "volume": 232548249,
+      "high": 79.8,
+      "low": 75.8
+    },
+    "^TWII": {
+      "price": 37878.47,
+      "change_pct": 0.73,
+      "volume": 0,
+      "high": 38096.88,
+      "low": 37623.38
+    },
+    "0050.TW": {
+      "price": 86.35,
+      "change_pct": 0.41,
+      "volume": 67302374,
+      "high": 86.6,
+      "low": 85.55
+    },
+    "EWT": {
+      "price": 83.53,
+      "change_pct": -0.07,
+      "volume": 7756300,
+      "high": 85.18,
+      "low": 83.18
+    }
+  },
+  "adr_arbitrage": [
+    {
+      "adr": "TSM",
+      "local": "2330.TW",
+      "adr_change_pct": 0.5,
+      "local_change_pct": 0.0,
+      "divergence_pct": 0.5
+    },
+    {
+      "adr": "UMC",
+      "local": "2303.TW",
+      "adr_change_pct": -2.45,
+      "local_change_pct": 3.15,
+      "divergence_pct": -5.6
+    },
+    {
+      "adr": "ASX",
+      "local": "3711.TW",
+      "adr_change_pct": 1.09,
+      "local_change_pct": -1.48,
+      "divergence_pct": 2.57
+    },
+    {
+      "adr": "HIMX",
+      "local": "3504.TW",
+      "adr_change_pct": 5.91,
+      "local_change_pct": -2.56,
+      "divergence_pct": 8.47
+    }
+  ],
+  "news_counts": {
+    "zh": 0,
+    "en": 50
+  },
+  "analysis": {
+    "summary_en": "TAIEX up 0.73% with a risk-on tone driven by non-TSMC names. MediaTek (2454) limit-up +9.81% on reports it will supply Marvell's next three generations of Google TPU-related ASICs. Hon Hai (2317) rallies +4.74% on heavy volume. TSMC flat despite TSM ADR up 0.5% overnight. UMC (2303) up +3.15% locally while UMC ADR was down -2.45% previously — a notable -5.6% divergence suggesting local catch-up to sector enthusiasm or squeeze risk. MediaTek and broader AI-ASIC theme is the dominant narrative today.",
+    "summary_zh": "台股上漲0.73%,風險偏好轉強,但非台積電權值股領漲。聯發科(2454)漲停+9.81%,受惠於其將供應Marvell未來三代Google TPU相關ASIC的報導。鴻海(2317)在大量下上漲4.74%。儘管TSM ADR昨夜上漲0.5%,台積電持平。聯電(2303)本地上漲3.15%,但UMC ADR先前下跌2.45%,-5.6%的背離值得關注,可能反映本地對類股熱潮的補漲或軋空風險。聯發科與AI ASIC題材為今日主軸。",
+    "context": {
+      "taiex_change_pct": 0.73,
+      "tsmc_change_pct": 0.0,
+      "tone": "risk-on"
+    },
+    "key_stories": [
+      {
+        "headline_en": "MediaTek to supply Marvell's next three generations of Google TPU ASICs",
+        "headline_zh": "聯發科將供應Marvell未來三代Google TPU相關ASIC",
+        "affected_tickers": [
+          "2454.TW",
+          "2330.TW"
+        ],
+        "analysis_en": "MediaTek limit-up (+9.81%) on DigiTimes report it locks in three-generation ASIC supply role with Marvell for Google TPU ecosystem. This is a structural AI revenue stream that markets had been debating versus Broadcom competition. A 10% single-day move pulls forward substantial future earnings expectations — rational as a re-rating trigger, but the magnitude risks overshoot given it's still a report, not a confirmed contract value. TSMC is the indirect winner as foundry for these ASICs but is flat, suggesting the market views this as MediaTek-specific share gain rather than sector-wide TAM expansion.",
+        "analysis_zh": "聯發科漲停(+9.81%),因DigiTimes報導其將與Marvell合作,為Google TPU生態系供應未來三代ASIC。這是市場先前就Broadcom競爭格局持續討論的結構性AI營收來源。單日10%漲幅已提前反映大量未來獲利預期——作為重新評價觸發點屬合理,但鑑於仍為報導而非確認合約金額,漲幅有過度之虞。台積電為這些ASIC的代工廠為間接受惠者但持平,顯示市場視此為聯發科個別市佔提升而非產業整體TAM擴張。",
+        "verdict": "rational",
+        "confidence": 3
+      },
+      {
+        "headline_en": "Hon Hai +4.74% on heavy volume — no clean catalyst, likely AI server/Apple succession sentiment",
+        "headline_zh": "鴻海大量上漲4.74%,無明確催化劑,可能為AI伺服器/蘋果接班題材",
+        "affected_tickers": [
+          "2317.TW"
+        ],
+        "analysis_en": "Hon Hai rallies on 139M share volume without a single dominant news item. Apple's confirmed CEO succession (Ternus replacing Cook in Sept 2026) with heavy hardware-product focus is tangentially positive for Foxconn as primary assembler. Combined with ongoing AI server (GB200/GB300) momentum, this looks like theme-chasing rather than news-driven. Magnitude on this volume is notable but not extreme for Hon Hai.",
+        "analysis_zh": "鴻海在1.39億股成交量下上漲,無單一主導新聞。蘋果確認CEO接班(Ternus於2026年9月接替Cook)且著重硬體產品,對主要組裝廠鴻海間接正面。加上AI伺服器(GB200/GB300)持續動能,看似題材追逐而非新聞驅動。以鴻海而言此量能漲幅值得注意但非極端。",
+        "verdict": "rational",
+        "confidence": 2
+      },
+      {
+        "headline_en": "PSMC flags DRAM foundry price hikes to hit revenue from June",
+        "headline_zh": "力積電示警DRAM代工漲價將自6月挹注營收",
+        "affected_tickers": [
+          "2303.TW"
+        ],
+        "analysis_en": "PSMC earnings call confirmed significant DRAM foundry price increases in March, with revenue impact from June due to tape-out cycles. This is a positive read-across for UMC (2303) which is up 3.15% locally despite UMC ADR down 2.45% previously — a -5.6% divergence. The local rally likely reflects memory-cycle tailwind narrative bleeding into mature-node foundry names. Watch for ADR catch-up tonight if narrative sticks.",
+        "analysis_zh": "力積電法說確認3月DRAM代工價格顯著上漲,因投片週期影響,營收將自6月起反映。此對聯電(2303)有正面外溢效應——本地漲3.15%,而UMC ADR先前跌2.45%,-5.6%背離。本地漲勢反映記憶體週期利多擴散至成熟製程代工股。若題材延續,今晚ADR可能補漲。",
+        "verdict": "rational",
+        "confidence": 3
+      },
+      {
+        "headline_en": "ASE (3711) down 1.48% despite ASX ADR up 1.09% — mild negative divergence",
+        "headline_zh": "日月光(3711)下跌1.48%但ASX ADR上漲1.09%,輕微負背離",
+        "affected_tickers": [
+          "3711.TW"
+        ],
+        "analysis_en": "ASE local underperformance (-1.48%) versus ADR (+1.09%) creates a 2.57% divergence. No company-specific negative catalyst visible. Applied Materials/Advantest EPIC partnership news is neutral-to-positive for back-end ecosystem. This looks like sector rotation out of OSAT into fabless AI (MediaTek) rather than fundamental deterioration. Watch ADR tonight — if ASX gives back, divergence closes on both sides.",
+        "analysis_zh": "日月光本地跌1.48%,ASX ADR漲1.09%,產生2.57%背離。無公司特定利空。應材/愛德萬EPIC平台合作對後段生態系中性偏正面。看似資金從封測轉至IC設計AI股(聯發科),而非基本面惡化。今晚觀察ADR——若ASX回吐,背離將雙向收斂。",
+        "verdict": "rational",
+        "confidence": 2
+      }
+    ],
+    "adr_arbitrage": [
+      {
+        "pair": "UMC vs 2303.TW",
+        "divergence_pct": -5.6,
+        "interpretation_en": "Local UMC +3.15% while ADR was -2.45% — large -5.6% gap. Driven by today's PSMC DRAM foundry price-hike news benefiting mature-node foundries locally. Expect ADR to catch up upward tonight if PSMC narrative travels; otherwise local may see profit-taking. This is the most actionable divergence on the board.",
+        "interpretation_zh": "聯電本地+3.15%而ADR為-2.45%,-5.6%大幅價差。由今日力積電DRAM代工漲價新聞帶動,利多成熟製程代工股。若題材延續,預期ADR今晚補漲;否則本地可能獲利了結。為當前最具交易價值的背離。"
+      },
+      {
+        "pair": "HIMX vs 3504.TW",
+        "divergence_pct": 8.47,
+        "interpretation_en": "HIMX ADR +5.91% overnight while 3504 local -2.56% — massive 8.47% gap. Typically signals local catch-up gap-up tomorrow if HIMX-specific news (display driver/AI) is valid. Low liquidity on 3504 makes this less reliable but worth a watch list entry.",
+        "interpretation_zh": "奇景ADR隔夜+5.91%,但3504本地-2.56%,達8.47%巨幅價差。通常意味若HIMX特定利多(顯示驅動/AI)有效,明日本地將跳空補漲。3504流動性偏低使可靠度下降,但值得列入觀察。"
+      },
+      {
+        "pair": "ASX vs 3711.TW",
+        "divergence_pct": 2.57,
+        "interpretation_en": "Modest divergence — ADR strength vs local weakness. Likely noise/rotation rather than arbitrage opportunity. Falsified if ASE reports company-specific negative news.",
+        "interpretation_zh": "輕微背離——ADR強、本地弱。較可能為雜訊/輪動而非套利機會。若日月光公布公司特定利空則此論點失效。"
+      }
+    ],
+    "no_signals_note": "MediaTek's limit-up is the cleanest signal. Falsification for the MediaTek call: if Broadcom counter-leak emerges or Marvell-Google deal terms disappoint on value, 2454 gaps down. Falsification for UMC catch-up thesis: if tonight's US session sees semi weakness broadly, ADR won't catch up and local gains will be given back Thursday."
+  }
+}
