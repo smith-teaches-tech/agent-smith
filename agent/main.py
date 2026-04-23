@@ -163,7 +163,7 @@ def main() -> None:
         except Exception as e:
             print(f"[grading] FAILED: {e}")
 
-     print("=== done ===")
+    print("=== done ===")
 
 
 if __name__ == "__main__":
