@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-23T11:49:03.554737+00:00",
+  "generated_at": "2026-04-23T20:07:51.380900+00:00",
   "logic_version": 1,
   "grading_params": {
     "hit_threshold_pct": 3.0,
@@ -11,26 +11,26 @@
     "default_horizon_days": 5,
     "graded_classifications": "{'OVERDONE', 'UNDERDONE'}"
   },
-  "n_total_calls": 52,
-  "n_not_graded": 50,
-  "n_pending": 2,
+  "n_total_calls": 56,
+  "n_not_graded": 54,
+  "n_pending": 1,
   "n_data_error": 0,
   "overall": {
-    "n_resolved": 0,
+    "n_resolved": 1,
     "n_hit": 0,
-    "n_miss": 0,
+    "n_miss": 1,
     "n_ambiguous": 0,
-    "hit_rate": null,
-    "avg_return_pct": null
+    "hit_rate": 0.0,
+    "avg_return_pct": -3.21
   },
   "by_classification": {
     "OVERDONE": {
-      "n_resolved": 0,
+      "n_resolved": 1,
       "n_hit": 0,
-      "n_miss": 0,
+      "n_miss": 1,
       "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
+      "hit_rate": 0.0,
+      "avg_return_pct": -3.21
     },
     "UNDERDONE": {
       "n_resolved": 0,
@@ -59,12 +59,12 @@
       "avg_return_pct": null
     },
     "3": {
-      "n_resolved": 0,
+      "n_resolved": 1,
       "n_hit": 0,
-      "n_miss": 0,
+      "n_miss": 1,
       "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
+      "hit_rate": 0.0,
+      "avg_return_pct": -3.21
     },
     "4": {
       "n_resolved": 0,
@@ -84,6 +84,14 @@
     }
   },
   "by_sector": {
+    "Financial Services (misclassified as Tech)": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
     "Technology": {
       "n_resolved": 0,
       "n_hit": 0,
@@ -100,14 +108,6 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Consumer Cyclical": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
     "Healthcare": {
       "n_resolved": 0,
       "n_hit": 0,
@@ -115,16 +115,24 @@
       "n_ambiguous": 0,
       "hit_rate": null,
       "avg_return_pct": null
+    },
+    "Consumer Cyclical": {
+      "n_resolved": 1,
+      "n_hit": 0,
+      "n_miss": 1,
+      "n_ambiguous": 0,
+      "hit_rate": 0.0,
+      "avg_return_pct": -3.21
     }
   },
   "by_horizon_days": {
     "5": {
-      "n_resolved": 0,
+      "n_resolved": 1,
       "n_hit": 0,
-      "n_miss": 0,
+      "n_miss": 1,
       "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
+      "hit_rate": 0.0,
+      "avg_return_pct": -3.21
     },
     "20": {
       "n_resolved": 0,
@@ -143,8 +151,50 @@
       "avg_return_pct": null
     }
   },
-  "best_calls": [],
-  "worst_calls": [],
+  "best_calls": [
+    {
+      "ticker": "BBY",
+      "name": "Best Buy Co., Inc.",
+      "sector": "Consumer Cyclical",
+      "flagged_at": "2026-04-22T15:11:54+00:00",
+      "run_file": "us_20260422T151154Z.json",
+      "classification": "OVERDONE",
+      "confidence": 3,
+      "move_pct_at_flag": -4.57,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "MISS",
+      "return_pct_in_horizon": -3.21,
+      "max_favorable_pct": -0.04,
+      "max_adverse_pct": -3.97,
+      "price_at_flag": 63.53,
+      "price_at_horizon_end": 61.49,
+      "logic_version": 1,
+      "notes": "only 1 bars elapsed"
+    }
+  ],
+  "worst_calls": [
+    {
+      "ticker": "BBY",
+      "name": "Best Buy Co., Inc.",
+      "sector": "Consumer Cyclical",
+      "flagged_at": "2026-04-22T15:11:54+00:00",
+      "run_file": "us_20260422T151154Z.json",
+      "classification": "OVERDONE",
+      "confidence": 3,
+      "move_pct_at_flag": -4.57,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "MISS",
+      "return_pct_in_horizon": -3.21,
+      "max_favorable_pct": -0.04,
+      "max_adverse_pct": -3.97,
+      "price_at_flag": 63.53,
+      "price_at_horizon_end": 61.49,
+      "logic_version": 1,
+      "notes": "only 1 bars elapsed"
+    }
+  ],
   "all_grades": [
     {
       "ticker": "AVAV",
@@ -257,14 +307,14 @@
       "move_pct_at_flag": -4.57,
       "expected_direction": "up",
       "horizon_days": 5,
-      "grade": "PENDING",
-      "return_pct_in_horizon": null,
-      "max_favorable_pct": null,
-      "max_adverse_pct": null,
-      "price_at_flag": 63.529998779296875,
-      "price_at_horizon_end": null,
+      "grade": "MISS",
+      "return_pct_in_horizon": -3.21,
+      "max_favorable_pct": -0.04,
+      "max_adverse_pct": -3.97,
+      "price_at_flag": 63.53,
+      "price_at_horizon_end": 61.49,
       "logic_version": 1,
-      "notes": "No post-flag bars yet"
+      "notes": "only 1 bars elapsed"
     },
     {
       "ticker": "CALX",
@@ -1121,7 +1171,7 @@
       "return_pct_in_horizon": null,
       "max_favorable_pct": null,
       "max_adverse_pct": null,
-      "price_at_flag": 17.579999923706055,
+      "price_at_flag": 16.899999618530273,
       "price_at_horizon_end": null,
       "logic_version": 1,
       "notes": "No post-flag bars yet"
@@ -1175,6 +1225,86 @@
       "classification": "UNCLEAR",
       "confidence": 2,
       "move_pct_at_flag": 5.92,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "MEDP",
+      "name": "Medpace Holdings",
+      "sector": "Healthcare",
+      "flagged_at": "2026-04-23T20:06:58+00:00",
+      "run_file": "us_20260423T200658Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -22.66,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "WEX",
+      "name": "WEX Inc.",
+      "sector": "Financial Services (misclassified as Tech)",
+      "flagged_at": "2026-04-23T20:06:58+00:00",
+      "run_file": "us_20260423T200658Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -16.31,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "RGEN",
+      "name": "Repligen",
+      "sector": "Healthcare",
+      "flagged_at": "2026-04-23T20:06:58+00:00",
+      "run_file": "us_20260423T200658Z.json",
+      "classification": "RATIONAL",
+      "confidence": 3,
+      "move_pct_at_flag": -8.31,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=RATIONAL not in graded set"
+    },
+    {
+      "ticker": "KTOS",
+      "name": "Kratos Defense",
+      "sector": "Industrials",
+      "flagged_at": "2026-04-23T20:06:58+00:00",
+      "run_file": "us_20260423T200658Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -4.5,
       "expected_direction": null,
       "horizon_days": 5,
       "grade": "NOT_GRADED",
