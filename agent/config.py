@@ -218,3 +218,52 @@ GRADING_CLASSIFICATIONS_TO_GRADE = [
 
 # Phase 1.5-lite output path
 OUTPUT_TRENDS = "docs/data/trends.json"
+
+# ============================================================
+# PAPER PORTFOLIO (Phase 1.5-lite)
+# ============================================================
+
+PAPER_PORTFOLIO_BANKROLL = 10_000.0        # Starting cash in USD
+PAPER_PORTFOLIO_MAX_POSITION_PCT = 0.25    # No single name > 25% of total bankroll
+PAPER_PORTFOLIO_MAX_SECTOR_PCT = 0.40      # No single sector > 40% of total bankroll
+PAPER_PORTFOLIO_MIN_CASH_PCT = 0.10        # Always keep at least 10% in cash
+
+# Minimum confidence on a new discovery for Claude to consider a BUY.
+# Lower confidence flags can still be WATCHed but never opened.
+PAPER_PORTFOLIO_MIN_BUY_CONFIDENCE = 3
+
+# Decision window: Claude sees last N days of flagged OVERDONE/UNDERDONE names
+# when making buy/sell decisions.
+PAPER_PORTFOLIO_DECISION_WINDOW_DAYS = 7
+
+# ============================================================
+# IBKR Pro Tiered fees (paper-trading model)
+# Numbers match IBKR's published pricing as of 2026.
+# ============================================================
+IBKR_COMMISSION_PER_SHARE = 0.0035         # Base tier
+IBKR_COMMISSION_MIN = 0.35                 # Per-order minimum
+IBKR_COMMISSION_MAX_PCT = 0.01             # Cap at 1% of trade value
+
+# Pass-through exchange/regulatory fees
+IBKR_NYSE_PASSTHRU_PER_SHARE = 0.003       # NYSE/ARCA fee for remove-liquidity
+IBKR_FINRA_TAF_PER_SHARE = 0.000166        # FINRA Trading Activity Fee (sells only)
+IBKR_SEC_FEE_PCT = 0.0000278               # SEC fee (sells only, % of notional)
+IBKR_CLEARING_PER_SHARE = 0.0002           # Clearing/settlement
+
+# Slippage assumption — we execute at open but don't get the exact print
+PAPER_SLIPPAGE_PCT = 0.001                 # 0.1%
+
+# ============================================================
+# PORTFOLIO PASS MODEL
+# Opus is expensive; portfolio reasoning is cheaper and
+# benefits less from maximum reasoning depth.
+# ============================================================
+CLAUDE_PORTFOLIO_MODEL = "claude-haiku-4-5-20251001"
+CLAUDE_PORTFOLIO_MAX_TOKENS = 4096
+
+# ============================================================
+# Output paths for Phase 1.5-lite portfolio files
+# ============================================================
+OUTPUT_PORTFOLIO = "docs/data/portfolio.json"
+OUTPUT_PORTFOLIO_HISTORY = "docs/data/portfolio_history.json"
+OUTPUT_SUGGESTIONS = "docs/data/suggestions.json"
