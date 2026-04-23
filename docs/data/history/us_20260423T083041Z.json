@@ -1,0 +1,442 @@
+{
+  "generated_at": "2026-04-23T08:30:41.756641+00:00",
+  "market_context": {
+    "SPY": {
+      "price": 711.21,
+      "change_pct": 1.01,
+      "volume": 42473500,
+      "high": 711.45,
+      "low": 708.22
+    },
+    "QQQ": {
+      "price": 655.11,
+      "change_pct": 1.67,
+      "volume": 37212800,
+      "high": 655.33,
+      "low": 648.52
+    },
+    "DIA": {
+      "price": 494.76,
+      "change_pct": 0.69,
+      "volume": 4013000,
+      "high": 496.14,
+      "low": 493.23
+    },
+    "IWM": {
+      "price": 276.48,
+      "change_pct": 0.72,
+      "volume": 20247800,
+      "high": 278.01,
+      "low": 274.9
+    },
+    "^VIX": {
+      "price": 19.43,
+      "change_pct": 2.7,
+      "volume": 0,
+      "high": 19.51,
+      "low": 19.34
+    },
+    "XLK": {
+      "price": 158.09,
+      "change_pct": 2.2,
+      "volume": 13827100,
+      "high": 158.16,
+      "low": 155.52
+    },
+    "XLF": {
+      "price": 52.21,
+      "change_pct": -0.17,
+      "volume": 31795200,
+      "high": 52.65,
+      "low": 52.07
+    },
+    "XLE": {
+      "price": 56.54,
+      "change_pct": 1.2,
+      "volume": 40537900,
+      "high": 56.78,
+      "low": 56.13
+    },
+    "XLV": {
+      "price": 146.38,
+      "change_pct": 0.32,
+      "volume": 8316200,
+      "high": 147.58,
+      "low": 146.01
+    },
+    "XLI": {
+      "price": 171.04,
+      "change_pct": -0.23,
+      "volume": 10595400,
+      "high": 173.92,
+      "low": 170.33
+    },
+    "XLP": {
+      "price": 82.11,
+      "change_pct": 0.33,
+      "volume": 9137900,
+      "high": 82.51,
+      "low": 81.85
+    },
+    "XLY": {
+      "price": 118.93,
+      "change_pct": -0.03,
+      "volume": 5266200,
+      "high": 119.76,
+      "low": 118.66
+    },
+    "XLU": {
+      "price": 44.87,
+      "change_pct": -0.18,
+      "volume": 21723400,
+      "high": 45.62,
+      "low": 44.71
+    },
+    "XLB": {
+      "price": 51.83,
+      "change_pct": 0.12,
+      "volume": 8933000,
+      "high": 52.42,
+      "low": 51.7
+    },
+    "XLRE": {
+      "price": 43.46,
+      "change_pct": -0.73,
+      "volume": 5116300,
+      "high": 44.14,
+      "low": 43.3
+    },
+    "XLC": {
+      "price": 117.88,
+      "change_pct": 0.61,
+      "volume": 3079700,
+      "high": 117.98,
+      "low": 117.29
+    },
+    "SMH": {
+      "price": 476.83,
+      "change_pct": 2.62,
+      "volume": 7813000,
+      "high": 477.42,
+      "low": 467.17
+    },
+    "XBI": {
+      "price": 137.31,
+      "change_pct": 0.67,
+      "volume": 4641000,
+      "high": 138.68,
+      "low": 136.48
+    },
+    "ITA": {
+      "price": 219.15,
+      "change_pct": -1.77,
+      "volume": 1915700,
+      "high": 225.61,
+      "low": 217.06
+    },
+    "KRE": {
+      "price": 69.25,
+      "change_pct": -0.55,
+      "volume": 11958900,
+      "high": 70.05,
+      "low": 69.02
+    },
+    "NVDA": {
+      "price": 202.5,
+      "change_pct": 1.31,
+      "volume": 107156200,
+      "high": 202.5,
+      "low": 199.0
+    },
+    "MSFT": {
+      "price": 432.92,
+      "change_pct": 2.07,
+      "volume": 29279800,
+      "high": 433.7,
+      "low": 423.67
+    },
+    "AAPL": {
+      "price": 273.17,
+      "change_pct": 2.63,
+      "volume": 43195700,
+      "high": 273.74,
+      "low": 266.87
+    },
+    "GOOGL": {
+      "price": 339.32,
+      "change_pct": 2.12,
+      "volume": 20266500,
+      "high": 339.82,
+      "low": 335.17
+    },
+    "AMZN": {
+      "price": 255.36,
+      "change_pct": 2.18,
+      "volume": 35978900,
+      "high": 255.94,
+      "low": 250.33
+    },
+    "META": {
+      "price": 674.72,
+      "change_pct": 0.88,
+      "volume": 9199500,
+      "high": 678.38,
+      "low": 669.75
+    },
+    "TSLA": {
+      "price": 387.51,
+      "change_pct": 0.28,
+      "volume": 58136500,
+      "high": 393.01,
+      "low": 385.3
+    },
+    "AVGO": {
+      "price": 422.65,
+      "change_pct": 5.09,
+      "volume": 23670700,
+      "high": 423.2,
+      "low": 404.86
+    },
+    "TSM": {
+      "price": 387.44,
+      "change_pct": 5.26,
+      "volume": 16269200,
+      "high": 387.91,
+      "low": 370.64
+    },
+    "ORCL": {
+      "price": 187.5,
+      "change_pct": 3.49,
+      "volume": 32337200,
+      "high": 189.18,
+      "low": 182.8
+    }
+  },
+  "movers_count": 8,
+  "news_count": 40,
+  "trump_posts_count": 26,
+  "discovery": {
+    "run_summary": "Risk-on tech tape driven by semis (SMH +2.6%, AVGO +5%, TSM +5.3%) on SK Hynix record memory results, while defense names lag (ITA -1.8%) despite Iran tanker interception headlines. Mid-cap dispersion is high: networking/comms names CALX and EXTR cratering likely on earnings, while Manhattan Associates gaps up. Overall tone is constructive but VIX +2.7% flags underlying Iran/geopolitical risk.",
+    "market_context": {
+      "tone": "risk-on",
+      "notable_index_moves": [
+        "SMH +2.62% and TSM/AVGO leading on SK Hynix record HBM results",
+        "XLF -0.17% and KRE -0.55% lagging on the green tape - financials not participating",
+        "ITA -1.77% notable divergence given Iran tanker interception headlines; possible profit-taking after defense run",
+        "VIX +2.7% rising with SPY green is unusual - suggests hedging into Iran/earnings risk",
+        "XLRE -0.73% weakest sector"
+      ]
+    },
+    "discoveries": [
+      {
+        "ticker": "CALX",
+        "name": "Calix, Inc",
+        "sector": "Technology",
+        "move_pct": -13.98,
+        "volume_multiple": 4.18,
+        "classification": "UNCLEAR",
+        "confidence": 2,
+        "mechanism": "Likely earnings-driven gap; 4x volume and -14% with no peer weakness in software infrastructure suggests company-specific guide-down or margin miss",
+        "catalyst": "Not in supplied news feed - presumed Q1 report or guidance",
+        "research_pointers": [
+          "Pull CALX earnings release and conference call transcript",
+          "Check BEAD program commentary - Calix is exposed to broadband infrastructure funding",
+          "Compare to EXTR (-5.8%) weakness same day - possible sector read on enterprise/service provider capex",
+          "Check guidance vs. consensus; Calix has history of lumpy revenue"
+        ],
+        "what_would_falsify": "Evidence of a clean beat-and-raise with idiosyncratic technical selling, or conversely a genuine secular demand break (BEAD delays, tier-2/3 telco capex cuts)",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "EXTR",
+        "name": "Extreme Networks",
+        "sector": "Technology",
+        "move_pct": -5.84,
+        "volume_multiple": 3.01,
+        "classification": "PARTIALLY RATIONAL",
+        "confidence": 2,
+        "mechanism": "Possible sympathy selling with CALX on networking/enterprise capex concerns, or own earnings. 3x volume suggests information event not just sympathy",
+        "catalyst": "Unconfirmed - check earnings calendar and CALX read-through to enterprise networking",
+        "research_pointers": [
+          "Confirm whether EXTR has its own catalyst or is trading sympathy to CALX",
+          "If pure sympathy, EXTR serves enterprise while CALX serves service providers - different end markets, potential overreaction",
+          "Check against peers ANET, JNPR, CSCO for relative weakness"
+        ],
+        "what_would_falsify": "EXTR having its own negative pre-announcement; or peer networking names also down materially",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "MANH",
+        "name": "Manhattan Associates",
+        "sector": "Technology",
+        "move_pct": 5.92,
+        "volume_multiple": 2.14,
+        "classification": "UNCLEAR",
+        "confidence": 2,
+        "mechanism": "Supply chain software name up on what looks like earnings; 5-day change +10.9% suggests momentum ahead of or following report",
+        "catalyst": "Likely Q1 earnings - not in feed",
+        "research_pointers": [
+          "Verify earnings results and RPO/cloud subscription growth",
+          "Contrast with NOW (-14% yesterday on Iran war subscription hit) - MANH NOT showing same geopolitical drag is notable",
+          "Check if guidance raised"
+        ],
+        "what_would_falsify": "Reversal if the move is short-covering without fundamental beat",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "RGEN",
+        "name": "Repligen",
+        "sector": "Healthcare",
+        "move_pct": -6.25,
+        "volume_multiple": 1.19,
+        "classification": "UNCLEAR",
+        "confidence": 2,
+        "mechanism": "Modest volume multiple (1.19x) for a -6% move suggests no blowout event - possibly earnings miss or bioprocessing demand commentary. XBI +0.67% so not sector driven",
+        "catalyst": "Unknown from provided feed - likely earnings",
+        "research_pointers": [
+          "Check earnings release for bioprocessing orderbook and China commentary",
+          "Compare to peers DHR, SRT, AVTR for bioprocessing read-through",
+          "5-day -5.7% suggests some pre-positioning"
+        ],
+        "what_would_falsify": "Clean beat with conservative guide (classic Repligen pattern); or genuine destocking extension that peers will confirm",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "BBY",
+        "name": "Best Buy",
+        "sector": "Consumer Cyclical",
+        "move_pct": -4.6,
+        "volume_multiple": 1.22,
+        "classification": "UNCLEAR",
+        "confidence": 2,
+        "mechanism": "Down hard on a risk-on day with XLY flat. Low volume multiple suggests no single catalyst - possibly tariff refund headline read-through (Trump post re: $159B tariff refunds) negatively affecting consumer electronics pricing dynamics, or competitive pressure",
+        "catalyst": "No direct news; possibly tariff ruling aftermath affecting import-heavy consumer electronics retailers, or GME competitive bid speculation (GME +4.9%)",
+        "research_pointers": [
+          "Check for analyst downgrade or pre-announcement",
+          "Review tariff Supreme Court decision impact on consumer electronics supply chain/pricing",
+          "Compare to other box retailers (COST, WMT) for relative read",
+          "Watch for read-through from AAPL +2.6% - if iPhone strong, BBY should participate"
+        ],
+        "what_would_falsify": "A specific downgrade or competitive disruption would confirm; absence of catalyst with reversal would flag overdone",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "VECO",
+        "name": "Veeco Instruments",
+        "sector": "Technology",
+        "move_pct": 5.31,
+        "volume_multiple": 1.9,
+        "classification": "LIKELY RATIONAL",
+        "confidence": 3,
+        "mechanism": "Sympathy with SMH +2.62% and SK Hynix record HBM results - Veeco supplies MOCVD/deposition equipment to memory/advanced packaging. 5-day +18% shows sustained re-rating",
+        "catalyst": "SK Hynix record profit on AI memory demand; broader semicap strength",
+        "research_pointers": [
+          "Validate Veeco's HBM/advanced packaging revenue exposure",
+          "Check if move is pre-earnings positioning",
+          "Watch for read-through to other small-cap semicap (ONTO, KLIC, ACLS)"
+        ],
+        "what_would_falsify": "Earnings that show no HBM uplift or China export restriction hit",
+        "time_horizon": "weeks"
+      }
+    ],
+    "catalyst_chains": [
+      {
+        "primary_event": "SK Hynix record Q1 profit on AI memory/HBM demand",
+        "primary_ticker": "TSM",
+        "secondary_opportunities": [
+          {
+            "ticker": "VECO",
+            "relationship": "supplier to memory/advanced packaging",
+            "expected_direction": "up",
+            "confidence": 3
+          },
+          {
+            "ticker": "AVGO",
+            "relationship": "AI infrastructure beneficiary",
+            "expected_direction": "up",
+            "confidence": 3
+          }
+        ]
+      },
+      {
+        "primary_event": "ServiceNow -14% on Iran war subscription hit",
+        "primary_ticker": "NOW",
+        "secondary_opportunities": [
+          {
+            "ticker": "MANH",
+            "relationship": "enterprise software peer - NOT showing same drag, potential relative winner",
+            "expected_direction": "up",
+            "confidence": 2
+          }
+        ]
+      },
+      {
+        "primary_event": "CALX -14% on presumed earnings/guidance miss",
+        "primary_ticker": "CALX",
+        "secondary_opportunities": [
+          {
+            "ticker": "EXTR",
+            "relationship": "sympathy - networking peer, different end markets (enterprise vs. service provider)",
+            "expected_direction": "down",
+            "confidence": 2
+          }
+        ]
+      }
+    ],
+    "trump_signals": [
+      {
+        "post_summary": "Trump attacking Supreme Court tariff ruling that ordered $159B in tariff refunds; suggests continued fight on tariff policy and unpredictable trade stance",
+        "potentially_affected": [
+          "BBY",
+          "AAPL",
+          "WMT",
+          "TGT"
+        ],
+        "note": "Tariff refund ruling is a tailwind for import-heavy consumer names who paid tariffs, but Trump's hostile reaction raises uncertainty about future tariff regime. BBY weakness on a green tape while AAPL is +2.6% is notable - worth investigating whether tariff-refund benefit is being revisited or if there's BBY-specific news. Low conviction on direct causation."
+      }
+    ],
+    "no_signals_note": null
+  },
+  "ai_analysis": {
+    "ai_announcements": [
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": false,
+        "headline": "Google updates Workspace with AI (Workspace Intelligence, Gmail AI Overviews, Chrome auto-browse, Gemini Enterprise Agent Platform)",
+        "summary": "Google rolled out a broad suite of AI features across Workspace, Chrome, Gmail and a new enterprise agent platform at Cloud Next 2026.",
+        "affected_stocks": []
+      },
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": false,
+        "headline": "Google Cloud launches two new TPU AI chips to compete with Nvidia",
+        "summary": "New TPUs positioned as faster and cheaper than prior generation; Google still partnering with Nvidia in the near term.",
+        "affected_stocks": [
+          {
+            "ticker": "VECO",
+            "current_move_pct": 5.31,
+            "direct_overlap": "low",
+            "switching_cost": "high",
+            "counter_thesis": "More AI chip variants (TPU + Nvidia) means more semicap tool demand; Veeco's deposition/lithography tools benefit from broader advanced packaging/HBM buildout regardless of whose chip wins.",
+            "time_horizon": "1-2yr",
+            "already_priced_in_assessment": "partial",
+            "verdict": "RATIONAL",
+            "confidence": 2,
+            "research_pointers": [
+              "Confirm whether VECO move is tied to semicap tape (AI capex) vs. company-specific news/earnings",
+              "Check HBM/advanced packaging exposure of VECO relative to TPU ramp"
+            ]
+          }
+        ]
+      },
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": false,
+        "headline": "OpenAI teams up with Infosys for enterprise AI deployment",
+        "summary": "Partnership focused on software engineering, legacy modernization, DevOps automation for Infosys clients.",
+        "affected_stocks": []
+      }
+    ],
+    "no_signals_note": "Most of today's biggest movers don't map cleanly to the AI announcements. CALX -14% and EXTR -5.8% are networking/broadband names and more likely earnings/guidance-driven than AI-news driven (no direct AI headline targets them). MANH +5.9% and WEX +4.2% are not obvious AI casualties or beneficiaries from today's news. RGEN -6.25% is healthcare/bioprocessing, unrelated. BBY -4.6% and GME +4.9% are consumer retail, no clear AI-announcement linkage today. VECO's +5.3% is plausibly sympathy with Google TPU/AI capex narrative but could also be semicap-wide tape. Quiet night for AI-driven mispricings in this tape; recommend not forcing signals."
+  }
+}
