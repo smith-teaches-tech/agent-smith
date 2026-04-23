@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-23T11:06:59.239951+00:00",
+  "generated_at": "2026-04-23T11:49:03.554737+00:00",
   "logic_version": 1,
   "grading_params": {
     "hit_threshold_pct": 3.0,
@@ -11,9 +11,9 @@
     "default_horizon_days": 5,
     "graded_classifications": "{'OVERDONE', 'UNDERDONE'}"
   },
-  "n_total_calls": 47,
-  "n_not_graded": 46,
-  "n_pending": 1,
+  "n_total_calls": 52,
+  "n_not_graded": 50,
+  "n_pending": 2,
   "n_data_error": 0,
   "overall": {
     "n_resolved": 0,
@@ -84,7 +84,7 @@
     }
   },
   "by_sector": {
-    "Healthcare": {
+    "Technology": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -100,7 +100,7 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Technology": {
+    "Consumer Cyclical": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -108,7 +108,7 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Consumer Cyclical": {
+    "Healthcare": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -1085,6 +1085,106 @@
       "price_at_horizon_end": null,
       "logic_version": 1,
       "notes": "classification=RATIONAL not in graded set"
+    },
+    {
+      "ticker": "CALX",
+      "name": "Calix, Inc",
+      "sector": "Technology",
+      "flagged_at": "2026-04-23T11:47:58+00:00",
+      "run_file": "us_20260423T114758Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -13.98,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "EXTR",
+      "name": "Extreme Networks",
+      "sector": "Technology",
+      "flagged_at": "2026-04-23T11:47:58+00:00",
+      "run_file": "us_20260423T114758Z.json",
+      "classification": "OVERDONE",
+      "confidence": 3,
+      "move_pct_at_flag": -5.84,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "PENDING",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": 17.579999923706055,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "No post-flag bars yet"
+    },
+    {
+      "ticker": "BBY",
+      "name": "Best Buy",
+      "sector": "Consumer Cyclical",
+      "flagged_at": "2026-04-23T11:47:58+00:00",
+      "run_file": "us_20260423T114758Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -4.6,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "RGEN",
+      "name": "Repligen",
+      "sector": "Healthcare",
+      "flagged_at": "2026-04-23T11:47:58+00:00",
+      "run_file": "us_20260423T114758Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -6.25,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "MANH",
+      "name": "Manhattan Associates",
+      "sector": "Technology",
+      "flagged_at": "2026-04-23T11:47:58+00:00",
+      "run_file": "us_20260423T114758Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": 5.92,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
     }
   ]
 }
