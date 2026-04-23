@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>agent/smith — watching</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root[data-theme="dark"] { --bg:#0e0e0c; --bg-elev:#171714; --bg-row:#1a1a17; --bg-row-hover:#22221e; --bg-row-expanded:#1e1e1a; --fg:#e9e6dc; --fg-muted:#8a8778; --fg-dim:#5c5a50; --rule:#2a2923; --rule-strong:#3a3930; --accent:#d4a24c; --pos:#7fb069; --neg:#d77a66; --info:#6b9ec7; --warn:#c9a14d; }
+:root[data-theme="light"] { --bg:#f8f5ec; --bg-elev:#ffffff; --bg-row:#ffffff; --bg-row-hover:#f0ece0; --bg-row-expanded:#faf7ee; --fg:#1a1a17; --fg-muted:#6b6a5e; --fg-dim:#a8a69a; --rule:#d8d4c4; --rule-strong:#b8b4a4; --accent:#a56f1f; --pos:#3d6b29; --neg:#9c3a28; --info:#2e5f87; --warn:#8a6a1d; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--fg); font-family: 'Inter', system-ui, sans-serif; font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+body { min-height: 100vh; padding: 0 0 4rem; }
+header { padding: 1.5rem 2rem 0; border-bottom: 1px solid var(--rule); }
+.masthead { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 1rem; }
+.brand { display: flex; align-items: baseline; gap: 0.75rem; }
+.brand-name { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 500; font-style: italic; letter-spacing: -0.02em; }
+.brand-slash { color: var(--fg-dim); }
+.brand-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.1em; padding-bottom: 0.2rem; }
+.controls { display: flex; gap: 1rem; align-items: center; }
+.last-run { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-dim); display: flex; align-items: center; gap: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.pulse { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--pos); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+.theme-toggle { background: transparent; border: 1px solid var(--rule-strong); color: var(--fg-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.35rem 0.7rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.08em; }
+.theme-toggle:hover { color: var(--fg); border-color: var(--fg-muted); }
+nav { display: flex; border-top: 1px solid var(--rule); padding: 0 2rem; }
+nav a { color: var(--fg-muted); text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.9rem 1.2rem; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+nav a:hover { color: var(--fg); }
+nav a.active { color: var(--fg); border-bottom-color: var(--accent); }
+main { padding: 1.5rem 2rem 0; max-width: 1400px; }
+.page-intro { font-family: 'Fraunces', serif; font-size: 0.95rem; line-height: 1.5; color: var(--fg-muted); max-width: 720px; padding-bottom: 1.25rem; border-bottom: 1px solid var(--rule); margin-bottom: 1.25rem; }
+.page-intro strong { color: var(--fg); font-weight: 500; }
+/* KPI strip */
+.kpi-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--rule); margin-bottom: 1.5rem; }
+.kpi { padding: 1rem 1.25rem; border-right: 1px solid var(--rule); }
+.kpi:last-child { border-right: none; }
+.kpi-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+.kpi-value { font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 500; }
+.kpi-value.pos { color: var(--pos); } .kpi-value.neg { color: var(--neg); } .kpi-value.muted { color: var(--fg-muted); }
+.kpi-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-muted); margin-top: 0.2rem; }
+.section-heading { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500; padding-bottom: 0.5rem; border-bottom: 1px solid var(--rule-strong); margin: 2rem 0 1rem; }
+/* Toolbar */
+.toolbar { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; padding-bottom: 0.75rem; }
+.toolbar-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-right: 0.25rem; }
+.chip { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.3rem 0.6rem; border: 1px solid var(--rule-strong); background: transparent; color: var(--fg-muted); cursor: pointer; text-transform: uppercase; letter-spacing: 0.06em; }
+.chip:hover { color: var(--fg); border-color: var(--fg-muted); }
+.chip.active { color: var(--bg); background: var(--fg); border-color: var(--fg); }
+select.sort-select { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.3rem 0.6rem; background: transparent; color: var(--fg); border: 1px solid var(--rule-strong); text-transform: uppercase; cursor: pointer; }
+/* Table */
+.grid-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.grid-table thead { border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); }
+.grid-table th { text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 500; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; padding: 0.55rem 0.75rem; white-space: nowrap; }
+.grid-table th.num { text-align: right; }
+.grid-table tbody tr.data-row { border-bottom: 1px solid var(--rule); cursor: pointer; }
+.grid-table tbody tr.data-row:hover { background: var(--bg-row-hover); }
+.grid-table tbody tr.data-row.expanded { background: var(--bg-row-expanded); border-bottom-color: var(--rule-strong); }
+.grid-table td { padding: 0.6rem 0.75rem; vertical-align: middle; }
+.grid-table td.num { text-align: right; font-family: 'JetBrains Mono', monospace; }
+.ticker { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.02em; }
+.company { color: var(--fg-muted); font-size: 0.72rem; }
+.cls-pill { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; padding: 0.18rem 0.5rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; border: 1px solid; line-height: 1.3; }
+.cls-OVERDONE { color: var(--pos); border-color: var(--pos); }
+.cls-UNDERDONE { color: var(--info); border-color: var(--info); }
+.cls-RATIONAL { color: var(--fg-muted); border-color: var(--rule-strong); }
+.cls-UNCLEAR { color: var(--warn); border-color: var(--warn); }
+.conf-dots { font-family: 'JetBrains Mono', monospace; color: var(--fg); }
+.conf-dots .off { color: var(--fg-dim); }
+/* Decision pills */
+.decision-pill { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; padding: 0.2rem 0.55rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; border: 1px solid; line-height: 1.3; }
+.decision-WATCH { color: var(--info); border-color: var(--info); }
+.decision-SKIP { color: var(--fg-muted); border-color: var(--rule-strong); }
+.decision-TOO_LATE { color: var(--warn); border-color: var(--warn); }
+.decision-NO_CASH { color: var(--fg-dim); border-color: var(--rule); font-style: italic; }
+/* since-flag move */
+.since-move { font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+.since-move.pos { color: var(--pos); } .since-move.neg { color: var(--neg); } .since-move.nil { color: var(--fg-dim); }
+/* verdict pills — "should I have bought?" */
+.verdict-pill { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; padding: 0.15rem 0.45rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; border: 1px solid; line-height: 1.3; }
+.verdict-missed { color: var(--neg); border-color: var(--neg); }
+.verdict-right-to-skip { color: var(--pos); border-color: var(--pos); }
+.verdict-pending { color: var(--fg-muted); border-color: var(--rule-strong); font-style: italic; }
+.chev { color: var(--fg-dim); font-family: 'JetBrains Mono', monospace; transition: transform 0.2s; display: inline-block; }
+tr.expanded .chev { transform: rotate(90deg); color: var(--accent); }
+/* Detail */
+tr.detail-row { background: var(--bg-row-expanded); border-bottom: 1px solid var(--rule-strong); }
+tr.detail-row td { padding: 0; }
+.detail-inner { padding: 1rem 1.5rem 1.5rem 2.5rem; display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem; }
+.detail-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500; padding-bottom: 0.25rem; border-bottom: 1px solid var(--rule); margin-bottom: 0.35rem; }
+.detail-text { font-family: 'Fraunces', serif; font-size: 0.88rem; line-height: 1.55; color: var(--fg); }
+.detail-text strong { color: var(--accent); font-weight: 500; }
+.trade-details { display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; margin-top: 0.4rem; }
+.trade-details dt { color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.62rem; align-self: center; }
+.trade-details dd { color: var(--fg); }
+.date-col { color: var(--fg-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase; }
+/* Footer */
+footer { padding: 2rem 2rem 0; margin-top: 2rem; border-top: 1px solid var(--rule); color: var(--fg-dim); font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; max-width: 1400px; }
+footer p { margin-bottom: 0.3rem; }
+.empty { padding: 3rem 1rem; text-align: center; color: var(--fg-muted); font-family: 'Fraunces', serif; font-style: italic; font-size: 1rem; }
+.loading { padding: 3rem; text-align: center; color: var(--fg-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+@media (max-width: 900px) {
+  header, main, footer, nav { padding-left: 1rem; padding-right: 1rem; }
+  .kpi-strip { grid-template-columns: 1fr 1fr; }
+  .grid-table th.hide-mobile, .grid-table td.hide-mobile { display: none; }
+  .detail-inner { grid-template-columns: 1fr; padding: 1rem; gap: 1rem; }
+  .masthead { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  nav { overflow-x: auto; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="masthead">
+    <div class="brand">
+      <span class="brand-name">agent<span class="brand-slash">/</span>smith</span>
+      <span class="brand-tag">watching · not bought</span>
+    </div>
+    <div class="controls">
+      <span class="last-run"><span class="pulse"></span><span id="last-update">loading…</span></span>
+      <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">◐ light</button>
+    </div>
+  </div>
+  <nav>
+    <a href="index.html">current</a>
+    <a href="trends.html">trends</a>
+    <a href="portfolio.html">portfolio</a>
+    <a href="suggestions.html" class="active">watching</a>
+    <a href="tw.html">taiwan</a>
+  </nav>
+</header>
+
+<main>
+  <p class="page-intro">
+    Flags the bot looked at but chose <strong>not to buy</strong> — either waiting for a better entry (<strong>watch</strong>), declining on quality grounds (<strong>skip</strong>), or locked out by cash/sector/position limits. Each includes the bot's reasoning and what's happened to the name since. Verdict flips to <strong>missed</strong> if the name hit its expected move, <strong>right to skip</strong> if it didn't.
+  </p>
+
+  <div class="kpi-strip">
+    <div class="kpi"><div class="kpi-label">currently watching</div><div class="kpi-value" id="kpi-n-active">—</div><div class="kpi-sub">awaiting better entry</div></div>
+    <div class="kpi"><div class="kpi-label">skipped (7d)</div><div class="kpi-value muted" id="kpi-n-skipped">—</div><div class="kpi-sub">declined on quality</div></div>
+    <div class="kpi"><div class="kpi-label">missed calls (7d)</div><div class="kpi-value" id="kpi-n-missed">—</div><div class="kpi-sub" id="kpi-n-missed-sub">should have bought</div></div>
+    <div class="kpi"><div class="kpi-label">right to skip (7d)</div><div class="kpi-value pos" id="kpi-n-right">—</div><div class="kpi-sub">name didn't work</div></div>
+  </div>
+
+  <div class="section-heading">Watching</div>
+  <div class="toolbar">
+    <span class="toolbar-label">show</span>
+    <button class="chip active" data-filter="all">all</button>
+    <button class="chip" data-filter="WATCH">watching</button>
+    <button class="chip" data-filter="SKIP">skipped</button>
+    <button class="chip" data-filter="NO_CASH">cash-locked</button>
+    <button class="chip" data-filter="TOO_LATE">too late</button>
+    <div style="width:1px;background:var(--rule);align-self:stretch;margin:0 0.5rem;"></div>
+    <span class="toolbar-label">sort</span>
+    <select class="sort-select" id="sort">
+      <option value="date-desc">newest first</option>
+      <option value="since-desc">biggest moves since ↓</option>
+      <option value="since-asc">biggest drops since ↓</option>
+      <option value="conf">confidence ↓</option>
+    </select>
+  </div>
+
+  <table class="grid-table">
+    <thead>
+      <tr>
+        <th style="width: 9%;">flagged</th>
+        <th style="width: 13%;">ticker</th>
+        <th class="hide-mobile" style="width: 11%;">class</th>
+        <th style="width: 9%;">conf</th>
+        <th class="hide-mobile" style="width: 8%;">horizon</th>
+        <th style="width: 11%;">decision</th>
+        <th class="num" style="width: 10%;">since flag</th>
+        <th style="width: 10%;">verdict</th>
+        <th>why not</th>
+        <th style="width: 20px;"></th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <div class="loading" id="loading">loading watch list…</div>
+  <div class="empty" id="empty" style="display: none;">No entries match current filter.</div>
+
+</main>
+
+<footer>
+  <p>decisions made during the 22:00 AST portfolio pass · verdict updates on subsequent runs as price data comes in</p>
+  <p>pointers not recommendations · always research before acting</p>
+</footer>
+
+<script>
+// ========================================================
+// Sample data mirrors the schema portfolio.py writes into
+// data/suggestions.json on each portfolio pass.
+// ========================================================
+const SAMPLE_SUGGESTIONS = {
+  generated_at: "2026-04-22T20:06:00Z",
+  window_days: 7,
+  entries: [
+    {
+      ticker: "EXTR", name: "Extreme Networks", sector: "Technology",
+      flagged_at: "2026-04-22T20:06:00Z", run_file: "us_20260422T200601Z.json",
+      classification: "UNCLEAR", confidence: 2, horizon_days: 5, move_pct_at_flag: -5.84,
+      decision: "SKIP", reasoning: "UNCLEAR classification — no directional edge. Move on.",
+      price_at_flag: null, current_price: null, since_pct: null,
+      verdict: "pending", verdict_note: null
+    },
+    {
+      ticker: "ZS", name: "Zscaler", sector: "Technology",
+      flagged_at: "2026-04-21T20:06:00Z", run_file: "us_20260421T200601Z.json",
+      classification: "UNDERDONE", confidence: 2, horizon_days: 20, move_pct_at_flag: 3.2,
+      decision: "WATCH", reasoning: "Interesting but low confidence and longer horizon. Waiting for a higher-conviction follow-through signal, and keeping dry powder for nearer-term plays.",
+      price_at_flag: 215.40, current_price: 221.80, since_pct: 2.97,
+      verdict: "pending", verdict_note: "early days, +3% not yet hit"
+    },
+    {
+      ticker: "HOOD", name: "Robinhood", sector: "Financials",
+      flagged_at: "2026-04-20T20:06:00Z", run_file: "us_20260420T200601Z.json",
+      classification: "OVERDONE", confidence: 3, horizon_days: 5, move_pct_at_flag: -8.4,
+      decision: "WATCH", reasoning: "Decent setup but waiting for signs of sellers exhaustion — volume still elevated, no reversal candle yet.",
+      price_at_flag: 42.10, current_price: 45.28, since_pct: 7.55,
+      verdict: "missed", verdict_note: "hit +7.5% in 2 days — should have bought"
+    },
+    {
+      ticker: "PLTR", name: "Palantir", sector: "Technology",
+      flagged_at: "2026-04-19T20:06:00Z", run_file: "us_20260419T200601Z.json",
+      classification: "UNDERDONE", confidence: 3, horizon_days: 5, move_pct_at_flag: 4.1,
+      decision: "NO_CASH", reasoning: "Already 40% deployed across tech names — sector limit would be breached by a PLTR add on top of ROKU, ADTN.",
+      price_at_flag: 38.50, current_price: 37.92, since_pct: -1.51,
+      verdict: "right-to-skip", verdict_note: "-1.5% since, no thesis breakthrough"
+    },
+    {
+      ticker: "MANH", name: "Manhattan Associates", sector: "Technology",
+      flagged_at: "2026-04-22T20:06:00Z", run_file: "us_20260422T200601Z.json",
+      classification: "RATIONAL", confidence: 3, move_pct_at_flag: 5.92, horizon_days: 5,
+      decision: "SKIP", reasoning: "RATIONAL classification — no directional edge. Move on.",
+      price_at_flag: null, current_price: null, since_pct: null,
+      verdict: "pending", verdict_note: null
+    },
+    {
+      ticker: "NET", name: "Cloudflare", sector: "Technology",
+      flagged_at: "2026-04-17T20:06:00Z", run_file: "us_20260417T200601Z.json",
+      classification: "OVERDONE", confidence: 2, horizon_days: 5, move_pct_at_flag: -6.8,
+      decision: "SKIP", reasoning: "Confidence 2 — below buy threshold. Expected move too dependent on macro narrative, and company-specific catalyst unclear.",
+      price_at_flag: 68.90, current_price: 66.20, since_pct: -3.92,
+      verdict: "right-to-skip", verdict_note: "drop continued — thesis was wrong"
+    },
+    {
+      ticker: "BMBL", name: "Bumble", sector: "Communication Services",
+      flagged_at: "2026-04-16T20:06:00Z", run_file: "us_20260416T200601Z.json",
+      classification: "OVERDONE", confidence: 3, horizon_days: 5, move_pct_at_flag: -11.2,
+      decision: "TOO_LATE", reasoning: "Flagged after a +4% intraday recovery bar. Entry would be above the bounce low and risk/reward degraded. Better to watch for a retest.",
+      price_at_flag: 8.45, current_price: 8.92, since_pct: 5.56,
+      verdict: "missed", verdict_note: "reversion continued — +5.6% without retest"
+    }
+  ]
+};
+
+// ============ FORMATTERS ============
+const fmtPct = v => v == null ? '—' : (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
+const fmtDate = iso => { if (!iso) return '—'; const d = new Date(iso); const mm = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'][d.getUTCMonth()]; return d.getUTCDate() + ' ' + mm; };
+const fmtDateTime = iso => { if (!iso) return '—'; const d = new Date(iso); const mm = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'][d.getUTCMonth()]; return `${d.getUTCDate()} ${mm} · ${String(d.getUTCHours()).padStart(2,'0')}:${String(d.getUTCMinutes()).padStart(2,'0')} utc`; };
+const confDots = n => { let s=''; for(let i=1;i<=5;i++) s += (i<=n)?'●':'<span class="off">○</span>'; return s; };
+
+// ============ STATE ============
+let DATA = null;
+let activeFilter = 'all', activeSort = 'date-desc';
+
+async function load() {
+  try {
+    const r = await fetch('data/suggestions.json', { cache: 'no-store' });
+    if (!r.ok) throw new Error('not ready');
+    DATA = await r.json();
+  } catch(e) {
+    DATA = SAMPLE_SUGGESTIONS;
+  }
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('last-update').textContent = 'updated ' + fmtDateTime(DATA.generated_at);
+  renderKPIs();
+  renderTable();
+}
+
+function renderKPIs() {
+  const e = DATA.entries;
+  const active = e.filter(x => x.decision === 'WATCH' || x.decision === 'NO_CASH').length;
+  const skipped = e.filter(x => x.decision === 'SKIP').length;
+  const missed = e.filter(x => x.verdict === 'missed').length;
+  const rightToSkip = e.filter(x => x.verdict === 'right-to-skip').length;
+  document.getElementById('kpi-n-active').textContent = active;
+  document.getElementById('kpi-n-skipped').textContent = skipped;
+  document.getElementById('kpi-n-missed').textContent = missed;
+  const missedEl = document.getElementById('kpi-n-missed');
+  missedEl.className = 'kpi-value ' + (missed === 0 ? 'muted' : 'neg');
+  document.getElementById('kpi-n-missed-sub').textContent = missed === 0 ? 'none so far' : 'should have bought';
+  document.getElementById('kpi-n-right').textContent = rightToSkip;
+}
+
+function sortData(data) {
+  const d = [...data];
+  switch (activeSort) {
+    case 'date-desc': d.sort((a,b) => (b.flagged_at||'').localeCompare(a.flagged_at||'')); break;
+    case 'since-desc': d.sort((a,b) => (b.since_pct ?? -999) - (a.since_pct ?? -999)); break;
+    case 'since-asc': d.sort((a,b) => (a.since_pct ?? 999) - (b.since_pct ?? 999)); break;
+    case 'conf': d.sort((a,b) => b.confidence - a.confidence); break;
+  }
+  return d;
+}
+function filterData(data) {
+  if (activeFilter === 'all') return data;
+  return data.filter(d => d.decision === activeFilter);
+}
+
+function renderTable() {
+  const tbody = document.getElementById('tbody');
+  const empty = document.getElementById('empty');
+  const data = sortData(filterData(DATA.entries));
+  if (data.length === 0) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  tbody.innerHTML = data.map(e => {
+    const sinceCls = e.since_pct == null ? 'nil' : (e.since_pct >= 0 ? 'pos' : 'neg');
+    const verdictCls = e.verdict === 'missed' ? 'verdict-missed' : (e.verdict === 'right-to-skip' ? 'verdict-right-to-skip' : 'verdict-pending');
+    const verdictLabel = e.verdict === 'right-to-skip' ? 'right to skip' : e.verdict;
+    const decisionLabel = e.decision === 'NO_CASH' ? 'no cash' : (e.decision === 'TOO_LATE' ? 'too late' : e.decision.toLowerCase());
+    return `
+      <tr class="data-row" data-id="${e.ticker}-${e.flagged_at}" onclick="toggleRow('${e.ticker}-${e.flagged_at}')">
+        <td><span class="date-col">${fmtDate(e.flagged_at)}</span></td>
+        <td><div class="ticker">${e.ticker}</div><div class="company">${e.name}</div></td>
+        <td class="hide-mobile"><span class="cls-pill cls-${e.classification}">${e.classification}</span></td>
+        <td><span class="conf-dots">${confDots(e.confidence)}</span></td>
+        <td class="hide-mobile"><span class="date-col">${e.horizon_days}d</span></td>
+        <td><span class="decision-pill decision-${e.decision}">${decisionLabel}</span></td>
+        <td class="num"><span class="since-move ${sinceCls}">${fmtPct(e.since_pct)}</span></td>
+        <td><span class="verdict-pill ${verdictCls}">${verdictLabel}</span></td>
+        <td style="font-size:0.72rem;color:var(--fg-muted);">${e.verdict_note || e.reasoning.split('.')[0]+'.'}</td>
+        <td><span class="chev">▸</span></td>
+      </tr>
+      <tr class="detail-row" id="detail-${e.ticker}-${e.flagged_at}" style="display:none;">
+        <td colspan="10">
+          <div class="detail-inner">
+            <div>
+              <div class="detail-label">bot's reasoning</div>
+              <div class="detail-text">${e.reasoning}</div>
+              <div class="detail-label" style="margin-top:1rem;">what's happened since</div>
+              <div class="detail-text">${
+                e.since_pct == null ? 'Too early — no price data yet since flag.'
+                : `Moved <strong>${fmtPct(e.since_pct)}</strong> from $${e.price_at_flag?.toFixed(2)} to $${e.current_price?.toFixed(2)} in the time since. ${e.verdict_note || ''}`
+              }</div>
+            </div>
+            <div>
+              <div class="detail-label">flag details</div>
+              <dl class="trade-details">
+                <dt>sector</dt><dd>${e.sector || '—'}</dd>
+                <dt>classification</dt><dd>${e.classification} · conf ${e.confidence}/5</dd>
+                <dt>horizon</dt><dd>${e.horizon_days} trading days</dd>
+                <dt>move at flag</dt><dd>${fmtPct(e.move_pct_at_flag)}</dd>
+                <dt>price at flag</dt><dd>${e.price_at_flag ? '$' + e.price_at_flag.toFixed(2) : '—'}</dd>
+                <dt>price now</dt><dd>${e.current_price ? '$' + e.current_price.toFixed(2) : '—'}</dd>
+                <dt>decision</dt><dd>${decisionLabel}</dd>
+                <dt>source run</dt><dd style="font-size:0.65rem;">${e.run_file}</dd>
+              </dl>
+            </div>
+          </div>
+        </td>
+      </tr>`;
+  }).join('');
+}
+function toggleRow(id) {
+  const r = document.querySelector(`tr.data-row[data-id="${id}"]`);
+  const d = document.getElementById('detail-' + id);
+  if (r.classList.contains('expanded')) { r.classList.remove('expanded'); d.style.display = 'none'; }
+  else { r.classList.add('expanded'); d.style.display = ''; }
+}
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+  html.dataset.theme = next;
+  try { localStorage.setItem('agent-smith-theme', next); } catch(e) {}
+  document.getElementById('theme-btn').textContent = next === 'dark' ? '◐ light' : '◑ dark';
+}
+try {
+  const saved = localStorage.getItem('agent-smith-theme');
+  if (saved) { document.documentElement.dataset.theme = saved; document.getElementById('theme-btn').textContent = saved === 'dark' ? '◐ light' : '◑ dark'; }
+} catch(e) {}
+document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
+  document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+  c.classList.add('active'); activeFilter = c.dataset.filter; renderTable();
+}));
+document.getElementById('sort').addEventListener('change', e => { activeSort = e.target.value; renderTable(); });
+load();
+</script>
+</body>
+</html>

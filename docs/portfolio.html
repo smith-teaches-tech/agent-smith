@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>agent/smith — portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root[data-theme="dark"] { --bg:#0e0e0c; --bg-elev:#171714; --bg-row:#1a1a17; --bg-row-hover:#22221e; --bg-row-expanded:#1e1e1a; --fg:#e9e6dc; --fg-muted:#8a8778; --fg-dim:#5c5a50; --rule:#2a2923; --rule-strong:#3a3930; --accent:#d4a24c; --pos:#7fb069; --neg:#d77a66; --info:#6b9ec7; --warn:#c9a14d; }
+:root[data-theme="light"] { --bg:#f8f5ec; --bg-elev:#ffffff; --bg-row:#ffffff; --bg-row-hover:#f0ece0; --bg-row-expanded:#faf7ee; --fg:#1a1a17; --fg-muted:#6b6a5e; --fg-dim:#a8a69a; --rule:#d8d4c4; --rule-strong:#b8b4a4; --accent:#a56f1f; --pos:#3d6b29; --neg:#9c3a28; --info:#2e5f87; --warn:#8a6a1d; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--fg); font-family: 'Inter', system-ui, sans-serif; font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+body { min-height: 100vh; padding: 0 0 4rem; }
+.mono { font-family: 'JetBrains Mono', monospace; font-feature-settings: "tnum" 1, "zero" 1; }
+/* HEADER */
+header { padding: 1.5rem 2rem 0; border-bottom: 1px solid var(--rule); }
+.masthead { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 1rem; }
+.brand { display: flex; align-items: baseline; gap: 0.75rem; }
+.brand-name { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 500; font-style: italic; letter-spacing: -0.02em; }
+.brand-slash { color: var(--fg-dim); font-weight: 400; }
+.brand-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.1em; padding-bottom: 0.2rem; }
+.controls { display: flex; gap: 1rem; align-items: center; }
+.last-run { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-dim); display: flex; align-items: center; gap: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.pulse { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--pos); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+.theme-toggle { background: transparent; border: 1px solid var(--rule-strong); color: var(--fg-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.35rem 0.7rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.08em; }
+.theme-toggle:hover { color: var(--fg); border-color: var(--fg-muted); }
+nav { display: flex; gap: 0; border-top: 1px solid var(--rule); padding: 0 2rem; }
+nav a { color: var(--fg-muted); text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.9rem 1.2rem; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s, border-color 0.15s; }
+nav a:hover { color: var(--fg); }
+nav a.active { color: var(--fg); border-bottom-color: var(--accent); }
+/* MAIN */
+main { padding: 1.5rem 2rem 0; max-width: 1400px; }
+.page-intro { font-family: 'Fraunces', serif; font-size: 0.95rem; line-height: 1.5; color: var(--fg-muted); max-width: 720px; padding-bottom: 1.25rem; border-bottom: 1px solid var(--rule); margin-bottom: 1.25rem; }
+.page-intro strong { color: var(--fg); font-weight: 500; }
+/* BANKROLL BAR */
+.bankroll-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; }
+.bankroll-title { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; }
+.bankroll-total { font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; font-weight: 500; color: var(--fg); }
+.bankroll-total .pnl { margin-left: 0.7rem; font-size: 0.8rem; }
+.pnl.pos { color: var(--pos); }
+.pnl.neg { color: var(--neg); }
+.bankroll-bar { position: relative; display: flex; height: 32px; border: 1px solid var(--rule-strong); overflow: hidden; margin-bottom: 0.5rem; }
+.bankroll-seg { display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg); transition: flex 0.2s; }
+.bankroll-seg.invested { background: transparent; color: var(--fg); border-right: 1px solid var(--rule-strong); }
+.bankroll-seg.cash { background: transparent; color: var(--fg-muted); }
+.bankroll-legend { display: flex; gap: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--fg-muted); margin-bottom: 1.5rem; }
+.bankroll-legend .dot { display: inline-block; width: 8px; height: 8px; margin-right: 0.4rem; vertical-align: middle; }
+.dot-invested { background: var(--fg); }
+.dot-cash { background: var(--fg-muted); opacity: 0.4; }
+/* KPI STRIP */
+.kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border: 1px solid var(--rule); margin-bottom: 1.75rem; }
+.kpi { padding: 1rem 1.25rem; border-right: 1px solid var(--rule); }
+.kpi:last-child { border-right: none; }
+.kpi-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+.kpi-value { font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 500; }
+.kpi-value.pos { color: var(--pos); } .kpi-value.neg { color: var(--neg); } .kpi-value.muted { color: var(--fg-muted); }
+.kpi-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-muted); margin-top: 0.2rem; }
+/* SECTION HEADING */
+.section-heading { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500; padding-bottom: 0.5rem; border-bottom: 1px solid var(--rule-strong); margin: 2rem 0 1rem; display: flex; justify-content: space-between; align-items: center; }
+.section-count { color: var(--fg-muted); font-weight: 400; }
+/* TOOLBAR */
+.toolbar { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; padding-bottom: 0.75rem; }
+.toolbar-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-right: 0.25rem; }
+.chip { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.3rem 0.6rem; border: 1px solid var(--rule-strong); background: transparent; color: var(--fg-muted); cursor: pointer; text-transform: uppercase; letter-spacing: 0.06em; }
+.chip:hover { color: var(--fg); border-color: var(--fg-muted); }
+.chip.active { color: var(--bg); background: var(--fg); border-color: var(--fg); }
+select.sort-select { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.3rem 0.6rem; background: transparent; color: var(--fg); border: 1px solid var(--rule-strong); text-transform: uppercase; cursor: pointer; }
+/* TABLE */
+.grid-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.grid-table thead { border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); }
+.grid-table th { text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 500; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; padding: 0.55rem 0.75rem; white-space: nowrap; }
+.grid-table th.num { text-align: right; }
+.grid-table tbody tr.data-row { border-bottom: 1px solid var(--rule); cursor: pointer; }
+.grid-table tbody tr.data-row:hover { background: var(--bg-row-hover); }
+.grid-table tbody tr.data-row.expanded { background: var(--bg-row-expanded); border-bottom-color: var(--rule-strong); }
+.grid-table td { padding: 0.6rem 0.75rem; vertical-align: middle; }
+.grid-table td.num { text-align: right; font-family: 'JetBrains Mono', monospace; }
+.ticker { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.02em; }
+.company { color: var(--fg-muted); font-size: 0.72rem; }
+.price { font-family: 'JetBrains Mono', monospace; }
+.pnl-cell { font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+.pnl-cell.pos { color: var(--pos); } .pnl-cell.neg { color: var(--neg); }
+.thesis-pill { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; padding: 0.18rem 0.5rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; border: 1px solid; }
+.thesis-intact { color: var(--pos); border-color: var(--pos); }
+.thesis-weakening { color: var(--warn); border-color: var(--warn); }
+.thesis-broken { color: var(--neg); border-color: var(--neg); }
+.thesis-played-out { color: var(--fg-muted); border-color: var(--rule-strong); }
+.action-pill { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; padding: 0.18rem 0.5rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; border: 1px solid; }
+.action-HOLD { color: var(--fg-muted); border-color: var(--rule-strong); }
+.action-ADD { color: var(--info); border-color: var(--info); }
+.action-TRIM { color: var(--warn); border-color: var(--warn); }
+.action-EXIT { color: var(--neg); border-color: var(--neg); }
+.trade-side { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; padding: 0.15rem 0.45rem; border: 1px solid; }
+.trade-BUY { color: var(--pos); border-color: var(--pos); }
+.trade-SELL { color: var(--neg); border-color: var(--neg); }
+.chev { color: var(--fg-dim); font-family: 'JetBrains Mono', monospace; transition: transform 0.2s; display: inline-block; }
+tr.expanded .chev { transform: rotate(90deg); color: var(--accent); }
+/* DETAIL */
+tr.detail-row { background: var(--bg-row-expanded); border-bottom: 1px solid var(--rule-strong); }
+tr.detail-row td { padding: 0; }
+.detail-inner { padding: 1rem 1.5rem 1.5rem 2.5rem; display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem; }
+.detail-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500; padding-bottom: 0.25rem; border-bottom: 1px solid var(--rule); margin-bottom: 0.35rem; }
+.detail-text { font-family: 'Fraunces', serif; font-size: 0.88rem; line-height: 1.55; color: var(--fg); }
+.detail-text strong { color: var(--accent); font-weight: 500; }
+.trade-details { display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; margin-top: 0.5rem; }
+.trade-details dt { color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.62rem; align-self: center; }
+.trade-details dd { color: var(--fg); }
+.reasoning-block { margin-top: 0.8rem; }
+/* FOOTER */
+footer { padding: 2rem 2rem 0; margin-top: 2rem; border-top: 1px solid var(--rule); color: var(--fg-dim); font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; max-width: 1400px; }
+footer p { margin-bottom: 0.3rem; }
+/* EMPTY */
+.empty { padding: 2rem 1rem; text-align: center; color: var(--fg-muted); font-family: 'Fraunces', serif; font-style: italic; font-size: 0.95rem; }
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  header, main, footer, nav { padding-left: 1rem; padding-right: 1rem; }
+  .kpi-strip { grid-template-columns: 1fr 1fr; }
+  .kpi { border-bottom: 1px solid var(--rule); }
+  .kpi:nth-child(2) { border-right: none; }
+  .grid-table th.hide-mobile, .grid-table td.hide-mobile { display: none; }
+  .detail-inner { grid-template-columns: 1fr; padding: 1rem; gap: 1rem; }
+  .masthead { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  nav { overflow-x: auto; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="masthead">
+    <div class="brand">
+      <span class="brand-name">agent<span class="brand-slash">/</span>smith</span>
+      <span class="brand-tag">portfolio · paper</span>
+    </div>
+    <div class="controls">
+      <span class="last-run"><span class="pulse"></span><span id="last-update">loading…</span></span>
+      <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">◐ light</button>
+    </div>
+  </div>
+  <nav>
+    <a href="index.html">current</a>
+    <a href="trends.html">trends</a>
+    <a href="portfolio.html" class="active">portfolio</a>
+    <a href="suggestions.html">watching</a>
+    <a href="tw.html">taiwan</a>
+  </nav>
+</header>
+
+<main>
+  <p class="page-intro">
+    The bot's paper portfolio. Claude decides each afternoon run (post US close) whether to buy, hold, trim, or exit positions based on current discoveries and open theses. Starting bankroll: <strong>$10,000</strong>. Trades execute at next US regular-session open. Fees model: <strong>IBKR Pro Tiered</strong> ($0.0035/share + pass-through) plus 0.1% slippage.
+  </p>
+
+  <div class="bankroll-header">
+    <span class="bankroll-title">bankroll · $10,000 starting</span>
+    <span class="bankroll-total" id="bankroll-total">loading…</span>
+  </div>
+  <div class="bankroll-bar" id="bankroll-bar"></div>
+  <div class="bankroll-legend">
+    <span><span class="dot dot-invested"></span>invested <span id="invested-amt">—</span></span>
+    <span><span class="dot dot-cash"></span>cash <span id="cash-amt">—</span></span>
+  </div>
+
+  <div class="kpi-strip">
+    <div class="kpi"><div class="kpi-label">total return</div><div class="kpi-value muted" id="kpi-total-ret">—</div><div class="kpi-sub" id="kpi-total-ret-sub">vs $10,000 start</div></div>
+    <div class="kpi"><div class="kpi-label">realized p&l</div><div class="kpi-value" id="kpi-realized">—</div><div class="kpi-sub" id="kpi-realized-sub">from closed</div></div>
+    <div class="kpi"><div class="kpi-label">unrealized</div><div class="kpi-value" id="kpi-unrealized">—</div><div class="kpi-sub" id="kpi-unrealized-sub">on open</div></div>
+    <div class="kpi"><div class="kpi-label">open positions</div><div class="kpi-value" id="kpi-n-open">—</div><div class="kpi-sub" id="kpi-n-open-sub">—</div></div>
+    <div class="kpi"><div class="kpi-label">trades to date</div><div class="kpi-value" id="kpi-n-trades">—</div><div class="kpi-sub" id="kpi-n-trades-sub">—</div></div>
+  </div>
+
+  <div class="section-heading">Open positions <span class="section-count" id="open-count"></span></div>
+  <div class="toolbar">
+    <span class="toolbar-label">filter</span>
+    <button class="chip active" data-filter-pos="all">all</button>
+    <button class="chip" data-filter-pos="winners">winners</button>
+    <button class="chip" data-filter-pos="losers">losers</button>
+    <div style="width:1px; background:var(--rule); align-self:stretch; margin:0 0.5rem;"></div>
+    <span class="toolbar-label">sort</span>
+    <select class="sort-select" id="sort-pos">
+      <option value="pnl-desc">biggest winners ↓</option>
+      <option value="pnl-asc">biggest losers ↓</option>
+      <option value="value-desc">position size ↓</option>
+      <option value="opened-desc">newest first</option>
+      <option value="ticker">ticker a–z</option>
+    </select>
+  </div>
+
+  <table class="grid-table">
+    <thead>
+      <tr>
+        <th style="width: 14%;">ticker</th>
+        <th class="num" style="width: 7%;">shares</th>
+        <th class="num" style="width: 9%;">cost</th>
+        <th class="num" style="width: 9%;">current</th>
+        <th class="num" style="width: 10%;">value</th>
+        <th class="num" style="width: 11%;">p&l</th>
+        <th class="hide-mobile" style="width: 12%;">thesis</th>
+        <th class="hide-mobile" style="width: 10%;">next action</th>
+        <th>notes</th>
+        <th style="width: 20px;"></th>
+      </tr>
+    </thead>
+    <tbody id="open-tbody"></tbody>
+  </table>
+  <div class="empty" id="open-empty" style="display:none;">No open positions yet.</div>
+
+  <div class="section-heading">Closed positions <span class="section-count" id="closed-count"></span></div>
+  <table class="grid-table">
+    <thead>
+      <tr>
+        <th style="width: 14%;">ticker</th>
+        <th class="hide-mobile" style="width: 10%;">held</th>
+        <th class="num" style="width: 9%;">avg cost</th>
+        <th class="num" style="width: 9%;">exit</th>
+        <th class="num" style="width: 11%;">p&l $</th>
+        <th class="num" style="width: 9%;">p&l %</th>
+        <th>exit reasoning</th>
+        <th style="width: 20px;"></th>
+      </tr>
+    </thead>
+    <tbody id="closed-tbody"></tbody>
+  </table>
+  <div class="empty" id="closed-empty" style="display:none;">No closed positions yet.</div>
+
+  <div class="section-heading">Trade log <span class="section-count" id="log-count"></span></div>
+  <table class="grid-table">
+    <thead>
+      <tr>
+        <th style="width: 13%;">date</th>
+        <th style="width: 10%;">side</th>
+        <th style="width: 10%;">ticker</th>
+        <th class="num" style="width: 8%;">shares</th>
+        <th class="num" style="width: 10%;">fill</th>
+        <th class="num hide-mobile" style="width: 10%;">fees</th>
+        <th class="num" style="width: 12%;">notional</th>
+        <th>why</th>
+      </tr>
+    </thead>
+    <tbody id="log-tbody"></tbody>
+  </table>
+
+</main>
+
+<footer>
+  <p>paper trading only · no real capital · bot executes at next US open after decision (22:00 AST run → Friday open)</p>
+  <p>pointers not recommendations · always research before acting</p>
+</footer>
+
+<script>
+// =====================================================
+// Sample state mirroring the schema portfolio.py writes.
+// Replace with fetch('data/portfolio.json') when wired up.
+// =====================================================
+const SAMPLE_PORTFOLIO = {
+  generated_at: "2026-04-22T20:06:00Z",
+  bankroll_start: 10000,
+  cash: 6234.21,
+  open_positions: [
+    {
+      ticker: "VKTX", name: "Viking Therapeutics", sector: "Healthcare",
+      shares: 14, cost_basis: 48.52, current_price: 51.77,
+      value: 724.78, cost_total: 679.28, unrealized_pnl: 45.50, unrealized_pct: 6.70,
+      opened_at: "2026-04-18T15:00:00Z", days_held: 4,
+      flag_classification: "OVERDONE", flag_confidence: 4, flag_horizon: "days",
+      thesis: "Post-earnings overreaction on GLP-2 trial readout. Sympathy with broader weight-loss pullback despite company-specific data being in-line. Expected mean reversion toward $52-55.",
+      thesis_status: "intact",
+      latest_reasoning: "Up 6.7% from entry, favorable excursion topped at 7.2%. Still below pre-gap level of $54. Holding — thesis intact, horizon not fully elapsed.",
+      next_action: "HOLD",
+      catalyst: "Post-earnings reversion play"
+    },
+    {
+      ticker: "SOFI", name: "SoFi Technologies", sector: "Financials",
+      shares: 85, cost_basis: 9.15, current_price: 9.48,
+      value: 805.80, cost_total: 777.75, unrealized_pnl: 28.05, unrealized_pct: 3.61,
+      opened_at: "2026-04-17T15:00:00Z", days_held: 5,
+      flag_classification: "UNDERDONE", flag_confidence: 3, flag_horizon: "days",
+      thesis: "Student loan refi re-acceleration under new rate environment plus credit card growth. Consumer lending cycle turning. Underdone on recent +4.8% move.",
+      thesis_status: "intact",
+      latest_reasoning: "Hit +3% threshold on day 3. Horizon fully elapsed today. Flagging for trim decision next run — 5-day call has played out.",
+      next_action: "TRIM",
+      catalyst: "Earnings continuation / consumer credit cycle"
+    },
+    {
+      ticker: "ADTN", name: "ADTRAN Holdings", sector: "Technology",
+      shares: 45, cost_basis: 14.95, current_price: 14.12,
+      value: 635.40, cost_total: 672.75, unrealized_pnl: -37.35, unrealized_pct: -5.55,
+      opened_at: "2026-04-22T20:06:00Z", days_held: 0,
+      flag_classification: "OVERDONE", flag_confidence: 3, flag_horizon: "days",
+      thesis: "Sympathy selloff on CALX Q1 weakness. ADTN has different carrier mix and less BEAD exposure than CALX. Expected mean reversion within a week.",
+      thesis_status: "intact",
+      latest_reasoning: "Just opened at Friday open. Currently -5.5% against entry — bigger drawdown than expected but within normal intraday noise. No thesis-breaking news. Holding.",
+      next_action: "HOLD",
+      catalyst: "CALX sympathy reversion"
+    },
+    {
+      ticker: "ROKU", name: "Roku", sector: "Technology",
+      shares: 12, cost_basis: 68.85, current_price: 71.20,
+      value: 854.40, cost_total: 826.20, unrealized_pnl: 28.20, unrealized_pct: 3.41,
+      opened_at: "2026-04-16T15:00:00Z", days_held: 6,
+      flag_classification: "OVERDONE", flag_confidence: 3, flag_horizon: "days",
+      thesis: "CTV ad market concerns on macro headlines — oversold into earnings. Subscriber growth deck intact per prior commentary.",
+      thesis_status: "played-out",
+      latest_reasoning: "Hit target +3% within horizon on day 4. Horizon now fully elapsed. 5-day thesis played out; no reason to hold longer without a new catalyst.",
+      next_action: "EXIT",
+      catalyst: "Pre-earnings reversion"
+    }
+  ],
+  closed_positions: [
+    {
+      ticker: "CCJ", name: "Cameco", sector: "Energy",
+      shares: 15, avg_cost: 51.95, exit_price: 49.88,
+      opened_at: "2026-04-15T15:00:00Z", closed_at: "2026-04-22T14:00:00Z", days_held: 5,
+      realized_pnl: -31.05, realized_pct: -3.98, fees_total: 2.80,
+      flag_classification: "OVERDONE", flag_confidence: 2,
+      exit_reasoning: "Hit -3% miss threshold on day 5. No catalyst for reversion emerging; uranium spot weakness spreading. Exit per rule — thesis broken."
+    }
+  ],
+  trade_log: [
+    { date: "2026-04-23T13:30:00Z", side: "BUY", ticker: "ADTN", shares: 45, fill_price: 14.95, fees: 1.18, notional: 672.75, why: "Opened per last night's flag: OVERDONE conf 3, sympathy to CALX" },
+    { date: "2026-04-22T13:30:00Z", side: "SELL", ticker: "CCJ", shares: 15, fill_price: 49.88, fees: 1.28, notional: 748.20, why: "Exit: thesis broken, -3.98% realized" },
+    { date: "2026-04-18T13:30:00Z", side: "BUY", ticker: "VKTX", shares: 14, fill_price: 48.52, fees: 1.05, notional: 679.28, why: "Opened per flag: OVERDONE conf 4, post-earnings reversion" },
+    { date: "2026-04-17T13:30:00Z", side: "BUY", ticker: "SOFI", shares: 85, fill_price: 9.15, fees: 1.35, notional: 777.75, why: "Opened per flag: UNDERDONE conf 3, consumer credit cycle" },
+    { date: "2026-04-16T13:30:00Z", side: "BUY", ticker: "ROKU", shares: 12, fill_price: 68.85, fees: 0.98, notional: 826.20, why: "Opened per flag: OVERDONE conf 3, CTV ad overreaction" },
+    { date: "2026-04-15T13:30:00Z", side: "BUY", ticker: "CCJ", shares: 15, fill_price: 51.95, fees: 1.52, notional: 779.25, why: "Opened per flag: OVERDONE conf 2, uranium spot reversion" }
+  ]
+};
+// ============ FORMATTERS ============
+const fmtUSD = v => v == null ? '—' : (v < 0 ? '-' : '') + '$' + Math.abs(v).toFixed(2);
+const fmtUSD0 = v => v == null ? '—' : (v < 0 ? '-' : '') + '$' + Math.round(Math.abs(v)).toLocaleString();
+const fmtPct = v => v == null ? '—' : (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
+const fmtPct2 = v => v == null ? '—' : (v >= 0 ? '+' : '') + v.toFixed(2) + '%';
+const fmtDate = iso => { if (!iso) return '—'; const d = new Date(iso); const mm = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'][d.getUTCMonth()]; return d.getUTCDate() + ' ' + mm; };
+const fmtDateTime = iso => { if (!iso) return '—'; const d = new Date(iso); const mm = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'][d.getUTCMonth()]; return `${d.getUTCDate()} ${mm} · ${String(d.getUTCHours()).padStart(2,'0')}:${String(d.getUTCMinutes()).padStart(2,'0')} utc`; };
+const signClass = v => v == null ? '' : (v > 0 ? 'pos' : (v < 0 ? 'neg' : ''));
+// ============ STATE ============
+let P = null;
+let posFilter = 'all', posSort = 'pnl-desc';
+async function load() {
+  try {
+    const r = await fetch('data/portfolio.json', { cache: 'no-store' });
+    if (!r.ok) throw new Error('not ready');
+    P = await r.json();
+  } catch(e) {
+    P = SAMPLE_PORTFOLIO;
+  }
+  document.getElementById('last-update').textContent = 'updated ' + fmtDateTime(P.generated_at);
+  renderBankroll();
+  renderKPIs();
+  renderOpen();
+  renderClosed();
+  renderLog();
+}
+function totalValue() {
+  const invested = P.open_positions.reduce((s, p) => s + p.value, 0);
+  return { invested, cash: P.cash, total: invested + P.cash };
+}
+function renderBankroll() {
+  const { invested, cash, total } = totalValue();
+  const pnl = total - P.bankroll_start;
+  const pnlPct = (pnl / P.bankroll_start) * 100;
+  document.getElementById('bankroll-total').innerHTML = `${fmtUSD(total)} <span class="pnl ${signClass(pnl)}">${fmtPct(pnlPct)}</span>`;
+  const investedPct = (invested / total) * 100;
+  const cashPct = 100 - investedPct;
+  document.getElementById('bankroll-bar').innerHTML = `<div class="bankroll-seg invested" style="flex: ${investedPct}">${investedPct > 12 ? fmtUSD0(invested) : ''}</div><div class="bankroll-seg cash" style="flex: ${cashPct}">${cashPct > 12 ? fmtUSD0(cash) : ''}</div>`;
+  document.getElementById('invested-amt').textContent = fmtUSD(invested);
+  document.getElementById('cash-amt').textContent = fmtUSD(cash);
+}
+function renderKPIs() {
+  const { total } = totalValue();
+  const totalPnl = total - P.bankroll_start;
+  const totalPct = (totalPnl / P.bankroll_start) * 100;
+  const realized = P.closed_positions.reduce((s, c) => s + c.realized_pnl, 0);
+  const unrealized = P.open_positions.reduce((s, o) => s + o.unrealized_pnl, 0);
+  const totalRetEl = document.getElementById('kpi-total-ret');
+  totalRetEl.textContent = fmtPct(totalPct);
+  totalRetEl.className = 'kpi-value ' + (totalPnl >= 0 ? 'pos' : 'neg');
+  document.getElementById('kpi-total-ret-sub').textContent = `${totalPnl >= 0 ? '+' : '-'}${fmtUSD(Math.abs(totalPnl))}`;
+  const realizedEl = document.getElementById('kpi-realized');
+  realizedEl.textContent = fmtUSD(realized);
+  realizedEl.className = 'kpi-value ' + (realized === 0 ? 'muted' : (realized > 0 ? 'pos' : 'neg'));
+  document.getElementById('kpi-realized-sub').textContent = `from ${P.closed_positions.length} closed`;
+  const unrealEl = document.getElementById('kpi-unrealized');
+  unrealEl.textContent = fmtUSD(unrealized);
+  unrealEl.className = 'kpi-value ' + (unrealized === 0 ? 'muted' : (unrealized > 0 ? 'pos' : 'neg'));
+  document.getElementById('kpi-unrealized-sub').textContent = `on ${P.open_positions.length} open`;
+  document.getElementById('kpi-n-open').textContent = P.open_positions.length;
+  const biggest = [...P.open_positions].sort((a,b) => b.value - a.value)[0];
+  document.getElementById('kpi-n-open-sub').textContent = biggest ? `largest: ${biggest.ticker}` : '';
+  document.getElementById('kpi-n-trades').textContent = P.trade_log.length;
+  const buys = P.trade_log.filter(t => t.side === 'BUY').length;
+  document.getElementById('kpi-n-trades-sub').textContent = `${buys} buys · ${P.trade_log.length - buys} sells`;
+}
+function sortPos(data) {
+  const d = [...data];
+  switch (posSort) {
+    case 'pnl-desc': d.sort((a,b) => b.unrealized_pnl - a.unrealized_pnl); break;
+    case 'pnl-asc': d.sort((a,b) => a.unrealized_pnl - b.unrealized_pnl); break;
+    case 'value-desc': d.sort((a,b) => b.value - a.value); break;
+    case 'opened-desc': d.sort((a,b) => (b.opened_at||'').localeCompare(a.opened_at||'')); break;
+    case 'ticker': d.sort((a,b) => a.ticker.localeCompare(b.ticker)); break;
+  }
+  return d;
+}
+function filterPos(data) {
+  if (posFilter === 'winners') return data.filter(d => d.unrealized_pnl > 0);
+  if (posFilter === 'losers') return data.filter(d => d.unrealized_pnl < 0);
+  return data;
+}
+function renderOpen() {
+  const tbody = document.getElementById('open-tbody');
+  const empty = document.getElementById('open-empty');
+  document.getElementById('open-count').textContent = `${P.open_positions.length}`;
+  const data = sortPos(filterPos(P.open_positions));
+  if (data.length === 0) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  tbody.innerHTML = data.map(p => {
+    const pnlCls = signClass(p.unrealized_pnl);
+    const thesisCls = p.thesis_status ? 'thesis-' + p.thesis_status.replace('_', '-') : '';
+    return `
+      <tr class="data-row" data-t="${p.ticker}" onclick="toggleRow('pos-${p.ticker}')">
+        <td><div class="ticker">${p.ticker}</div><div class="company">${p.name}</div></td>
+        <td class="num">${p.shares}</td>
+        <td class="num price">$${p.cost_basis.toFixed(2)}</td>
+        <td class="num price">$${p.current_price.toFixed(2)}</td>
+        <td class="num price">${fmtUSD(p.value)}</td>
+        <td class="num"><span class="pnl-cell ${pnlCls}">${fmtUSD(p.unrealized_pnl)}</span><br><span class="pnl-cell ${pnlCls}" style="font-size:0.7rem;">${fmtPct(p.unrealized_pct)}</span></td>
+        <td class="hide-mobile"><span class="thesis-pill ${thesisCls}">${p.thesis_status||'—'}</span></td>
+        <td class="hide-mobile"><span class="action-pill action-${p.next_action}">${p.next_action||'—'}</span></td>
+        <td style="font-size:0.72rem;color:var(--fg-muted);">${p.latest_reasoning.split('.')[0]}.</td>
+        <td><span class="chev">▸</span></td>
+      </tr>
+      <tr class="detail-row" id="detail-pos-${p.ticker}" style="display:none;"><td colspan="10">
+        <div class="detail-inner">
+          <div>
+            <div class="detail-label">original thesis</div>
+            <div class="detail-text">${p.thesis}</div>
+            <div class="detail-label reasoning-block">latest reasoning</div>
+            <div class="detail-text">${p.latest_reasoning}</div>
+          </div>
+          <div>
+            <div class="detail-label">position</div>
+            <dl class="trade-details">
+              <dt>sector</dt><dd>${p.sector||'—'}</dd>
+              <dt>opened</dt><dd>${fmtDateTime(p.opened_at)}</dd>
+              <dt>days held</dt><dd>${p.days_held}</dd>
+              <dt>flag class</dt><dd>${p.flag_classification} conf ${p.flag_confidence}</dd>
+              <dt>flag horizon</dt><dd>${p.flag_horizon}</dd>
+              <dt>catalyst</dt><dd>${p.catalyst}</dd>
+              <dt>cost total</dt><dd>${fmtUSD(p.cost_total)}</dd>
+              <dt>value total</dt><dd>${fmtUSD(p.value)}</dd>
+            </dl>
+          </div>
+        </div>
+      </td></tr>`;
+  }).join('');
+}
+function renderClosed() {
+  const tbody = document.getElementById('closed-tbody');
+  const empty = document.getElementById('closed-empty');
+  document.getElementById('closed-count').textContent = `${P.closed_positions.length}`;
+  if (P.closed_positions.length === 0) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  tbody.innerHTML = P.closed_positions.map(c => {
+    const pnlCls = signClass(c.realized_pnl);
+    return `<tr class="data-row" onclick="toggleRow('closed-${c.ticker}')">
+      <td><div class="ticker">${c.ticker}</div><div class="company">${c.name}</div></td>
+      <td class="hide-mobile" style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--fg-muted);">${c.days_held}d · ${fmtDate(c.opened_at)}→${fmtDate(c.closed_at)}</td>
+      <td class="num price">$${c.avg_cost.toFixed(2)}</td>
+      <td class="num price">$${c.exit_price.toFixed(2)}</td>
+      <td class="num"><span class="pnl-cell ${pnlCls}">${fmtUSD(c.realized_pnl)}</span></td>
+      <td class="num"><span class="pnl-cell ${pnlCls}">${fmtPct(c.realized_pct)}</span></td>
+      <td style="font-size:0.75rem;">${c.exit_reasoning.split('.')[0]}.</td>
+      <td><span class="chev">▸</span></td>
+    </tr>
+    <tr class="detail-row" id="detail-closed-${c.ticker}" style="display:none;"><td colspan="8">
+      <div class="detail-inner">
+        <div>
+          <div class="detail-label">exit reasoning</div>
+          <div class="detail-text">${c.exit_reasoning}</div>
+        </div>
+        <div>
+          <div class="detail-label">trade</div>
+          <dl class="trade-details">
+            <dt>opened</dt><dd>${fmtDateTime(c.opened_at)}</dd>
+            <dt>closed</dt><dd>${fmtDateTime(c.closed_at)}</dd>
+            <dt>days held</dt><dd>${c.days_held}</dd>
+            <dt>fees</dt><dd>${fmtUSD(c.fees_total)}</dd>
+            <dt>original flag</dt><dd>${c.flag_classification} conf ${c.flag_confidence}</dd>
+          </dl>
+        </div>
+      </div>
+    </td></tr>`;
+  }).join('');
+}
+function renderLog() {
+  const tbody = document.getElementById('log-tbody');
+  document.getElementById('log-count').textContent = `${P.trade_log.length}`;
+  tbody.innerHTML = P.trade_log.map(t => `<tr style="border-bottom: 1px solid var(--rule);">
+    <td style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--fg-muted);">${fmtDateTime(t.date)}</td>
+    <td><span class="trade-side trade-${t.side}">${t.side}</span></td>
+    <td><span class="ticker">${t.ticker}</span></td>
+    <td class="num">${t.shares}</td>
+    <td class="num price">$${t.fill_price.toFixed(2)}</td>
+    <td class="num hide-mobile price" style="color:var(--fg-muted);">$${t.fees.toFixed(2)}</td>
+    <td class="num price">${fmtUSD(t.notional)}</td>
+    <td style="font-size:0.72rem;color:var(--fg-muted);">${t.why}</td>
+  </tr>`).join('');
+}
+function toggleRow(id) {
+  const r = document.querySelector(`tr.data-row[onclick*="${id}"]`);
+  const d = document.getElementById('detail-' + id);
+  if (!r || !d) return;
+  if (r.classList.contains('expanded')) { r.classList.remove('expanded'); d.style.display = 'none'; }
+  else { r.classList.add('expanded'); d.style.display = ''; }
+}
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+  html.dataset.theme = next;
+  try { localStorage.setItem('agent-smith-theme', next); } catch(e) {}
+  document.getElementById('theme-btn').textContent = next === 'dark' ? '◐ light' : '◑ dark';
+}
+try {
+  const saved = localStorage.getItem('agent-smith-theme');
+  if (saved) { document.documentElement.dataset.theme = saved; document.getElementById('theme-btn').textContent = saved === 'dark' ? '◐ light' : '◑ dark'; }
+} catch(e) {}
+document.querySelectorAll('.chip[data-filter-pos]').forEach(c => c.addEventListener('click', () => {
+  document.querySelectorAll('.chip[data-filter-pos]').forEach(x => x.classList.remove('active'));
+  c.classList.add('active'); posFilter = c.dataset.filterPos; renderOpen();
+}));
+document.getElementById('sort-pos').addEventListener('change', e => { posSort = e.target.value; renderOpen(); });
+load();
+</script>
+</body>
+</html>

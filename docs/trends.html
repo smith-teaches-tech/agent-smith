@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>agent/smith — trends</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root[data-theme="dark"] {
+  --bg: #0e0e0c; --bg-elev: #171714; --bg-row: #1a1a17; --bg-row-hover: #22221e; --bg-row-expanded: #1e1e1a;
+  --fg: #e9e6dc; --fg-muted: #8a8778; --fg-dim: #5c5a50;
+  --rule: #2a2923; --rule-strong: #3a3930;
+  --accent: #d4a24c; --pos: #7fb069; --neg: #d77a66; --info: #6b9ec7; --warn: #c9a14d;
+}
+:root[data-theme="light"] {
+  --bg: #f8f5ec; --bg-elev: #ffffff; --bg-row: #ffffff; --bg-row-hover: #f0ece0; --bg-row-expanded: #faf7ee;
+  --fg: #1a1a17; --fg-muted: #6b6a5e; --fg-dim: #a8a69a;
+  --rule: #d8d4c4; --rule-strong: #b8b4a4;
+  --accent: #a56f1f; --pos: #3d6b29; --neg: #9c3a28; --info: #2e5f87; --warn: #8a6a1d;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--fg); font-family: 'Inter', system-ui, sans-serif; font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+body { min-height: 100vh; padding: 0 0 4rem; }
+.mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-feature-settings: "tnum" 1, "zero" 1; }
+/* ============ HEADER (shared with index) ============ */
+header { padding: 1.5rem 2rem 0; border-bottom: 1px solid var(--rule); }
+.masthead { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 1rem; }
+.brand { display: flex; align-items: baseline; gap: 0.75rem; }
+.brand-name { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 500; font-style: italic; letter-spacing: -0.02em; }
+.brand-slash { color: var(--fg-dim); font-weight: 400; }
+.brand-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.1em; padding-bottom: 0.2rem; }
+.controls { display: flex; gap: 1rem; align-items: center; }
+.last-run { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-dim); display: flex; align-items: center; gap: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.pulse { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--pos); animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.theme-toggle { background: transparent; border: 1px solid var(--rule-strong); color: var(--fg-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.35rem 0.7rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.15s, border-color 0.15s; }
+.theme-toggle:hover { color: var(--fg); border-color: var(--fg-muted); }
+nav { display: flex; gap: 0; border-top: 1px solid var(--rule); padding: 0 2rem; }
+nav a { color: var(--fg-muted); text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.9rem 1.2rem; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s, border-color 0.15s; }
+nav a:hover { color: var(--fg); }
+nav a.active { color: var(--fg); border-bottom-color: var(--accent); }
+/* ============ MAIN ============ */
+main { padding: 1.5rem 2rem 0; max-width: 1400px; }
+.page-intro { font-family: 'Fraunces', serif; font-size: 0.95rem; line-height: 1.5; color: var(--fg-muted); max-width: 700px; padding-bottom: 1.25rem; border-bottom: 1px solid var(--rule); margin-bottom: 1.25rem; }
+.page-intro strong { color: var(--fg); font-weight: 500; }
+/* ============ KPI STRIP ============ */
+.kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border: 1px solid var(--rule); margin-bottom: 1.5rem; }
+.kpi { padding: 1rem 1.25rem; border-right: 1px solid var(--rule); }
+.kpi:last-child { border-right: none; }
+.kpi-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+.kpi-value { font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 500; }
+.kpi-value.pos { color: var(--pos); }
+.kpi-value.neg { color: var(--neg); }
+.kpi-value.muted { color: var(--fg-muted); }
+.kpi-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-muted); margin-top: 0.2rem; }
+/* ============ BREAKDOWN SECTIONS ============ */
+.section-heading { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500; padding-bottom: 0.5rem; border-bottom: 1px solid var(--rule-strong); margin: 2rem 0 1rem; }
+.breakdown-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1.5rem; }
+.breakdown-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+.breakdown-table th { text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 500; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; padding: 0.5rem 0.6rem 0.5rem 0; white-space: nowrap; border-bottom: 1px solid var(--rule); }
+.breakdown-table th.num { text-align: right; padding-right: 0; }
+.breakdown-table td { padding: 0.55rem 0.6rem 0.55rem 0; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+.breakdown-table td.num { text-align: right; font-family: 'JetBrains Mono', monospace; padding-right: 0; }
+.breakdown-table tr:last-child td { border-bottom: none; }
+.breakdown-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.breakdown-label.cls-OVERDONE { color: var(--pos); }
+.breakdown-label.cls-UNDERDONE { color: var(--info); }
+.hit-rate-bar { display: inline-block; width: 80px; height: 6px; background: var(--rule); vertical-align: middle; margin-right: 0.5rem; position: relative; }
+.hit-rate-bar-fill { height: 100%; background: var(--accent); }
+.hit-rate-bar-fill.weak { background: var(--fg-dim); }
+.hit-rate-bar-fill.strong { background: var(--pos); }
+.n-tag { color: var(--fg-dim); font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; }
+/* ============ TOOLBAR (reused from index) ============ */
+.toolbar { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; padding-bottom: 0.75rem; }
+.toolbar-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-right: 0.25rem; }
+.chip { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.3rem 0.6rem; border: 1px solid var(--rule-strong); background: transparent; color: var(--fg-muted); cursor: pointer; text-transform: uppercase; letter-spacing: 0.06em; transition: all 0.15s; }
+.chip:hover { color: var(--fg); border-color: var(--fg-muted); }
+.chip.active { color: var(--bg); background: var(--fg); border-color: var(--fg); }
+.chip-divider { width: 1px; background: var(--rule); align-self: stretch; margin: 0 0.5rem; }
+select.sort-select { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.3rem 0.6rem; background: transparent; color: var(--fg); border: 1px solid var(--rule-strong); text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; }
+/* ============ TIMELINE TABLE ============ */
+.grid-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.grid-table thead { border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); }
+.grid-table th { text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 500; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; padding: 0.55rem 0.75rem; white-space: nowrap; }
+.grid-table th.num { text-align: right; }
+.grid-table tbody tr.data-row { border-bottom: 1px solid var(--rule); cursor: pointer; transition: background 0.1s; }
+.grid-table tbody tr.data-row:hover { background: var(--bg-row-hover); }
+.grid-table tbody tr.data-row.expanded { background: var(--bg-row-expanded); border-bottom-color: var(--rule-strong); }
+.grid-table td { padding: 0.55rem 0.75rem; vertical-align: middle; }
+.grid-table td.num { text-align: right; font-family: 'JetBrains Mono', monospace; }
+.ticker { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.02em; }
+.date-col { color: var(--fg-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase; }
+.cls-pill { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; padding: 0.18rem 0.5rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; border: 1px solid; line-height: 1.3; }
+.cls-OVERDONE { color: var(--pos); border-color: var(--pos); }
+.cls-UNDERDONE { color: var(--info); border-color: var(--info); }
+.cls-RATIONAL { color: var(--fg-muted); border-color: var(--rule-strong); }
+.cls-UNCLEAR { color: var(--warn); border-color: var(--warn); }
+.conf-dots { font-family: 'JetBrains Mono', monospace; color: var(--fg); }
+.conf-dots .off { color: var(--fg-dim); }
+.grade-pill { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; padding: 0.2rem 0.55rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; line-height: 1.3; border: 1px solid; }
+.grade-HIT { color: var(--pos); border-color: var(--pos); background: transparent; }
+.grade-MISS { color: var(--neg); border-color: var(--neg); }
+.grade-AMBIGUOUS { color: var(--warn); border-color: var(--warn); }
+.grade-PENDING { color: var(--fg-muted); border-color: var(--rule-strong); font-style: italic; }
+.grade-NOT_GRADED { color: var(--fg-dim); border-color: var(--rule); }
+.grade-DATA_ERROR { color: var(--fg-dim); border-color: var(--rule); text-decoration: line-through; }
+.return-pct { font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+.return-pct.pos { color: var(--pos); }
+.return-pct.neg { color: var(--neg); }
+.return-pct.nil { color: var(--fg-dim); }
+.chev { color: var(--fg-dim); font-family: 'JetBrains Mono', monospace; transition: transform 0.2s; display: inline-block; }
+tr.expanded .chev { transform: rotate(90deg); color: var(--accent); }
+/* ============ EXPANDED DETAIL ============ */
+tr.detail-row { background: var(--bg-row-expanded); border-bottom: 1px solid var(--rule-strong); }
+tr.detail-row td { padding: 0; }
+.detail-inner { padding: 1rem 1.5rem 1.5rem 2.5rem; display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem; }
+.detail-section { display: flex; flex-direction: column; gap: 0.4rem; }
+.detail-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500; padding-bottom: 0.25rem; border-bottom: 1px solid var(--rule); margin-bottom: 0.35rem; }
+.detail-text { font-family: 'Fraunces', serif; font-size: 0.88rem; line-height: 1.55; color: var(--fg); }
+.trade-details { display: grid; grid-template-columns: auto 1fr; gap: 0.4rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
+.trade-details dt { color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.65rem; align-self: center; }
+.trade-details dd { color: var(--fg); }
+.price-move { display: inline-flex; align-items: center; gap: 0.4rem; }
+.price-move .arrow { color: var(--fg-dim); }
+.excursion-note { font-size: 0.72rem; color: var(--fg-muted); margin-top: 0.3rem; }
+/* ============ FOOTER ============ */
+footer { padding: 2rem 2rem 0; margin-top: 2rem; border-top: 1px solid var(--rule); color: var(--fg-dim); font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; max-width: 1400px; }
+footer p { margin-bottom: 0.3rem; }
+/* ============ EMPTY / LOADING ============ */
+.empty { padding: 3rem 1rem; text-align: center; color: var(--fg-muted); font-family: 'Fraunces', serif; font-style: italic; font-size: 1rem; }
+.loading { padding: 3rem; text-align: center; color: var(--fg-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  header, main, footer, nav { padding-left: 1rem; padding-right: 1rem; }
+  .kpi-strip { grid-template-columns: 1fr 1fr; }
+  .kpi { border-bottom: 1px solid var(--rule); }
+  .kpi:nth-child(2) { border-right: none; }
+  .breakdown-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .grid-table th.hide-mobile, .grid-table td.hide-mobile { display: none; }
+  .detail-inner { grid-template-columns: 1fr; padding: 1rem; gap: 1rem; }
+  .masthead { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  nav { overflow-x: auto; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="masthead">
+    <div class="brand">
+      <span class="brand-name">agent<span class="brand-slash">/</span>smith</span>
+      <span class="brand-tag">trends · calibration</span>
+    </div>
+    <div class="controls">
+      <span class="last-run"><span class="pulse"></span><span id="last-update">loading…</span></span>
+      <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">◐ light</button>
+    </div>
+  </div>
+  <nav>
+    <a href="index.html">current</a>
+    <a href="trends.html" class="active">trends</a>
+    <a href="portfolio.html">portfolio</a>
+    <a href="suggestions.html">watching</a>
+    <a href="tw.html">taiwan</a>
+  </nav>
+</header>
+
+<main>
+  <p class="page-intro">
+    How past flags have actually played out. Only <strong>OVERDONE</strong> and <strong>UNDERDONE</strong> calls get graded — the others don't make directional predictions. A call is a <strong>hit</strong> when price moved the predicted direction by ≥3% within its stated horizon, a <strong>miss</strong> if it moved the opposite direction by ≥3%, and <strong>ambiguous</strong> if neither. Expect small numbers early — the useful picture needs weeks of data.
+  </p>
+
+  <div class="kpi-strip" id="kpi-strip">
+    <div class="kpi"><div class="kpi-label">overall hit rate</div><div class="kpi-value muted" id="kpi-hit-rate">—</div><div class="kpi-sub" id="kpi-hit-sub">awaiting data</div></div>
+    <div class="kpi"><div class="kpi-label">calls graded</div><div class="kpi-value" id="kpi-n-resolved">0</div><div class="kpi-sub" id="kpi-n-sub">of 0 total</div></div>
+    <div class="kpi"><div class="kpi-label">avg return</div><div class="kpi-value muted" id="kpi-avg-return">—</div><div class="kpi-sub">in expected direction</div></div>
+    <div class="kpi"><div class="kpi-label">pending</div><div class="kpi-value" id="kpi-pending">0</div><div class="kpi-sub">horizon not elapsed</div></div>
+    <div class="kpi"><div class="kpi-label">logic version</div><div class="kpi-value" id="kpi-version">v1</div><div class="kpi-sub" id="kpi-thresh">±3% / horizon</div></div>
+  </div>
+
+  <div class="section-heading">Breakdowns</div>
+  <div class="breakdown-grid">
+    <div>
+      <table class="breakdown-table" id="bt-class">
+        <thead><tr><th>by classification</th><th class="num">hit rate</th><th class="num">n</th></tr></thead>
+        <tbody id="bt-class-body"></tbody>
+      </table>
+    </div>
+    <div>
+      <table class="breakdown-table" id="bt-conf">
+        <thead><tr><th>by confidence</th><th class="num">hit rate</th><th class="num">n</th></tr></thead>
+        <tbody id="bt-conf-body"></tbody>
+      </table>
+    </div>
+    <div>
+      <table class="breakdown-table" id="bt-horizon">
+        <thead><tr><th>by horizon</th><th class="num">hit rate</th><th class="num">n</th></tr></thead>
+        <tbody id="bt-horizon-body"></tbody>
+      </table>
+    </div>
+    <div>
+      <table class="breakdown-table" id="bt-sector">
+        <thead><tr><th>by sector</th><th class="num">hit rate</th><th class="num">n</th></tr></thead>
+        <tbody id="bt-sector-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-heading">Timeline</div>
+  <div class="toolbar">
+    <span class="toolbar-label">show</span>
+    <button class="chip active" data-filter="all">all</button>
+    <button class="chip" data-filter="HIT">hits</button>
+    <button class="chip" data-filter="MISS">misses</button>
+    <button class="chip" data-filter="AMBIGUOUS">ambiguous</button>
+    <button class="chip" data-filter="PENDING">pending</button>
+    <button class="chip" data-filter="NOT_GRADED">not graded</button>
+    <div class="chip-divider"></div>
+    <span class="toolbar-label">sort</span>
+    <select class="sort-select" id="sort">
+      <option value="date-desc">newest first</option>
+      <option value="date-asc">oldest first</option>
+      <option value="return-desc">biggest winners ↓</option>
+      <option value="return-asc">biggest losers ↓</option>
+      <option value="conf">confidence ↓</option>
+    </select>
+  </div>
+
+  <table class="grid-table">
+    <thead>
+      <tr>
+        <th style="width: 10%;">date</th>
+        <th style="width: 10%;">ticker</th>
+        <th class="hide-mobile" style="width: 12%;">class</th>
+        <th style="width: 10%;">conf</th>
+        <th class="hide-mobile" style="width: 8%;">horizon</th>
+        <th style="width: 11%;">grade</th>
+        <th class="num" style="width: 10%;">return</th>
+        <th class="num hide-mobile" style="width: 11%;">best/worst</th>
+        <th>notes</th>
+        <th style="width: 20px;"></th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <div class="loading" id="loading">loading trends…</div>
+  <div class="empty" id="empty" style="display: none;">No calls match current filter.</div>
+
+</main>
+
+<footer>
+  <p>grading is versioned (<span id="footer-version">v1</span>). threshold changes apply to new grades only; old grades stay valid under their original logic.</p>
+  <p>pointers not recommendations · always research before acting</p>
+</footer>
+
+<script>
+// ============================================================
+// When this page is live, it fetches data/trends.json.
+// For the prototype, we inline sample data so the layout can be
+// seen with realistic shapes (including PENDING and NOT_GRADED).
+// ============================================================
+const SAMPLE_TRENDS = {
+  generated_at: "2026-04-22T20:06:00Z",
+  logic_version: 1,
+  grading_params: { hit_threshold_pct: 3.0, default_horizon_days: 5 },
+  n_total_calls: 14,
+  n_not_graded: 5,
+  n_pending: 3,
+  n_data_error: 0,
+  overall: { n_resolved: 6, n_hit: 3, n_miss: 2, n_ambiguous: 1, hit_rate: 50.0, avg_return_pct: 1.2 },
+  by_classification: {
+    OVERDONE: { n_resolved: 4, n_hit: 2, n_miss: 1, n_ambiguous: 1, hit_rate: 50.0, avg_return_pct: 2.1 },
+    UNDERDONE: { n_resolved: 2, n_hit: 1, n_miss: 1, n_ambiguous: 0, hit_rate: 50.0, avg_return_pct: -0.6 }
+  },
+  by_confidence: {
+    "2": { n_resolved: 3, n_hit: 1, n_miss: 1, n_ambiguous: 1, hit_rate: 33.3, avg_return_pct: 0.4 },
+    "3": { n_resolved: 2, n_hit: 1, n_miss: 1, n_ambiguous: 0, hit_rate: 50.0, avg_return_pct: 1.1 },
+    "4": { n_resolved: 1, n_hit: 1, n_miss: 0, n_ambiguous: 0, hit_rate: 100.0, avg_return_pct: 5.8 }
+  },
+  by_horizon_days: {
+    "5": { n_resolved: 5, n_hit: 3, n_miss: 1, n_ambiguous: 1, hit_rate: 60.0, avg_return_pct: 1.9 },
+    "20": { n_resolved: 1, n_hit: 0, n_miss: 1, n_ambiguous: 0, hit_rate: 0.0, avg_return_pct: -2.3 }
+  },
+  by_sector: {
+    "Technology": { n_resolved: 4, n_hit: 2, n_miss: 1, n_ambiguous: 1, hit_rate: 50.0, avg_return_pct: 1.5 },
+    "Financials": { n_resolved: 1, n_hit: 1, n_miss: 0, n_ambiguous: 0, hit_rate: 100.0, avg_return_pct: 4.1 },
+    "Energy": { n_resolved: 1, n_hit: 0, n_miss: 1, n_ambiguous: 0, hit_rate: 0.0, avg_return_pct: -3.8 }
+  },
+  all_grades: [
+    { ticker: "ADTN", name: "ADTRAN Holdings", sector: "Technology", flagged_at: "2026-04-22T20:06:00Z", run_file: "us_20260422T200601Z.json", classification: "OVERDONE", confidence: 3, move_pct_at_flag: -6.2, expected_direction: "up", horizon_days: 5, grade: "PENDING", return_pct_in_horizon: null, max_favorable_pct: 0.8, max_adverse_pct: -1.2, price_at_flag: 14.82, price_at_horizon_end: null, logic_version: 1, notes: "only 1 bars elapsed" },
+    { ticker: "VKTX", name: "Viking Therapeutics", sector: "Healthcare", flagged_at: "2026-04-18T15:00:00Z", run_file: "us_20260418T150000Z.json", classification: "OVERDONE", confidence: 4, move_pct_at_flag: -12.5, expected_direction: "up", horizon_days: 5, grade: "HIT", return_pct_in_horizon: 5.8, max_favorable_pct: 7.2, max_adverse_pct: -1.8, price_at_flag: 48.20, price_at_horizon_end: 50.99, logic_version: 1, notes: null },
+    { ticker: "SOFI", name: "SoFi Technologies", sector: "Financials", flagged_at: "2026-04-17T15:00:00Z", run_file: "us_20260417T150000Z.json", classification: "UNDERDONE", confidence: 3, move_pct_at_flag: 4.8, expected_direction: "up", horizon_days: 5, grade: "HIT", return_pct_in_horizon: 4.1, max_favorable_pct: 5.3, max_adverse_pct: -0.9, price_at_flag: 9.12, price_at_horizon_end: 9.49, logic_version: 1, notes: null },
+    { ticker: "ROKU", name: "Roku", sector: "Technology", flagged_at: "2026-04-16T15:00:00Z", run_file: "us_20260416T150000Z.json", classification: "OVERDONE", confidence: 3, move_pct_at_flag: -9.1, expected_direction: "up", horizon_days: 5, grade: "HIT", return_pct_in_horizon: 3.4, max_favorable_pct: 4.7, max_adverse_pct: -2.1, price_at_flag: 68.30, price_at_horizon_end: 70.62, logic_version: 1, notes: null },
+    { ticker: "CCJ", name: "Cameco", sector: "Energy", flagged_at: "2026-04-15T15:00:00Z", run_file: "us_20260415T150000Z.json", classification: "OVERDONE", confidence: 2, move_pct_at_flag: -5.2, expected_direction: "up", horizon_days: 5, grade: "MISS", return_pct_in_horizon: -3.8, max_favorable_pct: 0.4, max_adverse_pct: -4.9, price_at_flag: 51.80, price_at_horizon_end: 49.83, logic_version: 1, notes: null },
+    { ticker: "PATH", name: "UiPath", sector: "Technology", flagged_at: "2026-04-14T15:00:00Z", run_file: "us_20260414T150000Z.json", classification: "UNDERDONE", confidence: 2, move_pct_at_flag: 3.1, expected_direction: "up", horizon_days: 20, grade: "MISS", return_pct_in_horizon: -2.3, max_favorable_pct: 1.8, max_adverse_pct: -4.5, price_at_flag: 12.40, price_at_horizon_end: 12.11, logic_version: 1, notes: null },
+    { ticker: "AFRM", name: "Affirm", sector: "Financials", flagged_at: "2026-04-11T15:00:00Z", run_file: "us_20260411T150000Z.json", classification: "OVERDONE", confidence: 2, move_pct_at_flag: -7.8, expected_direction: "up", horizon_days: 5, grade: "AMBIGUOUS", return_pct_in_horizon: 1.8, max_favorable_pct: 2.4, max_adverse_pct: -1.3, price_at_flag: 32.10, price_at_horizon_end: 32.68, logic_version: 1, notes: null },
+    { ticker: "CALX", name: "Calix", sector: "Technology", flagged_at: "2026-04-22T20:06:00Z", run_file: "us_20260422T200601Z.json", classification: "UNCLEAR", confidence: 2, move_pct_at_flag: -14.0, expected_direction: null, horizon_days: 5, grade: "NOT_GRADED", return_pct_in_horizon: null, max_favorable_pct: null, max_adverse_pct: null, price_at_flag: null, price_at_horizon_end: null, logic_version: 1, notes: "classification=UNCLEAR not in graded set" },
+    { ticker: "EXTR", name: "Extreme Networks", sector: "Technology", flagged_at: "2026-04-22T20:06:00Z", run_file: "us_20260422T200601Z.json", classification: "UNCLEAR", confidence: 2, move_pct_at_flag: -5.84, expected_direction: null, horizon_days: 5, grade: "NOT_GRADED", return_pct_in_horizon: null, max_favorable_pct: null, max_adverse_pct: null, price_at_flag: null, price_at_horizon_end: null, logic_version: 1, notes: "classification=UNCLEAR not in graded set" },
+    { ticker: "MANH", name: "Manhattan Associates", sector: "Technology", flagged_at: "2026-04-22T20:06:00Z", run_file: "us_20260422T200601Z.json", classification: "RATIONAL", confidence: 3, move_pct_at_flag: 5.92, expected_direction: null, horizon_days: 5, grade: "NOT_GRADED", return_pct_in_horizon: null, max_favorable_pct: null, max_adverse_pct: null, price_at_flag: null, price_at_horizon_end: null, logic_version: 1, notes: "classification=RATIONAL not in graded set" }
+  ]
+};
+
+// ============ FORMATTERS ============
+const fmtPct = v => v == null ? '—' : (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
+const fmtHitRate = v => v == null ? '—' : v.toFixed(0) + '%';
+const fmtDate = iso => {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  const mm = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'][d.getUTCMonth()];
+  return d.getUTCDate() + ' ' + mm;
+};
+const fmtDateTime = iso => {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  const mm = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'][d.getUTCMonth()];
+  const h = String(d.getUTCHours()).padStart(2, '0');
+  return `${d.getUTCDate()} ${mm} · ${h}:${String(d.getUTCMinutes()).padStart(2,'0')} utc`;
+};
+const confDots = n => { let s=''; for (let i=1;i<=5;i++) s += (i<=n) ? '●' : '<span class="off">○</span>'; return s; };
+const hitRateBar = (hr, n) => {
+  if (hr == null || n === 0) return '<span class="n-tag">n/a</span>';
+  const fillClass = hr >= 60 ? 'strong' : (hr < 40 ? 'weak' : '');
+  return `<span class="hit-rate-bar"><span class="hit-rate-bar-fill ${fillClass}" style="width: ${hr}%;"></span></span><span style="font-family: 'JetBrains Mono', monospace;">${fmtHitRate(hr)}</span>`;
+};
+
+// ============ STATE ============
+let TRENDS = null;
+let activeFilter = 'all';
+let activeSort = 'date-desc';
+
+// ============ LOAD ============
+async function loadTrends() {
+  try {
+    const res = await fetch('data/trends.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('trends.json not yet generated');
+    TRENDS = await res.json();
+  } catch (e) {
+    // Fall back to sample data for prototype/offline
+    TRENDS = SAMPLE_TRENDS;
+  }
+  document.getElementById('loading').style.display = 'none';
+  renderKPIs();
+  renderBreakdowns();
+  renderTimeline();
+  document.getElementById('last-update').textContent = 'updated ' + fmtDateTime(TRENDS.generated_at);
+}
+
+function renderKPIs() {
+  const o = TRENDS.overall;
+  const hr = o.hit_rate;
+  const hrEl = document.getElementById('kpi-hit-rate');
+  hrEl.textContent = hr == null ? '—' : hr.toFixed(0) + '%';
+  hrEl.className = 'kpi-value ' + (hr == null ? 'muted' : (hr >= 60 ? 'pos' : (hr < 40 ? 'neg' : 'muted')));
+  document.getElementById('kpi-hit-sub').textContent = o.n_resolved === 0 ? 'awaiting data' : `${o.n_hit} hit · ${o.n_miss} miss · ${o.n_ambiguous} amb.`;
+  document.getElementById('kpi-n-resolved').textContent = o.n_resolved;
+  document.getElementById('kpi-n-sub').textContent = `of ${TRENDS.n_total_calls} total`;
+  const avg = o.avg_return_pct;
+  const avgEl = document.getElementById('kpi-avg-return');
+  avgEl.textContent = fmtPct(avg);
+  avgEl.className = 'kpi-value ' + (avg == null ? 'muted' : (avg >= 0 ? 'pos' : 'neg'));
+  document.getElementById('kpi-pending').textContent = TRENDS.n_pending;
+  document.getElementById('kpi-version').textContent = 'v' + TRENDS.logic_version;
+  document.getElementById('kpi-thresh').textContent = `±${TRENDS.grading_params.hit_threshold_pct}% / horizon`;
+  document.getElementById('footer-version').textContent = 'v' + TRENDS.logic_version;
+}
+
+function renderBreakdowns() {
+  const row = (label, stats, labelClass = '') => `<tr><td><span class="breakdown-label ${labelClass}">${label}</span></td><td class="num">${hitRateBar(stats.hit_rate, stats.n_resolved)}</td><td class="num"><span class="n-tag">${stats.n_resolved}</span></td></tr>`;
+  const bc = document.getElementById('bt-class-body');
+  bc.innerHTML = ['OVERDONE', 'UNDERDONE'].map(cls => {
+    const s = TRENDS.by_classification[cls] || {n_resolved:0,hit_rate:null};
+    return row(cls.toLowerCase(), s, 'cls-' + cls);
+  }).join('');
+  const bcf = document.getElementById('bt-conf-body');
+  bcf.innerHTML = ['5','4','3','2','1'].map(c => {
+    const s = TRENDS.by_confidence[c] || {n_resolved:0,hit_rate:null};
+    return row(`conf ${c}`, s);
+  }).join('');
+  const bh = document.getElementById('bt-horizon-body');
+  bh.innerHTML = ['5','20','60'].map(h => {
+    const s = TRENDS.by_horizon_days[h] || {n_resolved:0,hit_rate:null};
+    return row(`${h} days`, s);
+  }).join('');
+  const bs = document.getElementById('bt-sector-body');
+  const secEntries = Object.entries(TRENDS.by_sector).sort((a,b) => b[1].n_resolved - a[1].n_resolved);
+  bs.innerHTML = secEntries.length === 0
+    ? '<tr><td colspan="3"><span class="n-tag">no sector data yet</span></td></tr>'
+    : secEntries.map(([sec, s]) => row(sec.toLowerCase(), s)).join('');
+}
+
+function sortGrades(data) {
+  const d = [...data];
+  switch (activeSort) {
+    case 'date-desc': d.sort((a,b) => (b.flagged_at || '').localeCompare(a.flagged_at || '')); break;
+    case 'date-asc': d.sort((a,b) => (a.flagged_at || '').localeCompare(b.flagged_at || '')); break;
+    case 'return-desc': d.sort((a,b) => (b.return_pct_in_horizon ?? -999) - (a.return_pct_in_horizon ?? -999)); break;
+    case 'return-asc': d.sort((a,b) => (a.return_pct_in_horizon ?? 999) - (b.return_pct_in_horizon ?? 999)); break;
+    case 'conf': d.sort((a,b) => b.confidence - a.confidence); break;
+  }
+  return d;
+}
+function filterGrades(data) {
+  if (activeFilter === 'all') return data;
+  return data.filter(d => d.grade === activeFilter);
+}
+
+function renderTimeline() {
+  const tbody = document.getElementById('tbody');
+  const empty = document.getElementById('empty');
+  const data = sortGrades(filterGrades(TRENDS.all_grades));
+  if (data.length === 0) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  tbody.innerHTML = data.map(g => {
+    const retClass = g.return_pct_in_horizon == null ? 'nil' : (g.return_pct_in_horizon >= 0 ? 'pos' : 'neg');
+    const bestWorst = (g.max_favorable_pct == null || g.max_adverse_pct == null) ? '—'
+      : `<span class="price-move"><span class="mono pos" style="font-size:0.72rem;">+${g.max_favorable_pct.toFixed(1)}%</span><span class="arrow">/</span><span class="mono neg" style="font-size:0.72rem;">${g.max_adverse_pct.toFixed(1)}%</span></span>`;
+    const notes = g.notes || (g.grade === 'HIT' ? 'crossed +3% threshold within horizon' : g.grade === 'MISS' ? 'crossed −3% against direction within horizon' : g.grade === 'AMBIGUOUS' ? 'stayed within noise band through horizon' : '');
+    return `
+      <tr class="data-row" data-id="${g.ticker}-${g.flagged_at}" onclick="toggleRow('${g.ticker}-${g.flagged_at}')">
+        <td><span class="date-col">${fmtDate(g.flagged_at)}</span></td>
+        <td><span class="ticker">${g.ticker}</span></td>
+        <td class="hide-mobile"><span class="cls-pill cls-${g.classification}">${g.classification}</span></td>
+        <td><span class="conf-dots">${confDots(g.confidence)}</span></td>
+        <td class="hide-mobile"><span class="date-col">${g.horizon_days}d</span></td>
+        <td><span class="grade-pill grade-${g.grade}">${g.grade.replace('_',' ').toLowerCase()}</span></td>
+        <td class="num"><span class="return-pct ${retClass}">${fmtPct(g.return_pct_in_horizon)}</span></td>
+        <td class="num hide-mobile">${bestWorst}</td>
+        <td style="font-size:0.72rem;color:var(--fg-muted);">${notes}</td>
+        <td><span class="chev">▸</span></td>
+      </tr>
+      <tr class="detail-row" id="detail-${g.ticker}-${g.flagged_at}" style="display:none;">
+        <td colspan="10">
+          <div class="detail-inner">
+            <div class="detail-section">
+              <div class="detail-label">the call</div>
+              <div class="detail-text">Flagged ${g.ticker} as <strong>${g.classification.toLowerCase()}</strong> at ${fmtDateTime(g.flagged_at)}. Stock had moved ${fmtPct(g.move_pct_at_flag)} on the session — expected direction from here: <strong>${g.expected_direction || 'none (not graded)'}</strong> over ${g.horizon_days} trading days.</div>
+              <div class="detail-label" style="margin-top:1rem;">what happened</div>
+              <div class="detail-text">${
+                g.grade === 'NOT_GRADED' ? "This call wasn't directional so it's not counted against the track record — just logged for completeness."
+                : g.grade === 'PENDING' ? `Horizon hasn't fully elapsed. So far: favorable excursion ${fmtPct(g.max_favorable_pct)}, adverse ${fmtPct(g.max_adverse_pct)}.`
+                : g.grade === 'DATA_ERROR' ? 'Price data could not be fetched.'
+                : `Reached ${fmtPct(g.return_pct_in_horizon)} at horizon close. Best intraday move in predicted direction: ${fmtPct(g.max_favorable_pct)}. Worst move against: ${fmtPct(g.max_adverse_pct)}.`
+              }</div>
+            </div>
+            <div class="detail-section">
+              <div class="detail-label">trade details</div>
+              <dl class="trade-details">
+                <dt>sector</dt><dd>${g.sector || '—'}</dd>
+                <dt>confidence</dt><dd>${g.confidence}/5</dd>
+                <dt>horizon</dt><dd>${g.horizon_days} trading days</dd>
+                <dt>price at flag</dt><dd>${g.price_at_flag ? '$' + g.price_at_flag.toFixed(2) : '—'}</dd>
+                <dt>price at end</dt><dd>${g.price_at_horizon_end ? '$' + g.price_at_horizon_end.toFixed(2) : '—'}</dd>
+                <dt>source run</dt><dd style="font-size:0.65rem;">${g.run_file}</dd>
+                <dt>logic</dt><dd>v${g.logic_version}</dd>
+              </dl>
+            </div>
+          </div>
+        </td>
+      </tr>`;
+  }).join('');
+}
+function toggleRow(id) {
+  const r = document.querySelector(`tr.data-row[data-id="${id}"]`);
+  const d = document.getElementById('detail-' + id);
+  if (r.classList.contains('expanded')) { r.classList.remove('expanded'); d.style.display = 'none'; }
+  else { r.classList.add('expanded'); d.style.display = ''; }
+}
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+  html.dataset.theme = next;
+  try { localStorage.setItem('agent-smith-theme', next); } catch(e) {}
+  document.getElementById('theme-btn').textContent = next === 'dark' ? '◐ light' : '◑ dark';
+}
+try {
+  const saved = localStorage.getItem('agent-smith-theme');
+  if (saved) {
+    document.documentElement.dataset.theme = saved;
+    document.getElementById('theme-btn').textContent = saved === 'dark' ? '◐ light' : '◑ dark';
+  }
+} catch(e) {}
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    activeFilter = chip.dataset.filter;
+    renderTimeline();
+  });
+});
+document.getElementById('sort').addEventListener('change', e => { activeSort = e.target.value; renderTimeline(); });
+loadTrends();
+</script>
+</body>
+</html>

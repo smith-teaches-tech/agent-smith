@@ -1,563 +1,417 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
-<title>agent-smith / us</title>
+<title>agent/smith — us</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0d0e12;
-    --bg-panel: #15171d;
-    --bg-elevated: #1c1f27;
-    --border: #2a2e38;
-    --text: #e8e6e0;
-    --text-dim: #8a8d96;
-    --text-bright: #ffffff;
-    --accent: #d4a574;
-    --green: #6db97f;
-    --red: #d4736b;
-    --amber: #d4a574;
-    --blue: #7da3c4;
-    --mono: 'JetBrains Mono', ui-monospace, monospace;
-    --serif: 'Fraunces', Georgia, serif;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--mono);
-    font-size: 14px;
-    line-height: 1.5;
-    padding: 24px;
-    max-width: 1400px;
-    margin: 0 auto;
-    min-height: 100vh;
-  }
-  header {
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 16px;
-    margin-bottom: 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  h1 {
-    font-family: var(--serif);
-    font-weight: 800;
-    font-size: 32px;
-    letter-spacing: -0.02em;
-    color: var(--text-bright);
-  }
-  h1 .slash { color: var(--accent); font-weight: 400; }
-  h1 .sub { color: var(--text-dim); font-weight: 400; font-size: 24px; }
-  .meta { color: var(--text-dim); font-size: 12px; text-align: right; }
-  .meta a { color: var(--blue); text-decoration: none; }
-  .meta a:hover { text-decoration: underline; }
-
-  .summary {
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
-    padding: 20px 24px;
-    margin-bottom: 24px;
-    font-family: var(--serif);
-    font-size: 16px;
-    line-height: 1.6;
-    font-style: italic;
-    color: var(--text);
-  }
-
-  section { margin-bottom: 32px; }
-  h2 {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--text-dim);
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 8px;
-    margin-bottom: 16px;
-  }
-  h2 .count {
-    color: var(--accent);
-    margin-left: 8px;
-    font-weight: 400;
-  }
-
-  /* Context grid */
-  .context-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-  .ctx {
-    background: var(--bg-panel);
-    padding: 10px 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .ctx .ticker { color: var(--text-dim); font-size: 10px; letter-spacing: 0.05em; }
-  .ctx .price { color: var(--text-bright); font-weight: 500; font-size: 13px; }
-  .ctx .change { font-size: 11px; font-weight: 500; }
-  .pos { color: var(--green); }
-  .neg { color: var(--red); }
-  .flat { color: var(--text-dim); }
-
-  /* Discovery cards */
-  .discoveries { display: grid; gap: 12px; }
-  .card {
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    padding: 18px 20px;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 20px;
-    align-items: start;
-  }
-  .card .ident {
-    min-width: 140px;
-  }
-  .card .ticker-big {
-    font-family: var(--serif);
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--text-bright);
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-  .card .name { color: var(--text-dim); font-size: 11px; line-height: 1.3; }
-  .card .sector {
-    color: var(--text-dim);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-top: 6px;
-  }
-
-  .card .body { display: flex; flex-direction: column; gap: 10px; }
-  .card .row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
-  .badge {
-    display: inline-block;
-    padding: 2px 8px;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    border: 1px solid;
-  }
-  .badge.likely-overdone { color: var(--green); border-color: var(--green); }
-  .badge.likely-underdone { color: var(--blue); border-color: var(--blue); }
-  .badge.partially-rational { color: var(--amber); border-color: var(--amber); }
-  .badge.likely-rational { color: var(--text-dim); border-color: var(--text-dim); }
-  .badge.unclear { color: var(--text-dim); border-color: var(--text-dim); }
-  .conf { color: var(--text-dim); font-size: 11px; }
-  .conf .stars { color: var(--accent); }
-
-  .mech {
-    color: var(--text);
-    font-family: var(--serif);
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  .mech-label {
-    color: var(--text-dim);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 4px;
-  }
-  .pointers { padding-left: 16px; color: var(--text); }
-  .pointers li { margin-bottom: 2px; font-size: 12px; }
-  .falsify {
-    background: var(--bg-elevated);
-    border-left: 2px solid var(--red);
-    padding: 8px 12px;
-    font-size: 12px;
-    color: var(--text-dim);
-    font-style: italic;
-  }
-
-  .card .move {
-    text-align: right;
-    min-width: 100px;
-  }
-  .card .move-pct {
-    font-family: var(--serif);
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 1;
-  }
-  .card .move-vol {
-    color: var(--text-dim);
-    font-size: 11px;
-    margin-top: 4px;
-  }
-
-  /* Catalyst chains */
-  .chains { display: grid; gap: 10px; }
-  .chain {
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    padding: 14px 18px;
-  }
-  .chain .primary {
-    font-family: var(--serif);
-    font-size: 15px;
-    color: var(--text-bright);
-    margin-bottom: 8px;
-  }
-  .chain .primary .ptkr { color: var(--accent); font-weight: 600; }
-  .chain .secondaries {
-    display: flex; flex-wrap: wrap; gap: 8px;
-  }
-  .secondary {
-    background: var(--bg-elevated);
-    padding: 4px 10px;
-    font-size: 11px;
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-  .secondary .stkr { color: var(--text-bright); font-weight: 600; }
-  .secondary .rel { color: var(--text-dim); font-size: 10px; }
-
-  /* AI section */
-  .ai-announce {
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--blue);
-    padding: 16px 20px;
-    margin-bottom: 12px;
-  }
-  .ai-source {
-    color: var(--blue);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 6px;
-  }
-  .ai-source.anthropic-flag::after {
-    content: "⚠ self-bias check";
-    color: var(--amber);
-    margin-left: 12px;
-    font-size: 10px;
-    font-style: italic;
-  }
-  .ai-headline {
-    font-family: var(--serif);
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text-bright);
-    margin-bottom: 10px;
-  }
-  .ai-affected {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px dashed var(--border);
-  }
-  .ai-stock {
-    display: grid;
-    grid-template-columns: 80px 1fr auto;
-    gap: 12px;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--border);
-    align-items: center;
-    font-size: 12px;
-  }
-  .ai-stock:last-child { border-bottom: none; }
-
-  /* Trump signals */
-  .trump-signal {
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--amber);
-    padding: 12px 16px;
-    margin-bottom: 8px;
-    font-size: 13px;
-  }
-  .trump-signal .post {
-    color: var(--text);
-    font-style: italic;
-    margin-bottom: 6px;
-  }
-
-  .empty {
-    color: var(--text-dim);
-    font-style: italic;
-    padding: 16px;
-    text-align: center;
-    background: var(--bg-panel);
-    border: 1px dashed var(--border);
-  }
-
-  .error {
-    background: #2a1518;
-    border: 1px solid var(--red);
-    color: var(--red);
-    padding: 12px;
-  }
-
-  .nav {
-    display: inline-flex;
-    gap: 0;
-    border: 1px solid var(--border);
-    margin-top: 8px;
-  }
-  .nav a {
-    padding: 4px 12px;
-    color: var(--text-dim);
-    text-decoration: none;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    border-right: 1px solid var(--border);
-  }
-  .nav a:last-child { border-right: none; }
-  .nav a.active { background: var(--accent); color: var(--bg); }
-  .nav a:hover:not(.active) { background: var(--bg-elevated); color: var(--text); }
-
-  .footer {
-    margin-top: 48px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border);
-    color: var(--text-dim);
-    font-size: 11px;
-    text-align: center;
-    line-height: 1.6;
-  }
-
-  @media (max-width: 700px) {
-    body { padding: 16px; }
-    h1 { font-size: 24px; }
-    .card { grid-template-columns: 1fr; }
-    .card .move { text-align: left; }
-  }
+:root[data-theme="dark"] {
+  --bg: #0e0e0c;
+  --bg-elev: #17171410;
+  --bg-row: #1a1a17;
+  --bg-row-hover: #22221e;
+  --bg-row-expanded: #1e1e1a;
+  --fg: #e9e6dc;
+  --fg-muted: #8a8778;
+  --fg-dim: #5c5a50;
+  --rule: #2a2923;
+  --rule-strong: #3a3930;
+  --accent: #d4a24c;
+  --pos: #7fb069;
+  --neg: #d77a66;
+  --info: #6b9ec7;
+  --warn: #c9a14d;
+  --neutral: #8a8778;
+}
+:root[data-theme="light"] {
+  --bg: #f8f5ec;
+  --bg-elev: #ffffff;
+  --bg-row: #ffffff;
+  --bg-row-hover: #f0ece0;
+  --bg-row-expanded: #faf7ee;
+  --fg: #1a1a17;
+  --fg-muted: #6b6a5e;
+  --fg-dim: #a8a69a;
+  --rule: #d8d4c4;
+  --rule-strong: #b8b4a4;
+  --accent: #a56f1f;
+  --pos: #3d6b29;
+  --neg: #9c3a28;
+  --info: #2e5f87;
+  --warn: #8a6a1d;
+  --neutral: #6b6a5e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--fg); font-family: 'Inter', system-ui, sans-serif; font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+body { min-height: 100vh; padding: 0 0 4rem; }
+.mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-feature-settings: "tnum" 1, "zero" 1; }
+.serif { font-family: 'Fraunces', Georgia, serif; }
+/* ============ HEADER ============ */
+header { padding: 1.5rem 2rem 0; border-bottom: 1px solid var(--rule); }
+.masthead { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 1rem; }
+.brand { display: flex; align-items: baseline; gap: 0.75rem; }
+.brand-name { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 500; font-style: italic; letter-spacing: -0.02em; }
+.brand-slash { color: var(--fg-dim); font-weight: 400; }
+.brand-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.1em; padding-bottom: 0.2rem; }
+.controls { display: flex; gap: 1rem; align-items: center; }
+.last-run { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-dim); display: flex; align-items: center; gap: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.theme-toggle { background: transparent; border: 1px solid var(--rule-strong); color: var(--fg-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.35rem 0.7rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.15s, border-color 0.15s; }
+.theme-toggle:hover { color: var(--fg); border-color: var(--fg-muted); }
+/* ============ NAV ============ */
+nav { display: flex; gap: 0; border-top: 1px solid var(--rule); padding: 0 2rem; }
+nav a { color: var(--fg-muted); text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.9rem 1.2rem; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s, border-color 0.15s; }
+nav a:hover { color: var(--fg); }
+nav a.active { color: var(--fg); border-bottom-color: var(--accent); }
+.pulse { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--pos); animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+/* ============ MAIN ============ */
+main { padding: 1.5rem 2rem 0; max-width: 1400px; }
+.summary { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; padding: 1rem 0 1.5rem; border-bottom: 1px solid var(--rule); margin-bottom: 1.25rem; }
+.summary-prose { font-family: 'Fraunces', serif; font-size: 0.95rem; line-height: 1.5; color: var(--fg); font-weight: 400; }
+.summary-prose em { color: var(--accent); font-style: italic; }
+.stat-block { border-left: 1px solid var(--rule); padding-left: 1rem; }
+.stat-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.25rem; }
+.stat-value { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 500; }
+.stat-value.pos { color: var(--pos); }
+.stat-value.neg { color: var(--neg); }
+.stat-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-muted); margin-top: 0.1rem; }
+/* ============ TOOLBAR ============ */
+.toolbar { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; padding-bottom: 0.75rem; }
+.toolbar-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-right: 0.25rem; }
+.chip { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.3rem 0.6rem; border: 1px solid var(--rule-strong); background: transparent; color: var(--fg-muted); cursor: pointer; text-transform: uppercase; letter-spacing: 0.06em; transition: all 0.15s; }
+.chip:hover { color: var(--fg); border-color: var(--fg-muted); }
+.chip.active { color: var(--bg); background: var(--fg); border-color: var(--fg); }
+.chip-divider { width: 1px; background: var(--rule); align-self: stretch; margin: 0 0.5rem; }
+select.sort-select { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.3rem 0.6rem; background: transparent; color: var(--fg); border: 1px solid var(--rule-strong); text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; }
+select.sort-select:hover { border-color: var(--fg-muted); }
+/* ============ TABLE ============ */
+.grid-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.grid-table thead { border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); }
+.grid-table th { text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 500; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; padding: 0.55rem 0.75rem; white-space: nowrap; }
+.grid-table th.num { text-align: right; }
+.grid-table tbody tr.data-row { border-bottom: 1px solid var(--rule); cursor: pointer; transition: background 0.1s; }
+.grid-table tbody tr.data-row:hover { background: var(--bg-row-hover); }
+.grid-table tbody tr.data-row.expanded { background: var(--bg-row-expanded); border-bottom-color: var(--rule-strong); }
+.grid-table td { padding: 0.6rem 0.75rem; vertical-align: middle; }
+.grid-table td.num { text-align: right; font-family: 'JetBrains Mono', monospace; font-feature-settings: "tnum" 1; }
+.ticker { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.02em; }
+.company { color: var(--fg-muted); font-size: 0.75rem; }
+.move-pct { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 0.82rem; }
+.move-pct.pos { color: var(--pos); }
+.move-pct.neg { color: var(--neg); }
+.vol { color: var(--fg-muted); }
+.cls-pill { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; padding: 0.18rem 0.5rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; border: 1px solid; line-height: 1.3; }
+.cls-OVERDONE { color: var(--pos); border-color: var(--pos); }
+.cls-UNDERDONE { color: var(--info); border-color: var(--info); }
+.cls-RATIONAL { color: var(--fg-muted); border-color: var(--rule-strong); }
+.cls-UNCLEAR { color: var(--warn); border-color: var(--warn); }
+.conf-dots { font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; color: var(--fg); }
+.conf-dots .off { color: var(--fg-dim); }
+.horz { color: var(--fg-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.one-liner { color: var(--fg); max-width: 360px; font-size: 0.8rem; line-height: 1.4; }
+.chev { color: var(--fg-dim); font-family: 'JetBrains Mono', monospace; transition: transform 0.2s; display: inline-block; }
+tr.expanded .chev { transform: rotate(90deg); color: var(--accent); }
+/* ============ EXPANDED DETAIL ROW ============ */
+tr.detail-row { background: var(--bg-row-expanded); border-bottom: 1px solid var(--rule-strong); }
+tr.detail-row td { padding: 0; }
+.detail-inner { padding: 1rem 1.5rem 1.5rem 2.5rem; display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem; }
+.detail-section { display: flex; flex-direction: column; gap: 0.4rem; }
+.detail-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500; padding-bottom: 0.25rem; border-bottom: 1px solid var(--rule); margin-bottom: 0.35rem; }
+.detail-text { font-family: 'Fraunces', serif; font-size: 0.88rem; line-height: 1.55; color: var(--fg); }
+.detail-text.flag { font-family: 'Inter', sans-serif; color: var(--fg-muted); font-size: 0.82rem; }
+.detail-list { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+.detail-list li { font-size: 0.8rem; color: var(--fg); line-height: 1.4; padding-left: 0.9rem; position: relative; }
+.detail-list li::before { content: "▸"; position: absolute; left: 0; color: var(--accent); font-size: 0.65rem; top: 0.22rem; }
+.catalyst { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--info); background: transparent; padding: 0.3rem 0.5rem; border-left: 2px solid var(--info); }
+/* ============ FOOTER ============ */
+footer { padding: 2rem 2rem 0; margin-top: 2rem; border-top: 1px solid var(--rule); color: var(--fg-dim); font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; max-width: 1400px; }
+footer p { margin-bottom: 0.3rem; }
+/* ============ EMPTY STATE ============ */
+.empty { padding: 3rem 1rem; text-align: center; color: var(--fg-muted); font-family: 'Fraunces', serif; font-style: italic; font-size: 1rem; }
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  header, main, footer, nav { padding-left: 1rem; padding-right: 1rem; }
+  .summary { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .summary-prose { grid-column: 1 / -1; }
+  .one-liner { max-width: 220px; }
+  .grid-table th.hide-mobile, .grid-table td.hide-mobile { display: none; }
+  .detail-inner { grid-template-columns: 1fr; padding: 1rem; gap: 1rem; }
+  .masthead { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  nav { overflow-x: auto; }
+}
 </style>
 </head>
 <body>
+
 <header>
-  <div>
-    <h1>agent<span class="slash">/</span>smith <span class="sub">us</span></h1>
-    <nav class="nav">
-      <a href="index.html" class="active">us</a>
-      <a href="tw.html">tw</a>
-    </nav>
+  <div class="masthead">
+    <div class="brand">
+      <span class="brand-name">agent<span class="brand-slash">/</span>smith</span>
+      <span class="brand-tag">us · signal terminal</span>
+    </div>
+    <div class="controls">
+      <span class="last-run"><span class="pulse"></span><span id="last-update">last run · 22 apr · 20:06 utc</span></span>
+      <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">◐ light</button>
+    </div>
   </div>
-  <div class="meta">
-    <div id="ts">loading...</div>
-    <div id="counts"></div>
-  </div>
+  <nav>
+    <a href="index.html" class="active">current</a>
+    <a href="trends.html">trends</a>
+    <a href="portfolio.html">portfolio</a>
+    <a href="suggestions.html">watching</a>
+    <a href="tw.html">taiwan</a>
+  </nav>
 </header>
 
-<div id="root"></div>
+<main>
+  <div class="summary">
+    <div class="summary-prose" id="summary-text">
+      Risk-on tape with semis leading; VIX down to 18.76. Mid-cap divergence notable — <em>CALX and EXTR drilled</em> on networking weakness while MANH and WEX spike on earnings. Iran/Hormuz oil disruption keeps energy bid but broader market shrugging.
+    </div>
+    <div class="stat-block">
+      <div class="stat-label">tape</div>
+      <div class="stat-value pos">risk-on</div>
+      <div class="stat-sub">vix 18.76 ▾</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-label">movers flagged</div>
+      <div class="stat-value">5</div>
+      <div class="stat-sub">4 tech · 1 energy</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-label">news scanned</div>
+      <div class="stat-value">60</div>
+      <div class="stat-sub">37 truth posts</div>
+    </div>
+  </div>
 
-<div class="footer">
-  pointers, not recommendations · always research before acting<br>
-  data sourced from yfinance, RSS feeds, public APIs · analysis by claude
-</div>
+  <div class="toolbar">
+    <span class="toolbar-label">filter</span>
+    <button class="chip active" data-filter="all">all</button>
+    <button class="chip" data-filter="OVERDONE">overdone</button>
+    <button class="chip" data-filter="UNDERDONE">underdone</button>
+    <button class="chip" data-filter="RATIONAL">rational</button>
+    <button class="chip" data-filter="UNCLEAR">unclear</button>
+    <div class="chip-divider"></div>
+    <span class="toolbar-label">sort</span>
+    <select class="sort-select" id="sort">
+      <option value="conf">confidence ↓</option>
+      <option value="move-abs">move % (abs) ↓</option>
+      <option value="vol">volume × ↓</option>
+      <option value="ticker">ticker a–z</option>
+    </select>
+  </div>
+
+  <table class="grid-table" id="picks-table">
+    <thead>
+      <tr>
+        <th style="width: 14%;">ticker</th>
+        <th class="num" style="width: 8%;">move</th>
+        <th class="num hide-mobile" style="width: 7%;">vol ×</th>
+        <th style="width: 12%;">class</th>
+        <th style="width: 10%;">conf</th>
+        <th class="hide-mobile" style="width: 7%;">horizon</th>
+        <th>read</th>
+        <th style="width: 20px;"></th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <div class="empty" id="empty" style="display: none;">
+    No flags match current filter.
+  </div>
+</main>
+
+<footer>
+  <p>pointers not recommendations · always research before acting</p>
+  <p>data: yfinance · rss feeds · public apis · analysis: claude opus 4.7</p>
+</footer>
 
 <script>
-const fmt = {
-  pct: n => n == null ? '—' : (n > 0 ? '+' : '') + n.toFixed(2) + '%',
-  cls: n => n == null ? 'flat' : n > 0.05 ? 'pos' : n < -0.05 ? 'neg' : 'flat',
-  badge: c => (c || 'unclear').toLowerCase().replace(/\s+/g, '-'),
-  stars: n => n == null ? '' : '★'.repeat(n) + '☆'.repeat(5 - n),
-  date: iso => {
-    if (!iso) return '—';
-    const d = new Date(iso);
-    return d.toLocaleString('en-US', {
-      timeZone: 'Asia/Riyadh',
-      dateStyle: 'medium',
-      timeStyle: 'short'
-    }) + ' AST';
+// ============ SAMPLE DATA (mirrors the structure from latest_us.json) ============
+const DATA = [
+  {
+    ticker: "CALX", name: "Calix, Inc", sector: "Technology",
+    move_pct: -14.0, volume_multiple: 4.02,
+    classification: "UNCLEAR", confidence: 2, time_horizon: "days",
+    mechanism: "Likely earnings/guidance reaction (4x volume, -14% into a +1% tape). Without the release in hand, hard to call overdone vs rational, but a -14% gap on a small-cap networking/broadband play often overshoots if guide was merely soft rather than structurally broken.",
+    catalyst: "Presumed Q1 earnings/guidance — confirm release",
+    research_pointers: [
+      "Pull Calix Q1 release and listen to call — specifically BEAD/RDOF commentary and FY guide",
+      "Compare to prior quarter's commentary on carrier inventory digestion",
+      "Check short interest and whether this breaks below prior post-earnings lows",
+      "Read across to EXTR weakness — is there a common carrier capex message?"
+    ],
+    what_would_falsify: "Guide cut reflects structural share loss or material customer concentration issue, not cyclical digestion — in which case -14% may be rational or even insufficient."
+  },
+  {
+    ticker: "EXTR", name: "Extreme Networks", sector: "Technology",
+    move_pct: -5.84, volume_multiple: 3.0,
+    classification: "UNCLEAR", confidence: 2, time_horizon: "days",
+    mechanism: "Possible sympathy with CALX on enterprise/networking capex fear, OR independent guidance issue. 3x volume suggests news-driven, not pure sympathy.",
+    catalyst: "Verify if EXTR reported or pre-announced; otherwise sympathy to CALX",
+    research_pointers: [
+      "Confirm whether EXTR has its own news or is trading in sympathy",
+      "If pure sympathy, EXTR historically serves different end markets (enterprise campus) than CALX (broadband access) — divergence could be mispricing",
+      "Check CSCO, JNPR, ANET tape for read-through"
+    ],
+    what_would_falsify: "EXTR has its own negative pre-announcement or guidance cut, making the move company-specific and rational."
+  },
+  {
+    ticker: "MANH", name: "Manhattan Associates", sector: "Technology",
+    move_pct: 5.92, volume_multiple: 2.12,
+    classification: "RATIONAL", confidence: 3, time_horizon: "days",
+    mechanism: "Up 10.9% over 5 days on 2x volume suggests earnings beat/raise. Supply chain software demand inflecting with tariff refund/re-routing dynamics.",
+    catalyst: "Likely Q1 earnings beat",
+    research_pointers: [
+      "Confirm Q1 print and RPO/cloud subscription growth",
+      "Management commentary on macro/tariff-driven supply chain software demand",
+      "Valuation check — MANH trades at premium multiple; how much is priced in"
+    ],
+    what_would_falsify: "Beat was driven by one-time items or guide was only reiterated not raised."
+  },
+  {
+    ticker: "WEX", name: "WEX Inc.", sector: "Financials",
+    move_pct: 4.3, volume_multiple: 1.8,
+    classification: "UNDERDONE", confidence: 2, time_horizon: "weeks",
+    mechanism: "Fuel card exposure may benefit from higher oil if spreads hold. Modest 1.8x volume but consistent with gradual repricing rather than spike.",
+    catalyst: "Probable Q1 earnings or raised guidance",
+    research_pointers: [
+      "Confirm earnings print, fuel price sensitivity commentary",
+      "Fleet segment volume trends vs. trucking macro",
+      "Short interest / any activist commentary"
+    ],
+    what_would_falsify: "Move driven by buyback announcement or one-off, not operating trends."
+  },
+  {
+    ticker: "ADTN", name: "ADTRAN Holdings", sector: "Technology",
+    move_pct: -6.2, volume_multiple: 2.4,
+    classification: "OVERDONE", confidence: 3, time_horizon: "days",
+    mechanism: "Sympathy selloff on CALX weakness despite no direct news. ADTN is a peer but has different product mix and less US carrier exposure. -6% on sympathy alone often overshoots and mean-reverts within a week.",
+    catalyst: "Sympathy to CALX — no direct company news confirmed",
+    research_pointers: [
+      "Confirm no ADTN-specific news or pre-announcement",
+      "Read across from CALX earnings commentary — is message about carrier digestion or Calix-specific?",
+      "Historical analog: how did ADTN trade after prior CALX-specific bad prints?"
+    ],
+    what_would_falsify: "ADTN has independent negative news, or CALX commentary explicitly flags industry-wide demand weakness affecting ADTN equally."
   }
+];
+// ============ RENDERERS ============
+const fmtPct = v => (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
+const fmtVol = v => v.toFixed(1) + '×';
+const confDots = n => {
+  let s = '';
+  for (let i = 1; i <= 5; i++) s += (i <= n) ? '●' : '<span class="off">○</span>';
+  return s;
 };
-
-async function load() {
-  try {
-    const r = await fetch('data/latest_us.json?_=' + Date.now());
-    if (!r.ok) throw new Error('No data yet — first run hasn\'t completed');
-    const d = await r.json();
-    render(d);
-  } catch (e) {
-    document.getElementById('root').innerHTML =
-      `<div class="error">Could not load analysis: ${e.message}</div>`;
+let activeFilter = 'all';
+let activeSort = 'conf';
+function sortData(data) {
+  const d = [...data];
+  switch (activeSort) {
+    case 'conf': d.sort((a, b) => b.confidence - a.confidence || Math.abs(b.move_pct) - Math.abs(a.move_pct)); break;
+    case 'move-abs': d.sort((a, b) => Math.abs(b.move_pct) - Math.abs(a.move_pct)); break;
+    case 'vol': d.sort((a, b) => b.volume_multiple - a.volume_multiple); break;
+    case 'ticker': d.sort((a, b) => a.ticker.localeCompare(b.ticker)); break;
   }
+  return d;
 }
-
-function render(d) {
-  document.getElementById('ts').textContent = fmt.date(d.generated_at);
-  document.getElementById('counts').textContent =
-    `${d.movers_count} movers · ${d.news_count} news · ${d.trump_posts_count || 0} posts`;
-
-  const root = document.getElementById('root');
-  const a = d.discovery || {};
-  const ai = d.ai_analysis || {};
-  let html = '';
-
-  if (a.run_summary) {
-    html += `<div class="summary">${escape(a.run_summary)}</div>`;
+function filterData(data) {
+  if (activeFilter === 'all') return data;
+  return data.filter(d => d.classification === activeFilter);
+}
+function render() {
+  const tbody = document.getElementById('tbody');
+  const data = sortData(filterData(DATA));
+  const empty = document.getElementById('empty');
+  if (data.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
   }
-
-  // Context bar
-  html += renderContext(d.market_context);
-
-  // Discoveries
-  const discoveries = a.discoveries || [];
-  html += `<section><h2>discoveries <span class="count">${discoveries.length}</span></h2>`;
-  if (discoveries.length === 0) {
-    html += `<div class="empty">${escape(a.no_signals_note || 'No interesting movers identified this run')}</div>`;
+  empty.style.display = 'none';
+  tbody.innerHTML = data.map(d => {
+    const moveClass = d.move_pct >= 0 ? 'pos' : 'neg';
+    return `
+      <tr class="data-row" data-ticker="${d.ticker}" onclick="toggleRow('${d.ticker}')">
+        <td><div class="ticker">${d.ticker}</div><div class="company">${d.name}</div></td>
+        <td class="num"><span class="move-pct ${moveClass}">${fmtPct(d.move_pct)}</span></td>
+        <td class="num hide-mobile vol">${fmtVol(d.volume_multiple)}</td>
+        <td><span class="cls-pill cls-${d.classification}">${d.classification}</span></td>
+        <td><span class="conf-dots">${confDots(d.confidence)}</span></td>
+        <td class="hide-mobile horz">${d.time_horizon}</td>
+        <td class="one-liner">${d.mechanism.split('.')[0]}.</td>
+        <td><span class="chev">▸</span></td>
+      </tr>
+      <tr class="detail-row" id="detail-${d.ticker}" style="display: none;">
+        <td colspan="8">
+          <div class="detail-inner">
+            <div class="detail-section">
+              <div class="detail-label">why this is interesting</div>
+              <div class="detail-text">${d.mechanism}</div>
+              <div class="catalyst" style="margin-top: 0.75rem;">likely catalyst: ${d.catalyst}</div>
+            </div>
+            <div class="detail-section">
+              <div class="detail-label">research pointers</div>
+              <ul class="detail-list">
+                ${d.research_pointers.map(p => `<li>${p}</li>`).join('')}
+              </ul>
+              <div class="detail-label" style="margin-top: 1rem;">red flags to watch for</div>
+              <div class="detail-text flag">${d.what_would_falsify}</div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+function toggleRow(ticker) {
+  const dataRow = document.querySelector(`tr.data-row[data-ticker="${ticker}"]`);
+  const detailRow = document.getElementById('detail-' + ticker);
+  const isOpen = dataRow.classList.contains('expanded');
+  if (isOpen) {
+    dataRow.classList.remove('expanded');
+    detailRow.style.display = 'none';
   } else {
-    html += '<div class="discoveries">';
-    discoveries.forEach(item => html += renderDiscovery(item));
-    html += '</div>';
+    dataRow.classList.add('expanded');
+    detailRow.style.display = '';
   }
-  html += '</section>';
-
-  // Catalyst chains
-  const chains = a.catalyst_chains || [];
-  if (chains.length) {
-    html += `<section><h2>catalyst chains <span class="count">${chains.length}</span></h2><div class="chains">`;
-    chains.forEach(c => html += renderChain(c));
-    html += '</div></section>';
+}
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+  html.dataset.theme = next;
+  try { localStorage.setItem('agent-smith-theme', next); } catch(e) {}
+  document.getElementById('theme-btn').textContent = next === 'dark' ? '◐ light' : '◑ dark';
+}
+// restore theme
+try {
+  const saved = localStorage.getItem('agent-smith-theme');
+  if (saved) {
+    document.documentElement.dataset.theme = saved;
+    document.getElementById('theme-btn').textContent = saved === 'dark' ? '◐ light' : '◑ dark';
   }
-
-  // AI announcements
-  const announces = ai.ai_announcements || [];
-  if (announces.length) {
-    html += `<section><h2>ai catalysts <span class="count">${announces.length}</span></h2>`;
-    announces.forEach(an => html += renderAI(an));
-    html += '</section>';
-  } else if (ai.no_signals_note) {
-    html += `<section><h2>ai catalysts</h2><div class="empty">${escape(ai.no_signals_note)}</div></section>`;
-  }
-
-  // Trump signals
-  const trump = a.trump_signals || [];
-  if (trump.length) {
-    html += `<section><h2>political signals <span class="count">${trump.length}</span></h2>`;
-    trump.forEach(t => html += renderTrump(t));
-    html += '</section>';
-  }
-
-  root.innerHTML = html;
-}
-
-function renderContext(ctx) {
-  if (!ctx) return '';
-  let html = '<section><h2>market context</h2><div class="context-grid">';
-  for (const [tkr, q] of Object.entries(ctx)) {
-    if (q.error) continue;
-    const cls = fmt.cls(q.change_pct);
-    html += `<div class="ctx">
-      <div class="ticker">${escape(tkr)}</div>
-      <div class="price">${q.price?.toFixed(2) ?? '—'}</div>
-      <div class="change ${cls}">${fmt.pct(q.change_pct)}</div>
-    </div>`;
-  }
-  html += '</div></section>';
-  return html;
-}
-
-function renderDiscovery(d) {
-  const moveCls = fmt.cls(d.move_pct);
-  const badgeCls = fmt.badge(d.classification);
-  return `<div class="card">
-    <div class="ident">
-      <div class="ticker-big">${escape(d.ticker || '?')}</div>
-      <div class="name">${escape(d.name || '')}</div>
-      <div class="sector">${escape(d.sector || '')}</div>
-    </div>
-    <div class="body">
-      <div class="row">
-        <span class="badge ${badgeCls}">${escape(d.classification || 'unclear')}</span>
-        <span class="conf">conf <span class="stars">${fmt.stars(d.confidence)}</span></span>
-        ${d.time_horizon ? `<span class="conf">⏱ ${escape(d.time_horizon)}</span>` : ''}
-      </div>
-      ${d.catalyst ? `<div><div class="mech-label">catalyst</div><div class="mech">${escape(d.catalyst)}</div></div>` : ''}
-      ${d.mechanism ? `<div><div class="mech-label">mechanism</div><div class="mech">${escape(d.mechanism)}</div></div>` : ''}
-      ${(d.research_pointers || []).length ? `
-        <div>
-          <div class="mech-label">research</div>
-          <ul class="pointers">${d.research_pointers.map(p => `<li>${escape(p)}</li>`).join('')}</ul>
-        </div>` : ''}
-      ${d.what_would_falsify ? `<div class="falsify">falsify: ${escape(d.what_would_falsify)}</div>` : ''}
-    </div>
-    <div class="move">
-      <div class="move-pct ${moveCls}">${fmt.pct(d.move_pct)}</div>
-      ${d.volume_multiple ? `<div class="move-vol">vol ${d.volume_multiple}×</div>` : ''}
-    </div>
-  </div>`;
-}
-
-function renderChain(c) {
-  return `<div class="chain">
-    <div class="primary"><span class="ptkr">${escape(c.primary_ticker || '')}</span> · ${escape(c.primary_event || '')}</div>
-    <div class="secondaries">
-      ${(c.secondary_opportunities || []).map(s => `
-        <div class="secondary">
-          <span class="stkr">${escape(s.ticker)}</span>
-          <span class="rel">${escape(s.relationship)} · ${escape(s.expected_direction)} · conf ${s.confidence}</span>
-        </div>
-      `).join('')}
-    </div>
-  </div>`;
-}
-
-function renderAI(an) {
-  const flagClass = an.is_from_anthropic ? 'anthropic-flag' : '';
-  return `<div class="ai-announce">
-    <div class="ai-source ${flagClass}">${escape(an.source || '')}</div>
-    <div class="ai-headline">${escape(an.headline || '')}</div>
-    <div>${escape(an.summary || '')}</div>
-    <div class="ai-affected">
-      ${(an.affected_stocks || []).map(s => `
-        <div class="ai-stock">
-          <strong>${escape(s.ticker)}</strong>
-          <div>
-            overlap: ${escape(s.direct_overlap)} ·
-            switching cost: ${escape(s.switching_cost)} ·
-            horizon: ${escape(s.time_horizon)}<br>
-            <em>${escape(s.counter_thesis || '')}</em>
-          </div>
-          <div style="text-align:right;">
-            <span class="badge ${fmt.badge(s.verdict)}">${escape(s.verdict)}</span><br>
-            <span class="conf"><span class="stars">${fmt.stars(s.confidence)}</span></span>
-          </div>
-        </div>
-      `).join('')}
-    </div>
-  </div>`;
-}
-
-function renderTrump(t) {
-  return `<div class="trump-signal">
-    <div class="post">"${escape(t.post_summary || '')}"</div>
-    <div>affected: ${(t.potentially_affected || []).map(escape).join(', ') || '—'}</div>
-    <div style="color:var(--text-dim);margin-top:4px;">${escape(t.note || '')}</div>
-  </div>`;
-}
-
-function escape(s) {
-  if (s == null) return '';
-  return String(s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-load();
+} catch(e) {}
+// filter chips
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    activeFilter = chip.dataset.filter;
+    render();
+  });
+});
+// sort select
+document.getElementById('sort').addEventListener('change', e => {
+  activeSort = e.target.value;
+  render();
+});
+render();
 </script>
 </body>
 </html>

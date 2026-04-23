@@ -1,78 +1,90 @@
-name: agent-smith analysis
+name: analyze
+
+# Phase 1.5-lite:
+#   - Dropped the 17:00 AST (14:00 UTC) "US morning" run — cost saving.
+#   - 22:00 AST (19:00 UTC) now passes --portfolio, triggering the paper-portfolio
+#     decision pass (Haiku 4.5) alongside the main US/Taiwan analysis.
+#   - 09:00 AST (06:00 UTC) Taiwan run unchanged.
 
 on:
   schedule:
-    # Times in UTC. AST = UTC+3 year-round (no DST in Saudi Arabia).
-    # 09:00 AST = 06:00 UTC — Taiwan-focused (post Taipei close)
+    # Taiwan morning pass (post Taipei close)           — 09:00 AST Mon-Fri
     - cron: "0 6 * * 1-5"
-    # 17:00 AST = 14:00 UTC — US morning (30 min after NYSE open)
-    - cron: "0 14 * * 1-5"
-    # 22:00 AST = 19:00 UTC — US afternoon (1 hr before NYSE close)
+    # US afternoon + Taiwan refresh + portfolio pass    — 22:00 AST Mon-Fri
     - cron: "0 19 * * 1-5"
   workflow_dispatch:
     inputs:
       mode:
-        description: "Which analysis to run"
+        description: "Which mode to run"
         required: true
         default: "all"
         type: choice
-        options:
-          - us
-          - tw
-          - all
-
-permissions:
-  contents: write   # needed to commit the updated JSON output
+        options: ["us", "tw", "all"]
+      portfolio:
+        description: "Also run the portfolio decision pass"
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   analyze:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    permissions:
+      contents: write  # we commit JSON back to the repo
 
     steps:
-      - name: Check out repo
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
-          cache: pip
+          python-version: "3.11"
+          cache: "pip"
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Determine run mode
+      - name: Pick mode & flags for this run
         id: mode
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "mode=${{ github.event.inputs.mode }}" >> $GITHUB_OUTPUT
-          else
-            # Determine mode based on which scheduled cron triggered this
-            HOUR=$(date -u +%H)
-            if [ "$HOUR" = "06" ]; then
-              echo "mode=tw" >> $GITHUB_OUTPUT
-            else
-              echo "mode=all" >> $GITHUB_OUTPUT
-            fi
+          # Default: workflow_dispatch inputs
+          MODE="${{ github.event.inputs.mode }}"
+          PORTFOLIO="${{ github.event.inputs.portfolio }}"
+          # Override for scheduled runs based on cron expression
+          CRON="${{ github.event.schedule }}"
+          if [[ "$CRON" == "0 6 * * 1-5" ]]; then
+            MODE="tw"
+            PORTFOLIO="false"
+          elif [[ "$CRON" == "0 19 * * 1-5" ]]; then
+            MODE="all"
+            PORTFOLIO="true"
           fi
+          # Fallback for manual runs with no explicit mode
+          if [ -z "$MODE" ]; then
+            MODE="all"
+          fi
+          echo "mode=$MODE"           >> "$GITHUB_OUTPUT"
+          echo "portfolio=$PORTFOLIO" >> "$GITHUB_OUTPUT"
+          echo "Selected mode=$MODE portfolio=$PORTFOLIO"
 
-      - name: Run agent-smith
+      - name: Run analysis
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          python -m agent.main ${{ steps.mode.outputs.mode }}
+          if [ "${{ steps.mode.outputs.portfolio }}" = "true" ]; then
+            python -m agent.main "${{ steps.mode.outputs.mode }}" --portfolio
+          else
+            python -m agent.main "${{ steps.mode.outputs.mode }}"
+          fi
 
-      - name: Commit updated analysis
+      - name: Commit output
         run: |
-          git config user.name "agent-smith-bot"
+          git config user.name  "agent-smith[bot]"
           git config user.email "agent-smith@users.noreply.github.com"
           git add docs/data/
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Run ${{ steps.mode.outputs.mode }} analysis $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-            git push
-          fi
+          # --allow-empty avoids failing a run that produced no diff
+          git commit -m "auto: ${{ steps.mode.outputs.mode }} run $(date -u +%Y-%m-%dT%H:%MZ) portfolio=${{ steps.mode.outputs.portfolio }}" --allow-empty
+          git push
