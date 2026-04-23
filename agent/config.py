@@ -204,7 +204,17 @@ GRADING_HORIZON_DAYS = {
 }
 
 # Only these classifications get graded; others are NOT_GRADED.
-GRADING_CLASSIFICATIONS_TO_GRADE = ["OVERDONE", "UNDERDONE"]
+# Matches the discovery prompt's output labels (which include "LIKELY"
+# and "PARTIALLY" prefixes). Anything with OVERDONE or UNDERDONE in it
+# is directional enough to grade.
+GRADING_CLASSIFICATIONS_TO_GRADE = [
+    "OVERDONE",
+    "UNDERDONE",
+    "LIKELY OVERDONE",
+    "LIKELY UNDERDONE",
+    "PARTIALLY OVERDONE",
+    "PARTIALLY UNDERDONE",
+]
 
 # Phase 1.5-lite output path
 OUTPUT_TRENDS = "docs/data/trends.json"

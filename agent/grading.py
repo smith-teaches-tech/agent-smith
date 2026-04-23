@@ -29,6 +29,11 @@ Direction mapping (from classification + move_pct):
     RATIONAL    → not graded (no directional call)
     UNCLEAR     → not graded (no directional call)
 
+Classification normalization: the discovery prompt outputs longer labels
+like "LIKELY OVERDONE" or "PARTIALLY RATIONAL". We normalize these down to
+the short forms (OVERDONE / UNDERDONE / RATIONAL / UNCLEAR) at read-time
+so grading logic and dashboard bucketing are clean.
+
 OVERDONE example:
     CALX dropped -14% (move_pct=-14), classified OVERDONE → expected direction is UP.
     If CALX is up ≥3% within horizon → HIT.
@@ -56,8 +61,26 @@ logger = logging.getLogger(__name__)
 # ============================================================
 # Versioning
 # ============================================================
-
 LOGIC_VERSION = 1
+
+
+def _normalize_classification(raw: Optional[str]) -> str:
+    """
+    Normalize classification labels to short forms for dashboard bucketing.
+    Discovery prompt outputs 'LIKELY OVERDONE', 'PARTIALLY OVERDONE' etc;
+    grading dashboards want just 'OVERDONE' / 'UNDERDONE' / 'RATIONAL' / 'UNCLEAR'.
+    """
+    if not raw:
+        return "UNCLEAR"
+    r = raw.upper()
+    if "OVERDONE" in r:
+        return "OVERDONE"
+    if "UNDERDONE" in r:
+        return "UNDERDONE"
+    if "RATIONAL" in r:
+        return "RATIONAL"
+    return "UNCLEAR"
+
 
 GRADING_PARAMS = {
     1: {
@@ -109,7 +132,11 @@ class Grade:
 
 
 def _expected_direction(classification: str, move_pct: float) -> Optional[str]:
-    """Return 'up' / 'down' based on classification, or None if not graded."""
+    """Return 'up' / 'down' based on classification, or None if not graded.
+
+    Assumes `classification` has already been normalized to a short form
+    (OVERDONE / UNDERDONE / RATIONAL / UNCLEAR) by _normalize_classification.
+    """
     c = (classification or "").upper()
     if c == "OVERDONE":
         # Expect mean reversion — direction opposite to the move
@@ -175,7 +202,8 @@ def grade_call(
     ticker = discovery.get("ticker", "")
     name = discovery.get("name", ticker)
     sector = discovery.get("sector")
-    classification = (discovery.get("classification") or "").upper()
+    # Normalize up-front so everything downstream uses the short form
+    classification = _normalize_classification(discovery.get("classification"))
     confidence = int(discovery.get("confidence", 0) or 0)
     move_pct = float(discovery.get("move_pct", 0) or 0)
     time_horizon = discovery.get("time_horizon")
