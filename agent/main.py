@@ -16,7 +16,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from . import config, market, news, truth, analyze
+from . import config, market, news, truth, analyze, grading
 
 
 def _ensure_output_dirs() -> None:
@@ -151,7 +151,19 @@ def main() -> None:
             if args.mode == "tw":
                 sys.exit(1)
 
-    print("=== done ===")
+
+    # Grading runs on every US/all invocation; cheap (no LLM) and builds history.
+    if args.mode in ("us", "all"):
+        try:
+            print("[grading] running...")
+            grading_out = grading.run()
+            n = grading_out.get("overall", {}).get("n_resolved", 0)
+            total = grading_out.get("n_total_calls", 0)
+            print(f"[grading] {n}/{total} calls resolved; wrote {config.OUTPUT_TRENDS}")
+        except Exception as e:
+            print(f"[grading] FAILED: {e}")
+
+     print("=== done ===")
 
 
 if __name__ == "__main__":

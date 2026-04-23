@@ -184,3 +184,27 @@ NEWS_LOOKBACK_HOURS = 12
 OUTPUT_LATEST_US = "docs/data/latest_us.json"
 OUTPUT_LATEST_TW = "docs/data/latest_tw.json"
 OUTPUT_HISTORY_DIR = "docs/data/history"
+
+# ============================================================
+# GRADING (Phase 1.5-lite)
+# ============================================================
+
+# Current grading logic version. Stamped into every grade so
+# threshold changes don't invalidate historical results.
+GRADING_LOGIC_VERSION = 1
+
+# ±pct move within horizon to count as HIT or MISS
+GRADING_HIT_THRESHOLD_PCT = 3.0
+
+# time_horizon (string) → trading-day count used by grader
+GRADING_HORIZON_DAYS = {
+    "days": 5,
+    "weeks": 20,
+    "months": 60,
+}
+
+# Only these classifications get graded; others are NOT_GRADED.
+GRADING_CLASSIFICATIONS_TO_GRADE = ["OVERDONE", "UNDERDONE"]
+
+# Phase 1.5-lite output path
+OUTPUT_TRENDS = "docs/data/trends.json"
