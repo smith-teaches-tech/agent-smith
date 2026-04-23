@@ -1,11 +1,12 @@
 """
 Claude analysis layer.
 
-Three structured analytical passes:
+Four structured analytical passes:
   1. Discovery scan (US) — find interesting movers, assess rationality
   2. AI announcement impact — with bias safeguards (Claude analyzing news
      about its own creator)
   3. Taiwan pass — translate Chinese, analyze Taiwan-specific dynamics
+  4. Portfolio decision pass (Phase 1.5-lite) — Haiku 4.5, paper portfolio
 
 All passes return structured JSON for clean rendering.
 All external content is wrapped in delimiters with explicit instructions
@@ -438,11 +439,16 @@ def _parse_json_response(text: str) -> dict[str, Any]:
             "_raw_response": text[:2000],
         }
 
-    PORTFOLIO_SYSTEM = f"""You manage a small paper portfolio for Michael Smith.
+
+# ============================================================
+# PASS 4: PORTFOLIO DECISION (Phase 1.5-lite)
+# ============================================================
+
+PORTFOLIO_SYSTEM = f"""You manage a small paper portfolio for Michael Smith.
 It exists to TEST whether your discovery flags actually work in practice.
 Michael does NOT act on this portfolio — it's a feedback loop for grading
 your own judgement over time.
- 
+
 Starting bankroll: $10,000 paper USD. Strict guardrails enforced by the
 execution layer (you don't need to double-check arithmetic — the layer
 will reject trades that violate):
@@ -450,11 +456,11 @@ will reject trades that violate):
 - No single sector > 40% of total equity
 - Always keep at least 10% in cash
 - Cash can never go negative
- 
+
 Your job each run: review what's open and what's newly flagged, and
 output a decision for each. Be willing to SKIP. Inaction is usually the
 right choice — trading costs money (IBKR Pro Tiered fees + 0.1% slippage).
- 
+
 For each OPEN position, assess:
 - thesis_status: intact / weakening / broken / played-out
   * "intact"     — original setup still holds, horizon not elapsed
@@ -466,27 +472,27 @@ For each OPEN position, assess:
     room under position/sector limits AND confidence improved.
   * TRIM means reduce position (specify shares_to_sell).
   * EXIT means close entire position.
- 
+
 For each NEW DISCOVERY (confidence ≥ 3 only), choose one:
 - BUY — open a position at next US open (execution layer sizes it)
 - WATCH — interesting but wait for better entry / more confirmation
 - SKIP — quality doesn't justify entry
- 
+
 Do NOT propose a BUY on a discovery whose classification is RATIONAL or
 UNCLEAR. Only OVERDONE and UNDERDONE with confidence ≥ 3 are buy-eligible.
- 
+
 Do NOT try to outsmart the rules. If a trade would breach a limit, the
 execution layer will block it and write a NO_CASH decision to the
 suggestions log — that's fine. Your job is judgement, not arithmetic.
- 
+
 You will see recent grading data (hit rates by classification and
 confidence). Take it seriously — if your OVERDONE calls at confidence 2
 have been hitting only 30%, you should be more reluctant on new ones.
- 
+
 {INJECTION_GUARD}
- 
+
 {OUTPUT_DISCIPLINE}
- 
+
 JSON SCHEMA:
 {{
   "run_summary": "2-3 sentences on what changed since last run and why you made these calls",
@@ -511,8 +517,8 @@ JSON SCHEMA:
   "no_action_note": "optional: explain if nothing warranted action this run"
 }}
 """
- 
- 
+
+
 def _summarize_trends_for_prompt(trends: dict[str, Any] | None) -> str:
     """
     Condense trends.json into a short prompt-injectable summary so we don't
@@ -529,7 +535,7 @@ def _summarize_trends_for_prompt(trends: dict[str, Any] | None) -> str:
             f"{trends.get('n_total_calls', 0)} calls tracked so far; "
             f"none resolved yet (horizons pending)."
         )
- 
+
     lines = [
         f"Overall: {overall.get('hit_rate', 0):.0f}% hit rate across "
         f"{n} resolved calls ({overall.get('n_hit', 0)} hit / "
@@ -557,8 +563,8 @@ def _summarize_trends_for_prompt(trends: dict[str, Any] | None) -> str:
         if parts:
             lines.append("By confidence: " + " · ".join(parts))
     return "\n".join(lines)
- 
- 
+
+
 def _summarize_open_position(pos: dict[str, Any]) -> dict[str, Any]:
     """Strip a portfolio position down to what Claude needs to decide."""
     return {
@@ -577,8 +583,8 @@ def _summarize_open_position(pos: dict[str, Any]) -> dict[str, Any]:
         "thesis": pos.get("thesis"),
         "catalyst": pos.get("catalyst"),
     }
- 
- 
+
+
 def _summarize_discovery_for_portfolio(d: dict[str, Any]) -> dict[str, Any]:
     """Strip a discovery flag down to what the portfolio pass cares about."""
     return {
@@ -593,8 +599,8 @@ def _summarize_discovery_for_portfolio(d: dict[str, Any]) -> dict[str, Any]:
         "time_horizon": d.get("time_horizon", "days"),
         "what_would_falsify": d.get("what_would_falsify"),
     }
- 
- 
+
+
 def run_portfolio_pass(
     *,
     portfolio_state: dict[str, Any],
@@ -603,26 +609,35 @@ def run_portfolio_pass(
 ) -> dict[str, Any]:
     """
     Execute the portfolio decision pass.
- 
+
     Args:
       portfolio_state:  current output of portfolio.load_state() after
                         mark-to-market. We only need a few fields from it.
       recent_flags:     list of discovery items from the last N days,
                         typically flattened from latest_us.json + history/
       trends_summary:   trends.json contents (or None if grading hasn't run)
- 
+
     Returns JSON per PORTFOLIO_SYSTEM's schema.
     """
     slim_positions = [
         _summarize_open_position(p) for p in portfolio_state["open_positions"]
     ]
+    # Classification check is tolerant of LIKELY/PARTIALLY prefixes — same
+    # normalization the grader uses, so buy eligibility matches the discovery
+    # prompt's actual output.
+    def _is_buy_eligible(raw_cls: str | None) -> bool:
+        if not raw_cls:
+            return False
+        c = raw_cls.upper()
+        return "OVERDONE" in c or "UNDERDONE" in c
+
     buy_eligible = [
         _summarize_discovery_for_portfolio(f)
         for f in recent_flags
-        if f.get("classification") in ("OVERDONE", "UNDERDONE")
+        if _is_buy_eligible(f.get("classification"))
         and (f.get("confidence") or 0) >= config.PAPER_PORTFOLIO_MIN_BUY_CONFIDENCE
     ]
- 
+
     user_content = "\n".join([
         f"Run timestamp (UTC): {datetime.now(timezone.utc).isoformat()}",
         "",
@@ -654,7 +669,7 @@ def run_portfolio_pass(
         "Return one decision per open position and one decision per new flag, "
         "per the JSON schema in your instructions.",
     ])
- 
+
     client = _client()
     msg = client.messages.create(
         model=config.CLAUDE_PORTFOLIO_MODEL,
