@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-23T20:07:51.380900+00:00",
+  "generated_at": "2026-04-24T19:53:48.448289+00:00",
   "logic_version": 1,
   "grading_params": {
     "hit_threshold_pct": 3.0,
@@ -11,26 +11,26 @@
     "default_horizon_days": 5,
     "graded_classifications": "{'OVERDONE', 'UNDERDONE'}"
   },
-  "n_total_calls": 56,
-  "n_not_graded": 54,
-  "n_pending": 1,
+  "n_total_calls": 62,
+  "n_not_graded": 60,
+  "n_pending": 0,
   "n_data_error": 0,
   "overall": {
-    "n_resolved": 1,
-    "n_hit": 0,
+    "n_resolved": 2,
+    "n_hit": 1,
     "n_miss": 1,
     "n_ambiguous": 0,
-    "hit_rate": 0.0,
-    "avg_return_pct": -3.21
+    "hit_rate": 50.0,
+    "avg_return_pct": 0.31
   },
   "by_classification": {
     "OVERDONE": {
-      "n_resolved": 1,
-      "n_hit": 0,
+      "n_resolved": 2,
+      "n_hit": 1,
       "n_miss": 1,
       "n_ambiguous": 0,
-      "hit_rate": 0.0,
-      "avg_return_pct": -3.21
+      "hit_rate": 50.0,
+      "avg_return_pct": 0.31
     },
     "UNDERDONE": {
       "n_resolved": 0,
@@ -59,12 +59,12 @@
       "avg_return_pct": null
     },
     "3": {
-      "n_resolved": 1,
-      "n_hit": 0,
+      "n_resolved": 2,
+      "n_hit": 1,
       "n_miss": 1,
       "n_ambiguous": 0,
-      "hit_rate": 0.0,
-      "avg_return_pct": -3.21
+      "hit_rate": 50.0,
+      "avg_return_pct": 0.31
     },
     "4": {
       "n_resolved": 0,
@@ -84,23 +84,23 @@
     }
   },
   "by_sector": {
-    "Financial Services (misclassified as Tech)": {
-      "n_resolved": 0,
+    "Consumer Cyclical": {
+      "n_resolved": 1,
       "n_hit": 0,
-      "n_miss": 0,
+      "n_miss": 1,
       "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Technology": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
+      "hit_rate": 0.0,
+      "avg_return_pct": -3.21
     },
     "Industrials": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Consumer Defensive": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -116,23 +116,31 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Consumer Cyclical": {
-      "n_resolved": 1,
+    "Financial Services (misclassified as Tech)": {
+      "n_resolved": 0,
       "n_hit": 0,
-      "n_miss": 1,
+      "n_miss": 0,
       "n_ambiguous": 0,
-      "hit_rate": 0.0,
-      "avg_return_pct": -3.21
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Technology": {
+      "n_resolved": 1,
+      "n_hit": 1,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": 100.0,
+      "avg_return_pct": 3.83
     }
   },
   "by_horizon_days": {
     "5": {
-      "n_resolved": 1,
-      "n_hit": 0,
+      "n_resolved": 2,
+      "n_hit": 1,
       "n_miss": 1,
       "n_ambiguous": 0,
-      "hit_rate": 0.0,
-      "avg_return_pct": -3.21
+      "hit_rate": 50.0,
+      "avg_return_pct": 0.31
     },
     "20": {
       "n_resolved": 0,
@@ -152,6 +160,26 @@
     }
   },
   "best_calls": [
+    {
+      "ticker": "EXTR",
+      "name": "Extreme Networks",
+      "sector": "Technology",
+      "flagged_at": "2026-04-23T11:47:58+00:00",
+      "run_file": "us_20260423T114758Z.json",
+      "classification": "OVERDONE",
+      "confidence": 3,
+      "move_pct_at_flag": -5.84,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "HIT",
+      "return_pct_in_horizon": 3.83,
+      "max_favorable_pct": 4.23,
+      "max_adverse_pct": 0.0,
+      "price_at_flag": 16.9,
+      "price_at_horizon_end": 17.548,
+      "logic_version": 1,
+      "notes": "only 1 bars elapsed"
+    },
     {
       "ticker": "BBY",
       "name": "Best Buy Co., Inc.",
@@ -191,6 +219,26 @@
       "max_adverse_pct": -3.97,
       "price_at_flag": 63.53,
       "price_at_horizon_end": 61.49,
+      "logic_version": 1,
+      "notes": "only 1 bars elapsed"
+    },
+    {
+      "ticker": "EXTR",
+      "name": "Extreme Networks",
+      "sector": "Technology",
+      "flagged_at": "2026-04-23T11:47:58+00:00",
+      "run_file": "us_20260423T114758Z.json",
+      "classification": "OVERDONE",
+      "confidence": 3,
+      "move_pct_at_flag": -5.84,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "HIT",
+      "return_pct_in_horizon": 3.83,
+      "max_favorable_pct": 4.23,
+      "max_adverse_pct": 0.0,
+      "price_at_flag": 16.9,
+      "price_at_horizon_end": 17.548,
       "logic_version": 1,
       "notes": "only 1 bars elapsed"
     }
@@ -1167,14 +1215,14 @@
       "move_pct_at_flag": -5.84,
       "expected_direction": "up",
       "horizon_days": 5,
-      "grade": "PENDING",
-      "return_pct_in_horizon": null,
-      "max_favorable_pct": null,
-      "max_adverse_pct": null,
-      "price_at_flag": 16.899999618530273,
-      "price_at_horizon_end": null,
+      "grade": "HIT",
+      "return_pct_in_horizon": 3.83,
+      "max_favorable_pct": 4.23,
+      "max_adverse_pct": 0.0,
+      "price_at_flag": 16.9,
+      "price_at_horizon_end": 17.548,
       "logic_version": 1,
-      "notes": "No post-flag bars yet"
+      "notes": "only 1 bars elapsed"
     },
     {
       "ticker": "BBY",
@@ -1315,6 +1363,126 @@
       "price_at_horizon_end": null,
       "logic_version": 1,
       "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "CRSP",
+      "name": "CRISPR Therapeutics AG",
+      "sector": "Healthcare",
+      "flagged_at": "2026-04-24T19:52:48+00:00",
+      "run_file": "us_20260424T195248Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -10.27,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "BEAM",
+      "name": "Beam Therapeutics Inc.",
+      "sector": "Healthcare",
+      "flagged_at": "2026-04-24T19:52:48+00:00",
+      "run_file": "us_20260424T195248Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -7.68,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "SKYW",
+      "name": "SkyWest, Inc.",
+      "sector": "Industrials",
+      "flagged_at": "2026-04-24T19:52:48+00:00",
+      "run_file": "us_20260424T195248Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -7.25,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "KTOS",
+      "name": "Kratos Defense & Security",
+      "sector": "Industrials",
+      "flagged_at": "2026-04-24T19:52:48+00:00",
+      "run_file": "us_20260424T195248Z.json",
+      "classification": "RATIONAL",
+      "confidence": 3,
+      "move_pct_at_flag": -6.51,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=RATIONAL not in graded set"
+    },
+    {
+      "ticker": "ATGE",
+      "name": "Adtalem Global Education",
+      "sector": "Consumer Defensive",
+      "flagged_at": "2026-04-24T19:52:48+00:00",
+      "run_file": "us_20260424T195248Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -6.23,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "LSCC",
+      "name": "Lattice Semiconductor",
+      "sector": "Technology",
+      "flagged_at": "2026-04-24T19:52:48+00:00",
+      "run_file": "us_20260424T195248Z.json",
+      "classification": "RATIONAL",
+      "confidence": 3,
+      "move_pct_at_flag": 4.66,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=RATIONAL not in graded set"
     }
   ]
 }
