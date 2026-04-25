@@ -1,0 +1,14 @@
+[
+  {
+    "ts": "2026-04-23T11:49:08.996295+00:00",
+    "kind": "buy",
+    "date": "2026-04-23T11:49:08.996213+00:00",
+    "side": "BUY",
+    "ticker": "EXTR",
+    "shares": 85,
+    "fill_price": 18.7187,
+    "fees": 0.622,
+    "notional": 1591.09,
+    "why": "Opened per flag: LIKELY OVERDONE conf 3 — CALX -14% print dragging networking peers"
+  }
+]

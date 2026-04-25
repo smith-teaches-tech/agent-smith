@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- background -->
+  <rect width="512" height="512" fill="#0a0a0a"/>
+
+  <!-- subtle border like terminal frame -->
+  <rect x="32" y="32" width="448" height="448" fill="none" stroke="#2a2a2a" stroke-width="2"/>
+
+  <!-- terminal prompt: a/s in JetBrains Mono style -->
+  <!-- using paths instead of font for guaranteed render -->
+  <text x="256" y="290"
+        font-family="'JetBrains Mono', 'Courier New', monospace"
+        font-size="200"
+        font-weight="500"
+        fill="#e8e6e1"
+        text-anchor="middle"
+        letter-spacing="-8">a/s</text>
+
+  <!-- blinking cursor accent line under -->
+  <rect x="160" y="340" width="192" height="3" fill="#d4a574"/>
+</svg>

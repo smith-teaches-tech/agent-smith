@@ -1,0 +1,437 @@
+{
+  "generated_at": "2026-04-23T20:06:58.972512+00:00",
+  "market_context": {
+    "SPY": {
+      "price": 708.36,
+      "change_pct": -0.4,
+      "volume": 52293495,
+      "high": 712.36,
+      "low": 702.28
+    },
+    "QQQ": {
+      "price": 651.42,
+      "change_pct": -0.56,
+      "volume": 37080000,
+      "high": 656.92,
+      "low": 645.53
+    },
+    "DIA": {
+      "price": 492.98,
+      "change_pct": -0.36,
+      "volume": 3983360,
+      "high": 495.13,
+      "low": 488.51
+    },
+    "IWM": {
+      "price": 275.5,
+      "change_pct": -0.35,
+      "volume": 31148057,
+      "high": 277.86,
+      "low": 271.96
+    },
+    "^VIX": {
+      "price": 19.36,
+      "change_pct": 2.33,
+      "volume": 0,
+      "high": 21.56,
+      "low": 18.7
+    },
+    "XLK": {
+      "price": 155.83,
+      "change_pct": -1.43,
+      "volume": 11902233,
+      "high": 157.79,
+      "low": 153.99
+    },
+    "XLF": {
+      "price": 51.8,
+      "change_pct": -0.79,
+      "volume": 43237237,
+      "high": 52.17,
+      "low": 51.3
+    },
+    "XLE": {
+      "price": 56.97,
+      "change_pct": 0.75,
+      "volume": 34377258,
+      "high": 57.19,
+      "low": 56.47
+    },
+    "XLV": {
+      "price": 146.22,
+      "change_pct": -0.11,
+      "volume": 7533645,
+      "high": 146.77,
+      "low": 145.16
+    },
+    "XLI": {
+      "price": 174.05,
+      "change_pct": 1.76,
+      "volume": 13856693,
+      "high": 174.79,
+      "low": 171.6
+    },
+    "XLP": {
+      "price": 83.48,
+      "change_pct": 1.67,
+      "volume": 12288019,
+      "high": 83.65,
+      "low": 82.36
+    },
+    "XLY": {
+      "price": 117.71,
+      "change_pct": -1.03,
+      "volume": 7483426,
+      "high": 118.85,
+      "low": 116.67
+    },
+    "XLU": {
+      "price": 46.1,
+      "change_pct": 2.74,
+      "volume": 23412621,
+      "high": 46.14,
+      "low": 45.2
+    },
+    "XLB": {
+      "price": 51.81,
+      "change_pct": -0.04,
+      "volume": 13284693,
+      "high": 51.9,
+      "low": 51.29
+    },
+    "XLRE": {
+      "price": 43.98,
+      "change_pct": 1.2,
+      "volume": 4098325,
+      "high": 44.01,
+      "low": 43.5
+    },
+    "XLC": {
+      "price": 117.36,
+      "change_pct": -0.44,
+      "volume": 3479459,
+      "high": 118.19,
+      "low": 116.52
+    },
+    "SMH": {
+      "price": 481.85,
+      "change_pct": 1.05,
+      "volume": 9903376,
+      "high": 488.08,
+      "low": 475.19
+    },
+    "XBI": {
+      "price": 134.48,
+      "change_pct": -2.06,
+      "volume": 7673672,
+      "high": 138.12,
+      "low": 133.61
+    },
+    "ITA": {
+      "price": 219.04,
+      "change_pct": -0.05,
+      "volume": 1369839,
+      "high": 220.7,
+      "low": 214.78
+    },
+    "KRE": {
+      "price": 70.03,
+      "change_pct": 1.13,
+      "volume": 17321614,
+      "high": 70.11,
+      "low": 69.04
+    },
+    "NVDA": {
+      "price": 199.64,
+      "change_pct": -1.41,
+      "volume": 108937228,
+      "high": 203.83,
+      "low": 197.22
+    },
+    "MSFT": {
+      "price": 415.75,
+      "change_pct": -3.97,
+      "volume": 36312622,
+      "high": 423.36,
+      "low": 411.41
+    },
+    "AAPL": {
+      "price": 273.43,
+      "change_pct": 0.1,
+      "volume": 24818646,
+      "high": 275.77,
+      "low": 271.65
+    },
+    "GOOGL": {
+      "price": 338.89,
+      "change_pct": -0.13,
+      "volume": 17085774,
+      "high": 341.96,
+      "low": 336.18
+    },
+    "AMZN": {
+      "price": 255.08,
+      "change_pct": -0.11,
+      "volume": 31032997,
+      "high": 258.79,
+      "low": 253.07
+    },
+    "META": {
+      "price": 659.15,
+      "change_pct": -2.31,
+      "volume": 11213053,
+      "high": 669.56,
+      "low": 653.05
+    },
+    "TSLA": {
+      "price": 373.72,
+      "change_pct": -3.56,
+      "volume": 91164280,
+      "high": 385.34,
+      "low": 368.39
+    },
+    "AVGO": {
+      "price": 419.94,
+      "change_pct": -0.64,
+      "volume": 15497772,
+      "high": 429.31,
+      "low": 417.8
+    },
+    "TSM": {
+      "price": 382.6,
+      "change_pct": -1.25,
+      "volume": 11464935,
+      "high": 388.76,
+      "low": 375.81
+    },
+    "ORCL": {
+      "price": 176.28,
+      "change_pct": -5.98,
+      "volume": 34065400,
+      "high": 181.89,
+      "low": 174.08
+    }
+  },
+  "movers_count": 9,
+  "news_count": 60,
+  "trump_posts_count": 20,
+  "discovery": {
+    "run_summary": "Risk-off tone driven by software/AI spending concerns after ServiceNow and IBM results, with ORCL -6% and MSFT -4% dragging XLK down 1.4%. Defensive sectors (XLU, XLP, XLI) and energy (oil over $105 on Hormuz tensions) outperforming. Several mid-cap idiosyncratic blowups (MEDP, WEX) appear earnings-driven rather than macro.",
+    "market_context": {
+      "tone": "risk-off",
+      "notable_index_moves": [
+        "XLK -1.43% with software leading down on ServiceNow/IBM results",
+        "XLU +2.74% and XLP +1.67% — classic defensive rotation",
+        "XLE +0.75% modest given Brent >$105 — suggests market skeptical oil spike is durable or already priced in",
+        "VIX +2.3% to 19.36, elevated but not panicked",
+        "SMH +1.05% bucking tech weakness on TXN +18% AI demand beat — bifurcation between semis and software"
+      ]
+    },
+    "discoveries": [
+      {
+        "ticker": "MEDP",
+        "name": "Medpace Holdings",
+        "sector": "Healthcare",
+        "move_pct": -22.66,
+        "volume_multiple": 4.0,
+        "classification": "UNCLEAR",
+        "confidence": 2,
+        "mechanism": "Likely earnings/guidance reaction — magnitude suggests guidance cut or bookings miss in CRO space. Could drag peers (ICLR, IQV, CRL) via sympathy.",
+        "catalyst": "Presumed Q1 earnings (not confirmed in news feed provided)",
+        "research_pointers": [
+          "Confirm MEDP Q1 print — book-to-bill, backlog, revenue guidance",
+          "Check if cancellations from biotech customers (XBI -2% today) are cited",
+          "Look at ICLR, IQV, CRL, SYNH reactions for sympathy-selling opportunity or confirmation of sector-wide issue",
+          "Historical pattern: MEDP has had sharp one-day drops before that recovered within a quarter"
+        ],
+        "what_would_falsify": "If management cited a structural demand shift in biopharma R&D (not just timing/lumpiness), the drop would be justified and CRO peers should be sold, not bought.",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "WEX",
+        "name": "WEX Inc.",
+        "sector": "Financial Services (misclassified as Tech)",
+        "move_pct": -16.31,
+        "volume_multiple": 3.74,
+        "classification": "UNCLEAR",
+        "confidence": 2,
+        "mechanism": "Fleet card/payments company — likely earnings miss or guide-down. Fuel price volatility from Hormuz tensions may have pressured hedge book or spending trends.",
+        "catalyst": "Presumed Q1 earnings",
+        "research_pointers": [
+          "Verify Q1 earnings details — fuel price sensitivity, travel segment (corporate travel), health segment",
+          "Check if guidance cut is fuel-price-volatility driven (possibly transient) vs. volume/customer-loss driven (structural)",
+          "Compare to FLEETCOR/Corpay (CPAY) for read-through",
+          "5-day -11.8% suggests pre-earnings weakness — insider activity worth checking"
+        ],
+        "what_would_falsify": "Customer losses or competitive pricing pressure cited as reasons — that would be structural and justify the move.",
+        "time_horizon": "days to weeks"
+      },
+      {
+        "ticker": "RGEN",
+        "name": "Repligen",
+        "sector": "Healthcare",
+        "move_pct": -8.31,
+        "volume_multiple": 2.37,
+        "classification": "PARTIALLY RATIONAL",
+        "confidence": 3,
+        "mechanism": "Bioprocessing supplier caught in XBI -2% weakness plus possible MEDP sympathy (both tied to biopharma R&D spend). Also possible Regeneron/Trump drug pricing deal fears spreading to bioprocessing suppliers.",
+        "catalyst": "Sector weakness + Regeneron drug pricing deal news raising biopharma margin concerns",
+        "research_pointers": [
+          "Check if RGEN has earnings imminent",
+          "Assess exposure to GLP-1 manufacturing capacity buildout (Lilly, Novo) — drug pricing pressure could slow capex",
+          "Compare to DHR, TMO, SRPT bioprocessing segments",
+          "Is this a sympathy move tied to MEDP CRO read-through? If so, arguably overdone since CRO demand ≠ bioprocessing demand"
+        ],
+        "what_would_falsify": "If a specific negative read on RGEN's own customer orders emerges, the move is justified.",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "KTOS",
+        "name": "Kratos Defense",
+        "sector": "Industrials",
+        "move_pct": -4.5,
+        "volume_multiple": 0.99,
+        "classification": "UNCLEAR",
+        "confidence": 2,
+        "mechanism": "Defense weakness odd given active Iran/Hormuz conflict — ITA flat. 5-day -12% suggests specific negative news or profit-taking after run. Normal volume argues against fresh catalyst.",
+        "catalyst": "None identified in feed",
+        "research_pointers": [
+          "Check for contract loss, program cancellation, or short report",
+          "DCO +4.4% same sector — divergence suggests KTOS-specific issue",
+          "Valuation had gotten rich; could simply be multiple compression on risk-off day",
+          "Earnings date approaching?"
+        ],
+        "what_would_falsify": "Specific bad news (contract loss, guidance concern) would justify; absence would suggest overdone given supportive geopolitical backdrop.",
+        "time_horizon": "days"
+      }
+    ],
+    "catalyst_chains": [
+      {
+        "primary_event": "ServiceNow/IBM soft results triggering AI-monetization fears across enterprise software",
+        "primary_ticker": "NOW",
+        "secondary_opportunities": [
+          {
+            "ticker": "ORCL",
+            "relationship": "sympathy — enterprise software AI spend concerns",
+            "expected_direction": "down",
+            "confidence": 3
+          },
+          {
+            "ticker": "MSFT",
+            "relationship": "sympathy + buyout news compounds narrative of cost pressure",
+            "expected_direction": "down",
+            "confidence": 3
+          }
+        ]
+      },
+      {
+        "primary_event": "MEDP -23% likely on CRO demand/guidance concerns",
+        "primary_ticker": "MEDP",
+        "secondary_opportunities": [
+          {
+            "ticker": "ICLR",
+            "relationship": "competitor — direct CRO peer",
+            "expected_direction": "down",
+            "confidence": 3
+          },
+          {
+            "ticker": "IQV",
+            "relationship": "competitor — large CRO",
+            "expected_direction": "down",
+            "confidence": 2
+          },
+          {
+            "ticker": "CRL",
+            "relationship": "competitor — preclinical CRO",
+            "expected_direction": "down",
+            "confidence": 2
+          }
+        ]
+      },
+      {
+        "primary_event": "Brent >$105 on Hormuz tensions, Trump 'shoot and kill' escalation",
+        "primary_ticker": "XLE",
+        "secondary_opportunities": [
+          {
+            "ticker": "WEX",
+            "relationship": "inverse — fuel price volatility hurts fleet payments margins",
+            "expected_direction": "down",
+            "confidence": 2
+          },
+          {
+            "ticker": "AMR",
+            "relationship": "energy-linked but met coal not oil — divergence from XLE +0.75% interesting",
+            "expected_direction": "unclear",
+            "confidence": 1
+          }
+        ]
+      },
+      {
+        "primary_event": "Regeneron Trump pricing deal — pattern of pharma concessions continues",
+        "primary_ticker": "REGN",
+        "secondary_opportunities": [
+          {
+            "ticker": "RGEN",
+            "relationship": "supplier — bioprocessing for biologics producers",
+            "expected_direction": "down",
+            "confidence": 2
+          }
+        ]
+      }
+    ],
+    "trump_signals": [],
+    "no_signals_note": "Truth Social feed empty this run. Main Trump-adjacent market factor is the Hormuz 'shoot and kill' order (already in oil prices) and the ongoing drug pricing deal cadence (REGN today)."
+  },
+  "ai_analysis": {
+    "ai_announcements": [
+      {
+        "source": "OpenAI",
+        "is_from_anthropic": false,
+        "headline": "OpenAI releases GPT-5.5, moving toward AI 'super app'",
+        "summary": "New frontier model with broader capabilities; positioning ChatGPT as a super app consolidating many workflows.",
+        "affected_stocks": [
+          {
+            "ticker": "WEX",
+            "current_move_pct": -16.31,
+            "direct_overlap": "low",
+            "switching_cost": "high",
+            "counter_thesis": "WEX's core fleet/corporate payments business has deep integration with fuel networks and B2B payment rails; GPT-5.5 doesn't replace payment processing. Decline more likely driven by earnings/guidance (pre-announcement is 4/24) or macro fleet concerns, not AI.",
+            "time_horizon": "3-5yr",
+            "already_priced_in_assessment": "partial",
+            "verdict": "OVERDONE",
+            "confidence": 2,
+            "research_pointers": [
+              "Check if WEX pre-announced Q1 or cut guidance today",
+              "Fuel price sensitivity / fleet customer metrics",
+              "Any mention of AI disruption on recent calls - likely none"
+            ]
+          },
+          {
+            "ticker": "PRDO",
+            "current_move_pct": -7.17,
+            "direct_overlap": "medium",
+            "switching_cost": "medium",
+            "counter_thesis": "For-profit education faces a narrative threat from LLMs (self-learning), but PRDO serves credential-seeking adult learners where accreditation and federal aid eligibility are the moat, not content delivery. GPT-5.5 headline could be sympathy selling.",
+            "time_horizon": "3-5yr",
+            "already_priced_in_assessment": "partial",
+            "verdict": "PARTIALLY RATIONAL",
+            "confidence": 2,
+            "research_pointers": [
+              "Enrollment trends at CTU/AIU",
+              "Title IV funding exposure",
+              "Whether selloff correlates with broader education sector"
+            ]
+          }
+        ]
+      },
+      {
+        "source": "Google",
+        "is_from_anthropic": false,
+        "headline": "Google Workspace Intelligence adds AI 'office intern' automations",
+        "summary": "Google embedding AI agents across Workspace for automated office tasks.",
+        "affected_stocks": []
+      }
+    ],
+    "no_signals_note": "Largest movers today (MEDP -22.66%, WEX -16.31%, RGEN -8.31%) are overwhelmingly likely earnings-driven, not AI-driven. MEDP is a CRO reporting around this date; RGEN is bioprocessing equipment - neither has meaningful exposure to GPT-5.5 or Workspace AI. Defense names (KTOS, MRCY) moving on sector/budget news unrelated to today's AI announcements. No Anthropic announcements in feed. Recommend Michael verify earnings calendar before attributing any of these moves to AI narrative."
+  }
+}

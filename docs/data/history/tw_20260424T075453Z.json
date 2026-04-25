@@ -1,0 +1,195 @@
+{
+  "generated_at": "2026-04-24T07:54:53.362465+00:00",
+  "market_context": {
+    "2330.TW": {
+      "price": 2185.0,
+      "change_pct": 5.05,
+      "volume": 49171917,
+      "high": 2190.0,
+      "low": 2105.0
+    },
+    "2454.TW": {
+      "price": 2435.0,
+      "change_pct": 9.93,
+      "volume": 22939065,
+      "high": 2435.0,
+      "low": 2330.0
+    },
+    "2317.TW": {
+      "price": 221.5,
+      "change_pct": -1.56,
+      "volume": 76694197,
+      "high": 227.0,
+      "low": 218.0
+    },
+    "2308.TW": {
+      "price": 2075.0,
+      "change_pct": 4.8,
+      "volume": 11479806,
+      "high": 2090.0,
+      "low": 1990.0
+    },
+    "2382.TW": {
+      "price": 323.0,
+      "change_pct": 0.31,
+      "volume": 18367470,
+      "high": 326.5,
+      "low": 318.0
+    },
+    "3008.TW": {
+      "price": 2520.0,
+      "change_pct": 1.41,
+      "volume": 1603716,
+      "high": 2565.0,
+      "low": 2470.0
+    },
+    "3711.TW": {
+      "price": 496.0,
+      "change_pct": 6.78,
+      "volume": 27205812,
+      "high": 500.0,
+      "low": 467.5
+    },
+    "2303.TW": {
+      "price": 74.5,
+      "change_pct": 1.22,
+      "volume": 179306234,
+      "high": 78.3,
+      "low": 73.3
+    },
+    "^TWII": {
+      "price": 38932.4,
+      "change_pct": 3.23,
+      "volume": 0,
+      "high": 38989.94,
+      "low": 37862.65
+    },
+    "0050.TW": {
+      "price": 89.95,
+      "change_pct": 4.17,
+      "volume": 129416890,
+      "high": 89.95,
+      "low": 87.55
+    },
+    "EWT": {
+      "price": 84.24,
+      "change_pct": -2.26,
+      "volume": 4234800,
+      "high": 85.24,
+      "low": 83.25
+    }
+  },
+  "adr_arbitrage": [
+    {
+      "adr": "TSM",
+      "local": "2330.TW",
+      "adr_change_pct": -1.23,
+      "local_change_pct": 5.05,
+      "divergence_pct": -6.28
+    },
+    {
+      "adr": "UMC",
+      "local": "2303.TW",
+      "adr_change_pct": -5.59,
+      "local_change_pct": 1.22,
+      "divergence_pct": -6.81
+    },
+    {
+      "adr": "ASX",
+      "local": "3711.TW",
+      "adr_change_pct": -0.47,
+      "local_change_pct": 6.78,
+      "divergence_pct": -7.25
+    },
+    {
+      "adr": "HIMX",
+      "local": "3504.TW",
+      "adr_change_pct": -5.37,
+      "local_change_pct": -1.49,
+      "divergence_pct": -3.88
+    }
+  ],
+  "news_counts": {
+    "zh": 0,
+    "en": 45
+  },
+  "analysis": {
+    "summary_en": "Explosive risk-on session in Taipei with TAIEX +3.23% led by semiconductors. MediaTek limit-up (+9.93%), TSMC +5.05%, ASE +6.78%. But ADRs traded DOWN overnight on the same names — a massive 6-7% divergence that screams the local rally is either catching up to prior strength OR is ahead of a gap-down on the next NY session. Given ADRs fell, the arrow likely points to local profit-taking risk tomorrow. Hon Hai (2317) notably lagged/fell, suggesting rotation from Apple-chain assembly into AI logic/memory names. SK Hynix-TSMC HBM4 collaboration and TI strong results underpin the AI semi narrative.",
+    "summary_zh": "台股今日強勢風險偏好,加權指數+3.23%,半導體領軍。聯發科漲停(+9.93%)、台積電+5.05%、日月光投控+6.78%。但同名ADR昨夜下跌,產生6-7%的巨大背離——本地漲勢可能是補漲,也可能領先於下一個紐約交易時段的跳空下跌。鑑於ADR下跌,明日本地獲利了結風險升高。鴻海(2317)明顯落後並下跌,顯示資金從蘋果組裝鏈輪動至AI邏輯/記憶體。SK海力士與台積電HBM4合作及TI財報佳音支撐AI半導體敘事。",
+    "context": {
+      "taiex_change_pct": 3.23,
+      "tsmc_change_pct": 5.05,
+      "tone": "risk-on"
+    },
+    "key_stories": [
+      {
+        "headline_en": "SK Hynix deepens TSMC ties with HBM4 at TSMC North America Symposium",
+        "headline_zh": "SK海力士於台積電北美技術論壇深化HBM4合作,推進記憶體-邏輯整合",
+        "affected_tickers": [
+          "2330.TW",
+          "2454.TW"
+        ],
+        "analysis_en": "HBM4 co-integration with TSMC foundry reinforces TSMC's advanced-packaging (CoWoS) moat and by extension MediaTek's access to cutting-edge AI ASIC nodes. This supports today's TSMC +5% and MediaTek limit-up move, though the magnitude of MediaTek's +9.93% seems to price in a specific customer win beyond just this symposium news — watch for an ASIC announcement.",
+        "analysis_zh": "HBM4與台積電代工整合強化台積電先進封裝(CoWoS)護城河,並延伸至聯發科取得尖端AI ASIC製程的能力。這支持今日台積電+5%及聯發科漲停走勢,但聯發科+9.93%的幅度似乎反映了超越論壇新聞的特定客戶勝出——留意ASIC相關公告。",
+        "verdict": "rational",
+        "confidence": 3
+      },
+      {
+        "headline_en": "Texas Instruments signals further price hikes on strong data center & industrial demand",
+        "headline_zh": "德州儀器因資料中心與工業需求強勁,考慮進一步調漲價格",
+        "affected_tickers": [
+          "2454.TW",
+          "2303.TW"
+        ],
+        "analysis_en": "TI's pricing power confirmation + industrial rebound is a broad positive for analog/MCU names and sentiment. Pairs with Artery MCU news of potential price hikes. UMC (2303) up only 1.22% vs ADR -5.59% is concerning — ADR selloff suggests US investors see foundry overcapacity risk that local buyers ignored.",
+        "analysis_zh": "TI確認定價能力及工業復甦,對類比/MCU族群與整體情緒有利,與雅特力考慮調漲價格相呼應。聯電(2303)僅漲1.22%但ADR跌5.59%值得警惕——ADR賣壓顯示美國投資人看到成熟製程代工產能過剩風險,本地買方忽略。",
+        "verdict": "rational",
+        "confidence": 3
+      },
+      {
+        "headline_en": "Hon Hai lags broad rally, down 1.56% while index surges",
+        "headline_zh": "鴻海逆勢下跌1.56%,落後大盤強漲",
+        "affected_tickers": [
+          "2317.TW"
+        ],
+        "analysis_en": "Hon Hai's underperformance in a +3% tape is a tell. With TAIEX +3.23% and peers limit-up, 2317 red on 76M shares volume suggests either Apple/iPhone channel concern or AI server order timing worry (Nvidia GB200/300 rack shipment delays rumor resurfacing). Worth watching — if TSMC/MediaTek hold gains next session and Hon Hai stays weak, it's stock-specific not macro.",
+        "analysis_zh": "鴻海在大盤+3%的背景下表現落後是個警訊。加權+3.23%、同業漲停,2317在7600萬股成交量下收黑,暗示蘋果/iPhone通路疑慮或AI伺服器訂單出貨時點擔憂(GB200/300機櫃延遲傳聞再現)。值得觀察——若台積電/聯發科次日守住漲幅而鴻海續弱,即屬個股因素而非總經。",
+        "verdict": "underdone",
+        "confidence": 2
+      },
+      {
+        "headline_en": "White House accuses China of industrial-scale AI IP theft",
+        "headline_zh": "白宮指控中國進行『工業規模』AI智財竊取,暗示加強管制",
+        "affected_tickers": [
+          "2330.TW",
+          "2303.TW"
+        ],
+        "analysis_en": "Geopolitical escalation risk. A US crackdown could mean new export controls affecting Taiwan foundries' China-based customers. Local market appears to be ignoring this today, but if it translates to new BIS rules over coming weeks, advanced-node TSMC wins but mature-node UMC/SMIC-adjacent plays lose. This may partly explain ADR-local divergence in 2303.",
+        "analysis_zh": "地緣政治升級風險。美方收緊可能意味新出口管制影響台灣晶圓廠的中國客戶。本地市場今日似乎忽略此訊息,但若未來數週轉化為新的BIS規則,先進製程台積電受惠,而成熟製程聯電/中芯相關股承壓。這可能部分解釋聯電ADR-本地的背離。",
+        "verdict": "underdone",
+        "confidence": 2
+      }
+    ],
+    "adr_arbitrage": [
+      {
+        "pair": "TSM vs 2330.TW",
+        "divergence_pct": -6.28,
+        "interpretation_en": "Massive 6.28% gap with ADR down and local up sharply. This is the largest single-day divergence worth flagging. Likely the local rally is catching up to recent ADR strength from prior sessions, OR Taipei is front-running positive news the NY session will reprice up tonight. If NY doesn't rally on TSM tonight, expect local gap-down tomorrow of 2-3%. FALSIFIER: TSM closing green tonight would confirm local was right.",
+        "interpretation_zh": "ADR下跌而本地大漲,產生6.28%的巨大缺口,是今日最值得標記的單日背離。可能情境:本地補漲對映ADR先前強勢,或台北領先反映利多而紐約今晚將補漲。若今晚TSM未上漲,預期明日本地跳空下跌2-3%。反證條件:TSM今晚收紅即確認本地方向正確。"
+      },
+      {
+        "pair": "UMC vs 2303.TW",
+        "divergence_pct": -6.81,
+        "interpretation_en": "Largest divergence in the pack. ADR -5.59% is a significant selloff that local +1.22% is ignoring. UMC guidance or mature-node foundry pricing concern is the likely culprit. High risk of local catch-down. FALSIFIER: UMC ADR recovering tonight, or a specific mature-node price hike announcement.",
+        "interpretation_zh": "族群中最大背離。ADR跌5.59%是顯著賣壓,本地+1.22%完全忽略。可能成因為聯電財測或成熟製程代工價格疑慮。本地補跌風險高。反證條件:聯電ADR今晚反彈,或出現成熟製程明確漲價公告。"
+      },
+      {
+        "pair": "ASX vs 3711.TW",
+        "divergence_pct": -7.25,
+        "interpretation_en": "Largest absolute gap. ASE local +6.78% while ADR essentially flat/down. Advanced packaging CoWoS-S/L theme is the local narrative (SK Hynix-TSMC news). ADR holders don't seem to share the enthusiasm. Wife should be cautious chasing 3711 here — the divergence is extreme and suggests local momentum buying. FALSIFIER: ADR closing +3% or more tonight would validate the local move.",
+        "interpretation_zh": "絕對值最大背離。日月光投控本地+6.78%而ADR幾近平盤/下跌。先進封裝CoWoS-S/L題材是本地敘事(SK海力士-台積電新聞),ADR持有人似乎不認同這種熱情。建議Michael太太謹慎追高3711——背離極端,顯示本地動能買盤。反證條件:ADR今晚收漲3%以上即驗證本地走勢。"
+      }
+    ],
+    "no_signals_note": "Session is highly signal-rich; not a quiet night. Primary actionable read: the 6-7% ADR-local gap across three major semis is extraordinary and historically resolves toward the ADR direction within 1-2 sessions unless overnight NY trade confirms the local bid."
+  }
+}

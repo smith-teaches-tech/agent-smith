@@ -1,0 +1,184 @@
+{
+  "generated_at": "2026-04-23T20:07:51.272280+00:00",
+  "market_context": {
+    "2330.TW": {
+      "price": 2080.0,
+      "change_pct": 1.46,
+      "volume": 48682193,
+      "high": 2135.0,
+      "low": 2055.0
+    },
+    "2454.TW": {
+      "price": 2215.0,
+      "change_pct": -3.49,
+      "volume": 28172336,
+      "high": 2335.0,
+      "low": 2170.0
+    },
+    "2317.TW": {
+      "price": 225.0,
+      "change_pct": 1.81,
+      "volume": 169098376,
+      "high": 233.0,
+      "low": 218.0
+    },
+    "2308.TW": {
+      "price": 1980.0,
+      "change_pct": -1.74,
+      "volume": 15088821,
+      "high": 2115.0,
+      "low": 1935.0
+    },
+    "2382.TW": {
+      "price": 322.0,
+      "change_pct": -3.88,
+      "volume": 26593810,
+      "high": 339.0,
+      "low": 317.0
+    },
+    "3008.TW": {
+      "price": 2485.0,
+      "change_pct": -3.87,
+      "volume": 1983692,
+      "high": 2615.0,
+      "low": 2440.0
+    },
+    "3711.TW": {
+      "price": 464.5,
+      "change_pct": -0.11,
+      "volume": 25246518,
+      "high": 497.5,
+      "low": 456.0
+    },
+    "2303.TW": {
+      "price": 73.6,
+      "change_pct": -6.36,
+      "volume": 230028648,
+      "high": 79.5,
+      "low": 71.6
+    },
+    "^TWII": {
+      "price": 37878.47,
+      "change_pct": 0.67,
+      "volume": 6248000,
+      "high": 38096.88,
+      "low": 37623.38
+    },
+    "0050.TW": {
+      "price": NaN,
+      "change_pct": NaN,
+      "volume": 156422136,
+      "high": NaN,
+      "low": NaN
+    },
+    "EWT": {
+      "price": 84.25,
+      "change_pct": -2.25,
+      "volume": 4227589,
+      "high": 85.24,
+      "low": 83.26
+    }
+  },
+  "adr_arbitrage": [
+    {
+      "adr": "TSM",
+      "local": "2330.TW",
+      "adr_change_pct": -1.25,
+      "local_change_pct": 1.46,
+      "divergence_pct": -2.71
+    },
+    {
+      "adr": "UMC",
+      "local": "2303.TW",
+      "adr_change_pct": -5.66,
+      "local_change_pct": -6.36,
+      "divergence_pct": 0.7
+    },
+    {
+      "adr": "ASX",
+      "local": "3711.TW",
+      "adr_change_pct": -0.5,
+      "local_change_pct": -0.11,
+      "divergence_pct": -0.39
+    },
+    {
+      "adr": "HIMX",
+      "local": "3504.TW",
+      "adr_change_pct": -5.37,
+      "local_change_pct": -6.92,
+      "divergence_pct": 1.55
+    }
+  ],
+  "news_counts": {
+    "zh": 0,
+    "en": 2
+  },
+  "analysis": {
+    "summary_en": "Mixed-to-risk-off tape beneath a positive TAIEX print. Index up 0.67% driven by TSMC (+1.46%), but breadth is ugly: UMC -6.36%, MediaTek -3.49%, Pegatron -3.88%, Largan -3.87%, Quanta -1.74%. The TSM ADR fell 1.25% overnight while local 2330 rallied 1.46% — a sharp 2.71pp divergence that suggests local bid (possibly national team or index-rebalance flows) is propping up the headline while foreign selling hits the rest of tech. UMC's 6%+ drop with massive 230M volume is the standout — mature-node foundry pain, not a TSMC-style AI story.",
+    "summary_zh": "表面紅盤,底下風險偏空。加權指數+0.67%靠台積電(+1.46%)撐盤,但個股慘淡:聯電-6.36%、聯發科-3.49%、廣達-3.88%、大立光-3.87%、和碩-1.74%。TSM ADR昨夜跌1.25%,但2330今日卻漲1.46%,背離達2.71個百分點,研判本地買盤(可能國安基金或指數調整資金)護住指數門面,外資則在其他科技股殺出。聯電單日爆量2.3億股、跌逾6%為最明顯訊號,反映成熟製程代工壓力,與台積電AI故事脫鉤。",
+    "context": {
+      "taiex_change_pct": 0.67,
+      "tsmc_change_pct": 1.46,
+      "tone": "mixed"
+    },
+    "key_stories": [
+      {
+        "headline_en": "UMC collapses 6.36% on huge volume — mature-node foundry stress",
+        "headline_zh": "聯電爆量重挫6.36%,成熟製程代工壓力浮現",
+        "affected_tickers": [
+          "2303.TW",
+          "2330.TW"
+        ],
+        "analysis_en": "UMC down 6.36% on 230M shares — extreme volume signaling institutional capitulation, not retail noise. ADR fell similarly (-5.66%), so this is globally confirmed, not a local panic. Mechanism: mature-node (28nm/22nm) foundry pricing is decoupling from AI-driven leading-edge demand. TSMC rallying while UMC crashes is the cleanest expression of this bifurcation we've seen this cycle. Do NOT treat UMC as a 'cheap TSMC' — they are now different businesses facing different cycles.",
+        "analysis_zh": "聯電跌6.36%、成交2.3億股,極端量能代表法人認輸賣出,非散戶情緒。ADR同步跌5.66%,全球一致確認非本地恐慌。機制:成熟製程(28nm/22nm)代工報價已與AI先進製程需求脫鉤。台積電漲、聯電崩,是本週期最清楚的分化訊號。勿把聯電當「便宜版台積電」,兩者已是不同產業、不同景氣循環。",
+        "verdict": "rational",
+        "confidence": 4
+      },
+      {
+        "headline_en": "MediaTek -3.49%, Largan -3.87%, Pegatron -3.88% — Apple/handset chain weak",
+        "headline_zh": "聯發科-3.49%、大立光-3.87%、和碩-3.88%,蘋果/手機鏈走弱",
+        "affected_tickers": [
+          "2454.TW",
+          "3008.TW",
+          "2382.TW"
+        ],
+        "analysis_en": "Three consumer-electronics-adjacent names down ~3.5–4% together is not coincidence. DigiTimes notes sluggish consumer electronics demand and Samsung/LG pivoting to AI narratives to offset hardware weakness. Read-through: handset and consumer hardware demand signals for 1H26 are disappointing. MediaTek hit particularly hard because it has both handset AP exposure AND less AI-datacenter cushion than NVIDIA/TSMC peers.",
+        "analysis_zh": "三檔消費電子相關個股同步跌3.5–4%絕非巧合。DigiTimes報導三星、LG都以AI包裝掩飾硬體銷售疲軟。解讀:2026上半年手機與消費硬體需求訊號不佳。聯發科受創最深,因其同時暴露於手機AP,又缺乏輝達、台積電等級的AI資料中心題材緩衝。",
+        "verdict": "rational",
+        "confidence": 3
+      },
+      {
+        "headline_en": "TSMC local/ADR divergence of 2.71pp — worth watching",
+        "headline_zh": "台積電本地與ADR背離2.71個百分點,值得關注",
+        "affected_tickers": [
+          "2330.TW"
+        ],
+        "analysis_en": "TSM ADR -1.25% overnight but 2330.TW +1.46% today. This 2.71pp gap typically mean-reverts within 1-2 sessions unless there is a specific local catalyst. No news flow justifies the local premium today. Possible causes: (1) index-support buying given the ugly breadth, (2) rotation out of UMC/MediaTek into TSMC as a quality hide, (3) TWD-related flows. Risk: if ADR does not recover tonight, 2330 likely gives back gains tomorrow.",
+        "analysis_zh": "TSM ADR昨夜跌1.25%,但2330今日漲1.46%,2.71個百分點的背離通常在1–2個交易日內收斂,除非本地有特定催化劑。今日無新聞支撐此溢價。可能原因:(1)指數護盤買盤,(2)由聯電、聯發科輪動至台積電避險,(3)新台幣相關資金流。風險:若ADR今晚未反彈,2330明日很可能回吐。",
+        "verdict": "overdone",
+        "confidence": 3
+      }
+    ],
+    "adr_arbitrage": [
+      {
+        "pair": "TSM vs 2330.TW",
+        "divergence_pct": -2.71,
+        "interpretation_en": "Local outperformed ADR by 2.71pp today with no specific news. Watch tonight's TSM session; if TSM is flat-to-down, expect 2330 to open weak tomorrow. Falsifier: a positive TSMC-specific headline (major customer order, capex announcement) overnight would justify the local premium.",
+        "interpretation_zh": "本地今日較ADR強2.71個百分點,無特定利多。觀察今夜TSM走勢;若TSM持平或下跌,2330明日恐開低。反證條件:若夜間出現台積電特定利多(大客戶訂單、資本支出宣告),則本地溢價合理。"
+      },
+      {
+        "pair": "UMC vs 2303.TW",
+        "divergence_pct": 0.7,
+        "interpretation_en": "Both sides down ~6%, essentially confirmed. No arbitrage — this is a genuine global de-rating of mature-node foundry.",
+        "interpretation_zh": "兩邊皆跌約6%,全球一致,無套利空間,純粹為成熟製程代工全球性重評價。"
+      },
+      {
+        "pair": "HIMX vs 3504.TW",
+        "divergence_pct": 1.55,
+        "interpretation_en": "Local fell harder than ADR. Small-cap driver IC name — likely sympathy selling with UMC's mature-node weakness. Falsifier: if HIMX rallies tonight on US session, local 3504 has upside tomorrow.",
+        "interpretation_zh": "本地跌幅較ADR深。小型驅動IC股,應屬聯電成熟製程拖累的連帶殺盤。反證條件:若HIMX今夜美股反彈,3504明日有補漲空間。"
+      }
+    ],
+    "no_signals_note": "News flow is thin; the signal today is price action (sector bifurcation + local/ADR divergence), not headlines."
+  }
+}
