@@ -126,6 +126,14 @@ footer p { margin-bottom: 0.3rem; }
   nav { overflow-x: auto; }
 }
 </style>
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="agent/smith">
+<meta name="theme-color" content="#0a0a0a">
+
 </head>
 <body>
 
@@ -370,15 +378,22 @@ function renderBankroll() {
   document.getElementById('cash-amt').textContent = fmtUSD(cash);
 }
 function renderKPIs() {
-  const { total } = totalValue();
-  const totalPnl = total - P.bankroll_start;
-  const totalPct = (totalPnl / P.bankroll_start) * 100;
   const realized = P.closed_positions.reduce((s, c) => s + c.realized_pnl, 0);
   const unrealized = P.open_positions.reduce((s, o) => s + o.unrealized_pnl, 0);
+  const totalPnl = realized + unrealized;
+
+  // Capital actually deployed (cost basis of all positions, open + closed)
+  const totalCost = P.open_positions.reduce((s, p) => s + p.cost_total, 0)
+                  + P.closed_positions.reduce((s, c) => s + c.cost_total, 0);
+  const roi = totalCost > 0 ? (totalPnl / totalCost) * 100 : 0;
+  const bankrollPct = (totalPnl / P.bankroll_start) * 100;
+
   const totalRetEl = document.getElementById('kpi-total-ret');
-  totalRetEl.textContent = fmtPct(totalPct);
-  totalRetEl.className = 'kpi-value ' + (totalPnl >= 0 ? 'pos' : 'neg');
-  document.getElementById('kpi-total-ret-sub').textContent = `${totalPnl >= 0 ? '+' : '-'}${fmtUSD(Math.abs(totalPnl))}`;
+  totalRetEl.textContent = totalCost > 0 ? fmtPct(roi) : '—';
+  totalRetEl.className = 'kpi-value ' + (totalCost === 0 ? 'muted' : (totalPnl >= 0 ? 'pos' : 'neg'));
+  document.getElementById('kpi-total-ret-sub').textContent = totalCost > 0
+    ? `${fmtUSD(totalPnl)} on ${fmtUSD(totalCost)} deployed · ${fmtPct(bankrollPct)} of bankroll`
+    : 'no capital deployed yet';
   const realizedEl = document.getElementById('kpi-realized');
   realizedEl.textContent = fmtUSD(realized);
   realizedEl.className = 'kpi-value ' + (realized === 0 ? 'muted' : (realized > 0 ? 'pos' : 'neg'));
