@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-27T20:09:55.323208+00:00",
+  "generated_at": "2026-04-28T20:17:09.914765+00:00",
   "logic_version": 1,
   "grading_params": {
     "hit_threshold_pct": 3.0,
@@ -9,11 +9,11 @@
       "months": 60
     },
     "default_horizon_days": 5,
-    "graded_classifications": "{'OVERDONE', 'UNDERDONE'}"
+    "graded_classifications": "{'UNDERDONE', 'OVERDONE'}"
   },
-  "n_total_calls": 64,
-  "n_not_graded": 62,
-  "n_pending": 0,
+  "n_total_calls": 72,
+  "n_not_graded": 69,
+  "n_pending": 1,
   "n_data_error": 0,
   "overall": {
     "n_resolved": 2,
@@ -84,13 +84,13 @@
     }
   },
   "by_sector": {
-    "Consumer Cyclical": {
-      "n_resolved": 1,
+    "Consumer Defensive": {
+      "n_resolved": 0,
       "n_hit": 0,
-      "n_miss": 1,
+      "n_miss": 0,
       "n_ambiguous": 0,
-      "hit_rate": 0.0,
-      "avg_return_pct": -3.21
+      "hit_rate": null,
+      "avg_return_pct": null
     },
     "Financial Services (misclassified as Tech)": {
       "n_resolved": 0,
@@ -100,15 +100,15 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Healthcare": {
-      "n_resolved": 0,
-      "n_hit": 0,
+    "Technology": {
+      "n_resolved": 1,
+      "n_hit": 1,
       "n_miss": 0,
       "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
+      "hit_rate": 100.0,
+      "avg_return_pct": 3.83
     },
-    "Consumer Defensive": {
+    "Healthcare": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -124,6 +124,14 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
+    "Consumer Cyclical": {
+      "n_resolved": 1,
+      "n_hit": 0,
+      "n_miss": 1,
+      "n_ambiguous": 0,
+      "hit_rate": 0.0,
+      "avg_return_pct": -3.21
+    },
     "Healthcare - Biotechnology": {
       "n_resolved": 0,
       "n_hit": 0,
@@ -131,14 +139,6 @@
       "n_ambiguous": 0,
       "hit_rate": null,
       "avg_return_pct": null
-    },
-    "Technology": {
-      "n_resolved": 1,
-      "n_hit": 1,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": 100.0,
-      "avg_return_pct": 3.83
     }
   },
   "by_horizon_days": {
@@ -1521,6 +1521,166 @@
       "classification": "RATIONAL",
       "confidence": 4,
       "move_pct_at_flag": 4.52,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=RATIONAL not in graded set"
+    },
+    {
+      "ticker": "LSCC",
+      "name": "Lattice Semiconductor",
+      "sector": "Technology",
+      "flagged_at": "2026-04-28T20:16:17+00:00",
+      "run_file": "us_20260428T201617Z.json",
+      "classification": "RATIONAL",
+      "confidence": 3,
+      "move_pct_at_flag": -4.46,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=RATIONAL not in graded set"
+    },
+    {
+      "ticker": "PLAB",
+      "name": "Photronics",
+      "sector": "Technology",
+      "flagged_at": "2026-04-28T20:16:17+00:00",
+      "run_file": "us_20260428T201617Z.json",
+      "classification": "OVERDONE",
+      "confidence": 2,
+      "move_pct_at_flag": -6.36,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "PENDING",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": 48.130001068115234,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "No post-flag bars yet"
+    },
+    {
+      "ticker": "BBIO",
+      "name": "BridgeBio Pharma",
+      "sector": "Healthcare",
+      "flagged_at": "2026-04-28T20:16:17+00:00",
+      "run_file": "us_20260428T201617Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 4,
+      "move_pct_at_flag": -6.52,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "ALGN",
+      "name": "Align Technology",
+      "sector": "Healthcare",
+      "flagged_at": "2026-04-28T20:16:17+00:00",
+      "run_file": "us_20260428T201617Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 3,
+      "move_pct_at_flag": -4.02,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "WSO",
+      "name": "Watsco",
+      "sector": "Industrials",
+      "flagged_at": "2026-04-28T20:16:17+00:00",
+      "run_file": "us_20260428T201617Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 3,
+      "move_pct_at_flag": -4.08,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "POOL",
+      "name": "Pool Corporation",
+      "sector": "Industrials",
+      "flagged_at": "2026-04-28T20:16:17+00:00",
+      "run_file": "us_20260428T201617Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -4.01,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "AEIS",
+      "name": "Advanced Energy Industries",
+      "sector": "Industrials",
+      "flagged_at": "2026-04-28T20:16:17+00:00",
+      "run_file": "us_20260428T201617Z.json",
+      "classification": "RATIONAL",
+      "confidence": 3,
+      "move_pct_at_flag": -4.3,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=RATIONAL not in graded set"
+    },
+    {
+      "ticker": "ONTO",
+      "name": "Onto Innovation",
+      "sector": "Technology",
+      "flagged_at": "2026-04-28T20:16:17+00:00",
+      "run_file": "us_20260428T201617Z.json",
+      "classification": "RATIONAL",
+      "confidence": 3,
+      "move_pct_at_flag": -5.36,
       "expected_direction": null,
       "horizon_days": 5,
       "grade": "NOT_GRADED",
