@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-28T20:17:09.914765+00:00",
+  "generated_at": "2026-04-29T20:12:12.049842+00:00",
   "logic_version": 1,
   "grading_params": {
     "hit_threshold_pct": 3.0,
@@ -11,9 +11,9 @@
     "default_horizon_days": 5,
     "graded_classifications": "{'UNDERDONE', 'OVERDONE'}"
   },
-  "n_total_calls": 72,
-  "n_not_graded": 69,
-  "n_pending": 1,
+  "n_total_calls": 79,
+  "n_not_graded": 75,
+  "n_pending": 2,
   "n_data_error": 0,
   "overall": {
     "n_resolved": 2,
@@ -84,29 +84,13 @@
     }
   },
   "by_sector": {
-    "Consumer Defensive": {
+    "Industrials": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
       "n_ambiguous": 0,
       "hit_rate": null,
       "avg_return_pct": null
-    },
-    "Financial Services (misclassified as Tech)": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Technology": {
-      "n_resolved": 1,
-      "n_hit": 1,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": 100.0,
-      "avg_return_pct": 3.83
     },
     "Healthcare": {
       "n_resolved": 0,
@@ -116,7 +100,7 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Industrials": {
+    "Consumer Defensive": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -132,6 +116,14 @@
       "hit_rate": 0.0,
       "avg_return_pct": -3.21
     },
+    "Financial Services (misclassified as Tech)": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
     "Healthcare - Biotechnology": {
       "n_resolved": 0,
       "n_hit": 0,
@@ -139,6 +131,14 @@
       "n_ambiguous": 0,
       "hit_rate": null,
       "avg_return_pct": null
+    },
+    "Technology": {
+      "n_resolved": 1,
+      "n_hit": 1,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": 100.0,
+      "avg_return_pct": 3.83
     }
   },
   "by_horizon_days": {
@@ -1564,13 +1564,13 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": null,
-      "max_favorable_pct": null,
-      "max_adverse_pct": null,
-      "price_at_flag": 48.130001068115234,
-      "price_at_horizon_end": null,
+      "return_pct_in_horizon": -0.75,
+      "max_favorable_pct": 1.52,
+      "max_adverse_pct": -1.45,
+      "price_at_flag": 48.13,
+      "price_at_horizon_end": 47.77,
       "logic_version": 1,
-      "notes": "No post-flag bars yet"
+      "notes": "only 1 bars elapsed"
     },
     {
       "ticker": "BBIO",
@@ -1691,6 +1691,146 @@
       "price_at_horizon_end": null,
       "logic_version": 1,
       "notes": "classification=RATIONAL not in graded set"
+    },
+    {
+      "ticker": "EXTR",
+      "name": "Extreme Networks",
+      "sector": "Technology",
+      "flagged_at": "2026-04-29T20:11:15+00:00",
+      "run_file": "us_20260429T201115Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": 28.15,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "FFIV",
+      "name": "F5 Inc.",
+      "sector": "Technology",
+      "flagged_at": "2026-04-29T20:11:15+00:00",
+      "run_file": "us_20260429T201115Z.json",
+      "classification": "RATIONAL",
+      "confidence": 3,
+      "move_pct_at_flag": 8.02,
+      "expected_direction": null,
+      "horizon_days": 20,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=RATIONAL not in graded set"
+    },
+    {
+      "ticker": "PTCT",
+      "name": "PTC Therapeutics",
+      "sector": "Healthcare",
+      "flagged_at": "2026-04-29T20:11:15+00:00",
+      "run_file": "us_20260429T201115Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -8.13,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "BLDR",
+      "name": "Builders FirstSource",
+      "sector": "Industrials",
+      "flagged_at": "2026-04-29T20:11:15+00:00",
+      "run_file": "us_20260429T201115Z.json",
+      "classification": "RATIONAL",
+      "confidence": 3,
+      "move_pct_at_flag": -5.41,
+      "expected_direction": null,
+      "horizon_days": 20,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=RATIONAL not in graded set"
+    },
+    {
+      "ticker": "AVAV",
+      "name": "AeroVironment",
+      "sector": "Industrials",
+      "flagged_at": "2026-04-29T20:11:15+00:00",
+      "run_file": "us_20260429T201115Z.json",
+      "classification": "OVERDONE",
+      "confidence": 2,
+      "move_pct_at_flag": -4.6,
+      "expected_direction": "up",
+      "horizon_days": 20,
+      "grade": "PENDING",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": 183.5,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "No post-flag bars yet"
+    },
+    {
+      "ticker": "SAIA",
+      "name": "Saia Inc.",
+      "sector": "Industrials",
+      "flagged_at": "2026-04-29T20:11:15+00:00",
+      "run_file": "us_20260429T201115Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -4.8,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "DECK",
+      "name": "Deckers Outdoor",
+      "sector": "Consumer Cyclical",
+      "flagged_at": "2026-04-29T20:11:15+00:00",
+      "run_file": "us_20260429T201115Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -4.58,
+      "expected_direction": null,
+      "horizon_days": 20,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
     }
   ]
 }
