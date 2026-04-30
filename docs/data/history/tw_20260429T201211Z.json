@@ -1,0 +1,189 @@
+{
+  "generated_at": "2026-04-29T20:12:11.882986+00:00",
+  "market_context": {
+    "2330.TW": {
+      "price": 2180.0,
+      "change_pct": -1.58,
+      "volume": 42895935,
+      "high": 2210.0,
+      "low": 2165.0
+    },
+    "2454.TW": {
+      "price": 2575.0,
+      "change_pct": -1.53,
+      "volume": 11761568,
+      "high": 2595.0,
+      "low": 2500.0
+    },
+    "2317.TW": {
+      "price": 225.0,
+      "change_pct": -0.22,
+      "volume": 42650013,
+      "high": 226.0,
+      "low": 222.0
+    },
+    "2308.TW": {
+      "price": 2165.0,
+      "change_pct": 1.88,
+      "volume": 11741236,
+      "high": 2170.0,
+      "low": 2035.0
+    },
+    "2382.TW": {
+      "price": 322.0,
+      "change_pct": 0.31,
+      "volume": 11287573,
+      "high": 322.0,
+      "low": 317.0
+    },
+    "3008.TW": {
+      "price": 2595.0,
+      "change_pct": 0.58,
+      "volume": 1444866,
+      "high": 2650.0,
+      "low": 2550.0
+    },
+    "3711.TW": {
+      "price": 488.5,
+      "change_pct": -1.41,
+      "volume": 21088224,
+      "high": 492.0,
+      "low": 472.5
+    },
+    "2303.TW": {
+      "price": 74.5,
+      "change_pct": -0.8,
+      "volume": 119808582,
+      "high": 75.3,
+      "low": 72.4
+    },
+    "^TWII": {
+      "price": 39521.73,
+      "change_pct": -0.03,
+      "volume": 5020400,
+      "high": 40101.23,
+      "low": 39521.73
+    },
+    "0050.TW": {
+      "price": NaN,
+      "change_pct": NaN,
+      "volume": 103585078,
+      "high": NaN,
+      "low": NaN
+    },
+    "EWT": {
+      "price": 87.2,
+      "change_pct": -0.05,
+      "volume": 3836120,
+      "high": 87.57,
+      "low": 86.68
+    }
+  },
+  "adr_arbitrage": [
+    {
+      "adr": "TSM",
+      "local": "2330.TW",
+      "adr_change_pct": 0.38,
+      "local_change_pct": -1.58,
+      "divergence_pct": 1.96
+    },
+    {
+      "adr": "UMC",
+      "local": "2303.TW",
+      "adr_change_pct": 9.22,
+      "local_change_pct": -0.8,
+      "divergence_pct": 10.02
+    },
+    {
+      "adr": "ASX",
+      "local": "3711.TW",
+      "adr_change_pct": 1.75,
+      "local_change_pct": -1.41,
+      "divergence_pct": 3.16
+    },
+    {
+      "adr": "HIMX",
+      "local": "3504.TW",
+      "adr_change_pct": 4.66,
+      "local_change_pct": 0.46,
+      "divergence_pct": 4.2
+    }
+  ],
+  "news_counts": {
+    "zh": 0,
+    "en": 3
+  },
+  "analysis": {
+    "summary_en": "TAIEX flat (-0.03%) but internals weak: TSMC -1.58% on no obvious local catalyst while TSM ADR was +0.38% overnight, creating a notable 1.96% divergence. Big story is UMC: ADR exploded +9.22% on stellar Q1 (profit doubled YoY, +61% QoQ) plus Intel-backed US manufacturing angle, but local 2303.TW closed -0.8% before the print/ADR reaction — setting up a likely catch-up gap higher next session. Memory/foundry tone mixed; Quanta (2382) and Hon Hai (2317) muted. Mediatek (2454) -1.53% follows TSMC weakness. Tone: mixed with foundry/AI-supplier sympathy bid building underneath.",
+    "summary_zh": "加權指數小跌0.03%但結構偏弱:台積電-1.58%而TSM ADR隔夜+0.38%,出現1.96%的明顯背離。重點是聯電:ADR暴漲9.22%,因Q1獲利翻倍年增、季增61%,加上Intel合作美國製造題材,但2303.TW本地僅-0.8%已收盤,次日很可能補漲跳空。記憶體/晶圓代工氛圍混雜;廣達(2382)、鴻海(2317)平淡。聯發科(2454)-1.53%跟隨台積電走弱。整體偏混合,但晶圓代工/AI供應鏈底部有買盤蓄勢。",
+    "context": {
+      "taiex_change_pct": -0.03,
+      "tsmc_change_pct": -1.58,
+      "tone": "mixed"
+    },
+    "key_stories": [
+      {
+        "headline_en": "UMC Q1 profit doubles YoY, +61% QoQ; touts Intel-backed US manufacturing option",
+        "headline_zh": "聯電Q1淨利年增逾倍、季增61%,並提出與Intel合作美國製造方案",
+        "affected_tickers": [
+          "2303.TW",
+          "2330.TW",
+          "3711.TW"
+        ],
+        "analysis_en": "UMC printed NT$16.17B net profit on NT$61.04B revenue, GM 29.2% — meaningfully above whisper. ADR ripped +9.22% while local already closed -0.8%, leaving 10pt divergence. The Intel/US fab narrative adds a strategic re-rating angle (capex cost concern is the offset). Read: local 2303.TW likely gaps up sharply next session; sympathy bid possible for ASE (3711) which also showed +3.16% ADR/local gap. TSMC unlikely to benefit directly — UMC strength on mature nodes is partly share-shift story.",
+        "analysis_zh": "聯電Q1淨利161.7億、營收610.4億、毛利率29.2%,優於市場預期。ADR大漲9.22%而本地已收-0.8%,背離達10個百分點。Intel/美國設廠題材提供策略性重估空間(資本支出疑慮為反向因素)。研判:2303.TW次日很可能大幅跳空高開;日月光(3711)ADR亦領先本地3.16%,有同步補漲機會。台積電未必直接受惠,聯電成熟製程強勢部分屬市占轉移。",
+        "verdict": "underdone",
+        "confidence": 4
+      },
+      {
+        "headline_en": "TSMC -1.58% locally despite TSM ADR +0.38% overnight — 1.96% divergence",
+        "headline_zh": "台積電本地-1.58%但TSM ADR隔夜+0.38%,背離1.96%",
+        "affected_tickers": [
+          "2330.TW",
+          "2454.TW"
+        ],
+        "analysis_en": "No specific negative catalyst in the news flow. Likely profit-taking / foreign sell program after recent strength, or pre-positioning ahead of macro/geopolitical event. Mediatek dragged in sympathy. Without a fundamental driver, the gap looks technical rather than informational — modest mean-reversion candidate if ADR holds.",
+        "analysis_zh": "新聞面無明確利空。較可能為近期漲多後的獲利了結或外資調節,或重大事件前的減碼。聯發科同步受拖累。在無基本面催化下,此跳空偏技術性而非資訊性,若ADR守穩,有小幅均值回歸機會。",
+        "verdict": "overdone",
+        "confidence": 2
+      },
+      {
+        "headline_en": "Hon Hai (2317) stable at -0.22% despite Luxshare cash-flow weakness flag",
+        "headline_zh": "鴻海(2317)僅-0.22%,儘管立訊現金流轉弱訊號",
+        "affected_tickers": [
+          "2317.TW"
+        ],
+        "analysis_en": "Luxshare (Apple competitor in China assembly) showed revenue growth but negative operating cash flow. Marginally positive read-across for Hon Hai's relative competitive position, though both face same Apple end-demand. Market correctly not over-reacting.",
+        "analysis_zh": "立訊(中國蘋果組裝對手)營收成長但營業現金流轉負。對鴻海相對競爭地位略偏正面,但兩者同樣面對蘋果終端需求壓力。市場未過度反應屬合理。",
+        "verdict": "rational",
+        "confidence": 2
+      }
+    ],
+    "adr_arbitrage": [
+      {
+        "pair": "UMC vs 2303.TW",
+        "divergence_pct": 10.02,
+        "interpretation_en": "Largest gap of the night. UMC ADR +9.22% post-earnings vs local -0.8% (closed before US session reaction). Expect 2303.TW to gap up materially at open; size of gap will reveal foreign appetite. Falsified if: (a) ADR fades overnight in late US trade, (b) negative China/geopolitical headline hits before Taiwan open, (c) profit-taking by locals who held into the print caps gap below +4%.",
+        "interpretation_zh": "今晚最大背離。聯電ADR財報後+9.22% vs 本地-0.8%(美股反應前已收盤)。預期2303.TW開盤大幅跳空;跳空幅度將反映外資意願。否證條件:(a)ADR於美股後段回吐;(b)台股開盤前出現中國/地緣利空;(c)財報前持股的本地投資人獲利了結,將跳空壓在+4%以下。"
+      },
+      {
+        "pair": "HIMX vs 3504.TW",
+        "divergence_pct": 4.2,
+        "interpretation_en": "Himax ADR +4.66% vs local +0.46%. Display driver IC strength; smaller-cap so liquidity risk. Falsified if HIMX gains were thin-volume late-day spike rather than fundamental.",
+        "interpretation_zh": "奇景ADR+4.66% vs 本地+0.46%。顯示驅動IC題材轉強;小型股流動性需注意。否證條件:HIMX漲幅來自尾盤量縮拉抬而非基本面。"
+      },
+      {
+        "pair": "ASX vs 3711.TW",
+        "divergence_pct": 3.16,
+        "interpretation_en": "ASE ADR +1.75% vs local -1.41%. Likely partial sympathy with UMC/foundry-OSAT optimism. Modest catch-up trade candidate. Falsified if foreign net-sell on TSMC spills over into back-end names.",
+        "interpretation_zh": "日月光ADR+1.75% vs 本地-1.41%。可能受惠於聯電/封測產業樂觀情緒。具小幅補漲機會。否證條件:外資對台積電的賣壓擴散至後段封測族群。"
+      },
+      {
+        "pair": "TSM vs 2330.TW",
+        "divergence_pct": 1.96,
+        "interpretation_en": "Mild positive divergence — local weakness without ADR confirmation suggests technical/flow-driven sell, not fundamental. Watch foreign net buy/sell tape next session.",
+        "interpretation_zh": "輕微正向背離,本地弱勢但ADR未確認,顯示為技術面/籌碼面賣壓而非基本面。次日觀察外資買賣超。"
+      }
+    ]
+  }
+}

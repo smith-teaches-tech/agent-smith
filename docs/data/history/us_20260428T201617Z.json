@@ -1,0 +1,450 @@
+{
+  "generated_at": "2026-04-28T20:16:17.734171+00:00",
+  "market_context": {
+    "SPY": {
+      "price": 711.54,
+      "change_pct": -0.51,
+      "volume": 37342531,
+      "high": 712.88,
+      "low": 709.25
+    },
+    "QQQ": {
+      "price": 657.55,
+      "change_pct": -1.01,
+      "volume": 32726661,
+      "high": 659.64,
+      "low": 653.81
+    },
+    "DIA": {
+      "price": 491.42,
+      "change_pct": -0.08,
+      "volume": 2822785,
+      "high": 493.82,
+      "low": 490.78
+    },
+    "IWM": {
+      "price": 273.86,
+      "change_pct": -1.19,
+      "volume": 23169052,
+      "high": 276.97,
+      "low": 272.92
+    },
+    "^VIX": {
+      "price": 17.78,
+      "change_pct": -1.33,
+      "volume": 0,
+      "high": 19.43,
+      "low": 17.78
+    },
+    "XLK": {
+      "price": 157.84,
+      "change_pct": -1.7,
+      "volume": 9028537,
+      "high": 158.64,
+      "low": 156.16
+    },
+    "XLF": {
+      "price": 51.87,
+      "change_pct": 0.12,
+      "volume": 23259899,
+      "high": 52.39,
+      "low": 51.8
+    },
+    "XLE": {
+      "price": 57.72,
+      "change_pct": 1.67,
+      "volume": 38207567,
+      "high": 58.05,
+      "low": 57.38
+    },
+    "XLV": {
+      "price": 143.79,
+      "change_pct": 0.23,
+      "volume": 8587879,
+      "high": 144.86,
+      "low": 143.28
+    },
+    "XLI": {
+      "price": 170.98,
+      "change_pct": -0.89,
+      "volume": 8869628,
+      "high": 171.86,
+      "low": 169.54
+    },
+    "XLP": {
+      "price": 83.1,
+      "change_pct": 0.92,
+      "volume": 8896438,
+      "high": 83.65,
+      "low": 82.61
+    },
+    "XLY": {
+      "price": 117.01,
+      "change_pct": -0.7,
+      "volume": 6184215,
+      "high": 117.78,
+      "low": 116.88
+    },
+    "XLU": {
+      "price": 46.24,
+      "change_pct": 0.12,
+      "volume": 11918563,
+      "high": 46.52,
+      "low": 46.04
+    },
+    "XLB": {
+      "price": 51.41,
+      "change_pct": -0.71,
+      "volume": 8529183,
+      "high": 51.96,
+      "low": 51.01
+    },
+    "XLRE": {
+      "price": 43.92,
+      "change_pct": 0.99,
+      "volume": 6016167,
+      "high": 43.94,
+      "low": 43.33
+    },
+    "XLC": {
+      "price": 115.73,
+      "change_pct": -0.07,
+      "volume": 3697885,
+      "high": 116.23,
+      "low": 115.32
+    },
+    "SMH": {
+      "price": 491.21,
+      "change_pct": -2.97,
+      "volume": 12447448,
+      "high": 496.66,
+      "low": 483.29
+    },
+    "XBI": {
+      "price": 131.16,
+      "change_pct": -1.41,
+      "volume": 7420072,
+      "high": 134.41,
+      "low": 131.07
+    },
+    "ITA": {
+      "price": 216.2,
+      "change_pct": 0.07,
+      "volume": 1148908,
+      "high": 216.67,
+      "low": 213.34
+    },
+    "KRE": {
+      "price": 70.38,
+      "change_pct": 0.44,
+      "volume": 11850049,
+      "high": 71.03,
+      "low": 70.17
+    },
+    "NVDA": {
+      "price": 213.07,
+      "change_pct": -1.63,
+      "volume": 174097151,
+      "high": 214.73,
+      "low": 208.2
+    },
+    "MSFT": {
+      "price": 429.25,
+      "change_pct": 1.04,
+      "volume": 28489841,
+      "high": 429.91,
+      "low": 421.9
+    },
+    "AAPL": {
+      "price": 270.71,
+      "change_pct": 1.16,
+      "volume": 32820055,
+      "high": 273.22,
+      "low": 268.66
+    },
+    "GOOGL": {
+      "price": 349.81,
+      "change_pct": -0.15,
+      "volume": 25282781,
+      "high": 352.42,
+      "low": 346.12
+    },
+    "AMZN": {
+      "price": 259.7,
+      "change_pct": -0.54,
+      "volume": 41155956,
+      "high": 261.03,
+      "low": 256.65
+    },
+    "META": {
+      "price": 671.34,
+      "change_pct": -1.07,
+      "volume": 9519467,
+      "high": 678.18,
+      "low": 665.62
+    },
+    "TSLA": {
+      "price": 376.02,
+      "change_pct": -0.7,
+      "volume": 49179532,
+      "high": 382.29,
+      "low": 372.54
+    },
+    "AVGO": {
+      "price": 399.83,
+      "change_pct": -4.39,
+      "volume": 24081930,
+      "high": 405.81,
+      "low": 394.65
+    },
+    "TSM": {
+      "price": 392.2,
+      "change_pct": -3.16,
+      "volume": 14529631,
+      "high": 397.87,
+      "low": 384.7
+    },
+    "ORCL": {
+      "price": 165.92,
+      "change_pct": -4.07,
+      "volume": 31046324,
+      "high": 168.7,
+      "low": 162.06
+    }
+  },
+  "movers_count": 9,
+  "news_count": 50,
+  "trump_posts_count": 11,
+  "discovery": {
+    "run_summary": "Risk-off tone in tech driven by a WSJ report that OpenAI is missing revenue/user targets, dragging the AI complex (ORCL -4%, AVGO -4.4%, TSM -3.2%, SMH -3%). Energy and staples bid on Iran/Hormuz oil spike near $100 and UAE OPEC exit. Mid-cap semis and AI-adjacent names showing sympathy selling worth examining for overshoots.",
+    "market_context": {
+      "tone": "risk-off in tech, mixed elsewhere",
+      "notable_index_moves": [
+        "SMH -2.97% leading decline on OpenAI demand fears (WSJ)",
+        "XLE +1.67% on oil near $100, Iran tensions, UAE OPEC exit",
+        "XLP +0.92% defensive bid; XLRE +0.99% on rate softness",
+        "VIX only 17.78 (-1.3%) — selling is concentrated, not broad panic",
+        "IWM -1.19% small-caps weak"
+      ]
+    },
+    "discoveries": [
+      {
+        "ticker": "LSCC",
+        "name": "Lattice Semiconductor",
+        "sector": "Technology",
+        "move_pct": -4.46,
+        "volume_multiple": 1.73,
+        "classification": "PARTIALLY RATIONAL",
+        "confidence": 3,
+        "mechanism": "Sympathy selling within semis on OpenAI/AI demand concerns, but Lattice (FPGA, edge/industrial/comms exposure) has limited direct AI training/hyperscaler revenue tie. Move tracks SMH but fundamentals less exposed than AVGO/ORCL.",
+        "catalyst": "WSJ OpenAI revenue miss report dragging entire SMH complex",
+        "research_pointers": [
+          "Confirm LSCC's revenue mix — how much is data center/AI vs. industrial/auto/comms",
+          "Check if any LSCC-specific news (earnings date, guidance) is in window",
+          "Compare to prior AI-scare drawdowns and recovery pattern"
+        ],
+        "what_would_falsify": "LSCC-specific negative news (guidance cut, customer loss, insider selling) or evidence of meaningful hyperscaler exposure",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "PLAB",
+        "name": "Photronics",
+        "sector": "Technology",
+        "move_pct": -6.36,
+        "volume_multiple": 1.09,
+        "classification": "LIKELY OVERDONE",
+        "confidence": 2,
+        "mechanism": "Photomask supplier swept up in semi sympathy selling, but volume only 1.1x average suggests it's drift, not conviction selling. PLAB business is mature foundry/display masks — minimal AI-capex correlation.",
+        "catalyst": "Sector-wide AI demand de-rate (SMH -3%)",
+        "research_pointers": [
+          "Verify no company-specific news; check earnings calendar",
+          "PLAB exposure to leading-edge AI logic vs. mature/display nodes",
+          "Historical correlation of PLAB to SMH sell-offs"
+        ],
+        "what_would_falsify": "Discovery of PLAB-specific bad news or a meaningful customer concentration in AI-exposed foundries",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "BBIO",
+        "name": "BridgeBio Pharma",
+        "sector": "Healthcare",
+        "move_pct": -6.52,
+        "volume_multiple": 5.36,
+        "classification": "UNCLEAR",
+        "confidence": 4,
+        "mechanism": "5.4x volume on a -6.5% move with no obvious sector catalyst (XBI only -1.4%) strongly implies stock-specific news — likely Attruby (acoramidis) launch metrics, competitor data, or label/payer development. Not in news feed provided.",
+        "catalyst": "Unknown — requires investigation",
+        "research_pointers": [
+          "Check for Attruby (ATTR-CM) script/launch data update or analyst note",
+          "Look for Alnylam/Pfizer competitive ATTR data readout",
+          "Check 8-K filings, conference presentations today",
+          "Review options activity for any leak signal"
+        ],
+        "what_would_falsify": "Confirmed positive launch update would make this a clear opportunity; confirmed negative competitive readout would justify the move",
+        "time_horizon": "days to weeks"
+      },
+      {
+        "ticker": "ALGN",
+        "name": "Align Technology",
+        "sector": "Healthcare",
+        "move_pct": -4.02,
+        "volume_multiple": 1.63,
+        "classification": "UNCLEAR",
+        "confidence": 3,
+        "mechanism": "Down 9.2% over 5 days with elevated volume — looks like persistent selling pressure ahead of/around earnings. Not consistent with sector (XLV +0.23%).",
+        "catalyst": "Likely earnings-related positioning or pre-announcement; consumer discretionary dental softness possible",
+        "research_pointers": [
+          "Confirm earnings date and consensus expectations",
+          "Check competitor (SmileDirect, Envista) commentary on dental demand",
+          "Review international/China case volume trends (key ALGN driver)"
+        ],
+        "what_would_falsify": "Confirmation of guide-down or known negative pre-announcement",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "WSO",
+        "name": "Watsco",
+        "sector": "Industrials",
+        "move_pct": -4.08,
+        "volume_multiple": 1.89,
+        "classification": "UNCLEAR",
+        "confidence": 3,
+        "mechanism": "HVAC distributor down 4% on 1.9x volume with no apparent macro driver — XLI only -0.89%. Likely earnings reaction or guidance. Pool Corp (POOL, also industrial distribution) also down ~4%, suggesting either shared earnings day or sympathy in distribution sub-sector.",
+        "catalyst": "Probable earnings or sympathetic move with POOL",
+        "research_pointers": [
+          "Check WSO earnings release today — margins, refrigerant transition (A2L) commentary",
+          "POOL/WSO earnings often viewed as housing-adjacent reads",
+          "Look at Carrier/Lennox/Trane reactions for HVAC channel signal"
+        ],
+        "what_would_falsify": "Strong earnings with no guide-down would suggest overdone; weak earnings would justify",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "POOL",
+        "name": "Pool Corporation",
+        "sector": "Industrials",
+        "move_pct": -4.01,
+        "volume_multiple": 1.32,
+        "classification": "UNCLEAR",
+        "confidence": 2,
+        "mechanism": "Down 7.2% over 5 days, paired with WSO weakness — distribution/discretionary housing read deteriorating. Could be earnings or pre-announcement.",
+        "catalyst": "Possible earnings reaction or housing-channel weakness",
+        "research_pointers": [
+          "Confirm POOL earnings date",
+          "Check pool/spa sub-sector (Hayward HAYW) for confirming weakness",
+          "Existing home sales / discretionary big-ticket data"
+        ],
+        "what_would_falsify": "POOL-specific positive update or strong same-store sales data",
+        "time_horizon": "days to weeks"
+      },
+      {
+        "ticker": "AEIS",
+        "name": "Advanced Energy Industries",
+        "sector": "Industrials",
+        "move_pct": -4.3,
+        "volume_multiple": 1.11,
+        "classification": "PARTIALLY RATIONAL",
+        "confidence": 3,
+        "mechanism": "Power conversion / semicap-adjacent — legitimate sympathy with semi capex narrative. However volume only 1.1x suggests passive/index-driven, not conviction. AEIS data center segment IS exposed to AI buildout, so move has fundamental basis but may overshoot if AI capex narrative reverses.",
+        "catalyst": "AI/data center capex de-rate via OpenAI WSJ story",
+        "research_pointers": [
+          "AEIS data center revenue mix and customer concentration",
+          "Recent guidance commentary on hyperscaler orders",
+          "Compare reaction magnitude to peer Vertiv (VRT)"
+        ],
+        "what_would_falsify": "Confirmation that hyperscaler capex commitments remain intact (e.g., MSFT/META capex guidance unchanged at upcoming earnings)",
+        "time_horizon": "days to weeks"
+      },
+      {
+        "ticker": "ONTO",
+        "name": "Onto Innovation",
+        "sector": "Technology",
+        "move_pct": -5.36,
+        "volume_multiple": 1.12,
+        "classification": "PARTIALLY RATIONAL",
+        "confidence": 3,
+        "mechanism": "Semicap metrology/inspection — legitimate AI-capex exposure (HBM/advanced packaging). Down with TSM/AVGO is rational, but low volume (1.1x) suggests not panic. Onto has high HBM/packaging leverage which is precisely the AI-driven segment.",
+        "catalyst": "AI capex de-rate sympathy",
+        "research_pointers": [
+          "ONTO HBM/advanced packaging exposure as % of revenue",
+          "Whether HBM demand from non-OpenAI customers (Anthropic, Meta, Google) offsets",
+          "Earnings date and any guide implications"
+        ],
+        "what_would_falsify": "Independent HBM demand confirmation from SK Hynix/Micron earnings",
+        "time_horizon": "days"
+      }
+    ],
+    "catalyst_chains": [
+      {
+        "primary_event": "WSJ report OpenAI missing revenue/user targets",
+        "primary_ticker": "ORCL",
+        "secondary_opportunities": [
+          {
+            "ticker": "AEIS",
+            "relationship": "supplier (data center power)",
+            "expected_direction": "down",
+            "confidence": 3
+          },
+          {
+            "ticker": "ONTO",
+            "relationship": "supplier (HBM/advanced packaging metrology)",
+            "expected_direction": "down",
+            "confidence": 3
+          },
+          {
+            "ticker": "LSCC",
+            "relationship": "sympathy (limited direct AI exposure)",
+            "expected_direction": "down (likely overdone)",
+            "confidence": 3
+          },
+          {
+            "ticker": "PLAB",
+            "relationship": "sympathy (mature-node photomasks, weak AI link)",
+            "expected_direction": "down (likely overdone)",
+            "confidence": 2
+          }
+        ]
+      },
+      {
+        "primary_event": "Iran war / UAE leaving OPEC / oil near $100",
+        "primary_ticker": "XLE",
+        "secondary_opportunities": [
+          {
+            "ticker": "GM",
+            "relationship": "input cost pressure (already announced $500M tariff refund offset)",
+            "expected_direction": "mixed",
+            "confidence": 2
+          }
+        ]
+      }
+    ],
+    "trump_signals": [],
+    "no_signals_note": "Most interesting unexplained mover is BBIO (-6.5% on 5.4x volume) — investigate first; clearly stock-specific news not in feed. AI-complex sympathy selling in mid-cap semis (LSCC, PLAB) merits scrutiny for overshoot vs. names with genuine AI capex exposure (AEIS, ONTO) where the move is more fundamentally justified."
+  },
+  "ai_analysis": {
+    "ai_announcements": [
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": false,
+        "headline": "Amazon offers new OpenAI products on AWS following Microsoft exclusivity end",
+        "summary": "AWS announced OpenAI model offerings including a new agent service, one day after OpenAI ended Microsoft exclusivity.",
+        "affected_stocks": []
+      },
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": false,
+        "headline": "Google expands Pentagon AI access after Anthropic refusal",
+        "summary": "Google signed new DoD contract after Anthropic declined certain use cases (mass surveillance, autonomous weapons).",
+        "affected_stocks": []
+      },
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": true,
+        "headline": "Red Hat's OpenClaw (Claude-related) container hardening for enterprise agent deployments",
+        "summary": "Tank OS containerizes OpenClaw AI agents for safer fleet deployment. Anthropic-ecosystem adjacent.",
+        "affected_stocks": []
+      }
+    ],
+    "no_signals_note": "None of today's moving stocks (BBIO, PLAB, LSCC, WSO, ONTO, ALGN, BEAM, POOL, AEIS) have a plausible direct linkage to today's AI announcements. BBIO/BEAM/ALGN moves are healthcare-specific (likely earnings/clinical). PLAB/LSCC/ONTO/AEIS are semis — could reflect broader semi/AI capex sentiment but no announcement today plausibly drove a 4-6% selloff in these specific names; more likely earnings/guidance from semi peers or macro. WSO/POOL are industrial distributors with no AI announcement nexus today (likely earnings reactions, both report around this time). No actionable AI-driven mispricing signal in this dataset. Anthropic-related items (OpenClaw container, DoD refusal) flagged for bias-tracking but have no public-stock impact pathway."
+  }
+}

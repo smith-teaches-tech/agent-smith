@@ -1,0 +1,195 @@
+{
+  "generated_at": "2026-04-27T20:09:55.317151+00:00",
+  "market_context": {
+    "2330.TW": {
+      "price": 2265.0,
+      "change_pct": 3.66,
+      "volume": 68696037,
+      "high": 2330.0,
+      "low": 2265.0
+    },
+    "2454.TW": {
+      "price": 2435.0,
+      "change_pct": 0.0,
+      "volume": 23842383,
+      "high": 2575.0,
+      "low": 2410.0
+    },
+    "2317.TW": {
+      "price": 228.0,
+      "change_pct": 2.93,
+      "volume": 106041417,
+      "high": 230.0,
+      "low": 220.0
+    },
+    "2308.TW": {
+      "price": 2020.0,
+      "change_pct": -2.65,
+      "volume": 13935817,
+      "high": 2080.0,
+      "low": 1995.0
+    },
+    "2382.TW": {
+      "price": 325.5,
+      "change_pct": 0.77,
+      "volume": 16103840,
+      "high": 328.5,
+      "low": 319.5
+    },
+    "3008.TW": {
+      "price": 2615.0,
+      "change_pct": 3.77,
+      "volume": 2368224,
+      "high": 2700.0,
+      "low": 2555.0
+    },
+    "3711.TW": {
+      "price": 495.5,
+      "change_pct": -0.1,
+      "volume": 29200780,
+      "high": 523.0,
+      "low": 495.5
+    },
+    "2303.TW": {
+      "price": 72.7,
+      "change_pct": -2.42,
+      "volume": 185496761,
+      "high": 76.4,
+      "low": 70.7
+    },
+    "^TWII": {
+      "price": 38932.4,
+      "change_pct": 2.83,
+      "volume": 5653800,
+      "high": 38989.94,
+      "low": 37862.65
+    },
+    "0050.TW": {
+      "price": 93.0,
+      "change_pct": 3.39,
+      "volume": 183173507,
+      "high": 94.25,
+      "low": 92.7
+    },
+    "EWT": {
+      "price": 87.37,
+      "change_pct": -0.82,
+      "volume": 3232820,
+      "high": 87.81,
+      "low": 87.01
+    }
+  },
+  "adr_arbitrage": [
+    {
+      "adr": "TSM",
+      "local": "2330.TW",
+      "adr_change_pct": 0.62,
+      "local_change_pct": 3.66,
+      "divergence_pct": -3.04
+    },
+    {
+      "adr": "UMC",
+      "local": "2303.TW",
+      "adr_change_pct": -4.72,
+      "local_change_pct": -2.42,
+      "divergence_pct": -2.3
+    },
+    {
+      "adr": "ASX",
+      "local": "3711.TW",
+      "adr_change_pct": -3.62,
+      "local_change_pct": -0.1,
+      "divergence_pct": -3.52
+    },
+    {
+      "adr": "HIMX",
+      "local": "3504.TW",
+      "adr_change_pct": -4.88,
+      "local_change_pct": -1.06,
+      "divergence_pct": -3.82
+    }
+  ],
+  "news_counts": {
+    "zh": 0,
+    "en": 7
+  },
+  "analysis": {
+    "summary_en": "Strong risk-on day for TAIEX (+2.83%) led by TSMC (+3.66%) and Hon Hai (+2.93%), but the rally has notable cracks: ADRs across the board (TSM, UMC, ASX, HIMX) traded sharply weaker overnight, suggesting local prices are running ahead of US sentiment. UMC (-2.42%) and MediaTek (flat after intraday weakness) lag, signaling the move is concentrated in AI/CoWoS leaders rather than broad semis. The ADR-local divergence (TSM -3.04pp, ASX -3.52pp) is a meaningful overnight risk for tomorrow's open.",
+    "summary_zh": "台股今日強勢風險偏好(+2.83%),由台積電(+3.66%)及鴻海(+2.93%)領軍,但漲勢存在隱憂:多檔ADR(TSM、UMC、ASX、HIMX)隔夜大跌,顯示本地價格已領先美國情緒。聯電(-2.42%)及聯發科(盤中走弱後平盤)落後,顯示資金集中於AI/CoWoS龍頭而非全面性的半導體買盤。ADR與本地價差(TSM -3.04pp、ASX -3.52pp)是明日開盤的重大隔夜風險。",
+    "context": {
+      "taiex_change_pct": 2.83,
+      "tsmc_change_pct": 3.66,
+      "tone": "risk-on"
+    },
+    "key_stories": [
+      {
+        "headline_en": "CPO (Co-Packaged Optics) market projected at 142% CAGR 2026-2030 as NVIDIA/Broadcom deploy in switches",
+        "headline_zh": "共同封裝光學(CPO)市場預估2026-2030年複合成長率達142%,輝達與博通已開始部署於交換器",
+        "affected_tickers": [
+          "2330.TW",
+          "3008.TW",
+          "3711.TW"
+        ],
+        "analysis_en": "CPO narrative supports the AI-optical supply chain — TSMC (silicon photonics integration), Largan (3008 +3.77%) on optical content, and ASE (3711) on advanced packaging. However ASE ADR fell -3.62% overnight while local was flat; the local market is pricing the bullish CPO narrative while US is selling the same name. One side is wrong. Largan's move to 2615 on a structural CPO story (rather than smartphone lens) is a stretch — Largan's CPO exposure is indirect.",
+        "analysis_zh": "CPO題材利多AI光學供應鏈—台積電(矽光子整合)、大立光(3008 +3.77%)光學含量、日月光(3711)先進封裝。但日月光ADR隔夜跌3.62%而本地平盤;本地在追CPO利多,美國卻在賣同一檔。必有一方錯誤。大立光以CPO結構性題材衝至2615元(而非手機鏡頭)有點勉強—其CPO曝險為間接。",
+        "verdict": "overdone",
+        "confidence": 3
+      },
+      {
+        "headline_en": "Samsung breaks 10nm DRAM barrier with first sub-10nm working die",
+        "headline_zh": "三星突破10奈米障礙,推出全球首顆個位數奈米級DRAM試產晶片",
+        "affected_tickers": [
+          "2303.TW"
+        ],
+        "analysis_en": "Samsung process leadership in DRAM is incrementally negative for memory pricing power and for second-tier foundries/IDMs. UMC (-2.42%) weakness fits the narrative of memory/mature-node pressure, though UMC is foundry not memory — the read-across is weak. More directly relevant for Nanya/Winbond which aren't in the dataset. Note UMC ADR -4.72% suggests larger overnight drop coming.",
+        "analysis_zh": "三星DRAM製程領先對記憶體定價力及二線晶圓代工/IDM略偏負面。聯電(-2.42%)走弱符合記憶體/成熟製程承壓敘事,但聯電是代工非記憶體—關聯性較弱。對南亞科、華邦電(未在資料中)更直接相關。聯電ADR -4.72%暗示明日可能補跌。",
+        "verdict": "rational",
+        "confidence": 2
+      },
+      {
+        "headline_en": "MediaTek flat with wide intraday range (high 2575, low 2410)",
+        "headline_zh": "聯發科平盤但盤中震盪劇烈(高2575、低2410)",
+        "affected_tickers": [
+          "2454.TW"
+        ],
+        "analysis_en": "MediaTek finished flat after a 6.4% intraday range — significant distribution on a day when TSMC ran +3.66%. This is a relative-strength red flag: the AI-rally money is not extending into MediaTek. Likely mechanism: rotation from edge/smartphone AI into datacenter AI (TSMC/CoWoS). Watch for follow-through weakness tomorrow.",
+        "analysis_zh": "聯發科在6.4%盤中區間後收平盤—在台積電大漲3.66%的日子顯著出貨。這是相對強度警訊:AI行情資金未延伸到聯發科。可能機制:從邊緣/手機AI輪動至資料中心AI(台積電/CoWoS)。留意明日是否續弱。",
+        "verdict": "rational",
+        "confidence": 3
+      },
+      {
+        "headline_en": "Hon Hai +2.93%, Pegatron -2.65% — assembler divergence",
+        "headline_zh": "鴻海+2.93%、和碩-2.65%—代工廠表現分歧",
+        "affected_tickers": [
+          "2317.TW",
+          "2308.TW"
+        ],
+        "analysis_en": "Hon Hai catching the AI server bid (NVIDIA supplier story), Pegatron sold off — likely client mix differential (Hon Hai = NVIDIA/AI server exposure, Pegatron = more legacy PC/iPhone). The 5.5pp gap on the same day is large; either Pegatron-specific news flow we don't see, or pure rotation. Falsified if Pegatron rebounds on Apple supply chain news while Hon Hai stalls.",
+        "analysis_zh": "鴻海受惠AI伺服器買盤(輝達供應鏈題材),和碩遭賣壓—可能為客戶結構差異(鴻海=輝達/AI伺服器,和碩=傳統PC/iPhone較多)。同日5.5個百分點價差偏大;可能有未揭露的和碩個股消息,或純粹資金輪動。若和碩因蘋果供應鏈消息反彈而鴻海停滯,則此判斷被推翻。",
+        "verdict": "rational",
+        "confidence": 3
+      }
+    ],
+    "adr_arbitrage": [
+      {
+        "pair": "TSM vs 2330.TW",
+        "divergence_pct": -3.04,
+        "interpretation_en": "Local TSMC ran +3.66% while TSM ADR only +0.62% in prior US session. Local is pricing in stronger AI/CoWoS optimism than US is. Mechanism: domestic foreign-institutional buying flow ahead of TSM catching up, OR local is over-extended and TSM will gap up to close half the gap, with local consolidating. Watch tonight's TSM tape for direction. FALSIFIED if TSM rallies +2-3% tonight (then local was right).",
+        "interpretation_zh": "本地台積電大漲3.66%,但TSM ADR前一交易日僅+0.62%。本地對AI/CoWoS的樂觀定價超前美國。機制:外資先行買進等TSM補漲,或本地漲過頭,TSM今晚補漲填補一半價差、本地隔日整理。留意今晚TSM走勢。若TSM今晚漲2-3%則本地判斷正確,此觀點被推翻。"
+      },
+      {
+        "pair": "ASX vs 3711.TW",
+        "divergence_pct": -3.52,
+        "interpretation_en": "ASE ADR -3.62% vs local flat — largest divergence in the set. Local market may not have fully digested overnight US weakness in advanced-packaging name. Risk of catch-down at tomorrow's open if no positive newsflow overnight. FALSIFIED if a CoWoS/CPO order announcement explains the ADR drop as misread.",
+        "interpretation_zh": "日月光投控ADR -3.62%,本地平盤—資料中最大價差。本地可能尚未完全消化先進封裝個股的隔夜美國弱勢。若隔夜無利多消息,明日開盤恐補跌。若有CoWoS/CPO訂單公告解釋ADR下跌為誤讀,則此觀點被推翻。"
+      },
+      {
+        "pair": "HIMX vs 3504.TW",
+        "divergence_pct": -3.82,
+        "interpretation_en": "Himax ADR -4.88% vs local -1.06%. Local lagging the bad news; small-cap display driver, may catch down tomorrow. Lower conviction due to thinner tape and idiosyncratic Himax factors.",
+        "interpretation_zh": "奇景光電ADR -4.88%,本地僅-1.06%。本地尚未完全反映利空;小型面板驅動IC,明日恐補跌。因成交量較薄且奇景個別因素較多,信心度較低。"
+      }
+    ],
+    "no_signals_note": ""
+  }
+}

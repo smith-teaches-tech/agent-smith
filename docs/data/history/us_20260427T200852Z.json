@@ -1,0 +1,406 @@
+{
+  "generated_at": "2026-04-27T20:08:52.364010+00:00",
+  "market_context": {
+    "SPY": {
+      "price": 715.1,
+      "change_pct": 0.16,
+      "volume": 30874773,
+      "high": 715.61,
+      "low": 712.29
+    },
+    "QQQ": {
+      "price": 664.23,
+      "change_pct": 0.05,
+      "volume": 31714705,
+      "high": 664.42,
+      "low": 660.69
+    },
+    "DIA": {
+      "price": 491.82,
+      "change_pct": -0.08,
+      "volume": 2060977,
+      "high": 493.55,
+      "low": 490.29
+    },
+    "IWM": {
+      "price": 277.05,
+      "change_pct": 0.15,
+      "volume": 22180364,
+      "high": 278.24,
+      "low": 276.25
+    },
+    "^VIX": {
+      "price": 18.14,
+      "change_pct": -3.05,
+      "volume": 0,
+      "high": 19.27,
+      "low": 18.13
+    },
+    "XLK": {
+      "price": 160.57,
+      "change_pct": 0.22,
+      "volume": 7926372,
+      "high": 160.62,
+      "low": 158.81
+    },
+    "XLF": {
+      "price": 51.79,
+      "change_pct": 0.73,
+      "volume": 25002711,
+      "high": 51.9,
+      "low": 51.31
+    },
+    "XLE": {
+      "price": 56.79,
+      "change_pct": -0.14,
+      "volume": 32861605,
+      "high": 57.68,
+      "low": 56.63
+    },
+    "XLV": {
+      "price": 143.46,
+      "change_pct": -0.5,
+      "volume": 6107008,
+      "high": 145.21,
+      "low": 143.42
+    },
+    "XLI": {
+      "price": 172.49,
+      "change_pct": 0.01,
+      "volume": 6664384,
+      "high": 173.51,
+      "low": 171.54
+    },
+    "XLP": {
+      "price": 82.33,
+      "change_pct": -1.08,
+      "volume": 10611846,
+      "high": 83.34,
+      "low": 82.27
+    },
+    "XLY": {
+      "price": 117.84,
+      "change_pct": -0.71,
+      "volume": 6853708,
+      "high": 118.45,
+      "low": 117.28
+    },
+    "XLU": {
+      "price": 46.18,
+      "change_pct": 0.0,
+      "volume": 13639145,
+      "high": 46.49,
+      "low": 46.17
+    },
+    "XLB": {
+      "price": 51.78,
+      "change_pct": -0.27,
+      "volume": 8018026,
+      "high": 52.17,
+      "low": 51.61
+    },
+    "XLRE": {
+      "price": 43.48,
+      "change_pct": -0.8,
+      "volume": 3911808,
+      "high": 43.97,
+      "low": 43.43
+    },
+    "XLC": {
+      "price": 115.79,
+      "change_pct": 0.22,
+      "volume": 4296905,
+      "high": 116.75,
+      "low": 115.41
+    },
+    "SMH": {
+      "price": 506.26,
+      "change_pct": -0.04,
+      "volume": 8769225,
+      "high": 510.09,
+      "low": 497.74
+    },
+    "XBI": {
+      "price": 133.04,
+      "change_pct": -0.18,
+      "volume": 6312259,
+      "high": 135.86,
+      "low": 132.62
+    },
+    "ITA": {
+      "price": 216.01,
+      "change_pct": 0.1,
+      "volume": 683734,
+      "high": 217.47,
+      "low": 214.79
+    },
+    "KRE": {
+      "price": 70.04,
+      "change_pct": 1.67,
+      "volume": 10824307,
+      "high": 70.29,
+      "low": 68.89
+    },
+    "NVDA": {
+      "price": 216.61,
+      "change_pct": 4.0,
+      "volume": 179362012,
+      "high": 216.82,
+      "low": 207.38
+    },
+    "MSFT": {
+      "price": 424.82,
+      "change_pct": 0.05,
+      "volume": 29666184,
+      "high": 427.08,
+      "low": 417.07
+    },
+    "AAPL": {
+      "price": 267.62,
+      "change_pct": -1.27,
+      "volume": 35223074,
+      "high": 268.36,
+      "low": 265.07
+    },
+    "GOOGL": {
+      "price": 350.34,
+      "change_pct": 1.72,
+      "volume": 27592030,
+      "high": 353.18,
+      "low": 342.73
+    },
+    "AMZN": {
+      "price": 261.07,
+      "change_pct": -1.11,
+      "volume": 43043142,
+      "high": 264.15,
+      "low": 260.34
+    },
+    "META": {
+      "price": 678.62,
+      "change_pct": 0.53,
+      "volume": 10503499,
+      "high": 682.5,
+      "low": 670.84
+    },
+    "TSLA": {
+      "price": 378.55,
+      "change_pct": 0.6,
+      "volume": 65913364,
+      "high": 380.78,
+      "low": 364.02
+    },
+    "AVGO": {
+      "price": 418.2,
+      "change_pct": -1.08,
+      "volume": 15782047,
+      "high": 422.75,
+      "low": 414.63
+    },
+    "TSM": {
+      "price": 404.96,
+      "change_pct": 0.62,
+      "volume": 15317929,
+      "high": 414.5,
+      "low": 400.4
+    },
+    "ORCL": {
+      "price": 172.99,
+      "change_pct": -0.17,
+      "volume": 19045779,
+      "high": 173.55,
+      "low": 167.9
+    }
+  },
+  "movers_count": 3,
+  "news_count": 62,
+  "trump_posts_count": 11,
+  "discovery": {
+    "run_summary": "Mixed tape with risk-on undertones: VIX -3%, KRE +1.67% on regional bank strength, but consumer staples and discretionary weak. Key catalyst: Intellia's Phase 3 CRISPR success is driving a sympathy rally across gene-editing peers (BEAM, CRSP). Oil at $108 on Iran tension is a key macro backdrop not yet showing in XLE.",
+    "market_context": {
+      "tone": "mixed",
+      "notable_index_moves": [
+        "VIX -3% to 18.14 — risk appetite improving despite Iran/Hormuz headlines",
+        "KRE +1.67% — regional banks notably strong, possibly on rate cut speculation despite Dalio's stagflation warning",
+        "XLP -1.08% and XLY -0.71% — consumer weakness confirmed by Domino's commentary about industry-wide softness",
+        "XLE -0.14% surprising given Brent at $108; suggests market skeptical oil spike is durable",
+        "NVDA +4% leading, GOOGL +1.72% on OpenAI/Microsoft deal restructure"
+      ]
+    },
+    "discoveries": [
+      {
+        "ticker": "BEAM",
+        "name": "Beam Therapeutics Inc.",
+        "sector": "Healthcare - Biotechnology",
+        "move_pct": 7.58,
+        "volume_multiple": 1.42,
+        "classification": "LIKELY RATIONAL",
+        "confidence": 4,
+        "mechanism": "Sympathy buying within gene-editing peer group following Intellia's positive Phase 3 readout in HAE — validates in vivo CRISPR delivery platform that BEAM also pursues (base editing). De-risks the broader gene-editing thesis.",
+        "catalyst": "Intellia Therapeutics Phase 3 trial success in hereditary angioedema announced today",
+        "research_pointers": [
+          "Compare BEAM's pipeline timing vs. Intellia's NTLA-2002 — what is BEAM's nearest catalyst?",
+          "Check whether Intellia's success implies validation of LNP delivery (which BEAM also uses) or is technology-specific",
+          "Review BEAM cash runway and recent -6.49% 5-day weakness — was there a stock-specific overhang now reversing?",
+          "Volume only 1.42x average suggests this is positioning rather than capitulation buying — could extend"
+        ],
+        "what_would_falsify": "If Intellia's mechanism is sufficiently differentiated from base editing that BEAM peers shouldn't benefit, or if BEAM has near-term clinical/cash overhangs that reassert",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "CRSP",
+        "name": "CRISPR Therapeutics AG",
+        "sector": "Healthcare - Biotechnology",
+        "move_pct": 4.52,
+        "volume_multiple": 1.67,
+        "classification": "LIKELY RATIONAL",
+        "confidence": 4,
+        "mechanism": "Direct sympathy beneficiary of Intellia Phase 3 success — both companies pursue CRISPR-Cas9 editing. Validates the platform commercially beyond Casgevy/sickle cell. Note 5-day was -11.61%, so a portion of this is also rebound from prior weakness.",
+        "catalyst": "Intellia Phase 3 readout",
+        "research_pointers": [
+          "Assess whether Intellia's success increases probability of CRSP's own pipeline reads (CTX-310, CTX-320)",
+          "Casgevy commercialization run-rate — has uptake improved? CRSP has been weak partly on slow launch",
+          "Volume 1.67x is meaningful but not extreme; check if institutional flows extend tomorrow"
+        ],
+        "what_would_falsify": "Casgevy launch continuing to disappoint would cap upside regardless of platform validation; or if Intellia's specific delivery tech is seen as superior to CRSP's approach",
+        "time_horizon": "days to weeks"
+      }
+    ],
+    "catalyst_chains": [
+      {
+        "primary_event": "Intellia Therapeutics Phase 3 success in hereditary angioedema — first major in vivo CRISPR Phase 3 win",
+        "primary_ticker": "NTLA",
+        "secondary_opportunities": [
+          {
+            "ticker": "BEAM",
+            "relationship": "sympathy / gene-editing peer",
+            "expected_direction": "up",
+            "confidence": 3
+          },
+          {
+            "ticker": "CRSP",
+            "relationship": "sympathy / direct CRISPR peer",
+            "expected_direction": "up",
+            "confidence": 4
+          },
+          {
+            "ticker": "VERV",
+            "relationship": "sympathy / in vivo gene editing peer (not in movers list — worth checking)",
+            "expected_direction": "up",
+            "confidence": 3
+          },
+          {
+            "ticker": "EDIT",
+            "relationship": "sympathy / gene editing peer",
+            "expected_direction": "up",
+            "confidence": 2
+          }
+        ]
+      },
+      {
+        "primary_event": "Brent crude $108 on Iran/Hormuz tension, but XLE flat — possible underreaction or skepticism about durability",
+        "primary_ticker": "XLE",
+        "secondary_opportunities": [
+          {
+            "ticker": "AMR",
+            "relationship": "sympathy / energy commodity (coking coal benefits from energy spikes indirectly)",
+            "expected_direction": "up",
+            "confidence": 2
+          }
+        ]
+      },
+      {
+        "primary_event": "Domino's CEO warns of broad fast-food/consumer weakness from winter weather and weak sentiment",
+        "primary_ticker": "DPZ",
+        "secondary_opportunities": [
+          {
+            "ticker": "CMG",
+            "relationship": "sympathy / restaurant peer at risk of guide-down",
+            "expected_direction": "down",
+            "confidence": 2
+          },
+          {
+            "ticker": "QSR",
+            "relationship": "sympathy / QSR peer",
+            "expected_direction": "down",
+            "confidence": 2
+          },
+          {
+            "ticker": "WEN",
+            "relationship": "sympathy / QSR peer",
+            "expected_direction": "down",
+            "confidence": 2
+          }
+        ]
+      }
+    ],
+    "trump_signals": [],
+    "no_signals_note": "Mover list is unusually thin (only 3 names). Most actionable signal is the gene-editing sympathy chain off Intellia. AMR's +4.21% on below-average volume (0.6x) is unconvincing — likely noise or thin-trade drift, not flagging as a discovery. Worth Michael also independently checking NTLA itself and other gene-editing names (VERV, EDIT, PRME) not in the candidate list."
+  },
+  "ai_analysis": {
+    "ai_announcements": [
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": false,
+        "headline": "OpenAI ends Microsoft legal peril over its $50B AWS deal",
+        "summary": "OpenAI gains right to sell on AWS; Microsoft gets revenue share concessions.",
+        "affected_stocks": [
+          {
+            "ticker": "AMZN",
+            "current_move_pct": null,
+            "direct_overlap": "low",
+            "switching_cost": "high",
+            "counter_thesis": "AWS gains a major AI workload customer, narrowing perceived AI infrastructure gap vs Azure/GCP",
+            "time_horizon": "1-2yr",
+            "already_priced_in_assessment": "no",
+            "verdict": "UNDERDONE",
+            "confidence": 2,
+            "research_pointers": [
+              "AWS AI revenue disclosure trajectory",
+              "OpenAI workload sizing on AWS vs Azure"
+            ]
+          },
+          {
+            "ticker": "MSFT",
+            "current_move_pct": null,
+            "direct_overlap": "low",
+            "switching_cost": "high",
+            "counter_thesis": "Revenue-share economics may offset loss of exclusivity; legal overhang removed",
+            "time_horizon": "1-2yr",
+            "already_priced_in_assessment": "partial",
+            "verdict": "PARTIALLY RATIONAL",
+            "confidence": 2,
+            "research_pointers": [
+              "Terms of new Microsoft-OpenAI revenue share",
+              "Azure OpenAI exclusivity language"
+            ]
+          }
+        ]
+      },
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": false,
+        "headline": "OpenAI could be making a phone with AI agents replacing apps",
+        "summary": "Analyst speculates 2028 mass production for an OpenAI phone where agents replace apps.",
+        "affected_stocks": [
+          {
+            "ticker": "AAPL",
+            "current_move_pct": null,
+            "direct_overlap": "medium",
+            "switching_cost": "high",
+            "counter_thesis": "iOS ecosystem lock-in is severe; 2028 timeline gives Apple ample response window; Apple's own AI integration progresses",
+            "time_horizon": "3-5yr",
+            "already_priced_in_assessment": "no",
+            "verdict": "RATIONAL",
+            "confidence": 2,
+            "research_pointers": [
+              "Skye AI home screen app reception",
+              "Apple Intelligence agent roadmap"
+            ]
+          }
+        ]
+      }
+    ],
+    "no_signals_note": "Today's flagged movers (BEAM, CRSP, AMR) have no plausible connection to today's AI announcements. BEAM/CRSP move appears to be biotech-specific (gene editing news flow); AMR is coal/metallurgical, unrelated. No AI-driven mispricing signal in the provided market data."
+  }
+}

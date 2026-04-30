@@ -1,0 +1,183 @@
+{
+  "generated_at": "2026-04-28T20:17:09.831202+00:00",
+  "market_context": {
+    "2330.TW": {
+      "price": 2215.0,
+      "change_pct": -2.21,
+      "volume": 47175356,
+      "high": 2280.0,
+      "low": 2215.0
+    },
+    "2454.TW": {
+      "price": 2615.0,
+      "change_pct": 7.39,
+      "volume": 22923298,
+      "high": 2675.0,
+      "low": 2485.0
+    },
+    "2317.TW": {
+      "price": 225.5,
+      "change_pct": -1.1,
+      "volume": 101695092,
+      "high": 234.0,
+      "low": 225.0
+    },
+    "2308.TW": {
+      "price": 2125.0,
+      "change_pct": 5.2,
+      "volume": 13898931,
+      "high": 2160.0,
+      "low": 2030.0
+    },
+    "2382.TW": {
+      "price": 321.0,
+      "change_pct": -1.38,
+      "volume": 15525273,
+      "high": 330.0,
+      "low": 317.5
+    },
+    "3008.TW": {
+      "price": 2580.0,
+      "change_pct": -1.34,
+      "volume": 1268001,
+      "high": 2685.0,
+      "low": 2575.0
+    },
+    "3711.TW": {
+      "price": 495.5,
+      "change_pct": 0.0,
+      "volume": 21147769,
+      "high": 510.0,
+      "low": 483.5
+    },
+    "2303.TW": {
+      "price": 75.1,
+      "change_pct": 3.3,
+      "volume": 162722456,
+      "high": 77.7,
+      "low": 71.3
+    },
+    "^TWII": {
+      "price": 39616.63,
+      "change_pct": -0.61,
+      "volume": 5805300,
+      "high": 40194.92,
+      "low": 39607.74
+    },
+    "0050.TW": {
+      "price": NaN,
+      "change_pct": NaN,
+      "volume": 125456708,
+      "high": NaN,
+      "low": NaN
+    },
+    "EWT": {
+      "price": 87.24,
+      "change_pct": -0.13,
+      "volume": 6012828,
+      "high": 87.37,
+      "low": 86.68
+    }
+  },
+  "adr_arbitrage": [
+    {
+      "adr": "TSM",
+      "local": "2330.TW",
+      "adr_change_pct": -3.16,
+      "local_change_pct": -2.21,
+      "divergence_pct": -0.95
+    },
+    {
+      "adr": "UMC",
+      "local": "2303.TW",
+      "adr_change_pct": -0.26,
+      "local_change_pct": 3.3,
+      "divergence_pct": -3.56
+    },
+    {
+      "adr": "ASX",
+      "local": "3711.TW",
+      "adr_change_pct": -2.5,
+      "local_change_pct": 0.0,
+      "divergence_pct": -2.5
+    },
+    {
+      "adr": "HIMX",
+      "local": "3504.TW",
+      "adr_change_pct": -4.87,
+      "local_change_pct": -1.37,
+      "divergence_pct": -3.5
+    }
+  ],
+  "news_counts": {
+    "zh": 0,
+    "en": 2
+  },
+  "analysis": {
+    "summary_en": "Mixed-to-risk-off session with notable rotation. TAIEX down 0.61% but TSMC down 2.21% drags the index, while MediaTek (+7.39%) and Delta (+5.2%) rally hard on AI/non-TSMC compute themes. UMC (+3.3%) diverges sharply higher vs its ADR — likely a foreign-vs-local flow mismatch. The Huawei/China AI accelerator localization story is a structural negative for TSMC's long-term China revenue narrative and may explain TSMC weakness alongside the -3.16% ADR drop overnight.",
+    "summary_zh": "盤面偏空但內部分化明顯。加權指數下跌0.61%,台積電(-2.21%)為主要拖累,但聯發科(+7.39%)與台達電(+5.2%)在AI與非台積電運算題材帶動下強勢反彈。聯電(+3.3%)與其ADR走勢明顯背離,可能反映外資與本土資金流向不一致。華為主導中國AI加速器在地化的新聞,對台積電長期中國營收為結構性利空,可能是台積電與其ADR(-3.16%)同步走弱的原因。",
+    "context": {
+      "taiex_change_pct": -0.61,
+      "tsmc_change_pct": -2.21,
+      "tone": "mixed"
+    },
+    "key_stories": [
+      {
+        "headline_en": "China AI accelerator localization: Huawei to take >50% share of 2.12M unit 2026 market",
+        "headline_zh": "中國AI加速器在地化:2026年華為將取得212萬顆雲端AI加速器市場逾五成市佔",
+        "affected_tickers": [
+          "2330.TW",
+          "2454.TW",
+          "2303.TW"
+        ],
+        "analysis_en": "Negative read-through for TSMC's China hyperscaler revenue stream as Huawei's Ascend ramps on SMIC rather than TSMC. However, this is a known multi-year trend, not new news. TSMC's -2.21% move alongside a -3.16% ADR is more likely tied to broader semiconductor sentiment and overnight US tape than this specific article. MediaTek's +7.39% rally is the more telling signal — money rotating into non-TSMC AI exposure (ASIC/edge AI plays).",
+        "analysis_zh": "對台積電中國雲端客戶營收為結構性負面,因華為昇騰系列轉向中芯生產。然此趨勢已持續多年並非新訊息。台積電下跌2.21%加上ADR -3.16%,更可能受美股盤面與半導體整體情緒影響,而非單一新聞。聯發科大漲7.39%才是真正訊號——資金輪動至非台積電的AI受惠標的(ASIC、邊緣AI)。",
+        "verdict": "rational",
+        "confidence": 3
+      },
+      {
+        "headline_en": "MediaTek surges 7.39% — likely AI ASIC / Google TPU partnership momentum",
+        "headline_zh": "聯發科大漲7.39%——可能受AI ASIC與Google TPU合作題材帶動",
+        "affected_tickers": [
+          "2454.TW"
+        ],
+        "analysis_en": "A +7.39% move on 22.9M shares is a high-conviction institutional buy, not retail noise. With no specific news in feed, the most likely catalysts are: (1) AI ASIC design-win speculation, (2) sector rotation away from TSMC into design houses, or (3) Q1 earnings/guidance leak. Falsification: if no concrete news emerges within 48 hours and the move fades >3%, it was likely positioning rather than fundamentals.",
+        "analysis_zh": "成交量2,290萬股配合7.39%漲幅,為法人買盤特徵而非散戶推升。在無具體新聞情況下,可能催化劑為:(1)AI ASIC設計案訂單傳聞、(2)資金由台積電輪動至IC設計、(3)Q1財報或財測提前反映。反證條件:若48小時內無具體新聞且漲幅回吐逾3%,則為單純籌碼行為而非基本面。",
+        "verdict": "underdone",
+        "confidence": 3
+      },
+      {
+        "headline_en": "Delta Electronics +5.2% on AI power/cooling theme",
+        "headline_zh": "台達電上漲5.2%,反映AI電源與散熱題材",
+        "affected_tickers": [
+          "2308.TW"
+        ],
+        "analysis_en": "Delta moving with MediaTek confirms an AI infrastructure rotation theme — power supplies and liquid cooling for data centers. This is the 'pick-and-shovel' trade away from TSMC concentration risk. Falsification: a Nvidia capex cut headline or hyperscaler order push-out would unwind this immediately.",
+        "analysis_zh": "台達電與聯發科同步上漲,確認AI基礎設施輪動題材——資料中心電源與液冷。屬於分散台積電集中風險的『賣鏟子』邏輯。反證條件:輝達資本支出下修或雲端業者訂單延後即會立即反轉此趨勢。",
+        "verdict": "rational",
+        "confidence": 4
+      }
+    ],
+    "adr_arbitrage": [
+      {
+        "pair": "UMC vs 2303.TW",
+        "divergence_pct": -3.56,
+        "interpretation_en": "Unusually large divergence — UMC ADR flat to down while local UMC rallies 3.3% on heavy 162M share volume. This is the largest divergence in the table and warrants attention. Possible explanations: (1) local foreign buying or short-cover post-TSMC weakness as a relative-value rotation within foundries, (2) anticipated mature-node price hike news, (3) China stimulus/legacy chip demand rumor. ADR is likely to gap up tonight to converge if local move sticks.",
+        "interpretation_zh": "背離幅度異常大——聯電ADR持平至小跌,但本地聯電在1.6億股大量下大漲3.3%。為表中最大背離,值得關注。可能原因:(1)台積電弱勢後外資於晶圓代工內部相對價值輪動買進、(2)成熟製程漲價傳聞、(3)中國刺激政策或傳統晶片需求預期。若本地走勢延續,今晚ADR可能跳空向上收斂。"
+      },
+      {
+        "pair": "ASE (ASX) vs 3711.TW",
+        "divergence_pct": -2.5,
+        "interpretation_en": "ADR -2.5% but local flat. If ADR weakness reflects new overnight news (e.g., advanced packaging order cut), local 3711.TW could open weaker tomorrow. Worth monitoring open.",
+        "interpretation_zh": "日月光ADR下跌2.5%但本地持平。若ADR弱勢反映隔夜新訊(如先進封裝訂單調整),3711.TW明日開盤可能補跌。建議觀察開盤。"
+      },
+      {
+        "pair": "Himax (HIMX) vs 3504.TW",
+        "divergence_pct": -3.5,
+        "interpretation_en": "HIMX ADR -4.87% vs local -1.37%. Local has further downside risk to converge unless overnight ADR move was driven by US-specific factors.",
+        "interpretation_zh": "奇景光電ADR下跌4.87%,本地僅下跌1.37%。除非ADR跌幅來自美股特定因素,本地仍有補跌收斂風險。"
+      }
+    ],
+    "no_signals_note": "News feed is thin (only 2 English items, 0 Chinese). Strongest actionable signal is the UMC ADR-local divergence and MediaTek's unexplained 7.39% surge — both warrant follow-up rather than immediate action."
+  }
+}

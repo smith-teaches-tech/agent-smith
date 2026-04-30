@@ -1,0 +1,198 @@
+{
+  "generated_at": "2026-04-28T08:15:32.026752+00:00",
+  "market_context": {
+    "2330.TW": {
+      "price": 2215.0,
+      "change_pct": -2.21,
+      "volume": 52509163,
+      "high": 2280.0,
+      "low": 2215.0
+    },
+    "2454.TW": {
+      "price": 2615.0,
+      "change_pct": 7.39,
+      "volume": 24053057,
+      "high": 2675.0,
+      "low": 2485.0
+    },
+    "2317.TW": {
+      "price": 225.5,
+      "change_pct": -1.1,
+      "volume": 103511628,
+      "high": 234.0,
+      "low": 225.0
+    },
+    "2308.TW": {
+      "price": 2125.0,
+      "change_pct": 5.2,
+      "volume": 14635711,
+      "high": 2160.0,
+      "low": 2030.0
+    },
+    "2382.TW": {
+      "price": 321.0,
+      "change_pct": -1.38,
+      "volume": 15970822,
+      "high": 330.0,
+      "low": 317.5
+    },
+    "3008.TW": {
+      "price": 2580.0,
+      "change_pct": -1.34,
+      "volume": 1451698,
+      "high": 2685.0,
+      "low": 2575.0
+    },
+    "3711.TW": {
+      "price": 495.5,
+      "change_pct": 0.0,
+      "volume": 21674840,
+      "high": 510.0,
+      "low": 483.5
+    },
+    "2303.TW": {
+      "price": 75.1,
+      "change_pct": 3.3,
+      "volume": 163527974,
+      "high": 77.7,
+      "low": 71.3
+    },
+    "^TWII": {
+      "price": 39521.73,
+      "change_pct": -0.24,
+      "volume": 0,
+      "high": 40101.23,
+      "low": 39521.73
+    },
+    "0050.TW": {
+      "price": 92.0,
+      "change_pct": -1.08,
+      "volume": 125456708,
+      "high": 93.65,
+      "low": 91.9
+    },
+    "EWT": {
+      "price": 87.35,
+      "change_pct": -0.84,
+      "volume": 3272600,
+      "high": 87.81,
+      "low": 87.01
+    }
+  },
+  "adr_arbitrage": [
+    {
+      "adr": "TSM",
+      "local": "2330.TW",
+      "adr_change_pct": 0.63,
+      "local_change_pct": -2.21,
+      "divergence_pct": 2.84
+    },
+    {
+      "adr": "UMC",
+      "local": "2303.TW",
+      "adr_change_pct": -4.8,
+      "local_change_pct": 3.3,
+      "divergence_pct": -8.1
+    },
+    {
+      "adr": "ASX",
+      "local": "3711.TW",
+      "adr_change_pct": -3.59,
+      "local_change_pct": 0.0,
+      "divergence_pct": -3.59
+    },
+    {
+      "adr": "HIMX",
+      "local": "3504.TW",
+      "adr_change_pct": -4.88,
+      "local_change_pct": -1.37,
+      "divergence_pct": -3.51
+    }
+  ],
+  "news_counts": {
+    "zh": 0,
+    "en": 54
+  },
+  "analysis": {
+    "summary_en": "Mixed-to-risk-off tape with a sharp internal rotation. TAIEX -0.24% masks a violent split: TSMC dumped -2.21% on heavy volume while MediaTek ripped +7.39% and UMC surged +3.30%. The driver is clear — Nvidia Vera Rubin's pivot to LPDDR primary memory (Nanya win) plus Macronix's return to profit on tighter memory pricing has triggered a reallocation OUT of pure foundry leaders INTO memory and second-tier semis. The TSM/2330 ADR divergence (+2.84%) suggests TSMC weakness is local-flow driven (likely foreign sell into earnings/valuation), not fundamental — overnight ADR was actually up. UMC's -8.1% local/ADR divergence is the most interesting anomaly: locals bought what US sold.",
+    "summary_zh": "盤面偏避險但內部劇烈輪動。加權指數僅跌0.24%,但結構分歧巨大:台積電在大量下殺2.21%,聯發科卻暴漲7.39%,聯電大漲3.30%。主因明確 — Nvidia Vera Rubin平台轉向LPDDR主記憶體(南亞科切入),加上旺宏Q1轉盈確認記憶體價格上行,觸發資金從純晶圓代工龍頭輪出,流入記憶體與二線半導體。TSM與2330的ADR價差+2.84%顯示台積電的弱勢是本地賣壓(可能外資調節),非基本面問題 — 隔夜ADR實際上漲。聯電本地與ADR反向達-8.1%,是今日最值得注意的異常:本地買盤承接美國賣壓。",
+    "context": {
+      "taiex_change_pct": -0.24,
+      "tsmc_change_pct": -2.21,
+      "tone": "mixed"
+    },
+    "key_stories": [
+      {
+        "headline_en": "Nanya enters Nvidia Rubin LPDDR ecosystem via TSMC advanced packaging",
+        "headline_zh": "南亞科透過台積電先進封裝合作切入Nvidia Rubin LPDDR供應鏈",
+        "affected_tickers": [
+          "2408.TW",
+          "2330.TW",
+          "2454.TW",
+          "3711.TW"
+        ],
+        "analysis_en": "First Taiwanese DRAM maker into Nvidia AI server primary memory is a structural win for Nanya. The architectural shift from HBM-only to LPDDR for Rubin is significant — it broadens the AI memory TAM beyond Samsung/SK Hynix/Micron. MediaTek's +7.39% likely reflects sympathy buying as an AI ASIC/edge play benefiting from same Rubin cycle. Counter-intuitive that TSMC fell despite being the packaging partner — suggests the TSMC sell-off is unrelated (valuation/foreign flow) and the LPDDR story is the bullish catalyst for memory and fabless names.",
+        "analysis_zh": "南亞科成為首家打入Nvidia AI伺服器主記憶體的台灣DRAM廠,具結構性意義。Rubin從純HBM架構轉向納入LPDDR,擴大了AI記憶體市場規模,不再侷限於三星/海力士/美光。聯發科暴漲7.39%反映同一Rubin週期的AI ASIC/邊緣運算題材聯想買盤。值得注意的是台積電身為封裝夥伴卻下跌,顯示台積電的弱勢與此題材無關(屬評價面或外資調節),LPDDR才是記憶體與IC設計族群的多頭催化劑。",
+        "verdict": "rational",
+        "confidence": 4
+      },
+      {
+        "headline_en": "Macronix returns to Q1 profit on tighter memory supply and higher ASPs",
+        "headline_zh": "旺宏Q1轉盈,反映記憶體供給收緊與ASP上揚",
+        "affected_tickers": [
+          "2337.TW",
+          "2408.TW",
+          "2344.TW"
+        ],
+        "analysis_en": "Confirms the memory upcycle thesis. Macronix profit + Nanya's Rubin win = a coherent narrative for Taiwan memory names today. NAND growth and inventory reduction are concrete data points, not hopium. This is why UMC (+3.3%) caught a bid despite its ADR being down 4.8% overnight — locals are repricing the entire second-tier semi complex on the memory/AI broadening thesis.",
+        "analysis_zh": "確認記憶體上行循環論述。旺宏轉盈加上南亞科切入Rubin,構成今日台灣記憶體族群一致性題材。NAND成長與庫存下降是具體數據,非空泛預期。這也解釋了為何聯電在ADR隔夜跌4.8%的情況下本地仍漲3.3% — 本地資金正基於記憶體/AI擴散論述,重新評價整個二線半導體族群。",
+        "verdict": "rational",
+        "confidence": 4
+      },
+      {
+        "headline_en": "TSMC -2.21% on heavy volume despite positive ADR overnight",
+        "headline_zh": "台積電量增下跌2.21%,但隔夜ADR實際上漲",
+        "affected_tickers": [
+          "2330.TW"
+        ],
+        "analysis_en": "Mechanism: likely foreign institutional profit-taking and rotation INTO memory/MediaTek, not a fundamental TSMC negative. ADR was +0.63% — if there were bad TSMC-specific news, ADR would have led down. The 2.84% divergence is the largest non-fundamental signal of the day. Watch for mean reversion if foreign flow normalizes. FALSIFIED IF: tomorrow brings specific TSMC negative news (capex cut, major customer order pull, geopolitical action) that retroactively justifies today's selling.",
+        "analysis_zh": "機制判斷:應為外資獲利了結並輪動至記憶體/聯發科,非台積電基本面利空。ADR實際漲0.63% — 若有台積電個別利空,ADR會領跌。2.84%的價差是今日最大的非基本面訊號,若外資流向正常化,可能均值回歸。反證條件:明日若出現針對台積電的具體利空(資本支出下修、大客戶砍單、地緣政治措施)能事後合理化今日賣壓,則此判斷錯誤。",
+        "verdict": "overdone",
+        "confidence": 3
+      },
+      {
+        "headline_en": "Taiwan Q1 exports hit record US$195.74B, +51.1% YoY",
+        "headline_zh": "台灣Q1出口創歷史新高1957.4億美元,年增51.1%",
+        "affected_tickers": [
+          "^TWII",
+          "0050.TW"
+        ],
+        "analysis_en": "Macro tailwind underpinning the entire complex. 2026 full-year forecast >US$800B. This makes the TAIEX-only-down-0.24% resilience make sense despite TSMC's drag. The AI export thesis is intact and broadening — supportive of rotation, not exit.",
+        "analysis_zh": "整體大盤的總經順風。2026年全年預估突破8000億美元。這也解釋了為何台積電大跌,加權指數僅跌0.24%的韌性。AI出口題材完好且正在擴散 — 支持資金輪動而非撤離。",
+        "verdict": "rational",
+        "confidence": 4
+      }
+    ],
+    "adr_arbitrage": [
+      {
+        "pair": "TSM vs 2330.TW",
+        "divergence_pct": 2.84,
+        "interpretation_en": "ADR up, local down hard — classic local-flow-driven sell, not fundamental. Highest-conviction divergence today. If foreign flow normalizes Tuesday, mean reversion likely. Falsifier: TSMC-specific bad news emerging in next 24h.",
+        "interpretation_zh": "ADR上漲、本地大跌 — 典型本地賣壓主導,非基本面。今日信心度最高的價差訊號。若外資流向週二恢復,有望均值回歸。反證:未來24小時出現台積電個別利空。"
+      },
+      {
+        "pair": "UMC vs 2303.TW",
+        "divergence_pct": -8.1,
+        "interpretation_en": "Most extreme divergence: ADR -4.8% overnight, local +3.3%. Locals are buying memory/AI broadening thesis aggressively. Risk: ADR weakness may have reflected real news (foundry pricing, China exposure) that locals haven't fully digested. Watch tomorrow's open closely — if local catches down to ADR, the rally was a fade trap.",
+        "interpretation_zh": "今日最極端價差:ADR隔夜跌4.8%,本地反漲3.3%。本地資金積極押注記憶體/AI擴散題材。風險:ADR弱勢可能反映本地尚未消化的真實利空(代工報價、中國曝險)。明日開盤需密切觀察 — 若本地補跌至ADR水位,今日漲勢即為誘多陷阱。"
+      },
+      {
+        "pair": "ASX vs 3711.TW",
+        "divergence_pct": -3.59,
+        "interpretation_en": "ADR down 3.59%, local flat. Local likely catches down tomorrow unless OSAT news (Amkor's strong Q1, ASE cyber MOU) provides offsetting bid. Lean cautious on 3711.TW into next session.",
+        "interpretation_zh": "ADR跌3.59%,本地持平。除非封測題材(艾克爾Q1強勁、日月光資安MOU)提供承接買盤,否則本地明日恐補跌。對3711.TW次盤偏向謹慎。"
+      }
+    ],
+    "no_signals_note": ""
+  }
+}

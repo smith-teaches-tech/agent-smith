@@ -1,0 +1,120 @@
+{
+  "generated_at": "2026-04-27T08:14:01.137178+00:00",
+  "market_context": {
+    "2330.TW": {
+      "price": 2265.0,
+      "change_pct": 3.66,
+      "volume": 76616040,
+      "high": 2330.0,
+      "low": 2265.0
+    },
+    "2454.TW": {
+      "price": 2435.0,
+      "change_pct": 0.0,
+      "volume": 24874414,
+      "high": 2575.0,
+      "low": 2410.0
+    },
+    "2317.TW": {
+      "price": 228.0,
+      "change_pct": 2.93,
+      "volume": 108847075,
+      "high": 230.0,
+      "low": 220.0
+    },
+    "2308.TW": {
+      "price": 2020.0,
+      "change_pct": -2.65,
+      "volume": 15382269,
+      "high": 2080.0,
+      "low": 1995.0
+    },
+    "2382.TW": {
+      "price": 325.5,
+      "change_pct": 0.77,
+      "volume": 16434750,
+      "high": 328.5,
+      "low": 319.5
+    },
+    "3008.TW": {
+      "price": 2615.0,
+      "change_pct": 3.77,
+      "volume": 2659524,
+      "high": 2700.0,
+      "low": 2555.0
+    },
+    "3711.TW": {
+      "price": 495.5,
+      "change_pct": -0.1,
+      "volume": 30068720,
+      "high": 523.0,
+      "low": 495.5
+    },
+    "2303.TW": {
+      "price": 72.7,
+      "change_pct": -2.42,
+      "volume": 186658990,
+      "high": 76.4,
+      "low": 70.7
+    },
+    "^TWII": {
+      "price": 39616.63,
+      "change_pct": 1.76,
+      "volume": 0,
+      "high": 40194.92,
+      "low": 39607.74
+    },
+    "0050.TW": {
+      "price": 93.0,
+      "change_pct": 3.39,
+      "volume": 191212250,
+      "high": 94.25,
+      "low": 92.7
+    },
+    "EWT": {
+      "price": 88.09,
+      "change_pct": 4.57,
+      "volume": 5336500,
+      "high": 88.21,
+      "low": 87.08
+    }
+  },
+  "adr_arbitrage": [
+    {
+      "adr": "TSM",
+      "local": "2330.TW",
+      "adr_change_pct": 5.17,
+      "local_change_pct": 3.66,
+      "divergence_pct": 1.51
+    },
+    {
+      "adr": "UMC",
+      "local": "2303.TW",
+      "adr_change_pct": 2.33,
+      "local_change_pct": -2.42,
+      "divergence_pct": 4.75
+    },
+    {
+      "adr": "ASX",
+      "local": "3711.TW",
+      "adr_change_pct": 7.35,
+      "local_change_pct": -0.1,
+      "divergence_pct": 7.45
+    },
+    {
+      "adr": "HIMX",
+      "local": "3504.TW",
+      "adr_change_pct": 10.61,
+      "local_change_pct": -1.06,
+      "divergence_pct": 11.67
+    }
+  ],
+  "news_counts": {
+    "zh": 0,
+    "en": 45
+  },
+  "analysis": {
+    "_parse_error": "Expecting ',' delimiter: line 72 column 6 (char 7182)",
+    "_raw_response": "{\n  \"summary_en\": \"Strong risk-on session in Taipei with TAIEX +1.76% and TSMC +3.66% leading, but the tape is selective: TSMC and AI/HPC names rip while UMC (2303) and ASE (3711) lag despite stronger ADR moves overnight — suggesting local profit-taking on second-tier semis even as foreign flows return to large-cap AI beneficiaries. Foxconn (2317) firms on India export tailwinds; UMC's -2.4% drop with ADR +2.3% is the most notable divergence to watch Monday.\",\n  \"summary_zh\": \"台北今日明顯風險偏好,加權指數+1.76%、台積電+3.66%領漲,但盤面分化:台積電與AI/HPC概念強勢,聯電(2303)、日月光(3711)反在ADR走高下走弱,顯示外資回補集中於大型AI權值,二線半導體遭獲利了結。鴻海(2317)受惠印度出口題材走強;聯電本地-2.4%對ADR+2.3%是最值得追蹤的背離。\",\n  \"context\": {\n    \"taiex_change_pct\": 1.76,\n    \"tsmc_change_pct\": 3.66,\n    \"tone\": \"risk-on\"\n  },\n  \"key_stories\": [\n    {\n      \"headline_en\": \"TSMC trade-secret case: 10-year sentence, Tokyo Electron fined NT$150M under National Security Act\",\n      \"headline_zh\": \"台積電營業秘密案:工程師判10年,東京威力科創依《國安法》首遭法人罰款NT$1.5億\",\n      \"affected_tickers\": [\"2330.TW\"],\n      \"analysis_en\": \"First corporate penalty under Taiwan's National Security Act sets a precedent that hardens IP moat around TSMC's process nodes — marginally bullish for TSMC's competitive narrative and a deterrent against future leakage to JP/KR/CN equipment partners. Not a numbers-moving event; today's +3.66% is more about ADR catch-up and AI-server demand commentary than this ruling. Mechanism: sentiment reinforcement of moat thesis, not earnings.\",\n      \"analysis_zh\": \"首次依《國安法》對外國法人(東京威力)開罰,強化台積電製程IP護城河的法律屏障,對長期競爭敘事略偏多,並對日韓中設備夥伴形成嚇阻。但今日股價主要由ADR補漲與AI伺服器需求驅動,此判決非當日漲幅主因。機制:護城河敘事的情緒強化,非獲利面影響。\",\n      \"verdict\": \"rational\",\n      \"confidence\": 3\n    },\n    {\n      \"headline_en\": \"Taiwan AI hardware supply chain remains irreplaceable; high-end GPU/TPU at TSMC in short supply\",\n      \"headline_zh\": \"台灣AI硬體供應鏈不可取代,台積電高階GPU/TPU供不應求\",\n      \"affected_tickers\": [\"2330.TW\", \"2317.TW\", \"3008.TW\"],\n      \"analysis_en\": \"Reinforces the 'AI capex super-cycle' narrative driving today's tape: TSM"
+  }
+}
