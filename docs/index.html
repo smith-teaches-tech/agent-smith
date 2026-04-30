@@ -161,7 +161,7 @@ footer p { margin-bottom: 0.3rem; }
       <span class="brand-tag">us · signal terminal</span>
     </div>
     <div class="controls">
-      <span class="last-run"><span class="pulse"></span><span id="last-update">last run · 22 apr · 20:06 utc</span></span>
+      <span class="last-run"><span class="pulse"></span><span id="last-update">loading…</span></span>
       <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">◐ light</button>
     </div>
   </div>
@@ -177,22 +177,22 @@ footer p { margin-bottom: 0.3rem; }
 <main>
   <div class="summary">
     <div class="summary-prose" id="summary-text">
-      Risk-on tape with semis leading; VIX down to 18.76. Mid-cap divergence notable — <em>CALX and EXTR drilled</em> on networking weakness while MANH and WEX spike on earnings. Iran/Hormuz oil disruption keeps energy bid but broader market shrugging.
+      Loading latest run…
     </div>
     <div class="stat-block">
       <div class="stat-label">tape</div>
-      <div class="stat-value pos">risk-on</div>
-      <div class="stat-sub">vix 18.76 ▾</div>
+      <div class="stat-value" id="stat-tape">—</div>
+      <div class="stat-sub" id="stat-tape-sub">—</div>
     </div>
     <div class="stat-block">
       <div class="stat-label">movers flagged</div>
-      <div class="stat-value">5</div>
-      <div class="stat-sub">4 tech · 1 energy</div>
+      <div class="stat-value" id="stat-movers">—</div>
+      <div class="stat-sub" id="stat-movers-sub">—</div>
     </div>
     <div class="stat-block">
       <div class="stat-label">news scanned</div>
-      <div class="stat-value">60</div>
-      <div class="stat-sub">37 truth posts</div>
+      <div class="stat-value" id="stat-news">—</div>
+      <div class="stat-sub" id="stat-news-sub">—</div>
     </div>
   </div>
 
@@ -240,8 +240,8 @@ footer p { margin-bottom: 0.3rem; }
 </footer>
 
 <script>
-// ============ SAMPLE DATA (mirrors the structure from latest_us.json) ============
-const DATA = [
+// ============ SAMPLE DATA (fallback if data/latest_us.json fetch fails) ============
+const SAMPLE_DATA = [
   {
     ticker: "CALX", name: "Calix, Inc", sector: "Technology",
     move_pct: -14.0, volume_multiple: 4.02,
@@ -309,7 +309,14 @@ const DATA = [
     what_would_falsify: "ADTN has independent negative news, or CALX commentary explicitly flags industry-wide demand weakness affecting ADTN equally."
   }
 ];
-// ============ RENDERERS ============
+
+// ============ STATE ============
+let DATA = SAMPLE_DATA;          // discoveries array (filled from latest_us.json)
+let RUN_META = null;             // { generated_at, movers_count, news_count, trump_posts_count, run_summary, market_context }
+let activeFilter = 'all';
+let activeSort = 'conf';
+
+// ============ HELPERS ============
 const fmtPct = v => (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
 const fmtVol = v => v.toFixed(1) + '×';
 const confDots = n => {
@@ -317,8 +324,126 @@ const confDots = n => {
   for (let i = 1; i <= 5; i++) s += (i <= n) ? '●' : '<span class="off">○</span>';
   return s;
 };
-let activeFilter = 'all';
-let activeSort = 'conf';
+const fmtRunTime = iso => {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  const mm = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'][d.getUTCMonth()];
+  const hh = String(d.getUTCHours()).padStart(2,'0');
+  const mn = String(d.getUTCMinutes()).padStart(2,'0');
+  return `last run · ${d.getUTCDate()} ${mm} · ${hh}:${mn} utc`;
+};
+
+// Classification normalizer: strips "LIKELY " / "PARTIALLY " prefixes for CSS lookup
+// while leaving the original label available to display verbatim.
+// Input  "LIKELY OVERDONE"      → "OVERDONE"
+// Input  "PARTIALLY RATIONAL"   → "RATIONAL"
+// Input  "OVERDONE"             → "OVERDONE"
+// Input  null/undefined/other   → "UNCLEAR" (safe fallback that has CSS)
+function normalizeClassification(raw) {
+  if (!raw || typeof raw !== 'string') return 'UNCLEAR';
+  const upper = raw.trim().toUpperCase();
+  const stripped = upper.replace(/^(LIKELY|PARTIALLY)\s+/, '');
+  // Only return a known class; otherwise UNCLEAR so CSS always matches.
+  if (['OVERDONE', 'UNDERDONE', 'RATIONAL', 'UNCLEAR'].includes(stripped)) return stripped;
+  return 'UNCLEAR';
+}
+
+// ============ DATA LOAD ============
+async function load() {
+  try {
+    const r = await fetch('data/latest_us.json', { cache: 'no-store' });
+    if (!r.ok) throw new Error('latest_us not ready');
+    const json = await r.json();
+    // Pull discoveries out of discovery.discoveries[] (real schema), fall back to top-level if present.
+    const discoveries = (json.discovery && Array.isArray(json.discovery.discoveries))
+      ? json.discovery.discoveries
+      : (Array.isArray(json.discoveries) ? json.discoveries : null);
+    if (!discoveries) throw new Error('no discoveries in payload');
+    DATA = discoveries;
+    RUN_META = {
+      generated_at: json.generated_at,
+      movers_count: json.movers_count,
+      news_count: json.news_count,
+      trump_posts_count: json.trump_posts_count,
+      run_summary: (json.discovery && json.discovery.run_summary) || null,
+      market_context: (json.discovery && json.discovery.market_context) || null
+    };
+  } catch (e) {
+    // Graceful degrade — keep SAMPLE_DATA, leave RUN_META null.
+    DATA = SAMPLE_DATA;
+    RUN_META = null;
+  }
+  renderHeader();
+  renderSummary();
+  renderTable();
+}
+
+// ============ RENDERERS ============
+function renderHeader() {
+  const el = document.getElementById('last-update');
+  if (RUN_META && RUN_META.generated_at) {
+    el.textContent = fmtRunTime(RUN_META.generated_at);
+  } else {
+    el.textContent = 'sample data — live run unavailable';
+  }
+}
+
+function renderSummary() {
+  // Summary prose from run_summary; fallback if missing.
+  const proseEl = document.getElementById('summary-text');
+  if (RUN_META && RUN_META.run_summary) {
+    proseEl.textContent = RUN_META.run_summary;
+  } else {
+    proseEl.textContent = 'No run summary available — showing sample discoveries below.';
+  }
+
+  // Tape: read tone from market_context.
+  const tapeEl = document.getElementById('stat-tape');
+  const tapeSubEl = document.getElementById('stat-tape-sub');
+  const tone = RUN_META && RUN_META.market_context && RUN_META.market_context.tone;
+  if (tone) {
+    tapeEl.textContent = tone;
+    tapeEl.className = 'stat-value ' + (tone === 'risk-on' ? 'pos' : tone === 'risk-off' ? 'neg' : '');
+    // Show first notable index move as subtitle if available.
+    const notes = RUN_META.market_context.notable_index_moves;
+    tapeSubEl.textContent = (Array.isArray(notes) && notes.length > 0) ? notes[0] : '';
+  } else {
+    tapeEl.textContent = '—';
+    tapeEl.className = 'stat-value';
+    tapeSubEl.textContent = '';
+  }
+
+  // Movers count + sector breakdown (built from DATA itself, since latest_us.json doesn't pre-aggregate it).
+  const moversEl = document.getElementById('stat-movers');
+  const moversSubEl = document.getElementById('stat-movers-sub');
+  const moverCount = (RUN_META && typeof RUN_META.movers_count === 'number') ? RUN_META.movers_count : DATA.length;
+  moversEl.textContent = moverCount;
+  // Sector summary: count by sector from DATA, list top 3.
+  const sectorCounts = {};
+  DATA.forEach(d => {
+    const s = (d.sector || '—');
+    sectorCounts[s] = (sectorCounts[s] || 0) + 1;
+  });
+  const sectorList = Object.entries(sectorCounts)
+    .sort((a,b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([s,n]) => `${n} ${s.toLowerCase()}`)
+    .join(' · ');
+  moversSubEl.textContent = sectorList || '';
+
+  // News scanned + truth posts.
+  const newsEl = document.getElementById('stat-news');
+  const newsSubEl = document.getElementById('stat-news-sub');
+  if (RUN_META && typeof RUN_META.news_count === 'number') {
+    newsEl.textContent = RUN_META.news_count;
+    const tp = RUN_META.trump_posts_count;
+    newsSubEl.textContent = (typeof tp === 'number') ? `${tp} truth posts` : '';
+  } else {
+    newsEl.textContent = '—';
+    newsSubEl.textContent = '';
+  }
+}
+
 function sortData(data) {
   const d = [...data];
   switch (activeSort) {
@@ -331,9 +456,10 @@ function sortData(data) {
 }
 function filterData(data) {
   if (activeFilter === 'all') return data;
-  return data.filter(d => d.classification === activeFilter);
+  // Compare against normalized classification so "LIKELY OVERDONE" matches the "OVERDONE" filter.
+  return data.filter(d => normalizeClassification(d.classification) === activeFilter);
 }
-function render() {
+function renderTable() {
   const tbody = document.getElementById('tbody');
   const data = sortData(filterData(DATA));
   const empty = document.getElementById('empty');
@@ -345,12 +471,14 @@ function render() {
   empty.style.display = 'none';
   tbody.innerHTML = data.map(d => {
     const moveClass = d.move_pct >= 0 ? 'pos' : 'neg';
+    const cssClass = normalizeClassification(d.classification);  // for CSS only
+    const labelText = (d.classification || 'UNCLEAR').toUpperCase();  // pill text keeps full label
     return `
       <tr class="data-row" data-ticker="${d.ticker}" onclick="toggleRow('${d.ticker}')">
         <td><div class="ticker">${d.ticker}</div><div class="company">${d.name}</div></td>
         <td class="num"><span class="move-pct ${moveClass}">${fmtPct(d.move_pct)}</span></td>
         <td class="num hide-mobile vol">${fmtVol(d.volume_multiple)}</td>
-        <td><span class="cls-pill cls-${d.classification}">${d.classification}</span></td>
+        <td><span class="cls-pill cls-${cssClass}">${labelText}</span></td>
         <td><span class="conf-dots">${confDots(d.confidence)}</span></td>
         <td class="hide-mobile horz">${d.time_horizon}</td>
         <td class="one-liner">${d.mechanism.split('.')[0]}.</td>
@@ -367,10 +495,10 @@ function render() {
             <div class="detail-section">
               <div class="detail-label">research pointers</div>
               <ul class="detail-list">
-                ${d.research_pointers.map(p => `<li>${p}</li>`).join('')}
+                ${(d.research_pointers || []).map(p => `<li>${p}</li>`).join('')}
               </ul>
               <div class="detail-label" style="margin-top: 1rem;">red flags to watch for</div>
-              <div class="detail-text flag">${d.what_would_falsify}</div>
+              <div class="detail-text flag">${d.what_would_falsify || ''}</div>
             </div>
           </div>
         </td>
@@ -411,15 +539,15 @@ document.querySelectorAll('.chip').forEach(chip => {
     document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
     chip.classList.add('active');
     activeFilter = chip.dataset.filter;
-    render();
+    renderTable();
   });
 });
 // sort select
 document.getElementById('sort').addEventListener('change', e => {
   activeSort = e.target.value;
-  render();
+  renderTable();
 });
-render();
+load();
 </script>
 </body>
 </html>
