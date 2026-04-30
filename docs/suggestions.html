@@ -276,13 +276,42 @@ let DATA = null;
 let activeFilter = 'all', activeSort = 'date-desc';
 
 async function load() {
+  // Fetch suggestions and portfolio in parallel.
+  // Suggestions: required (falls back to sample data).
+  // Portfolio: optional (used only to filter out held positions; no-op if missing).
+  const [suggestionsRes, portfolioRes] = await Promise.allSettled([
+    fetch('data/suggestions.json', { cache: 'no-store' }),
+    fetch('data/portfolio.json', { cache: 'no-store' })
+  ]);
+
+  // Resolve suggestions data, falling back to sample on any failure.
   try {
-    const r = await fetch('data/suggestions.json', { cache: 'no-store' });
-    if (!r.ok) throw new Error('not ready');
-    DATA = await r.json();
-  } catch(e) {
+    if (suggestionsRes.status !== 'fulfilled' || !suggestionsRes.value.ok) {
+      throw new Error('suggestions not ready');
+    }
+    DATA = await suggestionsRes.value.json();
+  } catch (e) {
     DATA = SAMPLE_SUGGESTIONS;
   }
+
+  // Build set of held tickers from portfolio (graceful degrade if portfolio missing).
+  let heldTickers = new Set();
+  try {
+    if (portfolioRes.status === 'fulfilled' && portfolioRes.value.ok) {
+      const portfolio = await portfolioRes.value.json();
+      if (portfolio && Array.isArray(portfolio.open_positions)) {
+        heldTickers = new Set(portfolio.open_positions.map(p => p.ticker));
+      }
+    }
+  } catch (e) {
+    // Portfolio unreadable — leave heldTickers empty, no filtering applied.
+  }
+
+  // Filter held positions out of entries before any downstream rendering.
+  if (heldTickers.size > 0 && Array.isArray(DATA.entries)) {
+    DATA.entries = DATA.entries.filter(e => !heldTickers.has(e.ticker));
+  }
+
   document.getElementById('loading').style.display = 'none';
   document.getElementById('last-update').textContent = 'updated ' + fmtDateTime(DATA.generated_at);
   renderKPIs();
