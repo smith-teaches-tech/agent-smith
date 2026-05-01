@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-30T20:12:18.974495+00:00",
+  "generated_at": "2026-05-01T20:05:51.496813+00:00",
   "logic_version": 1,
   "grading_params": {
     "hit_threshold_pct": 3.0,
@@ -9,10 +9,10 @@
       "months": 60
     },
     "default_horizon_days": 5,
-    "graded_classifications": "{'UNDERDONE', 'OVERDONE'}"
+    "graded_classifications": "{'OVERDONE', 'UNDERDONE'}"
   },
-  "n_total_calls": 84,
-  "n_not_graded": 80,
+  "n_total_calls": 89,
+  "n_not_graded": 85,
   "n_pending": 0,
   "n_data_error": 0,
   "overall": {
@@ -84,23 +84,15 @@
     }
   },
   "by_sector": {
-    "Technology": {
-      "n_resolved": 2,
-      "n_hit": 2,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": 100.0,
-      "avg_return_pct": 3.31
-    },
-    "Industrials": {
+    "Consumer Cyclical": {
       "n_resolved": 1,
-      "n_hit": 1,
-      "n_miss": 0,
+      "n_hit": 0,
+      "n_miss": 1,
       "n_ambiguous": 0,
-      "hit_rate": 100.0,
-      "avg_return_pct": 6.28
+      "hit_rate": 0.0,
+      "avg_return_pct": -3.21
     },
-    "Consumer Defensive": {
+    "Basic Materials": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -116,13 +108,13 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Consumer Cyclical": {
-      "n_resolved": 1,
-      "n_hit": 0,
-      "n_miss": 1,
+    "Technology": {
+      "n_resolved": 2,
+      "n_hit": 2,
+      "n_miss": 0,
       "n_ambiguous": 0,
-      "hit_rate": 0.0,
-      "avg_return_pct": -3.21
+      "hit_rate": 100.0,
+      "avg_return_pct": 3.31
     },
     "Real Estate": {
       "n_resolved": 0,
@@ -147,6 +139,22 @@
       "n_ambiguous": 0,
       "hit_rate": null,
       "avg_return_pct": null
+    },
+    "Consumer Defensive": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Industrials": {
+      "n_resolved": 1,
+      "n_hit": 1,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": 100.0,
+      "avg_return_pct": 6.28
     }
   },
   "by_horizon_days": {
@@ -2009,6 +2017,106 @@
       "classification": "UNCLEAR",
       "confidence": 2,
       "move_pct_at_flag": -4.14,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "MMSI",
+      "name": "Merit Medical Systems",
+      "sector": "Healthcare",
+      "flagged_at": "2026-05-01T20:04:44+00:00",
+      "run_file": "us_20260501T200444Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -9.05,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "BLDR",
+      "name": "Builders FirstSource",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-01T20:04:44+00:00",
+      "run_file": "us_20260501T200444Z.json",
+      "classification": "RATIONAL",
+      "confidence": 3,
+      "move_pct_at_flag": -4.26,
+      "expected_direction": null,
+      "horizon_days": 20,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=RATIONAL not in graded set"
+    },
+    {
+      "ticker": "UFPI",
+      "name": "UFP Industries",
+      "sector": "Basic Materials",
+      "flagged_at": "2026-05-01T20:04:44+00:00",
+      "run_file": "us_20260501T200444Z.json",
+      "classification": "RATIONAL",
+      "confidence": 3,
+      "move_pct_at_flag": -4.82,
+      "expected_direction": null,
+      "horizon_days": 20,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=RATIONAL not in graded set"
+    },
+    {
+      "ticker": "AVAV",
+      "name": "AeroVironment",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-01T20:04:44+00:00",
+      "run_file": "us_20260501T200444Z.json",
+      "classification": "RATIONAL",
+      "confidence": 2,
+      "move_pct_at_flag": -5.17,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=RATIONAL not in graded set"
+    },
+    {
+      "ticker": "GME",
+      "name": "GameStop",
+      "sector": "Consumer Cyclical",
+      "flagged_at": "2026-05-01T20:04:44+00:00",
+      "run_file": "us_20260501T200444Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 1,
+      "move_pct_at_flag": 6.29,
       "expected_direction": null,
       "horizon_days": 5,
       "grade": "NOT_GRADED",
