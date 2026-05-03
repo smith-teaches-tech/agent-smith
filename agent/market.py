@@ -4,9 +4,11 @@ Pulls index/sector context, then scans for unusual movers
 in the discovery universe (mid-cap sweet spot).
 """
 import yfinance as yf
+import pandas as pd
 from datetime import datetime, timedelta
 from typing import Any
 import time
+import sys
 
 from . import config
 
@@ -175,16 +177,21 @@ def fetch_adr_arb_opportunities() -> list[dict[str, Any]]:
 # ============================================================
 # Candidate ticker sources
 # ============================================================
-# For v0, use S&P 400 (mid-cap) + S&P 600 (small-cap) constituents
-# as the discovery universe. yfinance can't give us this list directly,
-# so we maintain a snapshot. In production, swap to a refreshed list
-# from an index provider or Finnhub.
+# Discovery universe: S&P 400 (mid-cap) + S&P 600 (small-cap) constituents.
+#
+# Phase 1.5-lite update (2026-05-03): switched from a small hardcoded
+# sample (~80 tickers, ~8% coverage) to fetching the live constituent
+# lists from Wikipedia each run. Hardcoded fallback remains in place
+# in case the fetch fails — falls back loudly with a printed warning
+# visible in GitHub Actions output.
 
-SP400_SAMPLE = [
-    # Sample mid-caps across sectors. Replace with full list from
-    # https://www.spglobal.com/spdji/en/indices/equity/sp-400/ or
-    # via Finnhub /index/constituents endpoint.
-    # This sample is illustrative — extend before going to production.
+# Wikipedia constituent table URLs.
+SP400_WIKIPEDIA_URL = "https://en.wikipedia.org/wiki/List_of_S%26P_400_companies"
+SP600_WIKIPEDIA_URL = "https://en.wikipedia.org/wiki/List_of_S%26P_600_companies"
+
+# Fallback samples — used only if the live fetch fails.
+# These are the original Phase 1.5-lite samples; proven to work.
+SP400_FALLBACK = [
     "ALGN", "DECK", "PSTG", "WSM", "RGEN", "ENTG", "FIVE", "CHRW",
     "MEDP", "EXEL", "GTLS", "SAIA", "MANH", "JBL", "CASY", "BLDR",
     "RPM", "WST", "POOL", "FFIV", "TXRH", "INSM", "WSO", "AIT",
@@ -193,7 +200,7 @@ SP400_SAMPLE = [
     "FLEX", "JBLU", "ALK", "SAVE", "SKYW",
 ]
 
-SP600_SAMPLE = [
+SP600_FALLBACK = [
     "MGY", "MMSI", "UFPI", "AMR", "PRDO", "ATGE", "ENV", "BMI",
     "CALX", "AEIS", "PLAB", "VECO", "PRGS", "EXTR", "CAMP",
     "AVAV", "KTOS", "MRCY", "DCO", "HEI",
@@ -202,11 +209,106 @@ SP600_SAMPLE = [
     "FIZZ", "CENT", "JJSF", "LANC",
 ]
 
+# Back-compat aliases (some external code may still reference these names)
+SP400_SAMPLE = SP400_FALLBACK
+SP600_SAMPLE = SP600_FALLBACK
+
+
+def _normalize_ticker(symbol: str) -> str:
+    """
+    Convert Wikipedia-style share-class tickers (BRK.B) to yfinance-style (BRK-B).
+    Wikipedia uses '.' as the share-class separator; yfinance uses '-'.
+    Also strips whitespace and uppercases.
+    """
+    if not isinstance(symbol, str):
+        return ""
+    return symbol.strip().upper().replace(".", "-")
+
+
+def _fetch_constituents_from_wikipedia(url: str, label: str) -> list[str]:
+    """
+    Fetch S&P index constituent tickers from a Wikipedia page.
+
+    Wikipedia constituent pages include a sortable HTML table where one
+    column is named "Symbol" (or sometimes "Ticker symbol"). We use
+    pandas.read_html() to parse all tables on the page, then pick the
+    first one that has a recognizable ticker column.
+
+    Returns a list of normalized, deduplicated tickers. Raises on any
+    failure — caller is responsible for fallback handling.
+    """
+    # pandas.read_html requires lxml or html5lib. Both are in requirements.
+    tables = pd.read_html(url)
+    if not tables:
+        raise ValueError(f"{label}: no tables found on page")
+
+    # Find the constituent table by looking for a ticker-like column header.
+    ticker_col_candidates = ("Symbol", "Ticker symbol", "Ticker")
+    for tbl in tables:
+        cols = [str(c) for c in tbl.columns]
+        for candidate in ticker_col_candidates:
+            if candidate in cols:
+                series = tbl[candidate].dropna().astype(str)
+                tickers = [_normalize_ticker(s) for s in series]
+                # Filter out anything that doesn't look like a real ticker.
+                # Real tickers are 1-6 chars, A-Z plus optional '-' for share class.
+                tickers = [
+                    t for t in tickers
+                    if t and 1 <= len(t) <= 6 and all(
+                        c.isalpha() or c == "-" for c in t
+                    )
+                ]
+                if len(tickers) >= 50:  # sanity check — real index has hundreds
+                    # Deduplicate while preserving order
+                    return list(dict.fromkeys(tickers))
+
+    raise ValueError(
+        f"{label}: no table with a recognizable ticker column "
+        f"(looked for {ticker_col_candidates!r})"
+    )
+
 
 def get_discovery_candidates() -> list[str]:
-    """Return the candidate ticker list for discovery scanning."""
-    # Deduplicate
-    return list(dict.fromkeys(SP400_SAMPLE + SP600_SAMPLE))
+    """
+    Return the candidate ticker list for discovery scanning.
+
+    Tries to fetch fresh SP400 + SP600 constituent lists from Wikipedia
+    each run. On any failure, falls back to the hardcoded sample lists
+    and prints a warning visible in GitHub Actions output.
+
+    Returns deduplicated list of tickers.
+    """
+    sp400: list[str] = []
+    sp600: list[str] = []
+
+    # Fetch SP400
+    try:
+        sp400 = _fetch_constituents_from_wikipedia(SP400_WIKIPEDIA_URL, "SP400")
+        print(f"[market] fetched {len(sp400)} SP400 constituents from Wikipedia")
+    except Exception as e:
+        print(
+            f"[market] WARNING: SP400 fetch failed ({e!r}); "
+            f"falling back to hardcoded sample of {len(SP400_FALLBACK)} tickers",
+            file=sys.stderr,
+        )
+        sp400 = list(SP400_FALLBACK)
+
+    # Fetch SP600
+    try:
+        sp600 = _fetch_constituents_from_wikipedia(SP600_WIKIPEDIA_URL, "SP600")
+        print(f"[market] fetched {len(sp600)} SP600 constituents from Wikipedia")
+    except Exception as e:
+        print(
+            f"[market] WARNING: SP600 fetch failed ({e!r}); "
+            f"falling back to hardcoded sample of {len(SP600_FALLBACK)} tickers",
+            file=sys.stderr,
+        )
+        sp600 = list(SP600_FALLBACK)
+
+    # Combine and deduplicate
+    combined = list(dict.fromkeys(sp400 + sp600))
+    print(f"[market] total discovery universe: {len(combined)} tickers")
+    return combined
 
 
 if __name__ == "__main__":
