@@ -1,34 +1,38 @@
 {
-  "generated_at": "2026-04-30T08:12:24.073914+00:00",
+  "generated_at": "2026-05-01T20:05:56.217986+00:00",
   "bankroll_start": 10000.0,
-  "cash": 8408.29,
-  "open_positions": [
+  "cash": 10284.22,
+  "open_positions": [],
+  "closed_positions": [
     {
       "ticker": "EXTR",
       "name": "Extreme Networks",
       "sector": "Technology",
       "shares": 85,
-      "cost_basis": 18.7187,
-      "cost_total": 1591.71,
-      "current_price": 21.85,
-      "value": 1857.25,
-      "unrealized_pnl": 265.54,
-      "unrealized_pct": 16.68,
+      "avg_cost": 18.7187,
+      "exit_price": 22.0779,
       "opened_at": "2026-04-23T11:49:08.996201+00:00",
-      "days_held": 6,
+      "closed_at": "2026-05-01T20:05:56.217539+00:00",
+      "days_held": 8,
+      "realized_pnl": 284.91,
+      "realized_pct": 17.9,
+      "fees_total": 0.6883,
       "flag_classification": "LIKELY OVERDONE",
       "flag_confidence": 3,
-      "flag_horizon": "days",
-      "thesis": "Sympathy selling off CALX print - both are networking/access equipment names. EXTR down 5.8% on 3x volume with no company-specific news in feed, while XLK is up 2.2%, strongly suggests read-through trade. Catalyst: CALX -14% print dragging networking peers. Falsified by: Discovery of EXTR-specific negative catalyst (pre-announce, lost deal, downgrade) would validate the move; continued sector-wide weakness would suggest broader enterprise IT spend concern.",
-      "thesis_status": "weakening",
-      "latest_reasoning": "The sympathy-selling catalyst (CALX -14%) delivered the predicted mean reversion within the 6-day horizon. EXTR rallied 16.7% off capitulation lows and is now approaching fair value relative to sector momentum. Thesis remains intact (no EXTR-specific negative news surfaced), but the motive force is fading—continued gains would require a fresh catalyst (earnings beat, upgrade, broader XLK re-acceleration). We're at day 6 of an estimated 5-10 day mean-reversion window. Risk/reward is now neutral to slightly adverse; holding but monitoring for EXIT trigger on either sustained weakness below $21 or stall above $22.50.",
-      "next_action": "HOLD",
-      "catalyst": "CALX -14% print dragging networking peers",
-      "price_stale": false
+      "exit_reasoning": "Entered on thesis that EXTR was experiencing sympathy selling off CALX's -14% print—a short-term dislocations trade with 'days' horizon. 8 days in, EXTR has recovered +19% while XLK remains elevated, indicating the read-through trade has normalized and the catalyst (CALX weakness dragging peers) has exhausted its effect. Holding further exposes the portfolio to reversal risk without a fresh catalyst. The original high-confidence short-term mismatch has been arbitraged away. No evidence of broader enterprise IT weakness that would sustain further upside. Exit captures the gain and redeploys capital toward fresh opportunities."
     }
   ],
-  "closed_positions": [],
   "trade_log": [
+    {
+      "date": "2026-05-01T20:05:56.217552+00:00",
+      "side": "SELL",
+      "ticker": "EXTR",
+      "shares": 85,
+      "fill_price": 22.0779,
+      "fees": 0.6883,
+      "notional": 1876.62,
+      "why": "Entered on thesis that EXTR was experiencing sympathy selling off CALX's -14% print—a short-term dislocations trade with 'days' horizon. 8 days in, EXTR has recovered +19% while XLK remains elevated, indicating the read-through trade has normalized and the catalyst (CALX weakness dragging peers) has exhausted its effect. Holding further exposes the portfolio to reversal risk without a fresh catalyst. The original high-confidence short-term mismatch has been arbitraged away. No evidence of broader enterprise IT weakness that would sustain further upside. Exit captures the gain and redeploys capital toward fresh opportunities."
+    },
     {
       "date": "2026-04-23T11:49:08.996213+00:00",
       "side": "BUY",

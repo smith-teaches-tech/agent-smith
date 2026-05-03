@@ -1,0 +1,522 @@
+{
+  "generated_at": "2026-04-30T20:11:03.587405+00:00",
+  "market_context": {
+    "SPY": {
+      "price": 718.66,
+      "change_pct": 0.99,
+      "volume": 56831268,
+      "high": 719.79,
+      "low": 710.45
+    },
+    "QQQ": {
+      "price": 667.74,
+      "change_pct": 0.93,
+      "volume": 38386209,
+      "high": 668.75,
+      "low": 657.56
+    },
+    "DIA": {
+      "price": 496.53,
+      "change_pct": 1.61,
+      "volume": 5032215,
+      "high": 497.58,
+      "low": 490.46
+    },
+    "IWM": {
+      "price": 277.96,
+      "change_pct": 2.16,
+      "volume": 27258331,
+      "high": 278.22,
+      "low": 272.44
+    },
+    "^VIX": {
+      "price": 17.05,
+      "change_pct": -9.36,
+      "volume": 0,
+      "high": 18.73,
+      "low": 16.97
+    },
+    "XLK": {
+      "price": 159.46,
+      "change_pct": 0.22,
+      "volume": 9140012,
+      "high": 159.79,
+      "low": 156.88
+    },
+    "XLF": {
+      "price": 52.14,
+      "change_pct": 0.42,
+      "volume": 30220056,
+      "high": 52.25,
+      "low": 51.2
+    },
+    "XLE": {
+      "price": 59.62,
+      "change_pct": 1.0,
+      "volume": 34642270,
+      "high": 59.83,
+      "low": 57.94
+    },
+    "XLV": {
+      "price": 145.91,
+      "change_pct": 2.15,
+      "volume": 11623963,
+      "high": 146.29,
+      "low": 143.69
+    },
+    "XLI": {
+      "price": 174.58,
+      "change_pct": 2.74,
+      "volume": 10972682,
+      "high": 174.82,
+      "low": 171.29
+    },
+    "XLP": {
+      "price": 84.28,
+      "change_pct": 1.64,
+      "volume": 14631786,
+      "high": 84.44,
+      "low": 83.18
+    },
+    "XLY": {
+      "price": 118.31,
+      "change_pct": 1.26,
+      "volume": 9519831,
+      "high": 118.67,
+      "low": 116.43
+    },
+    "XLU": {
+      "price": 46.84,
+      "change_pct": 2.54,
+      "volume": 21420148,
+      "high": 46.89,
+      "low": 45.85
+    },
+    "XLB": {
+      "price": 51.46,
+      "change_pct": 0.98,
+      "volume": 14728021,
+      "high": 51.71,
+      "low": 50.8
+    },
+    "XLRE": {
+      "price": 44.42,
+      "change_pct": 1.79,
+      "volume": 7371578,
+      "high": 44.47,
+      "low": 43.51
+    },
+    "XLC": {
+      "price": 116.49,
+      "change_pct": 1.04,
+      "volume": 4976647,
+      "high": 116.66,
+      "low": 114.7
+    },
+    "SMH": {
+      "price": 506.72,
+      "change_pct": 1.43,
+      "volume": 8015731,
+      "high": 507.79,
+      "low": 495.12
+    },
+    "XBI": {
+      "price": 131.31,
+      "change_pct": 1.87,
+      "volume": 7305591,
+      "high": 131.84,
+      "low": 129.32
+    },
+    "ITA": {
+      "price": 218.73,
+      "change_pct": 2.62,
+      "volume": 752997,
+      "high": 219.0,
+      "low": 213.96
+    },
+    "KRE": {
+      "price": 69.86,
+      "change_pct": 1.2,
+      "volume": 11812909,
+      "high": 70.27,
+      "low": 68.36
+    },
+    "NVDA": {
+      "price": 199.57,
+      "change_pct": -4.63,
+      "volume": 211380986,
+      "high": 210.3,
+      "low": 198.7
+    },
+    "MSFT": {
+      "price": 407.78,
+      "change_pct": -3.93,
+      "volume": 65825727,
+      "high": 414.42,
+      "low": 398.01
+    },
+    "AAPL": {
+      "price": 271.35,
+      "change_pct": 0.44,
+      "volume": 69274050,
+      "high": 275.94,
+      "low": 268.14
+    },
+    "GOOGL": {
+      "price": 384.8,
+      "change_pct": 9.96,
+      "volume": 64249509,
+      "high": 385.83,
+      "low": 365.82
+    },
+    "AMZN": {
+      "price": 265.06,
+      "change_pct": 0.77,
+      "volume": 96524742,
+      "high": 273.87,
+      "low": 256.16
+    },
+    "META": {
+      "price": 611.91,
+      "change_pct": -8.55,
+      "volume": 51638571,
+      "high": 620.76,
+      "low": 600.0
+    },
+    "TSLA": {
+      "price": 381.63,
+      "change_pct": 2.37,
+      "volume": 49378130,
+      "high": 384.75,
+      "low": 368.17
+    },
+    "AVGO": {
+      "price": 417.43,
+      "change_pct": 2.95,
+      "volume": 20333340,
+      "high": 418.38,
+      "low": 404.23
+    },
+    "TSM": {
+      "price": 396.06,
+      "change_pct": 0.57,
+      "volume": 11519285,
+      "high": 398.75,
+      "low": 385.71
+    },
+    "ORCL": {
+      "price": 161.38,
+      "change_pct": -1.5,
+      "volume": 17683523,
+      "high": 165.18,
+      "low": 160.33
+    }
+  },
+  "movers_count": 16,
+  "news_count": 64,
+  "trump_posts_count": 22,
+  "discovery": {
+    "run_summary": "Strong risk-on tape with IWM +2.16%, VIX -9%, and broad sector participation as the S&P heads for its best month since 2020. The big story is META -8.5% and MSFT -4% on capex concerns vs GOOGL +10% on cloud beat — creating a divergence in mega-cap AI narrative. Mid-cap movers are dominated by defense, semis, and a notable JLL/BLDR housing-related selloff against an otherwise strong cyclical day.",
+    "market_context": {
+      "tone": "risk-on",
+      "notable_index_moves": [
+        "IWM +2.16% leading, small caps catching bid",
+        "XLI +2.74% and XLU +2.54% — unusual combo of cyclical and defensive strength",
+        "VIX -9.36% to 17.05, complacency returning",
+        "GOOGL +10% diverging sharply from META -8.5% and MSFT -4% despite all three beating cloud estimates — capex worry is selective"
+      ]
+    },
+    "discoveries": [
+      {
+        "ticker": "JLL",
+        "name": "Jones Lang LaSalle",
+        "sector": "Real Estate",
+        "move_pct": -6.0,
+        "volume_multiple": 1.8,
+        "classification": "UNCLEAR",
+        "confidence": 2,
+        "mechanism": "Sharp selloff against XLRE +1.79% suggests stock-specific catalyst (likely earnings miss given the magnitude and 1.8x volume on an up tape)",
+        "catalyst": "Likely Q1 earnings — not in news feed but the tape signature fits a results-day disappointment",
+        "research_pointers": [
+          "Confirm whether JLL reported earnings today and check leasing/capital markets segment commentary",
+          "Compare to CBRE reaction — if CBRE didn't move, JLL is idiosyncratic; if CBRE fell too, broader CRE services concern",
+          "Check whether the miss was on transactions revenue (cyclical) vs recurring property management (sticky)"
+        ],
+        "what_would_falsify": "Confirmation of a clean guide-down or major margin compression would validate the move; in-line print with conservative guide would suggest overdone",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "BLDR",
+        "name": "Builders FirstSource",
+        "sector": "Industrials",
+        "move_pct": -5.22,
+        "volume_multiple": 2.42,
+        "classification": "PARTIALLY RATIONAL",
+        "confidence": 3,
+        "mechanism": "Down 5% on a day XLI is +2.74% and IWM +2.16% is highly anomalous — points to housing/lumber-specific weakness or earnings miss. Five-day -12% suggests ongoing fundamental deterioration, not single-day overreaction",
+        "catalyst": "Likely earnings or guidance; possible read-through from housing data",
+        "research_pointers": [
+          "Verify earnings date and check single-family starts commentary",
+          "Cross-check with peers (LPX, WY, BCC) for sympathy vs idiosyncratic",
+          "Look at gross margin trajectory — BLDR's commodity pass-through has compressed in past cycles",
+          "Mortgage rate environment and recent housing data prints"
+        ],
+        "what_would_falsify": "If peers also fell sharply, this is a sector call not a stock call; if BLDR maintained guidance and the move is purely on a soft Q, possibly oversold",
+        "time_horizon": "weeks"
+      },
+      {
+        "ticker": "QRVO",
+        "name": "Qorvo",
+        "sector": "Technology",
+        "move_pct": 8.95,
+        "volume_multiple": 1.67,
+        "classification": "UNCLEAR",
+        "confidence": 2,
+        "mechanism": "Big move ahead of AAPL earnings tonight — Qorvo is an Apple RF supplier. Could be positioning for iPhone strength (CNBC piece flagged ~20% iPhone revenue growth expected) or stock-specific earnings",
+        "catalyst": "Possible Qorvo earnings or pre-positioning into AAPL print",
+        "research_pointers": [
+          "Confirm if QRVO already reported or reports tonight",
+          "Check Apple supplier basket (SWKS, AVGO, CRUS) for similar moves — SWKS especially as direct comp",
+          "Read AAPL conference call for iPhone unit/ASP commentary tonight"
+        ],
+        "what_would_falsify": "If AAPL guides weak iPhone or supplier mix shifts, the pre-positioning unwinds",
+        "time_horizon": "intraday"
+      },
+      {
+        "ticker": "AXSM",
+        "name": "Axsome Therapeutics",
+        "sector": "Healthcare",
+        "move_pct": 12.94,
+        "volume_multiple": 3.8,
+        "classification": "UNCLEAR",
+        "confidence": 2,
+        "mechanism": "+13% on 3.8x volume in a biotech with binary catalysts — almost certainly a clinical/regulatory or earnings event. XBI only +1.87% so this is idiosyncratic",
+        "catalyst": "Not in news feed — likely earnings, trial readout, or label expansion for Auvelity/Sunosi",
+        "research_pointers": [
+          "Check for Axsome press releases today on Auvelity, AXS-05, or AXS-12",
+          "Q1 2026 earnings date confirmation",
+          "Recent FDA action/PDUFA dates on pipeline"
+        ],
+        "what_would_falsify": "If move is on a soft data point or speculation only, fades quickly; durable on label expansion or positive trial",
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "MANH",
+        "name": "Manhattan Associates",
+        "sector": "Technology",
+        "move_pct": -4.14,
+        "volume_multiple": 0.91,
+        "classification": "UNCLEAR",
+        "confidence": 2,
+        "mechanism": "Down 4% on a green tape with XLK +0.22% — supply chain software peer. Could be sympathy with broader software softness given MSFT -4%, or stock-specific",
+        "catalyst": "Possible sympathy with Microsoft capex/software concerns or earnings-related",
+        "research_pointers": [
+          "Check earnings calendar for MANH",
+          "Compare to other supply chain software (DSGX, SPS Commerce)",
+          "Cloud transition RPO trajectory"
+        ],
+        "what_would_falsify": "Peer software names not down would suggest idiosyncratic concern",
+        "time_horizon": "days"
+      }
+    ],
+    "catalyst_chains": [
+      {
+        "primary_event": "Google cloud growth beat outpaces MSFT and AMZN; META and MSFT punished on capex",
+        "primary_ticker": "GOOGL",
+        "secondary_opportunities": [
+          {
+            "ticker": "AVGO",
+            "relationship": "supplier — custom AI silicon (TPU) for Google",
+            "expected_direction": "up",
+            "confidence": 3
+          },
+          {
+            "ticker": "LSCC",
+            "relationship": "sympathy — AI infrastructure semis",
+            "expected_direction": "up",
+            "confidence": 2
+          },
+          {
+            "ticker": "MKSI",
+            "relationship": "sympathy — semicap exposure to AI buildout",
+            "expected_direction": "up",
+            "confidence": 2
+          },
+          {
+            "ticker": "AEIS",
+            "relationship": "sympathy — power for data centers/semicap",
+            "expected_direction": "up",
+            "confidence": 2
+          }
+        ]
+      },
+      {
+        "primary_event": "Defense complex bid (ITA +2.62%) on Iran tensions and 60-day deadline",
+        "primary_ticker": "ITA",
+        "secondary_opportunities": [
+          {
+            "ticker": "AVAV",
+            "relationship": "drone/loitering munitions beneficiary",
+            "expected_direction": "up",
+            "confidence": 3
+          },
+          {
+            "ticker": "KTOS",
+            "relationship": "unmanned systems beneficiary",
+            "expected_direction": "up",
+            "confidence": 3
+          },
+          {
+            "ticker": "MRCY",
+            "relationship": "defense electronics subsystems",
+            "expected_direction": "up",
+            "confidence": 2
+          }
+        ]
+      },
+      {
+        "primary_event": "AAPL earnings tonight with elevated implied vol (3.5% vs 1.8% avg)",
+        "primary_ticker": "AAPL",
+        "secondary_opportunities": [
+          {
+            "ticker": "QRVO",
+            "relationship": "supplier — RF",
+            "expected_direction": "up",
+            "confidence": 2
+          }
+        ]
+      }
+    ],
+    "trump_signals": [
+      {
+        "post_summary": "Trump removing tariffs/restrictions on Scotch whiskey trade with Kentucky bourbon industry",
+        "potentially_affected": [
+          "STZ",
+          "DEO",
+          "MGPI"
+        ],
+        "note": "Modest positive for Diageo (DEO, ADR) and broader spirits trade. Reciprocal access could pressure margins on premium bourbon if Scotch competes domestically, but more likely a symbolic/positive trade gesture. Not a high-conviction signal — most affected names are large caps or non-US listed."
+      },
+      {
+        "post_summary": "Continued public pressure on Powell ahead of Fed succession",
+        "potentially_affected": [
+          "KRE",
+          "TLT"
+        ],
+        "note": "Ongoing Trump-Fed friction with Warsh as potential successor reinforces dovish path expectations. KRE +1.2% modest given tone. Already largely priced in but worth monitoring as confirmation hearings approach."
+      },
+      {
+        "post_summary": "Executive order expanding retirement account access integrated with Saver's Match",
+        "potentially_affected": [
+          "EMPR",
+          "BLK",
+          "LPLA",
+          "SCHW"
+        ],
+        "note": "Marginal positive for asset gatherers and retirement plan administrators. Likely too diffuse to drive single-stock moves but could be a slow tailwind for small-account custodians."
+      }
+    ],
+    "no_signals_note": "Note: several flagged movers (AXSM, JLL, BLDR, MANH) appear to be on idiosyncratic earnings catalysts not present in the news feed provided. Michael should verify earnings dates before drawing conclusions from the tape signatures alone."
+  },
+  "ai_analysis": {
+    "ai_announcements": [
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": false,
+        "headline": "Stripe introduces Link, a digital wallet that autonomous AI agents can use",
+        "summary": "Stripe's Link wallet now allows AI agents to make authorized purchases, expanding agentic commerce infrastructure.",
+        "affected_stocks": []
+      },
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": false,
+        "headline": "Google Cloud surpasses $20B; AWS surging; capex rising",
+        "summary": "Hyperscaler capex remains elevated with capacity-constrained AI demand.",
+        "affected_stocks": [
+          {
+            "ticker": "MKSI",
+            "current_move_pct": 6.9,
+            "direct_overlap": "low",
+            "switching_cost": "high",
+            "counter_thesis": "MKS supplies semi process equipment/materials; AI capex buildout drives demand for advanced packaging and lithography subsystems",
+            "time_horizon": "6mo",
+            "already_priced_in_assessment": "partial",
+            "verdict": "RATIONAL",
+            "confidence": 2,
+            "research_pointers": [
+              "Likely earnings-driven move rather than pure AI-news sympathy; check MKSI earnings release date",
+              "Cross-check with semicap peer moves"
+            ]
+          },
+          {
+            "ticker": "AEIS",
+            "current_move_pct": 6.23,
+            "direct_overlap": "low",
+            "switching_cost": "high",
+            "counter_thesis": "Power conversion for data centers and semi fab equipment is a direct beneficiary of hyperscaler capex",
+            "time_horizon": "6mo",
+            "already_priced_in_assessment": "partial",
+            "verdict": "RATIONAL",
+            "confidence": 2,
+            "research_pointers": [
+              "Confirm if AEIS reported earnings; data center power exposure is the AI angle"
+            ]
+          },
+          {
+            "ticker": "LSCC",
+            "current_move_pct": 5.71,
+            "direct_overlap": "low",
+            "switching_cost": "high",
+            "counter_thesis": "FPGA exposure to AI server/networking; small-cap semi rally on hyperscaler capex commentary",
+            "time_horizon": "6mo",
+            "already_priced_in_assessment": "partial",
+            "verdict": "RATIONAL",
+            "confidence": 2,
+            "research_pointers": [
+              "Verify earnings catalyst vs sympathy move"
+            ]
+          }
+        ]
+      },
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": false,
+        "headline": "Salesforce crowdsources AI roadmap with customers; Microsoft 20M paid Copilot users",
+        "summary": "Enterprise AI software incumbents touting traction; potential pressure on niche enterprise SaaS.",
+        "affected_stocks": [
+          {
+            "ticker": "MANH",
+            "current_move_pct": -4.14,
+            "direct_overlap": "medium",
+            "switching_cost": "high",
+            "counter_thesis": "Manhattan's WMS/supply chain software is deeply embedded; AI agents augment rather than replace; customers historically slow to switch. Move likely earnings-driven, not AI displacement.",
+            "time_horizon": "3-5yr",
+            "already_priced_in_assessment": "no",
+            "verdict": "OVERDONE",
+            "confidence": 2,
+            "research_pointers": [
+              "MANH likely reported earnings/guide today — confirm whether selloff is RPO/services miss vs AI narrative",
+              "Salesforce Agentforce overlap with supply chain is minimal",
+              "Falsifier: if MANH cut guidance citing AI-driven deal slippage, then RATIONAL"
+            ]
+          }
+        ]
+      },
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": false,
+        "headline": "Google Gemini coming to millions of vehicles",
+        "summary": "Gemini in-car deployment expands.",
+        "affected_stocks": []
+      },
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": true,
+        "headline": "Anthropic could raise $50B at $900B valuation",
+        "summary": "Anthropic-related fundraising news. Flagging for bias-grading: this signals continued private AI capital absorption and validates hyperscaler/semicap demand thesis. Consensus market read is bullish for AI infrastructure stack and competitive pressure on smaller LLM-exposed SaaS.",
+        "affected_stocks": []
+      }
+    ],
+    "no_signals_note": "Most large movers today (AXSM, QRVO, BLDR, JLL, SAIA, AVAV, KTOS, MRCY, RGEN, MMSI) appear driven by earnings/company-specific catalysts unrelated to AI announcements in the news set. Only MANH selloff has plausible (but weak) AI-narrative angle worth flagging."
+  }
+}

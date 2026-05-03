@@ -1,0 +1,194 @@
+{
+  "generated_at": "2026-05-01T08:06:55.860223+00:00",
+  "market_context": {
+    "2330.TW": {
+      "price": 2135.0,
+      "change_pct": -2.06,
+      "volume": 48975164,
+      "high": 2215.0,
+      "low": 2135.0
+    },
+    "2454.TW": {
+      "price": 2610.0,
+      "change_pct": 1.36,
+      "volume": 16785387,
+      "high": 2685.0,
+      "low": 2565.0
+    },
+    "2317.TW": {
+      "price": 219.5,
+      "change_pct": -2.44,
+      "volume": 71802349,
+      "high": 230.0,
+      "low": 219.5
+    },
+    "2308.TW": {
+      "price": 2165.0,
+      "change_pct": 0.0,
+      "volume": 13424815,
+      "high": 2280.0,
+      "low": 2150.0
+    },
+    "2382.TW": {
+      "price": 312.5,
+      "change_pct": -2.95,
+      "volume": 18159119,
+      "high": 321.0,
+      "low": 312.0
+    },
+    "3008.TW": {
+      "price": 2515.0,
+      "change_pct": -3.08,
+      "volume": 953183,
+      "high": 2580.0,
+      "low": 2515.0
+    },
+    "3711.TW": {
+      "price": 478.0,
+      "change_pct": -2.15,
+      "volume": 35678381,
+      "high": 512.0,
+      "low": 478.0
+    },
+    "2303.TW": {
+      "price": 77.3,
+      "change_pct": 3.76,
+      "volume": 331616948,
+      "high": 80.9,
+      "low": 76.3
+    },
+    "^TWII": {
+      "price": 38926.63,
+      "change_pct": -0.96,
+      "volume": 5678600,
+      "high": 39848.22,
+      "low": 38926.63
+    },
+    "0050.TW": {
+      "price": 90.5,
+      "change_pct": -0.28,
+      "volume": 82229228,
+      "high": 91.9,
+      "low": 90.3
+    },
+    "EWT": {
+      "price": 89.88,
+      "change_pct": 3.09,
+      "volume": 4502400,
+      "high": 90.11,
+      "low": 88.19
+    }
+  },
+  "adr_arbitrage": [
+    {
+      "adr": "TSM",
+      "local": "2330.TW",
+      "adr_change_pct": 0.57,
+      "local_change_pct": -2.06,
+      "divergence_pct": 2.63
+    },
+    {
+      "adr": "UMC",
+      "local": "2303.TW",
+      "adr_change_pct": 2.43,
+      "local_change_pct": 3.76,
+      "divergence_pct": -1.33
+    },
+    {
+      "adr": "ASX",
+      "local": "3711.TW",
+      "adr_change_pct": 2.68,
+      "local_change_pct": -2.15,
+      "divergence_pct": 4.83
+    },
+    {
+      "adr": "HIMX",
+      "local": "3504.TW",
+      "adr_change_pct": 2.62,
+      "local_change_pct": -2.62,
+      "divergence_pct": 5.24
+    }
+  ],
+  "news_counts": {
+    "zh": 0,
+    "en": 14
+  },
+  "analysis": {
+    "summary_en": "Risk-off session in Taipei despite constructive overnight ADR action and positive Apple earnings. TAIEX -0.96% with TSMC -2.06% leading the drag, but the divergence vs TSM ADR (+0.57%) and EWT (+3.09%) is striking — local sellers are pricing something the offshore tape isn't. UMC (2303) bucked the trend on memory/legacy node optimism (SanDisk NAND, Macronix eMMC read-through). Foxconn (-2.44%) and ASE (-2.15%) weak despite Apple beat and ASX ADR up 2.68%, suggesting OpenAI capex doubt narrative is hitting AI server EMS names locally.",
+    "summary_zh": "台北今日呈現避險格局，儘管美股ADR與蘋果財報利多。加權指數跌0.96%，台積電-2.06%領跌，但與TSM ADR(+0.57%)及EWT(+3.09%)的背離極為明顯，顯示本地賣壓在反映海外盤未定價的因素。聯電(2303)逆勢上漲，受惠NAND/成熟製程利多(SanDisk、旺宏eMMC題材)。鴻海(-2.44%)、日月光(-2.15%)弱勢，與蘋果財報beat及ASX ADR +2.68%背離，疑似OpenAI資本支出疑慮衝擊本地AI伺服器代工股。",
+    "context": {
+      "taiex_change_pct": -0.96,
+      "tsmc_change_pct": -2.06,
+      "tone": "risk-off"
+    },
+    "key_stories": [
+      {
+        "headline_en": "OpenAI demand doubts cast shadow over AI server supply chain (Quanta, Wistron, Foxconn)",
+        "headline_zh": "OpenAI需求疑慮籠罩AI伺服器供應鏈(廣達、緯創、鴻海)",
+        "affected_tickers": [
+          "2317.TW",
+          "2382.TW",
+          "3711.TW"
+        ],
+        "analysis_en": "This is the cleanest explanation for why Foxconn (-2.44%), Quanta (-2.95%) and ASE (-2.15%) all sold off hard while their US-listed peers/customers were stable-to-up overnight. The market is rotating out of AI server EMS on capex-reassessment fears. However, Apple's strong fiscal 2Q with iPhone surge and China rebound directly contradicts the bear case for Foxconn — Foxconn's iPhone exposure is far larger than its OpenAI-server exposure. Likely overdone on Foxconn specifically; Quanta is more exposed to the actual server narrative.",
+        "analysis_zh": "這是解釋鴻海(-2.44%)、廣達(-2.95%)、日月光(-2.15%)重挫而美股同業隔夜持平偏多的最合理原因——市場因資本支出重估疑慮輪出AI伺服器代工股。然而蘋果財報iPhone強勁、中國回溫，直接與鴻海空方論述矛盾，鴻海iPhone曝險遠大於OpenAI伺服器曝險。鴻海跌幅偏過頭；廣達才是真正受伺服器敘事影響的標的。",
+        "verdict": "overdone",
+        "confidence": 3
+      },
+      {
+        "headline_en": "TSMC -2% on no local catalyst; ADR diverges +2.63%",
+        "headline_zh": "台積電本地-2%但無在地利空，ADR背離達2.63%",
+        "affected_tickers": [
+          "2330.TW"
+        ],
+        "analysis_en": "TSMC closed at the day's low (2135) on heavy 49M volume with no headline catalyst. ADR was +0.57% overnight, KLA results confirm AI process-control strength, Apple beat helps. The 2.63% divergence is unusual and suggests either (a) local profit-taking after recent run, (b) foreign institutional rebalancing on month-start, or (c) anticipatory selling on China geopolitical signal not yet visible in news. Watch for foreign net-sell data after close.",
+        "analysis_zh": "台積電收最低點2135，成交4900萬張無明顯利空。ADR隔夜+0.57%，KLA財報確認AI製程控制需求強，蘋果財報beat。2.63%背離異常，可能為(a)近期漲多獲利了結、(b)月初外資調節、(c)尚未浮上檯面的兩岸地緣訊號預先反應。盤後關注外資買賣超數據。",
+        "verdict": "underdone",
+        "confidence": 2
+      },
+      {
+        "headline_en": "UMC +3.76% on NAND/legacy strength read-through (SanDisk, Macronix eMMC)",
+        "headline_zh": "聯電+3.76%受惠NAND/成熟製程題材(SanDisk、旺宏eMMC)",
+        "affected_tickers": [
+          "2303.TW"
+        ],
+        "analysis_en": "UMC volume of 332M is enormous — clear institutional buying. SanDisk's long-term NAND supply deals and Macronix's 3,993% YoY eMMC surge signal mature-node and memory-adjacent foundry demand is real. UMC ADR was +2.43%, local outperformed at +3.76% — domestic flows leading. MLCC tightening (Samsung Electro-Mechanics +5-10% hike) also supports the legacy/specialty cycle thesis.",
+        "analysis_zh": "聯電成交3.32億張為巨量，明顯法人買盤。SanDisk長約NAND及旺宏eMMC年增3,993%確認成熟製程與記憶體周邊代工需求真實存在。聯電ADR +2.43%、本地+3.76%領先，內資主導。三星電機MLCC調漲5-10%亦支持成熟/特殊製程循環論述。",
+        "verdict": "rational",
+        "confidence": 4
+      },
+      {
+        "headline_en": "ASE Technology -2.15% locally vs ASX ADR +2.68% — 4.83% divergence",
+        "headline_zh": "日月光本地-2.15% vs ASX ADR +2.68%，背離4.83%",
+        "affected_tickers": [
+          "3711.TW"
+        ],
+        "analysis_en": "Largest divergence in the table. ASE is heavily levered to advanced packaging (CoWoS-adjacent) which benefits directly from the AI chip squeeze theme. The local sell-off looks like sympathy with the EMS/AI-server complex rather than ASE-specific news. Mechanism: indiscriminate sector selling. If ADR holds gains tonight, expect mean reversion tomorrow.",
+        "analysis_zh": "表中最大背離。日月光高度連動先進封裝(CoWoS週邊)，直接受惠AI晶片緊缺題材。本地賣壓看似伺服器代工/AI伺服器類股拖累的同情性殺盤，非個股利空。機制：類股無差別殺盤。若ADR今晚守住漲幅，明日有均值回歸機會。",
+        "verdict": "overdone",
+        "confidence": 3
+      }
+    ],
+    "adr_arbitrage": [
+      {
+        "pair": "TSM vs 2330.TW",
+        "divergence_pct": 2.63,
+        "interpretation_en": "Local weaker by 2.63%. Watch tomorrow's open — if no overnight China/geopolitical headline emerges, this likely closes. Falsifier: foreign net-sell prints heavy (>NT$30B) suggesting structural outflow.",
+        "interpretation_zh": "本地弱於ADR 2.63%。觀察明日開盤，若隔夜無中國/地緣利空浮現，缺口應收斂。否證條件：外資賣超超過300億暗示結構性資金外流。"
+      },
+      {
+        "pair": "ASX vs 3711.TW",
+        "divergence_pct": 4.83,
+        "interpretation_en": "Largest gap. Most actionable mean-reversion candidate if ADR holds tonight. Falsifier: ASX gives back gains in US session.",
+        "interpretation_zh": "最大缺口。若ASX今晚守穩，為最具操作性的均值回歸標的。否證條件：ASX美股盤吐回漲幅。"
+      },
+      {
+        "pair": "HIMX vs 3504.TW",
+        "divergence_pct": 5.24,
+        "interpretation_en": "Largest raw divergence but smaller-cap, less liquid — confirm with volume before acting.",
+        "interpretation_zh": "原始背離最大但屬中小型股流動性較差，操作前須確認量能。"
+      }
+    ],
+    "no_signals_note": "Wife should note: the Foxconn/ASE/Quanta selling appears narrative-driven (OpenAI capex doubt) rather than fundamentals-driven. Apple results actively contradict the bear case for Foxconn specifically. Lower conviction on TSMC divergence — could be hidden foreign-flow signal, wait for chip data."
+  }
+}

@@ -10,5 +10,17 @@
     "fees": 0.622,
     "notional": 1591.09,
     "why": "Opened per flag: LIKELY OVERDONE conf 3 — CALX -14% print dragging networking peers"
+  },
+  {
+    "ts": "2026-05-01T20:05:56.217715+00:00",
+    "kind": "sell",
+    "date": "2026-05-01T20:05:56.217552+00:00",
+    "side": "SELL",
+    "ticker": "EXTR",
+    "shares": 85,
+    "fill_price": 22.0779,
+    "fees": 0.6883,
+    "notional": 1876.62,
+    "why": "Entered on thesis that EXTR was experiencing sympathy selling off CALX's -14% print—a short-term dislocations trade with 'days' horizon. 8 days in, EXTR has recovered +19% while XLK remains elevated, indicating the read-through trade has normalized and the catalyst (CALX weakness dragging peers) has exhausted its effect. Holding further exposes the portfolio to reversal risk without a fresh catalyst. The original high-confidence short-term mismatch has been arbitraged away. No evidence of broader enterprise IT weakness that would sustain further upside. Exit captures the gain and redeploys capital toward fresh opportunities."
   }
 ]
