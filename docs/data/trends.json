@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-01T20:05:51.496813+00:00",
+  "generated_at": "2026-05-04T20:16:02.994522+00:00",
   "logic_version": 1,
   "grading_params": {
     "hit_threshold_pct": 3.0,
@@ -9,11 +9,11 @@
       "months": 60
     },
     "default_horizon_days": 5,
-    "graded_classifications": "{'OVERDONE', 'UNDERDONE'}"
+    "graded_classifications": "{'UNDERDONE', 'OVERDONE'}"
   },
-  "n_total_calls": 89,
-  "n_not_graded": 85,
-  "n_pending": 0,
+  "n_total_calls": 95,
+  "n_not_graded": 90,
+  "n_pending": 1,
   "n_data_error": 0,
   "overall": {
     "n_resolved": 4,
@@ -84,6 +84,22 @@
     }
   },
   "by_sector": {
+    "Financial Services (misclassified as Tech)": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Industrials": {
+      "n_resolved": 1,
+      "n_hit": 1,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": 100.0,
+      "avg_return_pct": 6.28
+    },
     "Consumer Cyclical": {
       "n_resolved": 1,
       "n_hit": 0,
@@ -91,6 +107,14 @@
       "n_ambiguous": 0,
       "hit_rate": 0.0,
       "avg_return_pct": -3.21
+    },
+    "Technology": {
+      "n_resolved": 2,
+      "n_hit": 2,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": 100.0,
+      "avg_return_pct": 3.31
     },
     "Basic Materials": {
       "n_resolved": 0,
@@ -100,21 +124,13 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Financial Services (misclassified as Tech)": {
+    "Consumer Defensive": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
       "n_ambiguous": 0,
       "hit_rate": null,
       "avg_return_pct": null
-    },
-    "Technology": {
-      "n_resolved": 2,
-      "n_hit": 2,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": 100.0,
-      "avg_return_pct": 3.31
     },
     "Real Estate": {
       "n_resolved": 0,
@@ -139,22 +155,6 @@
       "n_ambiguous": 0,
       "hit_rate": null,
       "avg_return_pct": null
-    },
-    "Consumer Defensive": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Industrials": {
-      "n_resolved": 1,
-      "n_hit": 1,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": 100.0,
-      "avg_return_pct": 6.28
     }
   },
   "by_horizon_days": {
@@ -2127,6 +2127,126 @@
       "price_at_horizon_end": null,
       "logic_version": 1,
       "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "GME",
+      "name": "GameStop Corporation",
+      "sector": "Consumer Cyclical",
+      "flagged_at": "2026-05-04T20:15:13+00:00",
+      "run_file": "us_20260504T201513Z.json",
+      "classification": "RATIONAL",
+      "confidence": 4,
+      "move_pct_at_flag": -10.18,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=RATIONAL not in graded set"
+    },
+    {
+      "ticker": "CHRW",
+      "name": "C.H. Robinson Worldwide",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-04T20:15:13+00:00",
+      "run_file": "us_20260504T201513Z.json",
+      "classification": "RATIONAL",
+      "confidence": 3,
+      "move_pct_at_flag": -9.06,
+      "expected_direction": null,
+      "horizon_days": 20,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=RATIONAL not in graded set"
+    },
+    {
+      "ticker": "SAIA",
+      "name": "Saia, Inc.",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-04T20:15:13+00:00",
+      "run_file": "us_20260504T201513Z.json",
+      "classification": "OVERDONE",
+      "confidence": 2,
+      "move_pct_at_flag": -8.23,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "PENDING",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": 405.0899963378906,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "No post-flag bars yet"
+    },
+    {
+      "ticker": "AXSM",
+      "name": "Axsome Therapeutics",
+      "sector": "Healthcare",
+      "flagged_at": "2026-05-04T20:15:13+00:00",
+      "run_file": "us_20260504T201513Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": 8.14,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "UFPI",
+      "name": "UFP Industries",
+      "sector": "Basic Materials",
+      "flagged_at": "2026-05-04T20:15:13+00:00",
+      "run_file": "us_20260504T201513Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -5.72,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=UNCLEAR not in graded set"
+    },
+    {
+      "ticker": "ALK",
+      "name": "Alaska Air Group",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-04T20:15:13+00:00",
+      "run_file": "us_20260504T201513Z.json",
+      "classification": "RATIONAL",
+      "confidence": 3,
+      "move_pct_at_flag": -4.12,
+      "expected_direction": null,
+      "horizon_days": 20,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 1,
+      "notes": "classification=RATIONAL not in graded set"
     }
   ]
 }
