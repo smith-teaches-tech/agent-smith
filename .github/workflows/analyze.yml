@@ -10,7 +10,7 @@ on:
   schedule:
     # US afternoon + portfolio pass                     — 22:00 AST Mon-Fri
     - cron: "0 19 * * 1-5"
-    
+
   workflow_dispatch:
     inputs:
       mode:
@@ -54,16 +54,14 @@ jobs:
           PORTFOLIO="${{ github.event.inputs.portfolio }}"
           # Override for scheduled runs based on cron expression
           CRON="${{ github.event.schedule }}"
-          if [[ "$CRON" == "0 6 * * 1-5" ]]; then
-            MODE="tw"
-            PORTFOLIO="false"
-          elif [[ "$CRON" == "0 19 * * 1-5" ]]; then
-            MODE="all"
+          if [[ "$CRON" == "0 19 * * 1-5" ]]; then
+            MODE="us"
             PORTFOLIO="true"
           fi
           # Fallback for manual runs with no explicit mode
+          # Fallback for manual runs with no explicit mode
           if [ -z "$MODE" ]; then
-            MODE="all"
+            MODE="us"
           fi
           echo "mode=$MODE"           >> "$GITHUB_OUTPUT"
           echo "portfolio=$PORTFOLIO" >> "$GITHUB_OUTPUT"
