@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-04T20:16:02.994522+00:00",
+  "generated_at": "2026-05-05T17:48:24.776920+00:00",
   "logic_version": 1,
   "grading_params": {
     "hit_threshold_pct": 3.0,
@@ -13,24 +13,24 @@
   },
   "n_total_calls": 95,
   "n_not_graded": 90,
-  "n_pending": 1,
+  "n_pending": 0,
   "n_data_error": 0,
   "overall": {
-    "n_resolved": 4,
-    "n_hit": 3,
+    "n_resolved": 5,
+    "n_hit": 4,
     "n_miss": 1,
     "n_ambiguous": 0,
-    "hit_rate": 75.0,
-    "avg_return_pct": 2.42
+    "hit_rate": 80.0,
+    "avg_return_pct": 2.83
   },
   "by_classification": {
     "OVERDONE": {
-      "n_resolved": 4,
-      "n_hit": 3,
+      "n_resolved": 5,
+      "n_hit": 4,
       "n_miss": 1,
       "n_ambiguous": 0,
-      "hit_rate": 75.0,
-      "avg_return_pct": 2.42
+      "hit_rate": 80.0,
+      "avg_return_pct": 2.83
     },
     "UNDERDONE": {
       "n_resolved": 0,
@@ -51,12 +51,12 @@
       "avg_return_pct": null
     },
     "2": {
-      "n_resolved": 2,
-      "n_hit": 2,
+      "n_resolved": 3,
+      "n_hit": 3,
       "n_miss": 0,
       "n_ambiguous": 0,
       "hit_rate": 100.0,
-      "avg_return_pct": 4.54
+      "avg_return_pct": 4.51
     },
     "3": {
       "n_resolved": 2,
@@ -84,62 +84,6 @@
     }
   },
   "by_sector": {
-    "Financial Services (misclassified as Tech)": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Industrials": {
-      "n_resolved": 1,
-      "n_hit": 1,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": 100.0,
-      "avg_return_pct": 6.28
-    },
-    "Consumer Cyclical": {
-      "n_resolved": 1,
-      "n_hit": 0,
-      "n_miss": 1,
-      "n_ambiguous": 0,
-      "hit_rate": 0.0,
-      "avg_return_pct": -3.21
-    },
-    "Technology": {
-      "n_resolved": 2,
-      "n_hit": 2,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": 100.0,
-      "avg_return_pct": 3.31
-    },
-    "Basic Materials": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Consumer Defensive": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Real Estate": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
     "Healthcare - Biotechnology": {
       "n_resolved": 0,
       "n_hit": 0,
@@ -155,16 +99,72 @@
       "n_ambiguous": 0,
       "hit_rate": null,
       "avg_return_pct": null
+    },
+    "Consumer Cyclical": {
+      "n_resolved": 1,
+      "n_hit": 0,
+      "n_miss": 1,
+      "n_ambiguous": 0,
+      "hit_rate": 0.0,
+      "avg_return_pct": -3.21
+    },
+    "Industrials": {
+      "n_resolved": 2,
+      "n_hit": 2,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": 100.0,
+      "avg_return_pct": 5.37
+    },
+    "Financial Services (misclassified as Tech)": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Real Estate": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Basic Materials": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Technology": {
+      "n_resolved": 2,
+      "n_hit": 2,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": 100.0,
+      "avg_return_pct": 3.31
+    },
+    "Consumer Defensive": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
     }
   },
   "by_horizon_days": {
     "5": {
-      "n_resolved": 3,
-      "n_hit": 2,
+      "n_resolved": 4,
+      "n_hit": 3,
       "n_miss": 1,
       "n_ambiguous": 0,
-      "hit_rate": 66.7,
-      "avg_return_pct": 1.14
+      "hit_rate": 75.0,
+      "avg_return_pct": 1.97
     },
     "20": {
       "n_resolved": 1,
@@ -201,6 +201,26 @@
       "max_adverse_pct": 0.41,
       "price_at_flag": 183.5,
       "price_at_horizon_end": 195.02,
+      "logic_version": 1,
+      "notes": "only 1 bars elapsed"
+    },
+    {
+      "ticker": "SAIA",
+      "name": "Saia, Inc.",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-04T20:15:13+00:00",
+      "run_file": "us_20260504T201513Z.json",
+      "classification": "OVERDONE",
+      "confidence": 2,
+      "move_pct_at_flag": -8.23,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "HIT",
+      "return_pct_in_horizon": 4.45,
+      "max_favorable_pct": 4.6,
+      "max_adverse_pct": 0.56,
+      "price_at_flag": 405.09,
+      "price_at_horizon_end": 423.105,
       "logic_version": 1,
       "notes": "only 1 bars elapsed"
     },
@@ -323,6 +343,26 @@
       "max_adverse_pct": 0.0,
       "price_at_flag": 16.9,
       "price_at_horizon_end": 17.548,
+      "logic_version": 1,
+      "notes": "only 1 bars elapsed"
+    },
+    {
+      "ticker": "SAIA",
+      "name": "Saia, Inc.",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-04T20:15:13+00:00",
+      "run_file": "us_20260504T201513Z.json",
+      "classification": "OVERDONE",
+      "confidence": 2,
+      "move_pct_at_flag": -8.23,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "HIT",
+      "return_pct_in_horizon": 4.45,
+      "max_favorable_pct": 4.6,
+      "max_adverse_pct": 0.56,
+      "price_at_flag": 405.09,
+      "price_at_horizon_end": 423.105,
       "logic_version": 1,
       "notes": "only 1 bars elapsed"
     },
@@ -2179,14 +2219,14 @@
       "move_pct_at_flag": -8.23,
       "expected_direction": "up",
       "horizon_days": 5,
-      "grade": "PENDING",
-      "return_pct_in_horizon": null,
-      "max_favorable_pct": null,
-      "max_adverse_pct": null,
-      "price_at_flag": 405.0899963378906,
-      "price_at_horizon_end": null,
+      "grade": "HIT",
+      "return_pct_in_horizon": 4.45,
+      "max_favorable_pct": 4.6,
+      "max_adverse_pct": 0.56,
+      "price_at_flag": 405.09,
+      "price_at_horizon_end": 423.105,
       "logic_version": 1,
-      "notes": "No post-flag bars yet"
+      "notes": "only 1 bars elapsed"
     },
     {
       "ticker": "AXSM",
