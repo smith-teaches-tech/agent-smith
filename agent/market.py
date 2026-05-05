@@ -5,6 +5,7 @@ in the discovery universe (mid-cap sweet spot).
 """
 import yfinance as yf
 import pandas as pd
+import requests
 from datetime import datetime, timedelta
 from typing import Any
 import time
@@ -230,15 +231,29 @@ def _fetch_constituents_from_wikipedia(url: str, label: str) -> list[str]:
     Fetch S&P index constituent tickers from a Wikipedia page.
 
     Wikipedia constituent pages include a sortable HTML table where one
-    column is named "Symbol" (or sometimes "Ticker symbol"). We use
-    pandas.read_html() to parse all tables on the page, then pick the
+    column is named "Symbol" (or sometimes "Ticker symbol"). We fetch
+    the page with requests (using a real browser User-Agent — Wikipedia
+    returns 403 on the default urllib UA used by pandas.read_html), then
+    hand the HTML string to pandas to parse all tables, then pick the
     first one that has a recognizable ticker column.
 
     Returns a list of normalized, deduplicated tickers. Raises on any
     failure — caller is responsible for fallback handling.
     """
-    # pandas.read_html requires lxml or html5lib. Both are in requirements.
-    tables = pd.read_html(url)
+    # Use a real browser User-Agent — Wikipedia 403s urllib's default UA.
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/120.0.0.0 Safari/537.36"
+        ),
+    }
+    resp = requests.get(url, headers=headers, timeout=30)
+    resp.raise_for_status()
+
+    # pandas.read_html accepts an HTML string. Requires lxml or html5lib
+    # for parsing — both are in requirements.
+    tables = pd.read_html(resp.text)
     if not tables:
         raise ValueError(f"{label}: no tables found on page")
 
