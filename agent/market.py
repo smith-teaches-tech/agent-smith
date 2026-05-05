@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 from typing import Any
 import time
 import sys
+import io
 
 from . import config
 
@@ -253,7 +254,7 @@ def _fetch_constituents_from_wikipedia(url: str, label: str) -> list[str]:
 
     # pandas.read_html accepts an HTML string. Requires lxml or html5lib
     # for parsing — both are in requirements.
-    tables = pd.read_html(resp.text)
+    tables = pd.read_html(io.StringIO(resp.text))
     if not tables:
         raise ValueError(f"{label}: no tables found on page")
 
