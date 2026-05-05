@@ -55,7 +55,7 @@ DISCOVERY_FILTERS = {
 MOVEMENT_THRESHOLDS = {
     "intraday_pct_min": 4.0,             # +/- 4% intraday
     "volume_multiple_min": 2.5,          # 2.5x average volume
-    "max_candidates_per_run": 40,        # Hard cap before sending to Claude
+    "max_candidates_per_run": 20,        # Hard cap before sending to Claude
 }
 
 # ============================================================
@@ -259,7 +259,7 @@ PAPER_SLIPPAGE_PCT = 0.001                 # 0.1%
 # benefits less from maximum reasoning depth.
 # ============================================================
 CLAUDE_PORTFOLIO_MODEL = "claude-haiku-4-5-20251001"
-CLAUDE_PORTFOLIO_MAX_TOKENS = 4096
+CLAUDE_PORTFOLIO_MAX_TOKENS = 16384
 
 # ============================================================
 # Output paths for Phase 1.5-lite portfolio files

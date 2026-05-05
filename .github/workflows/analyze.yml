@@ -8,10 +8,9 @@ name: analyze
 
 on:
   schedule:
-    # Taiwan morning pass (post Taipei close)           — 09:00 AST Mon-Fri
-    - cron: "0 6 * * 1-5"
-    # US afternoon + Taiwan refresh + portfolio pass    — 22:00 AST Mon-Fri
+    # US afternoon + portfolio pass                     — 22:00 AST Mon-Fri
     - cron: "0 19 * * 1-5"
+    
   workflow_dispatch:
     inputs:
       mode:
