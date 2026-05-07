@@ -95,6 +95,12 @@ main { padding: 1.5rem 2rem 0; max-width: 1400px; }
 .holdings-status-broken { color: var(--neg); }
 .holdings-status-strengthening { color: var(--pos); }
 .holdings-action { color: var(--info); font-weight: 500; }
+/* ============ STATUS BANNER (Item 3 — surfaces RECOVERED / FAILED runs) ============ */
+.status-banner { display: none; padding: 0.6rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; line-height: 1.4; border-bottom: 1px solid; }
+.status-banner.recovered { display: block; background: color-mix(in srgb, var(--warn) 15%, transparent); color: var(--warn); border-color: color-mix(in srgb, var(--warn) 40%, transparent); }
+.status-banner.failed { display: block; background: color-mix(in srgb, var(--neg) 15%, transparent); color: var(--neg); border-color: color-mix(in srgb, var(--neg) 40%, transparent); }
+.status-banner strong { font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin-right: 0.5rem; }
+.status-banner .banner-detail { color: inherit; opacity: 0.85; }
 /* ============ TOOLBAR ============ */
 .toolbar { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; padding-bottom: 0.75rem; }
 .toolbar-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-right: 0.25rem; }
@@ -171,6 +177,8 @@ footer p { margin-bottom: 0.3rem; }
 
 </head>
 <body>
+
+<div id="status-banner" class="status-banner"></div>
 
 <header>
   <div class="masthead">
@@ -335,6 +343,7 @@ const SAMPLE_DATA = [
 let DATA = SAMPLE_DATA;          // discoveries array (filled from latest_us.json)
 let RUN_META = null;             // { generated_at, movers_count, news_count, trump_posts_count, run_summary, market_context }
 let PORTFOLIO = null;            // { open_positions: [...] } from data/portfolio.json
+let STATUS = null;               // { discovery, ai_analysis, errors[] } from latest_us.json status block; null on fetch failure or pre-deploy JSON
 let activeFilter = 'all';
 let activeSort = 'conf';
 
@@ -386,11 +395,24 @@ async function load() {
       throw new Error('latest_us not ready');
     }
     const json = await discoveryRes.value.json();
+    // STATUS block (Item 2/4): { discovery: OK|RECOVERED|FAILED, ai_analysis: ..., errors: [...] }.
+    // Older JSON (pre-May-7) won't have this — treat absence as all-OK for backward compat.
+    STATUS = json.status || { discovery: 'OK', ai_analysis: 'OK', errors: [] };
     const discoveries = (json.discovery && Array.isArray(json.discovery.discoveries))
       ? json.discovery.discoveries
       : (Array.isArray(json.discoveries) ? json.discoveries : null);
-    if (!discoveries) throw new Error('no discoveries in payload');
-    DATA = discoveries;
+    if (discoveries) {
+      // Happy path (or RECOVERED — retry-recovered data is in the same shape)
+      DATA = discoveries;
+    } else if (STATUS.discovery === 'FAILED') {
+      // Discovery pass failed even after retry. Empty array → existing #empty
+      // element shows. Don't fall back to SAMPLE_DATA — that misleads (May 6 phantom-trades pattern).
+      DATA = [];
+    } else {
+      // Status says OK but discoveries missing — schema drift or unexpected shape.
+      // Treat as fetch failure for safety.
+      throw new Error('no discoveries in payload');
+    }
     RUN_META = {
       generated_at: json.generated_at,
       movers_count: json.movers_count,
@@ -402,6 +424,7 @@ async function load() {
   } catch (e) {
     DATA = SAMPLE_DATA;
     RUN_META = null;
+    STATUS = null;  // null = fetch-level failure, separate from FAILED/RECOVERED
   }
 
   // Resolve portfolio (graceful degrade — if missing/broken, holdings bar stays hidden)
@@ -413,6 +436,7 @@ async function load() {
     PORTFOLIO = null;
   }
 
+  renderBanner();
   renderHeader();
   renderSummary();
   renderHoldings();
@@ -420,6 +444,31 @@ async function load() {
 }
 
 // ============ RENDERERS ============
+function renderBanner() {
+  const el = document.getElementById('status-banner');
+  if (!el) return;
+  // STATUS null → fetch failed entirely; the existing "sample data — live run unavailable"
+  // header indicator handles that case. No banner.
+  if (!STATUS) { el.className = 'status-banner'; el.innerHTML = ''; return; }
+  const passes = ['discovery', 'ai_analysis'];
+  const failed = passes.filter(p => STATUS[p] === 'FAILED');
+  const recovered = passes.filter(p => STATUS[p] === 'RECOVERED');
+  if (failed.length === 0 && recovered.length === 0) {
+    el.className = 'status-banner'; el.innerHTML = ''; return;
+  }
+  // FAILED wins over RECOVERED for the banner state — if anything failed, that's the headline.
+  if (failed.length > 0) {
+    const passLabel = failed.join(' + ');
+    const detail = recovered.length > 0 ? ` (${recovered.join(' + ')} recovered on retry)` : '';
+    el.className = 'status-banner failed';
+    el.innerHTML = `<strong>run failed</strong><span class="banner-detail">${passLabel} pass returned unparseable JSON after retry${detail}. Showing market context only.</span>`;
+  } else {
+    const passLabel = recovered.join(' + ');
+    el.className = 'status-banner recovered';
+    el.innerHTML = `<strong>recovered</strong><span class="banner-detail">${passLabel} pass parse-failed but retry with halved candidates succeeded. Data below is from the retry.</span>`;
+  }
+}
+
 function renderHeader() {
   const el = document.getElementById('last-update');
   if (RUN_META && RUN_META.generated_at) {
@@ -539,6 +588,13 @@ function renderTable() {
   const empty = document.getElementById('empty');
   if (data.length === 0) {
     tbody.innerHTML = '';
+    // Context-aware empty message: distinguish FAILED-discovery (DATA was set
+    // to [] in load()) from filter-no-match (DATA has entries but filter excluded them).
+    if (STATUS && STATUS.discovery === 'FAILED') {
+      empty.textContent = 'Discovery data unavailable for this run — see banner above.';
+    } else {
+      empty.textContent = 'No flags match current filter.';
+    }
     empty.style.display = 'block';
     return;
   }
