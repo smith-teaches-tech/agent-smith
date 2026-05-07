@@ -149,6 +149,8 @@ tr.detail-row td { padding: 0; }
 .detail-list li { font-size: 0.8rem; color: var(--fg); line-height: 1.4; padding-left: 0.9rem; position: relative; }
 .detail-list li::before { content: "▸"; position: absolute; left: 0; color: var(--accent); font-size: 0.65rem; top: 0.22rem; }
 .catalyst { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--info); background: transparent; padding: 0.3rem 0.5rem; border-left: 2px solid var(--info); }
+.cite-link { color: var(--info); text-decoration: none; font-size: 0.7rem; opacity: 0.8; transition: opacity 0.15s; }
+.cite-link:hover { opacity: 1; text-decoration: underline; }
 /* ============ FOOTER ============ */
 footer { padding: 2rem 2rem 0; margin-top: 2rem; border-top: 1px solid var(--rule); color: var(--fg-dim); font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; max-width: 1400px; }
 footer p { margin-bottom: 0.3rem; }
@@ -620,7 +622,7 @@ function renderTable() {
             <div class="detail-section">
               <div class="detail-label">why this is interesting</div>
               <div class="detail-text">${d.mechanism}</div>
-              <div class="catalyst" style="margin-top: 0.75rem;">likely catalyst: ${d.catalyst}</div>
+              <div class="catalyst" style="margin-top: 0.75rem;">likely catalyst: ${d.catalyst}${d.catalyst_url ? ` <a href="${d.catalyst_url}" target="_blank" rel="noopener" class="cite-link">[cite ↗]</a>` : ''}</div>
             </div>
             <div class="detail-section">
               <div class="detail-label">research pointers</div>
