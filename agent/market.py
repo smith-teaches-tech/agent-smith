@@ -47,6 +47,7 @@ def fetch_context_quotes(tickers: list[str]) -> dict[str, dict[str, Any]]:
 def fetch_movers_universe(
     candidate_tickers: list[str],
     filters: dict[str, Any] = None,
+    apply_filters: bool = True,
 ) -> list[dict[str, Any]]:
     """
     Given a candidate ticker list, fetch each one's recent price+volume
@@ -58,6 +59,11 @@ def fetch_movers_universe(
     candidate_tickers list should come from a separate source (Finnhub
     top gainers/losers, an SP400/SP600 constituent list, etc.).
     For v0 we accept whatever is passed in.
+
+    apply_filters: when False, skip the market_cap / price / dollar-volume
+    gates and return a mover dict for every ticker that yfinance returns
+    valid data for. Used by the --tickers override path in main.py for
+    cheap targeted testing on hand-picked names.
     """
     if filters is None:
         filters = config.DISCOVERY_FILTERS
@@ -77,15 +83,16 @@ def fetch_movers_universe(
             avg_volume = float(hist["Volume"].mean())
             avg_dollar_volume = avg_volume * float(hist["Close"].mean())
 
-            # Apply filters
-            if mcap is None or mcap < filters["min_market_cap"]:
-                continue
-            if mcap > filters["max_market_cap"]:
-                continue
-            if price < filters["min_price"]:
-                continue
-            if avg_dollar_volume < filters["min_avg_dollar_volume"]:
-                continue
+            # Apply filters (skipped under --tickers override path)
+            if apply_filters:
+                if mcap is None or mcap < filters["min_market_cap"]:
+                    continue
+                if mcap > filters["max_market_cap"]:
+                    continue
+                if price < filters["min_price"]:
+                    continue
+                if avg_dollar_volume < filters["min_avg_dollar_volume"]:
+                    continue
 
             prev_close = float(hist.iloc[-2]["Close"]) if len(hist) >= 2 else float(hist.iloc[-1]["Open"])
             change_pct = ((price - prev_close) / prev_close) * 100

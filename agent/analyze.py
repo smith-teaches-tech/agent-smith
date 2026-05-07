@@ -119,6 +119,41 @@ Pay special attention to:
 - Overreactions to lawsuits, short reports, or single-source bad news
 - Underreactions to genuinely good news that hasn't spread
 
+USING THE catalyst_signals FIELD (attached to every mover):
+
+Each mover dict in <movers> has a `catalyst_signals` field with three optional sub-fields:
+
+- `filings_8k`: list of recent SEC 8-K filings. Each has a `date`, a `url`,
+  and an `items` list. Items are 8-K event codes with labels. Treat these
+  as the strongest available evidence — every 8-K is a self-declared
+  "material event" by the company itself, filed under penalty of fraud.
+  Use the item codes to gauge severity:
+    * 2.02 (results of operations) → earnings report; check magnitude vs guidance
+    * 2.05 / 2.06 (impairment / restructuring) → typically bearish for the move direction
+    * 4.02 (non-reliance on prior financials) → RESTATEMENT, almost always severely bearish
+    * 5.02 (officer departure) → severity depends on circumstances; CFO departure
+      mid-quarter is often very bearish, planned CEO retirement less so
+    * 1.01 (material agreement) → could be bullish (big contract) or bearish
+      (debt covenant change); cannot judge from code alone
+    * 8.01 (other events) → catch-all, usually less severe
+    * 9.01 (financial statements/exhibits) → boilerplate, ignore on its own
+  Cite the URL in your `catalyst_url` field and quote what you inferred
+  in `catalyst_evidence`.
+
+- `recent_earnings`: company reported earnings within last 5 days.
+  Confirms "this stock moved on earnings" when an 8-K isn't found.
+
+- `upcoming_earnings`: company reports within the next 14 days. This is
+  POSITIONING context — a stock moving 6%+ on no news but with earnings
+  3 days away is often pre-positioning. Mention in `mechanism` if relevant.
+
+If `catalyst_signals` is empty `{{}}` for a mover, the SEC has no recent
+8-K and the company has no scheduled earnings — meaning the move is
+probably driven by sympathy, sector rotation, technical factors, or
+something not visible to us. UNCLEAR + low confidence is honest in that case.
+Do NOT manufacture catalysts. "We don't know what drove this" is a valid
+output when the evidence isn't there.
+
 {INJECTION_GUARD}
 
 {OUTPUT_DISCIPLINE}
@@ -141,6 +176,8 @@ JSON SCHEMA:
       "confidence": 3,
       "mechanism": "specific reason for the mispricing",
       "catalyst": "what news/event drove this",
+      "catalyst_url": "URL of the 8-K or news source you cite, or null",
+      "catalyst_evidence": "what specifically in the catalyst_signals or news led to this read (1 sentence)",
       "research_pointers": ["specific things Michael should investigate"],
       "what_would_falsify": "what evidence would change this read",
       "time_horizon": "intraday / days / weeks"

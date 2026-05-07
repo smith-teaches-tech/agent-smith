@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-06T20:29:00.180419+00:00",
+  "generated_at": "2026-05-07T07:56:07.955073+00:00",
   "logic_version": 1,
   "grading_params": {
     "hit_threshold_pct": 3.0,
@@ -84,47 +84,15 @@
     }
   },
   "by_sector": {
-    "Technology": {
-      "n_resolved": 2,
-      "n_hit": 2,
+    "Healthcare - Biotechnology": {
+      "n_resolved": 0,
+      "n_hit": 0,
       "n_miss": 0,
       "n_ambiguous": 0,
-      "hit_rate": 100.0,
-      "avg_return_pct": 3.31
+      "hit_rate": null,
+      "avg_return_pct": null
     },
     "Consumer Defensive": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Healthcare": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Real Estate": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Consumer Cyclical": {
-      "n_resolved": 1,
-      "n_hit": 0,
-      "n_miss": 1,
-      "n_ambiguous": 0,
-      "hit_rate": 0.0,
-      "avg_return_pct": -3.21
-    },
-    "Financial Services (misclassified as Tech)": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -140,6 +108,30 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
+    "Financial Services (misclassified as Tech)": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Technology": {
+      "n_resolved": 2,
+      "n_hit": 2,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": 100.0,
+      "avg_return_pct": 3.31
+    },
+    "Healthcare": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
     "Industrials": {
       "n_resolved": 2,
       "n_hit": 2,
@@ -148,7 +140,15 @@
       "hit_rate": 100.0,
       "avg_return_pct": 5.37
     },
-    "Healthcare - Biotechnology": {
+    "Consumer Cyclical": {
+      "n_resolved": 1,
+      "n_hit": 0,
+      "n_miss": 1,
+      "n_ambiguous": 0,
+      "hit_rate": 0.0,
+      "avg_return_pct": -3.21
+    },
+    "Real Estate": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,

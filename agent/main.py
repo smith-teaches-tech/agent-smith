@@ -16,7 +16,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Any
 
-from . import config, market, news, truth, analyze, grading
+from . import config, market, news, truth, analyze, grading, catalysts
 from . import portfolio as pf
 
 
@@ -37,20 +37,46 @@ def _write_output(data: dict[str, Any], latest_path: str, kind: str) -> None:
     print(f"  archived to {history_path}")
 
 
-def run_us() -> dict[str, Any]:
-    """Run US analysis: discovery + AI passes."""
+def run_us(tickers_override: list[str] | None = None) -> dict[str, Any]:
+    """
+    Run US analysis: discovery + AI passes.
+
+    tickers_override: when supplied, replaces the SP400+SP600 universe scan
+    with this hand-picked list. Bypasses discovery filters AND the
+    unusual-movement threshold (every supplied ticker is treated as a
+    mover). Used by --tickers for cheap targeted testing. Production runs
+    leave this None.
+    """
     print("[us] fetching market context...")
     context_quotes = market.fetch_context_quotes(
         config.INDICES + config.SECTOR_ETFS + config.MEGA_CAP_CONTEXT
     )
 
-    print("[us] scanning discovery universe...")
-    candidates = market.get_discovery_candidates()
-    print(f"[us] {len(candidates)} candidates to evaluate")
-    universe = market.fetch_movers_universe(candidates)
-    print(f"[us] {len(universe)} passed filters")
-    movers = market.filter_unusual_movers(universe)
-    print(f"[us] {len(movers)} unusual movers identified")
+    if tickers_override:
+        # Targeted-test path: skip the universe scan and the
+        # unusual-movement filter. Build mover dicts directly from the
+        # override list using market.fetch_movers_universe with filtering
+        # disabled, then pass them through unchanged.
+        print(f"[us] --tickers override: using {len(tickers_override)} hand-picked names")
+        movers = market.fetch_movers_universe(tickers_override, apply_filters=False)
+        print(f"[us] {len(movers)} movers built from override (yfinance returned data for these)")
+        if len(movers) < len(tickers_override):
+            missing = set(tickers_override) - {m["ticker"] for m in movers}
+            print(f"[us] WARNING: {len(missing)} tickers had no yfinance data and were dropped: {sorted(missing)}")
+    else:
+        print("[us] scanning discovery universe...")
+        candidates = market.get_discovery_candidates()
+        print(f"[us] {len(candidates)} candidates to evaluate")
+        universe = market.fetch_movers_universe(candidates)
+        print(f"[us] {len(universe)} passed filters")
+        movers = market.filter_unusual_movers(universe)
+        print(f"[us] {len(movers)} unusual movers identified")
+
+    # Catalyst enrichment: attach 8-K filings, recent earnings, upcoming
+    # earnings to each mover. Closes the catalyst-blindness gap that left
+    # ~90% of May 2026 movers as "UNCLEAR conf 2" because the bot couldn't
+    # see what triggered the price action.
+    movers = catalysts.enrich_movers(movers)
 
     print("[us] fetching news...")
     raw_news = news.fetch_all_english_news()
@@ -584,17 +610,38 @@ def main() -> None:
             "free local iteration on the data layer / prompt structure."
         ),
     )
+    parser.add_argument(
+        "--tickers",
+        type=str,
+        default=None,
+        help=(
+            "comma-separated ticker list to use INSTEAD of the discovery "
+            "universe scan (e.g. 'PRIM,TMDX,VECO'). Skips the ~10-min "
+            "universe scan entirely and skips mover-filter thresholds; "
+            "every supplied ticker is treated as a mover. Combine with "
+            "--no-claude for free prompt iteration, or run alone for cheap "
+            "(~$0.05) live tests on a hand-picked subset."
+        ),
+    )
     args = parser.parse_args()
-    print(f"=== agent-smith run [{args.mode}] portfolio={args.portfolio} no_claude={args.no_claude} {datetime.now(timezone.utc).isoformat()} ===")
+    print(f"=== agent-smith run [{args.mode}] portfolio={args.portfolio} no_claude={args.no_claude} tickers={args.tickers or 'auto'} {datetime.now(timezone.utc).isoformat()} ===")
 
     if args.no_claude:
         analyze.NO_CLAUDE_MODE = True
         print("[main] --no-claude active: API calls will be skipped, prompts printed to stdout.")
 
+    tickers_override: list[str] | None = None
+    if args.tickers:
+        tickers_override = [t.strip().upper() for t in args.tickers.split(",") if t.strip()]
+        if not tickers_override:
+            print("[main] --tickers parsed to empty list; aborting", file=sys.stderr)
+            sys.exit(2)
+        print(f"[main] --tickers active: scan replaced with {len(tickers_override)} hand-picked names: {','.join(tickers_override)}")
+
     us_output = None
     if args.mode in ("us", "all"):
         try:
-            us_output = run_us()
+            us_output = run_us(tickers_override=tickers_override)
         except Exception as e:
             print(f"[us] FAILED: {e}", file=sys.stderr)
             if args.mode == "us":

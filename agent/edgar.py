@@ -95,6 +95,11 @@ def get_recent_filings(ticker: str, days: int = 7, form_types: tuple = ("8-K",))
     dates = recent.get("filingDate", [])
     accessions = recent.get("accessionNumber", [])
     primary_docs = recent.get("primaryDocument", [])
+    # 8-K item codes (e.g. "2.02,9.01"). Parallel array with the others.
+    # Empty string for non-8-K filings. Codes map to material-event types:
+    # 1.01=material agreement, 2.02=earnings, 2.05=impairment,
+    # 4.02=restatement (non-reliance), 5.02=officer departure, 8.01=other.
+    items_arr = recent.get("items", [])
 
     for i in range(len(forms)):
         if forms[i] not in form_types:
@@ -111,10 +116,15 @@ def get_recent_filings(ticker: str, days: int = 7, form_types: tuple = ("8-K",))
             f"https://www.sec.gov/Archives/edgar/data/"
             f"{int(cik)}/{accession_clean}/{primary_docs[i]}"
         )
+        # Parse items: SEC stores them as a comma-separated string. Split,
+        # strip, drop empties. For non-8-K forms the field is "" → [].
+        raw_items = items_arr[i] if i < len(items_arr) else ""
+        item_codes = [s.strip() for s in (raw_items or "").split(",") if s.strip()]
         out.append({
             "ticker": ticker,
             "date": dates[i],
             "form": forms[i],
+            "items": item_codes,
             "accession_number": accessions[i],
             "primary_document": primary_docs[i],
             "url": filing_url,
@@ -135,7 +145,8 @@ if __name__ == "__main__":
         if filings:
             print(f"{ticker}: {len(filings)} recent 8-K(s)")
             for f in filings:
-                print(f"  {f['date']} - {f['form']} - {f['url']}")
+                items_str = ",".join(f["items"]) if f["items"] else "(no items)"
+                print(f"  {f['date']} - {f['form']} - items={items_str} - {f['url']}")
         else:
             print(f"{ticker}: no recent 8-Ks")
         print()
