@@ -560,16 +560,37 @@ def _extend_with_ineligible_flags(
     us_output: dict[str, Any] | None,
 ) -> None:
     """
-    Add SKIP rows for RATIONAL/UNCLEAR flags from the current run,
+    Add SKIP rows for RATIONAL/UNCLEAR flags (or conf-below-threshold flags)
     so the watching page shows the bot's full decision surface.
+
+    Uses the same 7-day history window as `_collect_recent_flags` (which
+    feeds Haiku) — fixes a long-standing asymmetry where this function
+    only saw the current run, leaving the watching page empty whenever
+    discovery failed or returned no flags. Haiku already sees the window;
+    so should this.
+
+    Tickers already present in `entries` (i.e. Haiku already decided on
+    them this run) are skipped to avoid duplicates.
     """
-    if not us_output:
-        return
-    for d in (us_output.get("discovery") or {}).get("discoveries", []):
+    already_decided = {e.get("ticker") for e in entries if e.get("ticker")}
+
+    flags = _collect_recent_flags(
+        us_output=us_output,
+        window_days=config.PAPER_PORTFOLIO_DECISION_WINDOW_DAYS,
+    )
+
+    for d in flags:
+        tkr = d.get("ticker")
+        if not tkr or tkr in already_decided:
+            continue
         cls = d.get("classification", "")
         conf = int(d.get("confidence") or 0)
         if cls in ("OVERDONE", "UNDERDONE") and conf >= config.PAPER_PORTFOLIO_MIN_BUY_CONFIDENCE:
-            continue  # already handled by the decision loop
+            # Buy-eligible — Haiku should have decided on it. If it's not
+            # in already_decided, that means Haiku saw it but didn't return
+            # a decision (rare, possible if Haiku truncated). Skip rather
+            # than fabricate a SKIP reason we don't actually have.
+            continue
         entries.append(
             _build_suggestion_entry(
                 d,
