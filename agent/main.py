@@ -527,6 +527,16 @@ def _build_suggestion_entry(
         # defensively.
         "catalyst": flag.get("catalyst"),
         "catalyst_url": flag.get("catalyst_url"),
+        # Carry the two most useful pedagogical fields (thesis = the read,
+        # what_kills = the disconfirming evidence to watch for) so the
+        # watching page can show context beyond the bot's portfolio-level
+        # reasoning. setup / what_confirms / what_to_learn deliberately
+        # NOT carried — current page is the right home for those.
+        # Fallbacks handle the 7-day schema-transition window when old
+        # entries (with `mechanism` / `what_would_falsify`) are still in
+        # play. After ~1 week every visible row uses the new field names.
+        "thesis": flag.get("thesis") or flag.get("mechanism"),
+        "what_kills": flag.get("what_kills") or flag.get("what_would_falsify"),
         "decision": decision,
         "reasoning": reasoning,
         # Price/verdict fields are filled in on subsequent runs by the

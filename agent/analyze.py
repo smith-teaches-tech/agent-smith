@@ -109,9 +109,11 @@ OUTPUT REQUIREMENTS:
   (use empty arrays, low confidence, or a 'no_signals' note).
 - Never manufacture signals. "Quiet night, nothing interesting" is
   a valid and useful output.
-- Name the SPECIFIC mechanism for any flagged opportunity
-  (e.g., 'sympathy selling within sector', 'misread of guidance language').
-- For each flagged stock, name what would FALSIFY your read.
+- Be specific about your reasoning. Generic theses ("sector is weak")
+  are not useful; named mechanisms ("sympathy with peer X on Y news")
+  are.
+- Distinguish what would CONFIRM vs what would KILL your thesis.
+  Both sides matter equally.
 """
 
 
@@ -169,7 +171,7 @@ Each mover dict in <movers> has a `catalyst_signals` field with three optional s
 
 - `upcoming_earnings`: company reports within the next 14 days. This is
   POSITIONING context — a stock moving 6%+ on no news but with earnings
-  3 days away is often pre-positioning. Mention in `mechanism` if relevant.
+  3 days away is often pre-positioning. Mention in `setup` if relevant.
 
 If `catalyst_signals` is empty `{{}}` for a mover, the SEC has no recent
 8-K and the company has no scheduled earnings — meaning the move is
@@ -177,6 +179,54 @@ probably driven by sympathy, sector rotation, technical factors, or
 something not visible to us. UNCLEAR + low confidence is honest in that case.
 Do NOT manufacture catalysts. "We don't know what drove this" is a valid
 output when the evidence isn't there.
+
+THESIS STRUCTURE FOR EACH DISCOVERY:
+
+Each discovery's reasoning is broken into five fields. They serve
+different purposes — populate them deliberately, not perfunctorily.
+
+- `setup` (always): name the situation TYPE in one phrase. Not the cause,
+  not the read — just the situation. Examples that work:
+    * "Earnings reaction with multiple negative 8-K items"
+    * "Pre-earnings positioning into after-hours print"
+    * "Defensive name underperforming on apparent guide miss"
+    * "Sympathy move with no company-specific catalyst"
+  Naming the setup forces clarity about what KIND of mispricing this
+  could be before reasoning about whether it actually is one.
+
+- `thesis` (always): your actual read on the move. This works for any
+  classification — for OVERDONE/UNDERDONE it's the directional thesis,
+  for RATIONAL it's why the magnitude makes sense, for UNCLEAR it's
+  what specifically you can't tell yet. Be concrete. "Move probably
+  justified by management change + project impairment, but magnitude
+  leaves room for overshoot if departure is planned retirement" is
+  good. "Mixed signals" is not.
+
+- `what_confirms` (always): what new evidence, if it appeared, would
+  STRENGTHEN this thesis. Be specific to the situation, not generic.
+  "8-K exhibits show abrupt CFO departure mid-quarter" is good.
+  "More volume" is not.
+
+- `what_kills` (always): what new evidence, if it appeared, would
+  INVALIDATE this thesis. Same specificity bar. The if/then structure
+  works well: "If X, then thesis breaks; if Y, then thesis holds."
+
+- `what_to_learn` (OPTIONAL — omit when there's no real lesson): a
+  generalizable PATTERN that this case illustrates. Tactical, not
+  abstract. Good examples:
+    * "Multi-item 8-Ks (especially 2.02 + 5.02 + 8.01 in same filing)
+      reliably signal bad-news bundling — magnitude usually justified"
+    * "Quality compounders moving sharply on earnings need granular
+      segment analysis before fading"
+    * "Pre-earnings rallies of 15%+ on sympathy alone create asymmetric
+      fade setups regardless of sector tape"
+  Bad examples (too abstract — omit instead):
+    * "Always check the news" (platitude)
+    * "Markets can be irrational" (not actionable)
+    * "Earnings matter" (not a pattern)
+  If a discovery is routine — random sympathy noise, low-conviction
+  pattern-of-the-week — leave this field out (null or absent). Forcing
+  a lesson on every flag dilutes the lessons that genuinely teach.
 
 {INJECTION_GUARD}
 
@@ -198,12 +248,15 @@ JSON SCHEMA:
       "volume_multiple": 3.1,
       "classification": "LIKELY OVERDONE",
       "confidence": 3,
-      "mechanism": "specific reason for the mispricing",
+      "setup": "name the situation type in one phrase",
+      "thesis": "your actual read on the move",
+      "what_confirms": "evidence that would strengthen this thesis",
+      "what_kills": "evidence that would invalidate this thesis",
+      "what_to_learn": "generalizable tactical pattern, or null if none",
       "catalyst": "what news/event drove this",
       "catalyst_url": "URL of the 8-K or news source you cite, or null",
       "catalyst_evidence": "what specifically in the catalyst_signals or news led to this read (1 sentence)",
       "research_pointers": ["specific things Michael should investigate"],
-      "what_would_falsify": "what evidence would change this read",
       "time_horizon": "intraday / days / weeks"
     }}
   ],
@@ -717,7 +770,16 @@ def _summarize_open_position(pos: dict[str, Any]) -> dict[str, Any]:
 
 
 def _summarize_discovery_for_portfolio(d: dict[str, Any]) -> dict[str, Any]:
-    """Strip a discovery flag down to what the portfolio pass cares about."""
+    """Strip a discovery flag down to what the portfolio pass cares about.
+
+    Field renames in the pedagogical schema rewrite (May 2026):
+      mechanism          -> thesis
+      what_would_falsify -> what_kills
+    Old flags from history may still have the old field names; we fall
+    back to those so the 7-day window straddling the schema change
+    continues to work. The new fields (setup, what_confirms,
+    what_to_learn) didn't exist on old flags — no fallback possible.
+    """
     return {
         "ticker": d.get("ticker"),
         "name": d.get("name"),
@@ -725,10 +787,13 @@ def _summarize_discovery_for_portfolio(d: dict[str, Any]) -> dict[str, Any]:
         "classification": d.get("classification"),
         "confidence": d.get("confidence"),
         "move_pct": d.get("move_pct"),
-        "mechanism": d.get("mechanism"),
+        "setup": d.get("setup"),
+        "thesis": d.get("thesis") or d.get("mechanism"),
+        "what_confirms": d.get("what_confirms"),
+        "what_kills": d.get("what_kills") or d.get("what_would_falsify"),
+        "what_to_learn": d.get("what_to_learn"),
         "catalyst": d.get("catalyst"),
         "time_horizon": d.get("time_horizon", "days"),
-        "what_would_falsify": d.get("what_would_falsify"),
     }
 
 

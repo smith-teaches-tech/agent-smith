@@ -377,10 +377,12 @@ function renderTable() {
         <td colspan="10">
           <div class="detail-inner">
             <div>
-              ${e.catalyst ? `
-              <div class="detail-label">original catalyst</div>
-              <div class="detail-text">${e.catalyst}${e.catalyst_url ? ` <a href="${e.catalyst_url}" target="_blank" rel="noopener" class="cite-link">[cite ↗]</a>` : ''}</div>
-              <div class="detail-label" style="margin-top:1rem;">bot's reasoning</div>
+              ${(e.catalyst || e.thesis) ? `
+              <div class="detail-label">original discovery</div>
+              ${e.thesis ? `<div class="detail-text" style="margin-bottom:0.6rem;">${e.thesis}</div>` : ''}
+              ${e.catalyst ? `<div class="detail-text" style="font-size:0.78rem;color:var(--fg-muted);margin-bottom:${e.what_kills ? '0.6rem' : '1rem'};">catalyst: ${e.catalyst}${e.catalyst_url ? ` <a href="${e.catalyst_url}" target="_blank" rel="noopener" class="cite-link">[cite ↗]</a>` : ''}</div>` : ''}
+              ${e.what_kills ? `<div class="detail-text" style="font-size:0.78rem;color:var(--fg-muted);margin-bottom:1rem;"><span style="color:var(--fg-dim);font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;">would kill thesis:</span> ${e.what_kills}</div>` : ''}
+              <div class="detail-label">bot's reasoning</div>
               ` : `
               <div class="detail-label">bot's reasoning</div>
               `}

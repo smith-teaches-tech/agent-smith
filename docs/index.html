@@ -151,6 +151,9 @@ tr.detail-row td { padding: 0; }
 .catalyst { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--info); background: transparent; padding: 0.3rem 0.5rem; border-left: 2px solid var(--info); }
 .cite-link { color: var(--info); text-decoration: none; font-size: 0.7rem; opacity: 0.8; transition: opacity 0.15s; }
 .cite-link:hover { opacity: 1; text-decoration: underline; }
+.setup-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.08em; padding: 0.25rem 0.5rem; background: var(--bg-alt, transparent); border: 1px solid var(--rule); border-radius: 2px; align-self: flex-start; margin-bottom: 0.5rem; }
+.lesson { font-family: 'Fraunces', serif; font-size: 0.85rem; line-height: 1.5; color: var(--fg); padding: 0.6rem 0.75rem; background: transparent; border-left: 2px solid var(--accent); font-style: italic; }
+.lesson-label { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 500; font-style: normal; margin-right: 0.4rem; }
 /* ============ FOOTER ============ */
 footer { padding: 2rem 2rem 0; margin-top: 2rem; border-top: 1px solid var(--rule); color: var(--fg-dim); font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; max-width: 1400px; }
 footer p { margin-bottom: 0.3rem; }
@@ -613,24 +616,32 @@ function renderTable() {
         <td><span class="cls-pill cls-${cssClass}">${labelText}</span></td>
         <td><span class="conf-dots">${confDots(d.confidence)}</span></td>
         <td class="hide-mobile horz">${d.time_horizon}</td>
-        <td class="one-liner">${d.mechanism.split('.')[0]}.</td>
+        <td class="one-liner">${(d.thesis || d.mechanism || '').split('.')[0]}.</td>
         <td><span class="chev">▸</span></td>
       </tr>
       <tr class="detail-row" id="detail-${d.ticker}" style="display: none;">
         <td colspan="8">
           <div class="detail-inner">
             <div class="detail-section">
-              <div class="detail-label">why this is interesting</div>
-              <div class="detail-text">${d.mechanism}</div>
+              ${d.setup ? `<div class="setup-tag">${d.setup}</div>` : ''}
+              <div class="detail-label">thesis</div>
+              <div class="detail-text">${d.thesis || d.mechanism || ''}</div>
               <div class="catalyst" style="margin-top: 0.75rem;">likely catalyst: ${d.catalyst}${d.catalyst_url ? ` <a href="${d.catalyst_url}" target="_blank" rel="noopener" class="cite-link">[cite ↗]</a>` : ''}</div>
             </div>
             <div class="detail-section">
-              <div class="detail-label">research pointers</div>
+              ${d.what_confirms ? `
+              <div class="detail-label">what would confirm this</div>
+              <div class="detail-text">${d.what_confirms}</div>
+              ` : ''}
+              <div class="detail-label" ${d.what_confirms ? 'style="margin-top: 1rem;"' : ''}>what would kill this</div>
+              <div class="detail-text flag">${d.what_kills || d.what_would_falsify || ''}</div>
+              <div class="detail-label" style="margin-top: 1rem;">research pointers</div>
               <ul class="detail-list">
                 ${(d.research_pointers || []).map(p => `<li>${p}</li>`).join('')}
               </ul>
-              <div class="detail-label" style="margin-top: 1rem;">red flags to watch for</div>
-              <div class="detail-text flag">${d.what_would_falsify || ''}</div>
+              ${d.what_to_learn ? `
+              <div class="lesson" style="margin-top: 1rem;"><span class="lesson-label">lesson</span> ${d.what_to_learn}</div>
+              ` : ''}
             </div>
           </div>
         </td>
