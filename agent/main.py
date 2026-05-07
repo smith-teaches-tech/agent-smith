@@ -575,8 +575,21 @@ def main() -> None:
             "(should be enabled only on the 22:00 AST afternoon run)."
         ),
     )
+    parser.add_argument(
+        "--no-claude",
+        action="store_true",
+        help=(
+            "skip every Claude API call. Each pass prints the prompt that "
+            "would have been sent and returns a pipeline-safe stub. Use for "
+            "free local iteration on the data layer / prompt structure."
+        ),
+    )
     args = parser.parse_args()
-    print(f"=== agent-smith run [{args.mode}] portfolio={args.portfolio} {datetime.now(timezone.utc).isoformat()} ===")
+    print(f"=== agent-smith run [{args.mode}] portfolio={args.portfolio} no_claude={args.no_claude} {datetime.now(timezone.utc).isoformat()} ===")
+
+    if args.no_claude:
+        analyze.NO_CLAUDE_MODE = True
+        print("[main] --no-claude active: API calls will be skipped, prompts printed to stdout.")
 
     us_output = None
     if args.mode in ("us", "all"):

@@ -22,6 +22,34 @@ from . import config
 
 
 # ============================================================
+# No-Claude mode (free local iteration)
+# ============================================================
+# When NO_CLAUDE_MODE is True, every pass function below skips the API call,
+# prints the prompt that *would* have been sent, and returns a stub JSON
+# matching the pass's expected schema. main.py flips this on via --no-claude.
+#
+# Stubs are minimal but pipeline-safe: downstream consumers (run_us, the
+# portfolio pass, dashboard) all tolerate empty arrays. Stubs include a
+# `_no_claude: True` marker so run_us() can distinguish "real empty" from
+# "skipped" if it ever needs to.
+
+NO_CLAUDE_MODE = False
+
+
+def _print_prompt(pass_name: str, system: str, user_content: str) -> None:
+    """Pretty-print a prompt that would have been sent to the API."""
+    bar = "=" * 78
+    print(f"\n{bar}")
+    print(f"NO-CLAUDE MODE — would send prompt for: {pass_name}")
+    print(f"{bar}")
+    print(f"--- SYSTEM ({len(system)} chars) ---")
+    print(system)
+    print(f"--- USER ({len(user_content)} chars) ---")
+    print(user_content)
+    print(f"{bar}\n")
+
+
+# ============================================================
 # Client setup
 # ============================================================
 
@@ -159,6 +187,17 @@ def run_discovery_pass(
         market_context, movers, catalyst_news, other_news, trump_posts
     )
 
+    if NO_CLAUDE_MODE:
+        _print_prompt("discovery", DISCOVERY_SYSTEM, user_content)
+        return {
+            "run_summary": "(no-claude mode — pass skipped)",
+            "market_context": {"tone": "unknown", "notable_index_moves": []},
+            "discoveries": [],
+            "catalyst_chains": [],
+            "trump_signals": [],
+            "_no_claude": True,
+        }
+
     client = _client()
     msg = client.messages.create(
         model=config.CLAUDE_MODEL,
@@ -295,6 +334,14 @@ def run_ai_pass(
         "Analyze impact and respond with JSON per schema.",
     ])
 
+    if NO_CLAUDE_MODE:
+        _print_prompt("ai_pass", AI_PASS_SYSTEM, user_content)
+        return {
+            "ai_announcements": [],
+            "no_signals_note": "(no-claude mode — pass skipped)",
+            "_no_claude": True,
+        }
+
     client = _client()
     msg = client.messages.create(
         model=config.CLAUDE_MODEL,
@@ -390,6 +437,17 @@ def run_taiwan_pass(
         "",
         "Analyze and respond with bilingual JSON per schema.",
     ])
+
+    if NO_CLAUDE_MODE:
+        _print_prompt("taiwan", TAIWAN_SYSTEM, user_content)
+        return {
+            "summary_en": "(no-claude mode — pass skipped)",
+            "summary_zh": "(no-claude mode — pass skipped)",
+            "context": {"taiex_change_pct": 0.0, "tsmc_change_pct": 0.0, "tone": "unknown"},
+            "key_stories": [],
+            "adr_arbitrage": [],
+            "_no_claude": True,
+        }
 
     client = _client()
     msg = client.messages.create(
@@ -678,6 +736,33 @@ def run_portfolio_pass(
         "Return one decision per open position and one decision per new flag, "
         "per the JSON schema in your instructions.",
     ])
+
+    if NO_CLAUDE_MODE:
+        _print_prompt("portfolio", PORTFOLIO_SYSTEM, user_content)
+        # HOLD on every open position (safe default — no trades fire), SKIP on
+        # every new flag. main.run_portfolio applies these and writes a clean
+        # suggestions.json with all flags as SKIP, so the dashboard renders.
+        return {
+            "run_summary": "(no-claude mode — pass skipped)",
+            "position_decisions": [
+                {
+                    "ticker": p["ticker"],
+                    "next_action": "HOLD",
+                    "thesis_status": "intact",
+                    "reasoning": "(no-claude mode)",
+                }
+                for p in portfolio_state.get("open_positions", [])
+            ],
+            "new_decisions": [
+                {
+                    "ticker": f.get("ticker"),
+                    "decision": "SKIP",
+                    "reasoning": "(no-claude mode)",
+                }
+                for f in buy_eligible
+            ],
+            "_no_claude": True,
+        }
 
     client = _client()
     msg = client.messages.create(
