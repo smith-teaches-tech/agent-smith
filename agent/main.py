@@ -81,8 +81,33 @@ def run_us() -> dict[str, Any]:
         related_movers=movers,
     )
 
+    # Build per-pass status block. "OK" = parsed cleanly. "FAILED" = parse error
+    # (bad JSON from Claude, usually max_tokens truncation). "RECOVERED" = retry
+    # succeeded — wired in Item 4. Errors list collects diagnostic info for the
+    # dashboard banner and human debugging.
+    status: dict[str, Any] = {"discovery": "OK", "ai_analysis": "OK", "errors": []}
+    if analyze.is_parse_error(discovery):
+        err = discovery.get("_parse_error", "unknown")
+        print(f"[us] WARNING: discovery pass returned unparseable JSON: {err}", file=sys.stderr)
+        status["discovery"] = "FAILED"
+        status["errors"].append({
+            "pass": "discovery",
+            "error": err,
+            "raw_excerpt": discovery.get("_raw_response", "")[:500],
+        })
+    if analyze.is_parse_error(ai_analysis):
+        err = ai_analysis.get("_parse_error", "unknown")
+        print(f"[us] WARNING: ai_analysis pass returned unparseable JSON: {err}", file=sys.stderr)
+        status["ai_analysis"] = "FAILED"
+        status["errors"].append({
+            "pass": "ai_analysis",
+            "error": err,
+            "raw_excerpt": ai_analysis.get("_raw_response", "")[:500],
+        })
+
     output = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
+        "status": status,
         "market_context": context_quotes,
         "movers_count": len(movers),
         "news_count": len(tagged_news),
@@ -90,7 +115,17 @@ def run_us() -> dict[str, Any]:
         "discovery": discovery,
         "ai_analysis": ai_analysis,
     }
+    # Write partial output regardless of pass failures: market_context is
+    # always good and dashboard needs to see the status block to render its
+    # failure banner. AFTER writing, raise if anything failed so main()'s
+    # try/except triggers sys.exit(1) and the Actions run goes red.
     _write_output(output, config.OUTPUT_LATEST_US, "us")
+    failed_passes = [e["pass"] for e in status["errors"]]
+    if failed_passes:
+        raise RuntimeError(
+            f"us run completed but {len(failed_passes)} pass(es) failed: "
+            f"{', '.join(failed_passes)}. JSON written with status block; see WARNINGs above."
+        )
     return output
 
 

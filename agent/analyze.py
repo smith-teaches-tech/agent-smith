@@ -440,6 +440,15 @@ def _parse_json_response(text: str) -> dict[str, Any]:
         }
 
 
+def is_parse_error(parsed: dict[str, Any]) -> bool:
+    """
+    Check whether a parsed pass result represents a JSON parse failure.
+    Use this in callers instead of `"_parse_error" in result` so the failure
+    sentinel is owned in one place.
+    """
+    return isinstance(parsed, dict) and "_parse_error" in parsed
+
+
 # ============================================================
 # PASS 4: PORTFOLIO DECISION (Phase 1.5-lite)
 # ============================================================
