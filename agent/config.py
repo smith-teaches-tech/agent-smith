@@ -171,9 +171,12 @@ TRUTH_SOCIAL_FEED = "https://trumpstruth.org/feed"
 # ============================================================
 
 CLAUDE_MODEL = "claude-opus-4-7"  # Top model for analysis quality
-CLAUDE_MAX_TOKENS = 32768  # Bumped from 4096 on May 7 after discovery pass truncated mid-PRIM on 1003-ticker universe.
-                           # 32768 gives generous headroom for 20 candidates with full research_pointers + catalyst_chains.
-                           # Note: this is the cap, not what we pay — cost is per token generated.
+CLAUDE_MAX_TOKENS = 16384  # May 7 PM: reduced from 32768 after Actions hit Anthropic SDK's
+                           # "streaming required for >10min operations" gate. 32k was overkill;
+                           # post-EDGAR-enrichment runs estimate ~14k tokens output, so 16k is
+                           # comfortable headroom. Still 4x the original (broken) 4k cap.
+                           # Followup: switch to streaming API (analyze.py) so we can raise this
+                           # again. See agent-smith-roadmap.md "Session C followups".
 CLAUDE_TEMPERATURE = 0.3  # Low — we want consistent analytical output
 
 # Time horizon for "recent" news in each run
