@@ -1,0 +1,239 @@
+{
+  "generated_at": "2026-05-07T09:27:42.099117+00:00",
+  "status": {
+    "discovery": "OK",
+    "ai_analysis": "OK",
+    "errors": []
+  },
+  "market_context": {
+    "SPY": {
+      "price": 733.83,
+      "change_pct": 1.39,
+      "volume": 53209000,
+      "high": 734.59,
+      "low": 727.82
+    },
+    "QQQ": {
+      "price": 695.77,
+      "change_pct": 2.08,
+      "volume": 38454700,
+      "high": 695.93,
+      "low": 686.48
+    },
+    "DIA": {
+      "price": 499.05,
+      "change_pct": 1.24,
+      "volume": 4312400,
+      "high": 500.08,
+      "low": 496.9
+    },
+    "IWM": {
+      "price": 286.8,
+      "change_pct": 1.5,
+      "volume": 23233900,
+      "high": 287.05,
+      "low": 283.36
+    },
+    "^VIX": {
+      "price": 17.48,
+      "change_pct": 0.52,
+      "volume": 0,
+      "high": 17.6,
+      "low": 17.47
+    },
+    "XLK": {
+      "price": 170.03,
+      "change_pct": 2.66,
+      "volume": 11295300,
+      "high": 170.08,
+      "low": 166.84
+    },
+    "XLF": {
+      "price": 51.84,
+      "change_pct": 0.48,
+      "volume": 39071900,
+      "high": 52.24,
+      "low": 51.78
+    },
+    "XLE": {
+      "price": 57.0,
+      "change_pct": -4.12,
+      "volume": 57852800,
+      "high": 57.89,
+      "low": 56.66
+    },
+    "XLV": {
+      "price": 145.4,
+      "change_pct": 0.07,
+      "volume": 10612600,
+      "high": 146.15,
+      "low": 144.9
+    },
+    "XLI": {
+      "price": 176.87,
+      "change_pct": 2.59,
+      "volume": 10459300,
+      "high": 177.34,
+      "low": 174.25
+    },
+    "XLP": {
+      "price": 84.24,
+      "change_pct": 0.21,
+      "volume": 11529800,
+      "high": 84.51,
+      "low": 83.84
+    },
+    "XLY": {
+      "price": 119.87,
+      "change_pct": 1.52,
+      "volume": 10429300,
+      "high": 120.54,
+      "low": 118.77
+    },
+    "XLU": {
+      "price": 45.71,
+      "change_pct": -1.42,
+      "volume": 26311100,
+      "high": 46.38,
+      "low": 45.64
+    },
+    "XLB": {
+      "price": 52.41,
+      "change_pct": 1.71,
+      "volume": 10497300,
+      "high": 52.67,
+      "low": 52.14
+    },
+    "XLRE": {
+      "price": 44.74,
+      "change_pct": 1.29,
+      "volume": 5308700,
+      "high": 44.91,
+      "low": 44.42
+    },
+    "XLC": {
+      "price": 117.35,
+      "change_pct": 1.49,
+      "volume": 6217400,
+      "high": 117.61,
+      "low": 116.22
+    },
+    "SMH": {
+      "price": 549.76,
+      "change_pct": 5.18,
+      "volume": 15186400,
+      "high": 549.88,
+      "low": 532.35
+    },
+    "XBI": {
+      "price": 137.68,
+      "change_pct": 2.91,
+      "volume": 8463300,
+      "high": 137.95,
+      "low": 134.25
+    },
+    "ITA": {
+      "price": 223.42,
+      "change_pct": 3.74,
+      "volume": 1125600,
+      "high": 224.44,
+      "low": 219.81
+    },
+    "KRE": {
+      "price": 70.71,
+      "change_pct": 1.13,
+      "volume": 13684900,
+      "high": 71.24,
+      "low": 70.34
+    },
+    "NVDA": {
+      "price": 207.83,
+      "change_pct": 5.77,
+      "volume": 187742500,
+      "high": 208.27,
+      "low": 198.61
+    },
+    "MSFT": {
+      "price": 413.96,
+      "change_pct": 0.63,
+      "volume": 30231400,
+      "high": 418.42,
+      "low": 405.11
+    },
+    "AAPL": {
+      "price": 287.51,
+      "change_pct": 1.17,
+      "volume": 58259700,
+      "high": 288.03,
+      "low": 281.07
+    },
+    "GOOGL": {
+      "price": 398.04,
+      "change_pct": 2.47,
+      "volume": 31269000,
+      "high": 399.85,
+      "low": 392.76
+    },
+    "AMZN": {
+      "price": 274.99,
+      "change_pct": 0.53,
+      "volume": 44492300,
+      "high": 277.8,
+      "low": 272.21
+    },
+    "META": {
+      "price": 612.88,
+      "change_pct": 1.31,
+      "volume": 19887400,
+      "high": 619.95,
+      "low": 598.1
+    },
+    "TSLA": {
+      "price": 398.73,
+      "change_pct": 2.4,
+      "volume": 53304000,
+      "high": 401.68,
+      "low": 384.02
+    },
+    "AVGO": {
+      "price": 425.44,
+      "change_pct": -0.45,
+      "volume": 20681100,
+      "high": 437.68,
+      "low": 417.78
+    },
+    "TSM": {
+      "price": 419.5,
+      "change_pct": 6.36,
+      "volume": 17693300,
+      "high": 419.7,
+      "low": 400.65
+    },
+    "ORCL": {
+      "price": 194.03,
+      "change_pct": 4.68,
+      "volume": 27517300,
+      "high": 194.29,
+      "low": 182.67
+    }
+  },
+  "movers_count": 1,
+  "news_count": 37,
+  "trump_posts_count": 18,
+  "discovery": {
+    "run_summary": "(no-claude mode — pass skipped)",
+    "market_context": {
+      "tone": "unknown",
+      "notable_index_moves": []
+    },
+    "discoveries": [],
+    "catalyst_chains": [],
+    "trump_signals": [],
+    "_no_claude": true
+  },
+  "ai_analysis": {
+    "ai_announcements": [],
+    "no_signals_note": "(no-claude mode — pass skipped)",
+    "_no_claude": true
+  }
+}

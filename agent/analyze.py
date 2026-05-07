@@ -63,7 +63,31 @@ def _client() -> Anthropic:
         )
     return Anthropic(api_key=key)
 
+def _stream_message(
+    client: Anthropic,
+    *,
+    model: str,
+    max_tokens: int,
+    system: str,
+    user_content: str,
+) -> Any:
+    """
+    Wrap client.messages.stream() and return the accumulated final Message.
 
+    Behaves like client.messages.create() — same return shape (msg.content[0].text
+    works identically) — but uses the streaming endpoint under the hood. This
+    avoids the SDK's ~10-minute non-streaming HTTP gate that trips when
+    max_tokens is raised above ~16k. See:
+      https://platform.claude.com/docs/en/build-with-claude/streaming
+    """
+    with client.messages.stream(
+        model=model,
+        max_tokens=max_tokens,
+        system=system,
+        messages=[{"role": "user", "content": user_content}],
+    ) as stream:
+        return stream.get_final_message()
+    
 # ============================================================
 # Common system instructions used by all passes
 # ============================================================
@@ -236,11 +260,12 @@ def run_discovery_pass(
         }
 
     client = _client()
-    msg = client.messages.create(
+    msg = _stream_message(
+        client,
         model=config.CLAUDE_MODEL,
         max_tokens=config.CLAUDE_MAX_TOKENS,
         system=DISCOVERY_SYSTEM,
-        messages=[{"role": "user", "content": user_content}],
+        user_content=user_content,
     )
     return _parse_json_response(msg.content[0].text)
 
@@ -380,11 +405,12 @@ def run_ai_pass(
         }
 
     client = _client()
-    msg = client.messages.create(
+    msg = _stream_message(
+        client,
         model=config.CLAUDE_MODEL,
         max_tokens=config.CLAUDE_MAX_TOKENS,
         system=AI_PASS_SYSTEM,
-        messages=[{"role": "user", "content": user_content}],
+        user_content=user_content,
     )
     return _parse_json_response(msg.content[0].text)
 
@@ -487,11 +513,12 @@ def run_taiwan_pass(
         }
 
     client = _client()
-    msg = client.messages.create(
+    msg = _stream_message(
+        client,
         model=config.CLAUDE_MODEL,
         max_tokens=config.CLAUDE_MAX_TOKENS,
         system=TAIWAN_SYSTEM,
-        messages=[{"role": "user", "content": user_content}],
+        user_content=user_content,
     )
     return _parse_json_response(msg.content[0].text)
 
@@ -802,10 +829,11 @@ def run_portfolio_pass(
         }
 
     client = _client()
-    msg = client.messages.create(
+    msg = _stream_message(
+        client,
         model=config.CLAUDE_PORTFOLIO_MODEL,
         max_tokens=config.CLAUDE_PORTFOLIO_MAX_TOKENS,
         system=PORTFOLIO_SYSTEM,
-        messages=[{"role": "user", "content": user_content}],
+        user_content=user_content,
     )
     return _parse_json_response(msg.content[0].text)
