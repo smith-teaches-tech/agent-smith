@@ -81,29 +81,80 @@ def run_us() -> dict[str, Any]:
         related_movers=movers,
     )
 
-    # Build per-pass status block. "OK" = parsed cleanly. "FAILED" = parse error
-    # (bad JSON from Claude, usually max_tokens truncation). "RECOVERED" = retry
-    # succeeded — wired in Item 4. Errors list collects diagnostic info for the
-    # dashboard banner and human debugging.
+    # Build per-pass status block. "OK" = parsed cleanly. "RECOVERED" = first
+    # attempt parse-failed but retry with halved candidates succeeded.
+    # "FAILED" = both attempts produced unparseable JSON. Errors list collects
+    # diagnostic info for the dashboard banner and human debugging.
+    # On retry: halve the movers list passed in. The list is sorted by
+    # interestingness (filter_unusual_movers output), so movers[:N/2] keeps
+    # the strongest signals. Retry uses the same 32k token cap; the win is
+    # smaller output volume, not more headroom per call.
     status: dict[str, Any] = {"discovery": "OK", "ai_analysis": "OK", "errors": []}
+    half_movers = movers[: max(1, len(movers) // 2)]
+
     if analyze.is_parse_error(discovery):
-        err = discovery.get("_parse_error", "unknown")
-        print(f"[us] WARNING: discovery pass returned unparseable JSON: {err}", file=sys.stderr)
-        status["discovery"] = "FAILED"
-        status["errors"].append({
-            "pass": "discovery",
-            "error": err,
-            "raw_excerpt": discovery.get("_raw_response", "")[:500],
-        })
+        original_err = discovery.get("_parse_error", "unknown")
+        original_excerpt = discovery.get("_raw_response", "")[:500]
+        print(f"[us] WARNING: discovery pass returned unparseable JSON: {original_err}", file=sys.stderr)
+        print(f"[us] retrying discovery with {len(half_movers)} candidates (was {len(movers)})...")
+        retry = analyze.run_discovery_pass(
+            market_context=context_quotes,
+            movers=half_movers,
+            news=tagged_news,
+            trump_posts=market_relevant_posts,
+        )
+        if analyze.is_parse_error(retry):
+            print(f"[us] WARNING: discovery retry also failed: {retry.get('_parse_error', 'unknown')}", file=sys.stderr)
+            status["discovery"] = "FAILED"
+            status["errors"].append({
+                "pass": "discovery",
+                "error": original_err,
+                "raw_excerpt": original_excerpt,
+                "retry_attempted": True,
+                "retry_error": retry.get("_parse_error", "unknown"),
+            })
+        else:
+            print(f"[us] discovery retry succeeded; status=RECOVERED")
+            status["discovery"] = "RECOVERED"
+            status["errors"].append({
+                "pass": "discovery",
+                "error": original_err,
+                "raw_excerpt": original_excerpt,
+                "retry_attempted": True,
+                "retry_succeeded": True,
+            })
+            discovery = retry  # use the recovered result downstream
+
     if analyze.is_parse_error(ai_analysis):
-        err = ai_analysis.get("_parse_error", "unknown")
-        print(f"[us] WARNING: ai_analysis pass returned unparseable JSON: {err}", file=sys.stderr)
-        status["ai_analysis"] = "FAILED"
-        status["errors"].append({
-            "pass": "ai_analysis",
-            "error": err,
-            "raw_excerpt": ai_analysis.get("_raw_response", "")[:500],
-        })
+        original_err = ai_analysis.get("_parse_error", "unknown")
+        original_excerpt = ai_analysis.get("_raw_response", "")[:500]
+        print(f"[us] WARNING: ai_analysis pass returned unparseable JSON: {original_err}", file=sys.stderr)
+        print(f"[us] retrying ai_analysis with {len(half_movers)} related_movers (was {len(movers)})...")
+        retry = analyze.run_ai_pass(
+            ai_news=ai_news_items,
+            related_movers=half_movers,
+        )
+        if analyze.is_parse_error(retry):
+            print(f"[us] WARNING: ai_analysis retry also failed: {retry.get('_parse_error', 'unknown')}", file=sys.stderr)
+            status["ai_analysis"] = "FAILED"
+            status["errors"].append({
+                "pass": "ai_analysis",
+                "error": original_err,
+                "raw_excerpt": original_excerpt,
+                "retry_attempted": True,
+                "retry_error": retry.get("_parse_error", "unknown"),
+            })
+        else:
+            print(f"[us] ai_analysis retry succeeded; status=RECOVERED")
+            status["ai_analysis"] = "RECOVERED"
+            status["errors"].append({
+                "pass": "ai_analysis",
+                "error": original_err,
+                "raw_excerpt": original_excerpt,
+                "retry_attempted": True,
+                "retry_succeeded": True,
+            })
+            ai_analysis = retry  # use the recovered result downstream
 
     output = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -117,13 +168,15 @@ def run_us() -> dict[str, Any]:
     }
     # Write partial output regardless of pass failures: market_context is
     # always good and dashboard needs to see the status block to render its
-    # failure banner. AFTER writing, raise if anything failed so main()'s
-    # try/except triggers sys.exit(1) and the Actions run goes red.
+    # failure banner. AFTER writing, raise if anything FAILED (not RECOVERED)
+    # so main()'s try/except triggers sys.exit(1) and the Actions run goes red.
+    # RECOVERED runs produce usable output; the WARNING + status block are
+    # enough signal without going red.
     _write_output(output, config.OUTPUT_LATEST_US, "us")
-    failed_passes = [e["pass"] for e in status["errors"]]
+    failed_passes = [name for name in ("discovery", "ai_analysis") if status[name] == "FAILED"]
     if failed_passes:
         raise RuntimeError(
-            f"us run completed but {len(failed_passes)} pass(es) failed: "
+            f"us run completed but {len(failed_passes)} pass(es) failed after retry: "
             f"{', '.join(failed_passes)}. JSON written with status block; see WARNINGs above."
         )
     return output
