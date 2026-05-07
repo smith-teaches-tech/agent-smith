@@ -93,6 +93,8 @@ tr.detail-row td { padding: 0; }
 .trade-details { display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; margin-top: 0.4rem; }
 .trade-details dt { color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.62rem; align-self: center; }
 .trade-details dd { color: var(--fg); }
+.cite-link { color: var(--info); text-decoration: none; font-size: 0.7rem; opacity: 0.8; transition: opacity 0.15s; }
+.cite-link:hover { opacity: 1; text-decoration: underline; }
 .date-col { color: var(--fg-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase; }
 /* Footer */
 footer { padding: 2rem 2rem 0; margin-top: 2rem; border-top: 1px solid var(--rule); color: var(--fg-dim); font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; max-width: 1400px; }
@@ -375,7 +377,13 @@ function renderTable() {
         <td colspan="10">
           <div class="detail-inner">
             <div>
+              ${e.catalyst ? `
+              <div class="detail-label">original catalyst</div>
+              <div class="detail-text">${e.catalyst}${e.catalyst_url ? ` <a href="${e.catalyst_url}" target="_blank" rel="noopener" class="cite-link">[cite ↗]</a>` : ''}</div>
+              <div class="detail-label" style="margin-top:1rem;">bot's reasoning</div>
+              ` : `
               <div class="detail-label">bot's reasoning</div>
+              `}
               <div class="detail-text">${e.reasoning}</div>
               <div class="detail-label" style="margin-top:1rem;">what's happened since</div>
               <div class="detail-text">${

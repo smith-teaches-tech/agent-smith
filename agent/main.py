@@ -519,6 +519,14 @@ def _build_suggestion_entry(
         "confidence": int(flag.get("confidence") or 0),
         "horizon_days": _horizon_to_days(flag.get("time_horizon", "days")),
         "move_pct_at_flag": flag.get("move_pct"),
+        # Carry through the original discovery's catalyst attribution so the
+        # watching page can render the [cite ↗] link. Both come from the
+        # discovery flag dict (same shape passed at both call sites — the
+        # decision loop and _extend_with_ineligible_flags). May be null on
+        # older flags or RATIONAL/UNCLEAR rows; the dashboard handles that
+        # defensively.
+        "catalyst": flag.get("catalyst"),
+        "catalyst_url": flag.get("catalyst_url"),
         "decision": decision,
         "reasoning": reasoning,
         # Price/verdict fields are filled in on subsequent runs by the
