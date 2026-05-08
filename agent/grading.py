@@ -440,23 +440,48 @@ def grade_call(
 # ============================================================
 
 
-def _parse_history_filename(path: Path) -> Optional[datetime]:
+def _parse_history_filename(path: Path) -> Optional[tuple[datetime, str]]:
     """
-    Extract timestamp from filenames like us_20260422T200601Z.json.
-    Returns UTC datetime or None if unparseable.
+    Extract (timestamp, prefix) from history filenames.
+ 
+    Filename pattern is `{prefix}_{YYYYmmddTHHMMSS}Z.json` where prefix
+    is the discovery `kind` passed to _write_output:
+      - "us"        → Screen 0 (general mispricing) history
+      - "screen_1_us" → Screen 1 (AI-event sympathy fade) history
+      - "screen_2_us" → Screen 2 (when added)
+ 
+    Returns (UTC datetime, prefix string) on success, None on
+    unparseable name.
+ 
+    rsplit-on-last-underscore handles arbitrarily multi-segment
+    prefixes — "screen_1_us" splits cleanly into prefix="screen_1_us"
+    and timestamp="20260508T163122Z".
     """
-    name = path.stem  # e.g., us_20260422T200601Z
+    name = path.stem  # e.g., us_20260422T200601Z or screen_1_us_20260508T163122Z
     try:
-        # strip prefix before the date
-        parts = name.split("_", 1)
+        parts = name.rsplit("_", 1)
         if len(parts) != 2:
             return None
-        ts_str = parts[1].rstrip("Z")  # 20260422T200601
-        return datetime.strptime(ts_str, "%Y%m%dT%H%M%S").replace(tzinfo=timezone.utc)
+        prefix, ts_raw = parts[0], parts[1]
+        ts_str = ts_raw.rstrip("Z")
+        ts = datetime.strptime(ts_str, "%Y%m%dT%H%M%S").replace(tzinfo=timezone.utc)
+        return ts, prefix
     except Exception:
         return None
 
 
+_PREFIX_TO_SCREEN_ID: dict[str, Optional[str]] = {
+    "us": "screen_0",
+    "screen_1_us": "screen_1",
+    # Taiwan experiment ran Apr 2026, deleted in Session E.5. 23 history
+    # files preserved on disk as audit trail. Excluded from grading
+    # because Taiwan ran under a different universe + prompt; rolling
+    # its grades into Screen 0 would distort the multi-screen comparison
+    # the architecture exists to enable.
+    "tw": None,
+}
+ 
+ 
 def grade_all_history(
     history_dir: Path,
     version: int = LOGIC_VERSION,
@@ -464,55 +489,94 @@ def grade_all_history(
 ) -> list[Grade]:
     """
     Walk history_dir, grade every discovery at its original flag time.
-
-    If existing_grades is provided, re-use any grade whose (ticker, flagged_at,
-    logic_version) matches the *current* version and whose grade is not
-    PENDING/DATA_ERROR. This avoids re-fetching prices for already-resolved
-    calls. Grades from older versions are dropped — a version bump is an
-    explicit invalidation signal.
+ 
+    If existing_grades is provided, re-use any grade whose
+    (ticker, flagged_at, logic_version) matches the *current* version
+    and whose grade is not PENDING/DATA_ERROR. This avoids re-fetching
+    prices for already-resolved calls. Grades from older versions are
+    dropped — a version bump is an explicit invalidation signal.
+ 
+    F2 multi-screen note: every file's prefix is mapped to a screen_id
+    via _PREFIX_TO_SCREEN_ID. The screen_id stamped on each Grade
+    overrides whatever may be in the discovery dict, because the file
+    is the definitive source of "which screen produced this call." A
+    file with an unknown prefix is attributed to screen_0 with a
+    one-time warning — the grader never silently drops data on a
+    missing-mapping bug.
     """
     existing_lookup: dict[tuple[str, str, int], dict] = {}
     if existing_grades:
         for g in existing_grades:
-            # Only reuse cached grades that match the current logic version.
-            # On a version bump, the dict will be empty and everything regrades.
+            # Only reuse cached grades that match the current logic
+            # version. On a version bump, the dict will be empty and
+            # everything regrades.
             if g.get("logic_version") != version:
                 continue
             key = (g["ticker"], g["flagged_at"], g["logic_version"])
             if g["grade"] not in ("PENDING", "DATA_ERROR"):
                 existing_lookup[key] = g
-
+ 
     results: list[Grade] = []
     now = datetime.now(timezone.utc)
-
+    warned_unknown_prefixes: set[str] = set()
+ 
     for path in sorted(history_dir.glob("*.json")):
-        flagged_at = _parse_history_filename(path)
-        if flagged_at is None:
+        parsed = _parse_history_filename(path)
+        if parsed is None:
             logger.warning("Skipping unparseable history file: %s", path.name)
             continue
-
+        flagged_at, prefix = parsed
+ 
+        # Three-state lookup:
+        #   - Known prefix → screen_id  → grade with that id
+        #   - Known prefix → None       → skip the file entirely
+        #   - Unknown prefix            → warn once, attribute to screen_0
+        if prefix in _PREFIX_TO_SCREEN_ID:
+            screen_id = _PREFIX_TO_SCREEN_ID[prefix]
+            if screen_id is None:
+                continue  # explicitly excluded (e.g. legacy Taiwan)
+        else:
+            if prefix not in warned_unknown_prefixes:
+                logger.warning(
+                    "Unknown history file prefix '%s' (file: %s); "
+                    "attributing to screen_0. Add prefix to "
+                    "_PREFIX_TO_SCREEN_ID in grading.py to fix.",
+                    prefix, path.name,
+                )
+                warned_unknown_prefixes.add(prefix)
+            screen_id = "screen_0"
+ 
         try:
             data = json.loads(path.read_text())
         except Exception as e:
             logger.warning("Failed to parse %s: %s", path.name, e)
             continue
-
+ 
         discoveries = (data.get("discovery") or {}).get("discoveries") or []
         for disc in discoveries:
             ticker = disc.get("ticker", "")
             key = (ticker, flagged_at.isoformat(), version)
-
+ 
             if key in existing_lookup:
-                # Reuse
-                cached = existing_lookup[key]
+                # Reuse cached grade — but stamp the file-derived
+                # screen_id on it. This handles the migration case
+                # where pre-F2 cached grades had screen_id=None: on
+                # next run, they'll be re-emitted with their correct
+                # screen_id without forcing a price refetch.
+                cached = dict(existing_lookup[key])  # don't mutate the cache
+                cached["screen_id"] = screen_id
                 results.append(Grade(**cached))
                 continue
-
+ 
             grade = grade_call(
                 disc, flagged_at, run_file=path.name, version=version, now=now
             )
+            # File-derived screen_id is authoritative — overrides
+            # whatever grade_call may have read from the discovery
+            # dict's screen_id field.
+            grade.screen_id = screen_id
             results.append(grade)
-
+ 
     return results
 
 

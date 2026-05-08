@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-08T08:43:46.586890+00:00",
+  "generated_at": "2026-05-08T16:44:15.222628+00:00",
   "logic_version": 2,
   "grading_params": {
     "hit_threshold_pct": 3.0,
@@ -84,30 +84,6 @@
     }
   },
   "by_sector": {
-    "Consumer Defensive": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Healthcare - Biotechnology": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Real Estate": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
     "Communication Services": {
       "n_resolved": 0,
       "n_hit": 0,
@@ -116,15 +92,7 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Consumer Cyclical": {
-      "n_resolved": 1,
-      "n_hit": 0,
-      "n_miss": 1,
-      "n_ambiguous": 0,
-      "hit_rate": 0.0,
-      "avg_return_pct": -7.56
-    },
-    "Healthcare": {
+    "Financial Services (misclassified as Tech)": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -140,14 +108,6 @@
       "hit_rate": 0.0,
       "avg_return_pct": -8.35
     },
-    "Financial Services (misclassified as Tech)": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
     "Technology": {
       "n_resolved": 2,
       "n_hit": 2,
@@ -155,6 +115,30 @@
       "n_ambiguous": 0,
       "hit_rate": 100.0,
       "avg_return_pct": 18.34
+    },
+    "Healthcare": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Real Estate": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Basic Materials": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
     },
     "Energy": {
       "n_resolved": 0,
@@ -164,7 +148,23 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Basic Materials": {
+    "Consumer Cyclical": {
+      "n_resolved": 1,
+      "n_hit": 0,
+      "n_miss": 1,
+      "n_ambiguous": 0,
+      "hit_rate": 0.0,
+      "avg_return_pct": -7.56
+    },
+    "Consumer Defensive": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Healthcare - Biotechnology": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -199,6 +199,26 @@
       "avg_return_pct": null
     }
   },
+  "by_screen": {
+    "screen_0": {
+      "display_name": "General mispricing",
+      "n_resolved": 4,
+      "n_hit": 2,
+      "n_miss": 2,
+      "n_ambiguous": 0,
+      "hit_rate": 50.0,
+      "avg_return_pct": 5.19
+    },
+    "screen_1": {
+      "display_name": "AI-event sympathy fade",
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    }
+  },
   "best_calls": [
     {
       "ticker": "EXTR",
@@ -218,7 +238,8 @@
       "price_at_flag": 16.9,
       "price_at_horizon_end": 22.09,
       "logic_version": 2,
-      "notes": null
+      "notes": null,
+      "screen_id": "screen_0"
     },
     {
       "ticker": "PLAB",
@@ -238,7 +259,8 @@
       "price_at_flag": 48.13,
       "price_at_horizon_end": 51.0,
       "logic_version": 2,
-      "notes": null
+      "notes": null,
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BBY",
@@ -258,7 +280,8 @@
       "price_at_flag": 63.53,
       "price_at_horizon_end": 58.73,
       "logic_version": 2,
-      "notes": null
+      "notes": null,
+      "screen_id": "screen_0"
     },
     {
       "ticker": "AVAV",
@@ -278,7 +301,8 @@
       "price_at_flag": 183.5,
       "price_at_horizon_end": 168.18,
       "logic_version": 2,
-      "notes": "only 6 bars elapsed"
+      "notes": "only 6 bars elapsed",
+      "screen_id": "screen_0"
     }
   ],
   "worst_calls": [
@@ -300,7 +324,8 @@
       "price_at_flag": 183.5,
       "price_at_horizon_end": 168.18,
       "logic_version": 2,
-      "notes": "only 6 bars elapsed"
+      "notes": "only 6 bars elapsed",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BBY",
@@ -320,7 +345,8 @@
       "price_at_flag": 63.53,
       "price_at_horizon_end": 58.73,
       "logic_version": 2,
-      "notes": null
+      "notes": null,
+      "screen_id": "screen_0"
     },
     {
       "ticker": "PLAB",
@@ -340,7 +366,8 @@
       "price_at_flag": 48.13,
       "price_at_horizon_end": 51.0,
       "logic_version": 2,
-      "notes": null
+      "notes": null,
+      "screen_id": "screen_0"
     },
     {
       "ticker": "EXTR",
@@ -360,7 +387,8 @@
       "price_at_flag": 16.9,
       "price_at_horizon_end": 22.09,
       "logic_version": 2,
-      "notes": null
+      "notes": null,
+      "screen_id": "screen_0"
     }
   ],
   "all_grades": [
@@ -382,7 +410,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BMI",
@@ -402,7 +431,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "ALK",
@@ -422,7 +452,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "EXEL",
@@ -442,7 +473,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "FIVE",
@@ -462,7 +494,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BBY",
@@ -482,7 +515,8 @@
       "price_at_flag": 63.53,
       "price_at_horizon_end": 58.73,
       "logic_version": 2,
-      "notes": null
+      "notes": null,
+      "screen_id": "screen_0"
     },
     {
       "ticker": "CALX",
@@ -502,7 +536,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "MANH",
@@ -522,7 +557,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "CALX",
@@ -542,7 +578,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "EXTR",
@@ -562,7 +599,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "MANH",
@@ -582,7 +620,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "RGEN",
@@ -602,7 +641,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BBY",
@@ -622,7 +662,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "WEX",
@@ -642,7 +683,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "CALX",
@@ -662,7 +704,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "EXTR",
@@ -682,7 +725,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BBY",
@@ -702,7 +746,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "MANH",
@@ -722,7 +767,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "RGEN",
@@ -742,7 +788,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "CALX",
@@ -762,7 +809,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "EXTR",
@@ -782,7 +830,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BBY",
@@ -802,7 +851,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "RGEN",
@@ -822,7 +872,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "MANH",
@@ -842,7 +893,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "CALX",
@@ -862,7 +914,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "EXTR",
@@ -882,7 +935,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "MANH",
@@ -902,7 +956,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "RGEN",
@@ -922,7 +977,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BBY",
@@ -942,7 +998,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "VECO",
@@ -962,7 +1019,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "CALX",
@@ -982,7 +1040,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "EXTR",
@@ -1002,7 +1061,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "MANH",
@@ -1022,7 +1082,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BBY",
@@ -1042,7 +1103,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "RGEN",
@@ -1062,7 +1124,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "CALX",
@@ -1082,7 +1145,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "EXTR",
@@ -1102,7 +1166,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "MANH",
@@ -1122,7 +1187,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BBY",
@@ -1142,7 +1208,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "RGEN",
@@ -1162,7 +1229,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "VECO",
@@ -1182,7 +1250,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "CALX",
@@ -1202,7 +1271,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "EXTR",
@@ -1222,7 +1292,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BBY",
@@ -1242,7 +1313,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "RGEN",
@@ -1262,7 +1334,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "MANH",
@@ -1282,7 +1355,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "VECO",
@@ -1302,7 +1376,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "CALX",
@@ -1322,7 +1397,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "EXTR",
@@ -1342,7 +1418,8 @@
       "price_at_flag": 16.9,
       "price_at_horizon_end": 22.09,
       "logic_version": 2,
-      "notes": null
+      "notes": null,
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BBY",
@@ -1362,7 +1439,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "RGEN",
@@ -1382,7 +1460,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "MANH",
@@ -1402,7 +1481,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "MEDP",
@@ -1422,7 +1502,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "WEX",
@@ -1442,7 +1523,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "RGEN",
@@ -1462,7 +1544,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "KTOS",
@@ -1482,7 +1565,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "CRSP",
@@ -1502,7 +1586,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BEAM",
@@ -1522,7 +1607,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "SKYW",
@@ -1542,7 +1628,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "KTOS",
@@ -1562,7 +1649,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "ATGE",
@@ -1582,7 +1670,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "LSCC",
@@ -1602,7 +1691,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BEAM",
@@ -1622,7 +1712,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "CRSP",
@@ -1642,7 +1733,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "LSCC",
@@ -1662,7 +1754,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "PLAB",
@@ -1682,7 +1775,8 @@
       "price_at_flag": 48.13,
       "price_at_horizon_end": 51.0,
       "logic_version": 2,
-      "notes": null
+      "notes": null,
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BBIO",
@@ -1702,7 +1796,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "ALGN",
@@ -1722,7 +1817,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "WSO",
@@ -1742,7 +1838,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "POOL",
@@ -1762,7 +1859,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "AEIS",
@@ -1782,7 +1880,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "ONTO",
@@ -1802,7 +1901,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "EXTR",
@@ -1822,7 +1922,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "FFIV",
@@ -1842,7 +1943,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "PTCT",
@@ -1862,7 +1964,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BLDR",
@@ -1882,7 +1985,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "AVAV",
@@ -1902,7 +2006,8 @@
       "price_at_flag": 183.5,
       "price_at_horizon_end": 168.18,
       "logic_version": 2,
-      "notes": "only 6 bars elapsed"
+      "notes": "only 6 bars elapsed",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "SAIA",
@@ -1922,7 +2027,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "DECK",
@@ -1942,7 +2048,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "JLL",
@@ -1962,7 +2069,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BLDR",
@@ -1982,7 +2090,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "QRVO",
@@ -2002,7 +2111,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "AXSM",
@@ -2022,7 +2132,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "MANH",
@@ -2042,7 +2153,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "MMSI",
@@ -2062,7 +2174,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "BLDR",
@@ -2082,7 +2195,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "UFPI",
@@ -2102,7 +2216,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "AVAV",
@@ -2122,7 +2237,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "GME",
@@ -2142,7 +2258,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "GME",
@@ -2162,7 +2279,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "CHRW",
@@ -2182,7 +2300,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "SAIA",
@@ -2196,13 +2315,14 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": 10.82,
+      "return_pct_in_horizon": 10.94,
       "max_favorable_pct": 13.57,
       "max_adverse_pct": -0.13,
       "price_at_flag": 405.09,
-      "price_at_horizon_end": 448.94,
+      "price_at_horizon_end": 449.4,
       "logic_version": 2,
-      "notes": "only 3 bars elapsed"
+      "notes": "only 4 bars elapsed",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "AXSM",
@@ -2222,7 +2342,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "UFPI",
@@ -2242,7 +2363,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "ALK",
@@ -2262,7 +2384,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "DOCN",
@@ -2282,7 +2405,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "IPGP",
@@ -2302,7 +2426,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "CYTK",
@@ -2322,7 +2447,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "OSIS",
@@ -2342,7 +2468,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "AEIS",
@@ -2362,7 +2489,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "ADEA",
@@ -2382,7 +2510,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "GXO",
@@ -2402,7 +2531,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "ECG",
@@ -2422,7 +2552,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "PRIM",
@@ -2442,7 +2573,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "TMDX",
@@ -2462,7 +2594,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "KD",
@@ -2482,7 +2615,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "GEO",
@@ -2502,7 +2636,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "ELAN",
@@ -2522,7 +2657,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "CRC",
@@ -2542,7 +2678,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "ACLS",
@@ -2562,7 +2699,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "FRPT",
@@ -2582,7 +2720,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "CLH",
@@ -2602,7 +2741,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "PRIM",
@@ -2622,7 +2762,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "PRIM",
@@ -2642,7 +2783,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "TMDX",
@@ -2662,7 +2804,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "VECO",
@@ -2682,7 +2825,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "ACLS",
@@ -2702,7 +2846,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "KD",
@@ -2722,7 +2867,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "CRK",
@@ -2742,7 +2888,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "CLH",
@@ -2762,7 +2909,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "GEO",
@@ -2782,7 +2930,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "AAON",
@@ -2802,7 +2951,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "IBP",
@@ -2822,7 +2972,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "PLNT",
@@ -2842,7 +2993,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "HRB",
@@ -2862,7 +3014,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "COKE",
@@ -2882,7 +3035,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "WHR",
@@ -2902,7 +3056,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "LUMN",
@@ -2922,7 +3077,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "PAYC",
@@ -2942,7 +3098,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=RATIONAL not in graded set"
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "DXPE",
@@ -2962,7 +3119,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     },
     {
       "ticker": "MIDD",
@@ -2982,7 +3140,8 @@
       "price_at_flag": null,
       "price_at_horizon_end": null,
       "logic_version": 2,
-      "notes": "classification=UNCLEAR not in graded set"
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
     }
   ]
 }

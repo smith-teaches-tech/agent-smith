@@ -6,6 +6,24 @@ Run modes:
 
 Output written to docs/data/ as JSON for the dashboard to render.
 A copy is also archived in docs/data/history/ with timestamp.
+
+F2 multi-screen note: this file orchestrates BOTH Screen 0 (general
+mispricing) AND Screen 1 (AI-event sympathy fade). Screen 0's pipeline
+is unchanged from F1. Screen 1 is wired in at three points:
+  1. run_us() calls run_screen_1() at its tail, after Screen 0's output
+     is on disk. Screen 1 has its own try/except so its failure cannot
+     mask Screen 0's status.
+  2. run_portfolio_for_screen() dispatches on screen_id when gathering
+     recent flags — Screen 1's flags live in screen_1_us.json + history/
+     screen_1_us_*.json, distinct from Screen 0's files.
+  3. The existing F1 portfolio orchestrator iterates config.SCREENS, so
+     Screen 1's portfolio pass runs automatically once it's registered.
+
+For F2 ship, Screen 1 reuses Screen 0's generic portfolio prompt
+(analyze.run_portfolio_pass). A Screen 1-specific portfolio prompt
+(ai_sympathy.build_screen_1_portfolio_prompt) is built but not yet
+wired — it'll land as a follow-up once we've watched Screen 1 run for
+a few days against the generic prompt.
 """
 import sys
 import json
@@ -197,12 +215,127 @@ def run_us(tickers_override: list[str] | None = None) -> dict[str, Any]:
     # RECOVERED runs produce usable output; the WARNING + status block are
     # enough signal without going red.
     _write_output(output, config.OUTPUT_LATEST_US, "us")
+
+    # ------------------------------------------------------------
+    # Screen 1 (AI-event sympathy fade) runs AFTER Screen 0's output
+    # is on disk. Sequenced this way so:
+    #   - Screen 0's status block is visible to the dashboard whether
+    #     or not Screen 0 will raise below.
+    #   - Screen 1 attempts its discovery pass independently of
+    #     Screen 0's outcome (the AI trigger doesn't depend on Screen
+    #     0's mover set).
+    #   - The RuntimeError below still fires after Screen 1 completes,
+    #     so a Screen 0 FAILED pass still goes red in Actions.
+    #
+    # run_screen_1 has its own try/except; this defensive try only
+    # catches truly unexpected crashes (e.g. import error from a
+    # typo) so they don't mask Screen 0's status.
+    # ------------------------------------------------------------
+    try:
+        run_screen_1(us_output=output)
+    except Exception as e:
+        print(f"[us] run_screen_1 raised unexpectedly: {e}")
+        import traceback
+        traceback.print_exc()
+
     failed_passes = [name for name in ("discovery", "ai_analysis") if status[name] == "FAILED"]
     if failed_passes:
         raise RuntimeError(
             f"us run completed but {len(failed_passes)} pass(es) failed after retry: "
             f"{', '.join(failed_passes)}. JSON written with status block; see WARNINGs above."
         )
+    return output
+
+
+# ============================================================
+# Screen 1 (AI-event sympathy fade) — discovery orchestrator
+# ============================================================
+
+def run_screen_1(us_output: dict[str, Any] | None = None) -> dict[str, Any]:
+    """
+    Run Screen 1's discovery pass for one cron tick.
+
+    Sequenced AFTER run_us() (Screen 0 discovery). The us_output
+    parameter is accepted for future use — currently Screen 1 uses
+    its own hardcoded AI-adjacent basket and does not consume
+    Screen 0's movers list (which would require Screen 0 to stash
+    the raw movers in its output dict; see roadmap follow-up).
+
+    Always returns a usable dict; never raises. Writes
+    docs/data/screen_1_us.json on every run (no-trigger, candidates-
+    found, and failure runs all produce a current file) so the
+    dashboard always has something fresh to read.
+
+    The Screen 1 portfolio pass that consumes these flags runs later
+    in run_portfolio()'s SCREENS-iteration loop. Picked up
+    automatically via config.SCREENS — no additional wiring.
+    """
+    from . import ai_events
+    from .screens import ai_sympathy
+
+    print("[screen_1] === Screen 1: AI-event sympathy fade ===")
+
+    # ---- 1. Resolve movers --------------------------------------
+    # Screen 0's run_us() does not currently stash the raw movers
+    # list in us_output (it stashes only the post-Claude discoveries).
+    # For F2, Screen 1 falls back to its hardcoded basket path
+    # (build_candidate_basket sees movers=[] and pulls everything from
+    # the AI-adjacent ticker list). Reusing Screen 0's movers is a
+    # tracked roadmap optimization — not a blocker for ship.
+    movers: list[dict[str, Any]] = []
+    print("[screen_1] running with empty Screen 0 movers handoff "
+          "(Screen 1 will use hardcoded AI-adjacent basket)")
+
+    # ---- 2. Detect trigger --------------------------------------
+    try:
+        trigger = ai_events.detect_trigger()
+    except Exception as e:
+        # detect_trigger is itself try/excepted internally; this only
+        # fires on a hard crash like an import error from a typo.
+        print(f"[screen_1] trigger detection raised: {e}")
+        trigger = {"fired": False, "reason": f"detector raised: {e}", "_status": "error"}
+
+    # ---- 3. Run Screen 1 discovery ------------------------------
+    try:
+        result = ai_sympathy.run_screen_1_discovery(trigger, movers)
+        if result.get("_status") == "ok":
+            screen_1_status = "OK"
+        elif result.get("_status") == "error":
+            screen_1_status = "FAILED"
+        else:
+            # no-trigger or no-candidates day — not a failure, just a
+            # clean skip. SKIPPED status keeps the dashboard banner
+            # neutral rather than red.
+            screen_1_status = "SKIPPED"
+    except Exception as e:
+        print(f"[screen_1] discovery raised unexpectedly: {e}")
+        import traceback
+        traceback.print_exc()
+        result = {
+            "trigger_acknowledgment": "discovery pass raised an exception",
+            "run_summary": f"Screen 1 discovery failed: {e}",
+            "discoveries": [],
+            "skipped": [],
+            "_status": "error",
+            "_error": str(e),
+        }
+        screen_1_status = "FAILED"
+
+    # ---- 4. Build output envelope -------------------------------
+    output = {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "screen_id": "screen_1",
+        "status": screen_1_status,
+        "trigger": trigger,
+        "discovery": result,
+    }
+
+    # ---- 5. Write output ----------------------------------------
+    # Distinct filename so history archive doesn't collide with
+    # Screen 0's us_*.json files. Distinct latest path so the
+    # dashboard reads the two screens independently.
+    _write_output(output, "docs/data/screen_1_us.json", "screen_1_us")
+    print(f"[screen_1] === complete (status={screen_1_status}) ===")
     return output
 
 
@@ -251,6 +384,8 @@ def run_portfolio_for_screen(
                  to use. Must match a registered SCREENS entry.
       us_output: the dict returned by run_us() on this same invocation.
                  If None, we read the latest discoveries off disk instead.
+                 For Screen 1, us_output is ignored — Screen 1 reads its
+                 own discovery output files (screen_1_us.json + history).
     """
     from pathlib import Path
     import json
@@ -264,16 +399,21 @@ def run_portfolio_for_screen(
     print(f"[portfolio] equity=${pf.total_equity(state):.2f} cash=${state['cash']:.2f} open={len(state['open_positions'])}")
 
     # ---- Gather recent flags ----------------------------------
-    # We want buy-eligible discoveries from the last N days. The newest
-    # run's output is passed in directly (us_output); older ones come
-    # from history/us_*.json. Per-screen window may differ in the future;
-    # for F1, Screen 0 inherits the global default.
+    # Screen 0 reads from us_output + history/us_*.json.
+    # Screen 1 reads from screen_1_us.json + history/screen_1_us_*.json.
+    # The data shape is identical; only the source files differ.
     window_days = screen["decision_window_days"]
     print(f"[portfolio] gathering flags from last {window_days}d...")
-    recent_flags = _collect_recent_flags(
-        us_output=us_output,
-        window_days=window_days,
-    )
+    if screen_id == "screen_1":
+        recent_flags = _collect_screen_1_flags(
+            screen_1_output=None,  # always read from disk
+            window_days=window_days,
+        )
+    else:
+        recent_flags = _collect_recent_flags(
+            us_output=us_output,
+            window_days=window_days,
+        )
     print(f"[portfolio] {len(recent_flags)} flags in window")
 
     # ---- Trends summary ---------------------------------------
@@ -389,6 +529,7 @@ def run_portfolio_for_screen(
     _extend_with_ineligible_flags(
         suggestion_entries,
         us_output=us_output,
+        screen_id=screen_id,
     )
 
     pf.save_state(state, screen_id=screen_id)
@@ -406,12 +547,12 @@ def run_portfolio_for_screen(
         f"{trade_summary['skipped']} skip"
     )
     return {"state": state, "decisions": decisions, "trade_summary": trade_summary}
- 
- 
+
+
 # ============================================================
 # Helpers used by run_portfolio()
 # ============================================================
- 
+
 def _try_buy(
     state: dict[str, Any],
     flag: dict[str, Any],
@@ -435,7 +576,7 @@ def _try_buy(
     if not ref_price or ref_price <= 0:
         print(f"[portfolio] BUY {tkr} DEFERRED: no reference price")
         return False
- 
+
     shares = pf.size_position(
         state,
         price=ref_price,
@@ -445,7 +586,7 @@ def _try_buy(
     if shares <= 0:
         print(f"[portfolio] BUY {tkr} BLOCKED: sizing returned 0 shares (guardrail)")
         return False
- 
+
     ok, msg, _ = pf.execute_buy(
         state,
         ticker=tkr,
@@ -469,30 +610,34 @@ def _try_buy(
     else:
         print(f"[portfolio] BUY {tkr} FAILED: {msg}")
     return ok
- 
- 
+
+
 def _collect_recent_flags(
     *,
     us_output: dict[str, Any] | None,
     window_days: int,
 ) -> list[dict[str, Any]]:
     """
-    Return a list of discovery flags from the last N days.
+    Return Screen 0 discovery flags from the last N days.
     Newest first. Deduplicates by ticker (keeps the latest flag per name).
+
+    Reads from us_output (current run, in-memory) + history/us_*.json
+    (older runs). Screen 1 has its own collector (_collect_screen_1_flags)
+    that reads screen_1_us.json + history/screen_1_us_*.json.
     """
     from pathlib import Path
     import json
- 
+
     cutoff = datetime.now(timezone.utc) - timedelta(days=window_days)
     by_ticker: dict[str, dict[str, Any]] = {}
- 
+
     # 1) Newest run passed in directly (avoids a disk read).
     if us_output:
         for d in (us_output.get("discovery") or {}).get("discoveries", []):
             t = d.get("ticker")
             if t:
                 by_ticker[t] = d
- 
+
     # 2) Older runs from history/us_*.json.
     hist_dir = Path(config.OUTPUT_HISTORY_DIR)
     if hist_dir.exists():
@@ -513,10 +658,71 @@ def _collect_recent_flags(
                 t = d.get("ticker")
                 if t and t not in by_ticker:  # keep NEWEST per ticker
                     by_ticker[t] = d
- 
+
     return list(by_ticker.values())
- 
- 
+
+
+def _collect_screen_1_flags(
+    *,
+    screen_1_output: dict[str, Any] | None,
+    window_days: int,
+) -> list[dict[str, Any]]:
+    """
+    Return Screen 1 discovery flags from the last N days.
+    Newest first. Deduplicates by ticker (keeps the latest flag per name).
+
+    Mirrors _collect_recent_flags but reads Screen 1's distinct files:
+      - newest run: screen_1_output param, OR screen_1_us.json on disk
+        if param is None
+      - older runs: history/screen_1_us_*.json
+
+    Screen 1's discovery output shape mirrors Screen 0's:
+      {"discovery": {"discoveries": [...]}}
+    Only the filename differs.
+    """
+    cutoff = datetime.now(timezone.utc) - timedelta(days=window_days)
+    by_ticker: dict[str, dict[str, Any]] = {}
+
+    # 1) Newest run — prefer the param, fall back to disk.
+    if screen_1_output is None:
+        s1_path = Path("docs/data/screen_1_us.json")
+        if s1_path.exists():
+            try:
+                screen_1_output = json.loads(s1_path.read_text())
+            except (json.JSONDecodeError, OSError) as e:
+                print(f"[screen_1] could not read {s1_path}: {e}")
+                screen_1_output = None
+
+    if screen_1_output:
+        for d in (screen_1_output.get("discovery") or {}).get("discoveries", []):
+            t = d.get("ticker")
+            if t:
+                by_ticker[t] = d
+
+    # 2) Older runs from history/screen_1_us_*.json.
+    hist_dir = Path(config.OUTPUT_HISTORY_DIR)
+    if hist_dir.exists():
+        for path in sorted(hist_dir.glob("screen_1_us_*.json"), reverse=True):
+            try:
+                data = json.loads(path.read_text())
+            except (json.JSONDecodeError, OSError):
+                continue
+            try:
+                generated = datetime.fromisoformat(
+                    data.get("generated_at", "").replace("Z", "+00:00")
+                )
+                if generated < cutoff:
+                    break  # sorted newest-first
+            except ValueError:
+                continue
+            for d in (data.get("discovery") or {}).get("discoveries", []):
+                t = d.get("ticker")
+                if t and t not in by_ticker:  # keep newest per ticker
+                    by_ticker[t] = d
+
+    return list(by_ticker.values())
+
+
 def _build_suggestion_entry(
     flag: dict[str, Any],
     decision: str,
@@ -561,37 +767,57 @@ def _build_suggestion_entry(
         "verdict": "pending",
         "verdict_note": None,
     }
- 
- 
+
+
 def _horizon_to_days(h: str) -> int:
     """Map 'days'/'weeks'/'months' strings to trading-day counts."""
     return config.GRADING_HORIZON_DAYS.get((h or "days").lower(), 5)
- 
- 
+
+
 def _extend_with_ineligible_flags(
     entries: list[dict[str, Any]],
     *,
     us_output: dict[str, Any] | None,
+    screen_id: str | None = None,
 ) -> None:
     """
     Add SKIP rows for RATIONAL/UNCLEAR flags (or conf-below-threshold flags)
     so the watching page shows the bot's full decision surface.
 
-    Uses the same 7-day history window as `_collect_recent_flags` (which
-    feeds Haiku) — fixes a long-standing asymmetry where this function
-    only saw the current run, leaving the watching page empty whenever
-    discovery failed or returned no flags. Haiku already sees the window;
-    so should this.
+    Uses the same window as _collect_recent_flags (which feeds Haiku) —
+    fixes a long-standing asymmetry where this function only saw the
+    current run, leaving the watching page empty whenever discovery
+    failed or returned no flags.
 
     Tickers already present in `entries` (i.e. Haiku already decided on
     them this run) are skipped to avoid duplicates.
+
+    F2: screen_id parameter dispatches between Screen 0 and Screen 1's
+    flag collectors. Without this, Screen 1's portfolio pass would
+    pull Screen 0's rejected flags into Screen 1's watching page —
+    cross-screen contamination of the audit trail.
     """
     already_decided = {e.get("ticker") for e in entries if e.get("ticker")}
 
-    flags = _collect_recent_flags(
-        us_output=us_output,
-        window_days=config.PAPER_PORTFOLIO_DECISION_WINDOW_DAYS,
-    )
+    # Determine the right window. For pre-F2 callers that don't pass
+    # screen_id, fall back to the global default. With screen_id, we
+    # honor the per-screen decision_window_days from SCREENS.
+    if screen_id:
+        screen = config.get_screen(screen_id)
+        window_days = screen["decision_window_days"]
+    else:
+        window_days = config.PAPER_PORTFOLIO_DECISION_WINDOW_DAYS
+
+    if screen_id == "screen_1":
+        flags = _collect_screen_1_flags(
+            screen_1_output=None,
+            window_days=window_days,
+        )
+    else:
+        flags = _collect_recent_flags(
+            us_output=us_output,
+            window_days=window_days,
+        )
 
     for d in flags:
         tkr = d.get("ticker")
@@ -614,8 +840,8 @@ def _extend_with_ineligible_flags(
                 else f"confidence {conf} below buy threshold.",
             )
         )
- 
- 
+
+
 def _write_suggestions(
     *,
     entries: list[dict[str, Any]],
@@ -625,7 +851,7 @@ def _write_suggestions(
     """Write docs/data/suggestions.json in the schema suggestions.html expects."""
     from pathlib import Path
     import json
- 
+
     out = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "window_days": config.PAPER_PORTFOLIO_DECISION_WINDOW_DAYS,
@@ -638,6 +864,7 @@ def _write_suggestions(
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(out, indent=2, ensure_ascii=False))
     print(f"  wrote {path}")
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="agent-smith orchestrator")
@@ -681,6 +908,10 @@ def main() -> None:
 
     if args.no_claude:
         analyze.NO_CLAUDE_MODE = True
+        # F2: Screen 1's trigger detector also has its own NO_CLAUDE_MODE.
+        # Set it here so --no-claude is global, not Screen-0-only.
+        from . import ai_events
+        ai_events.NO_CLAUDE_MODE = True
         print("[main] --no-claude active: API calls will be skipped, prompts printed to stdout.")
 
     tickers_override: list[str] | None = None

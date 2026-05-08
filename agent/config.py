@@ -277,6 +277,43 @@ SCREENS: list[dict] = [
         "decision_window_days": PAPER_PORTFOLIO_DECISION_WINDOW_DAYS,
         "claude_model": CLAUDE_PORTFOLIO_MODEL,
     },
+
+        {
+        "id": "screen_1",
+        "display_name": "AI-event sympathy fade",
+        "thesis_summary": (
+            "Buys mid-caps that retail panic-sold on AI-lab announcements "
+            "(OpenAI/Anthropic/etc.) when per-name 10-K + 10-Q reading "
+            "shows the company's actual business is minimally or not "
+            "exposed to the shipped capability. Holds 5–15 trading days "
+            "while institutional money slowly reprices on filing analysis."
+        ),
+        "bankroll": PAPER_PORTFOLIO_BANKROLL,
+        # Guardrails: match Screen 0 for now. May tighten later once
+        # we have data on Screen 1's hit-rate distribution.
+        "max_position_pct": PAPER_PORTFOLIO_MAX_POSITION_PCT,
+        "max_sector_pct": PAPER_PORTFOLIO_MAX_SECTOR_PCT,
+        "min_cash_pct": PAPER_PORTFOLIO_MIN_CASH_PCT,
+        # Confidence threshold: match Screen 0 (conf>=4 to buy). Screen 1's
+        # confidence calibration is in ai_sympathy.py's discovery prompt;
+        # the threshold here gates which calls reach the portfolio pass.
+        "min_buy_confidence": PAPER_PORTFOLIO_MIN_BUY_CONFIDENCE,
+        # Decision window: 3 trading days. AI-event fade is fast — a flag
+        # from 5+ days ago is stale (the institutional repricing has
+        # already started or the move has already faded). Tighter than
+        # Screen 0's window because the thesis itself has a tighter clock.
+        "decision_window_days": 3,
+        # Holding window: 15 trading days. Screen 1's thesis says
+        # institutional reading-and-repricing happens within ~3 weeks of
+        # the AI announcement. After 15 days, the sympathy-fade thesis
+        # has failed for that name and the position is force-exited
+        # regardless of P&L (the discipline that prevents Screen 1
+        # drifting into long-term value territory).
+        "holding_window_days": 15,
+        # Portfolio-pass model: Haiku 4.5 (matches Screen 0 convention).
+        # Discovery model is Opus, hardcoded in ai_sympathy.py.
+        "claude_model": CLAUDE_PORTFOLIO_MODEL,
+    },
 ]
 
 # ============================================================
