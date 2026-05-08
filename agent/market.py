@@ -150,39 +150,6 @@ def filter_unusual_movers(
     return interesting[:cap]
 
 
-def fetch_taiwan_quotes() -> dict[str, dict[str, Any]]:
-    """Fetch Taiwan context quotes."""
-    return fetch_context_quotes(config.TAIWAN_CONTEXT)
-
-
-def fetch_adr_arb_opportunities() -> list[dict[str, Any]]:
-    """
-    Compare ADR vs local Taiwan listing for divergence.
-    A meaningful divergence (after FX) often signals overnight news
-    one market hasn't priced in yet.
-    """
-    out = []
-    for adr, local in config.TAIWAN_ADR_PAIRS:
-        try:
-            adr_data = fetch_context_quotes([adr]).get(adr, {})
-            local_data = fetch_context_quotes([local]).get(local, {})
-            if "error" in adr_data or "error" in local_data:
-                continue
-            out.append({
-                "adr": adr,
-                "local": local,
-                "adr_change_pct": adr_data.get("change_pct"),
-                "local_change_pct": local_data.get("change_pct"),
-                "divergence_pct": round(
-                    (adr_data.get("change_pct") or 0) - (local_data.get("change_pct") or 0),
-                    2,
-                ),
-            })
-        except Exception:
-            continue
-    return out
-
-
 # ============================================================
 # Candidate ticker sources
 # ============================================================

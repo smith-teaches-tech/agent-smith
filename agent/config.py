@@ -117,47 +117,6 @@ AI_NEWS_SOURCES = [
     ("The Information AI", "https://www.theinformation.com/feed"),
 ]
 
-# Taiwan financial news (Chinese — translated by Claude in analysis pass)
-TAIWAN_NEWS_SOURCES_ZH = [
-    ("Anue 鉅亨網", "https://www.cnyes.com/rss/cat/tw_stock"),
-    ("Economic Daily 經濟日報", "https://money.udn.com/rssfeed/news/1001/5590/5612?ch=money"),
-    ("CommonWealth 天下", "https://www.cw.com.tw/rss/finance"),
-]
-
-# Taiwan English-language sources
-TAIWAN_NEWS_SOURCES_EN = [
-    ("Focus Taiwan Business", "https://focustaiwan.tw/rss/business.xml"),
-    ("Taipei Times Business", "https://www.taipeitimes.com/xml/biz.rss"),
-    ("DigiTimes", "https://www.digitimes.com/rss/daily.xml"),
-]
-
-# ============================================================
-# TAIWAN COVERAGE
-# ============================================================
-
-# Major Taiwan tickers for context (.TW = Taiwan Stock Exchange)
-TAIWAN_CONTEXT = [
-    "2330.TW",  # TSMC
-    "2454.TW",  # MediaTek
-    "2317.TW",  # Hon Hai / Foxconn
-    "2308.TW",  # Delta Electronics
-    "2382.TW",  # Quanta Computer
-    "3008.TW",  # Largan Precision
-    "3711.TW",  # ASE Technology
-    "2303.TW",  # UMC
-    "^TWII",    # TAIEX index
-    "0050.TW",  # FTSE TWSE Taiwan 50 ETF
-    "EWT",      # iShares MSCI Taiwan (US-listed)
-]
-
-# ADRs to monitor for arbitrage vs local listing
-TAIWAN_ADR_PAIRS = [
-    ("TSM", "2330.TW"),
-    ("UMC", "2303.TW"),
-    ("ASX", "3711.TW"),
-    ("HIMX", "3504.TW"),
-]
-
 # ============================================================
 # TRUMP POSTS
 # ============================================================
@@ -187,7 +146,6 @@ NEWS_LOOKBACK_HOURS = 12
 # ============================================================
 
 OUTPUT_LATEST_US = "docs/data/latest_us.json"
-OUTPUT_LATEST_TW = "docs/data/latest_tw.json"
 OUTPUT_HISTORY_DIR = "docs/data/history"
 
 # ============================================================
@@ -196,7 +154,7 @@ OUTPUT_HISTORY_DIR = "docs/data/history"
 
 # Current grading logic version. Stamped into every grade so
 # threshold changes don't invalidate historical results.
-GRADING_LOGIC_VERSION = 2
+GRADING_LOGIC_VERSION = 1
 
 # ±pct move within horizon to count as HIT or MISS
 GRADING_HIT_THRESHOLD_PCT = 3.0

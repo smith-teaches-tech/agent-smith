@@ -3,8 +3,6 @@ agent-smith main orchestrator.
 
 Run modes:
   python -m agent.main us       # US discovery + AI passes
-  python -m agent.main tw       # Taiwan pass only
-  python -m agent.main all      # Everything
 
 Output written to docs/data/ as JSON for the dashboard to render.
 A copy is also archived in docs/data/history/ with timestamp.
@@ -208,41 +206,6 @@ def run_us(tickers_override: list[str] | None = None) -> dict[str, Any]:
     return output
 
 
-def run_tw() -> dict[str, Any]:
-    """Run Taiwan analysis pass."""
-    print("[tw] fetching Taiwan market context...")
-    quotes = market.fetch_taiwan_quotes()
-
-    print("[tw] checking ADR arbitrage...")
-    adr = market.fetch_adr_arb_opportunities()
-
-    print("[tw] fetching Taiwan news...")
-    tw_news = news.fetch_taiwan_news()
-    print(f"[tw] {len(tw_news['zh'])} ZH items, {len(tw_news['en'])} EN items")
-
-    print("[tw] running Taiwan analysis (Claude)...")
-    tw_analysis = analyze.run_taiwan_pass(
-        taiwan_quotes=quotes,
-        taiwan_news_zh=tw_news["zh"],
-        taiwan_news_en=tw_news["en"],
-        adr_arb=adr,
-    )
-
-    output = {
-        "generated_at": datetime.now(timezone.utc).isoformat(),
-        "market_context": quotes,
-        "adr_arbitrage": adr,
-        "news_counts": {"zh": len(tw_news["zh"]), "en": len(tw_news["en"])},
-        "analysis": tw_analysis,
-    }
-    _write_output(output, config.OUTPUT_LATEST_TW, "tw")
-    return output
-
-# ============================================================
-# PATCH 2: Add this helper to main.py (place it after run_tw()
-# and before the CLI/main entrypoint at the bottom).
-# ============================================================
- 
 def run_portfolio(us_output: dict[str, Any] | None = None) -> dict[str, Any]:
     """
     Portfolio pass: refresh mark-to-market, let Claude decide what to do,
@@ -629,7 +592,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="agent-smith orchestrator")
     parser.add_argument(
         "mode",
-        choices=["us", "tw", "all"],
+        choices=["us"],
         help="which analysis to run",
     )
     parser.add_argument(
@@ -678,45 +641,31 @@ def main() -> None:
         print(f"[main] --tickers active: scan replaced with {len(tickers_override)} hand-picked names: {','.join(tickers_override)}")
 
     us_output = None
-    if args.mode in ("us", "all"):
-        try:
-            us_output = run_us(tickers_override=tickers_override)
-        except Exception as e:
-            print(f"[us] FAILED: {e}", file=sys.stderr)
-            if args.mode == "us":
-                sys.exit(1)
+    try:
+        us_output = run_us(tickers_override=tickers_override)
+    except Exception as e:
+        print(f"[us] FAILED: {e}", file=sys.stderr)
+        sys.exit(1)
 
-    if args.mode in ("tw", "all"):
-        try:
-            run_tw()
-        except Exception as e:
-            print(f"[tw] FAILED: {e}", file=sys.stderr)
-            if args.mode == "tw":
-                sys.exit(1)
-
-    # Grading runs on every US/all invocation; cheap (no LLM) and builds history.
-    if args.mode in ("us", "all"):
-        try:
-            print("[grading] running...")
-            grading_out = grading.run()
-            n = grading_out.get("overall", {}).get("n_resolved", 0)
-            total = grading_out.get("n_total_calls", 0)
-            print(f"[grading] {n}/{total} calls resolved; wrote {config.OUTPUT_TRENDS}")
-        except Exception as e:
-            print(f"[grading] FAILED: {e}")
+    # Grading runs on every US invocation; cheap (no LLM) and builds history.
+    try:
+        print("[grading] running...")
+        grading_out = grading.run()
+        n = grading_out.get("overall", {}).get("n_resolved", 0)
+        total = grading_out.get("n_total_calls", 0)
+        print(f"[grading] {n}/{total} calls resolved; wrote {config.OUTPUT_TRENDS}")
+    except Exception as e:
+        print(f"[grading] FAILED: {e}")
 
     # Portfolio pass: only on the designated 22:00 AST run (triggered via --portfolio).
     # Mark-to-market on every other run so the dashboard stays current.
     if args.portfolio:
-        if args.mode not in ("us", "all"):
-            print("[portfolio] skipped: --portfolio requires mode=us or all")
-        else:
-            try:
-                run_portfolio(us_output=us_output)
-            except Exception as e:
-                print(f"[portfolio] FAILED: {e}")
-                import traceback
-                traceback.print_exc()
+        try:
+            run_portfolio(us_output=us_output)
+        except Exception as e:
+            print(f"[portfolio] FAILED: {e}")
+            import traceback
+            traceback.print_exc()
     else:
         try:
             pf.refresh()

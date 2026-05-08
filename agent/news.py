@@ -101,22 +101,6 @@ def fetch_ai_news(lookback_hours: int = None) -> list[dict[str, Any]]:
     return out
 
 
-def fetch_taiwan_news(lookback_hours: int = None) -> dict[str, list[dict[str, Any]]]:
-    """
-    Fetch Taiwan news in both Chinese and English.
-    Returns {'zh': [...], 'en': [...]} — analyzer translates Chinese as needed.
-    """
-    if lookback_hours is None:
-        lookback_hours = config.NEWS_LOOKBACK_HOURS
-    zh: list[dict[str, Any]] = []
-    en: list[dict[str, Any]] = []
-    for name, url in config.TAIWAN_NEWS_SOURCES_ZH:
-        zh.extend(fetch_rss_feed(name, url, lookback_hours))
-    for name, url in config.TAIWAN_NEWS_SOURCES_EN:
-        en.extend(fetch_rss_feed(name, url, lookback_hours))
-    return {"zh": zh, "en": en}
-
-
 if __name__ == "__main__":
     # Smoke test
     items = fetch_all_english_news(lookback_hours=24)

@@ -1,12 +1,11 @@
 """
 Claude analysis layer.
 
-Four structured analytical passes:
+Three structured analytical passes:
   1. Discovery scan (US) — find interesting movers, assess rationality
   2. AI announcement impact — with bias safeguards (Claude analyzing news
      about its own creator)
-  3. Taiwan pass — translate Chinese, analyze Taiwan-specific dynamics
-  4. Portfolio decision pass (Phase 1.5-lite) — Haiku 4.5, paper portfolio
+  3. Portfolio decision pass (Phase 1.5-lite) — Haiku 4.5, paper portfolio
 
 All passes return structured JSON for clean rendering.
 All external content is wrapped in delimiters with explicit instructions
@@ -463,114 +462,6 @@ def run_ai_pass(
         model=config.CLAUDE_MODEL,
         max_tokens=config.CLAUDE_MAX_TOKENS,
         system=AI_PASS_SYSTEM,
-        user_content=user_content,
-    )
-    return _parse_json_response(msg.content[0].text)
-
-
-# ============================================================
-# PASS 3: TAIWAN
-# ============================================================
-
-TAIWAN_SYSTEM = f"""You are analyzing the Taiwan stock market for a
-careful investor (Michael's wife) who trades locally. Output is
-BILINGUAL — provide both English and Traditional Chinese for all
-analysis text fields.
-
-Taiwan-specific dynamics to weight:
-- Foreign institutional net buy/sell drives daily moves significantly
-- TSMC moves the entire index (it's ~30% of TAIEX weight)
-- Semiconductor cycle: memory pricing, foundry utilization, capex
-- China geopolitical signals affect everything (especially small/mid cap)
-- Apple/NVIDIA supplier chain news ripples through (Foxconn, TSMC, Largan, etc.)
-- ADR vs local divergence (TSM vs 2330.TW) often signals overnight news
-
-Translate Chinese-language news items to English in your analysis,
-but preserve original Chinese where useful.
-
-{INJECTION_GUARD}
-
-{OUTPUT_DISCIPLINE}
-
-JSON SCHEMA:
-{{
-  "summary_en": "brief market read in English",
-  "summary_zh": "brief market read in Traditional Chinese",
-  "context": {{
-    "taiex_change_pct": 0.0,
-    "tsmc_change_pct": 0.0,
-    "tone": "risk-on/risk-off/mixed"
-  }},
-  "key_stories": [
-    {{
-      "headline_en": "English headline",
-      "headline_zh": "Original or translated Chinese",
-      "affected_tickers": ["2330.TW"],
-      "analysis_en": "English analysis",
-      "analysis_zh": "Traditional Chinese analysis",
-      "verdict": "rational / overdone / underdone",
-      "confidence": 3
-    }}
-  ],
-  "adr_arbitrage": [
-    {{
-      "pair": "TSM vs 2330.TW",
-      "divergence_pct": 1.2,
-      "interpretation_en": "...",
-      "interpretation_zh": "..."
-    }}
-  ],
-  "no_signals_note": "if applicable"
-}}
-"""
-
-
-def run_taiwan_pass(
-    taiwan_quotes: dict[str, Any],
-    taiwan_news_zh: list[dict[str, Any]],
-    taiwan_news_en: list[dict[str, Any]],
-    adr_arb: list[dict[str, Any]],
-) -> dict[str, Any]:
-    """Run Taiwan-specific analysis pass."""
-    user_content = "\n".join([
-        f"Run timestamp: {datetime.now(timezone.utc).isoformat()}",
-        "",
-        "<market_data>",
-        "Taiwan market context:",
-        json.dumps(taiwan_quotes, indent=2),
-        "",
-        "ADR vs local divergence:",
-        json.dumps(adr_arb, indent=2),
-        "</market_data>",
-        "",
-        "<news>",
-        "Chinese-language Taiwan financial news (translate as needed):",
-        json.dumps(taiwan_news_zh[:15], indent=2, ensure_ascii=False),
-        "",
-        "English Taiwan-relevant news:",
-        json.dumps(taiwan_news_en[:15], indent=2),
-        "</news>",
-        "",
-        "Analyze and respond with bilingual JSON per schema.",
-    ])
-
-    if NO_CLAUDE_MODE:
-        _print_prompt("taiwan", TAIWAN_SYSTEM, user_content)
-        return {
-            "summary_en": "(no-claude mode — pass skipped)",
-            "summary_zh": "(no-claude mode — pass skipped)",
-            "context": {"taiex_change_pct": 0.0, "tsmc_change_pct": 0.0, "tone": "unknown"},
-            "key_stories": [],
-            "adr_arbitrage": [],
-            "_no_claude": True,
-        }
-
-    client = _client()
-    msg = _stream_message(
-        client,
-        model=config.CLAUDE_MODEL,
-        max_tokens=config.CLAUDE_MAX_TOKENS,
-        system=TAIWAN_SYSTEM,
         user_content=user_content,
     )
     return _parse_json_response(msg.content[0].text)
