@@ -21,9 +21,17 @@ def _parse_date(entry: Any) -> datetime | None:
                 continue
     return None
 
+"""Fetch and filter a single RSS feed by recency.
+
+    Note: emits items keyed `url` (not `link`). Earlier versions of this
+    file used `link` because feedparser's entry attribute is named that
+    way, but every downstream consumer (analyze.run_ai_pass,
+    ai_events.detect_trigger, EDGAR filing dicts) reads `url`. Renamed
+    May 8 when the inconsistency was caught surfacing as missing URLs in
+    Screen 1 trigger output.
+    """
 
 def fetch_rss_feed(name: str, url: str, lookback_hours: int) -> list[dict[str, Any]]:
-    """Fetch and filter a single RSS feed by recency."""
     cutoff = datetime.now(timezone.utc) - timedelta(hours=lookback_hours)
     items: list[dict[str, Any]] = []
     try:
@@ -36,7 +44,7 @@ def fetch_rss_feed(name: str, url: str, lookback_hours: int) -> list[dict[str, A
                 "source": name,
                 "title": entry.get("title", "").strip(),
                 "summary": _clean(entry.get("summary", ""))[:500],
-                "link": entry.get("link", ""),
+                "url": entry.get("link", ""),  # feedparser exposes it as `link`; we standardize on `url`
                 "published": pub.isoformat() if pub else None,
             })
     except Exception as e:
