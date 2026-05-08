@@ -790,3 +790,97 @@ def run_portfolio_pass(
         user_content=user_content,
     )
     return _parse_json_response(msg.content[0].text)
+
+
+# ============================================================
+# PASS 3b: PORTFOLIO DECISIONS — SCREEN 1 (AI-event sympathy fade)
+# ============================================================
+# Sibling of run_portfolio_pass for Screen 1. Delegates prompt construction
+# to ai_sympathy.build_screen_1_portfolio_prompt — that's where Screen 1's
+# 15-day-window discipline, threat_assessment / panic_calibration framing,
+# and BUY-eligibility rules live.
+#
+# Output schema is intentionally identical to Screen 0's (run_summary +
+# position_decisions + new_decisions) so main.run_portfolio_for_screen's
+# apply-decisions block stays screen-agnostic — the screen-specific
+# reasoning is in the prompt, not in the response container.
+#
+# Screen 1 doesn't currently consume trends_summary in its user_content
+# (the builder ignores it), but the parameter is accepted for signature
+# parity with run_portfolio_pass — straightforward to surface if Screen 1
+# wants per-screen calibration data later.
+
+def run_portfolio_pass_screen_1(
+    *,
+    portfolio_state: dict[str, Any],
+    recent_flags: list[dict[str, Any]],
+    screen_config: dict[str, Any],
+    trends_summary: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """
+    Execute Screen 1's portfolio decision pass.
+
+    Args:
+      portfolio_state: portfolio.load_state(screen_id="screen_1") output
+                       after mark-to-market.
+      recent_flags:    Screen 1 discoveries from the last N days
+                       (already-filtered by the caller — main.py reads
+                       screen_1_us.json + history/screen_1_us_*.json).
+      screen_config:   the SCREENS registry entry for screen_1.
+      trends_summary:  trends.json contents (or None). Currently unused
+                       by the Screen 1 builder; accepted for signature
+                       parity with run_portfolio_pass.
+
+    Returns JSON per SCREEN_1_PORTFOLIO_SYSTEM's schema, which mirrors
+    Screen 0's portfolio schema (position_decisions + new_decisions).
+    """
+    # Local import to avoid a circular import at module load time —
+    # ai_sympathy itself imports from analyze (NO_CLAUDE_MODE,
+    # _stream_message, _parse_json_response).
+    from .screens import ai_sympathy
+
+    system, user_content = ai_sympathy.build_screen_1_portfolio_prompt(
+        portfolio_state=portfolio_state,
+        recent_flags=recent_flags,
+        screen_config=screen_config,
+    )
+
+    if NO_CLAUDE_MODE:
+        _print_prompt("portfolio_screen_1", system, user_content)
+        # Same safe-default stub shape as Screen 0: HOLD every open position,
+        # SKIP every recent flag. main's apply-decisions block iterates these
+        # screen-agnostically and the run completes cleanly.
+        return {
+            "run_summary": "(no-claude mode — pass skipped)",
+            "position_decisions": [
+                {
+                    "ticker": p["ticker"],
+                    "next_action": "HOLD",
+                    "thesis_status": "intact",
+                    "shares_to_sell": 0,
+                    "reasoning": "(no-claude mode)",
+                    "confidence_in_decision": 3,
+                }
+                for p in portfolio_state.get("open_positions", [])
+            ],
+            "new_decisions": [
+                {
+                    "ticker": f.get("ticker"),
+                    "decision": "SKIP",
+                    "reasoning": "(no-claude mode)",
+                    "confidence_in_decision": 3,
+                }
+                for f in recent_flags
+            ],
+            "_no_claude": True,
+        }
+
+    client = _client()
+    msg = _stream_message(
+        client,
+        model=screen_config.get("claude_model") or config.CLAUDE_PORTFOLIO_MODEL,
+        max_tokens=config.CLAUDE_PORTFOLIO_MAX_TOKENS,
+        system=system,
+        user_content=user_content,
+    )
+    return _parse_json_response(msg.content[0].text)

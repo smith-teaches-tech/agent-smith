@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-08T16:44:15.222628+00:00",
+  "generated_at": "2026-05-08T17:31:01.802735+00:00",
   "logic_version": 2,
   "grading_params": {
     "hit_threshold_pct": 3.0,
@@ -84,37 +84,13 @@
     }
   },
   "by_sector": {
-    "Communication Services": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Financial Services (misclassified as Tech)": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Industrials": {
+    "Consumer Cyclical": {
       "n_resolved": 1,
       "n_hit": 0,
       "n_miss": 1,
       "n_ambiguous": 0,
       "hit_rate": 0.0,
-      "avg_return_pct": -8.35
-    },
-    "Technology": {
-      "n_resolved": 2,
-      "n_hit": 2,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": 100.0,
-      "avg_return_pct": 18.34
+      "avg_return_pct": -7.56
     },
     "Healthcare": {
       "n_resolved": 0,
@@ -124,15 +100,23 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Real Estate": {
-      "n_resolved": 0,
-      "n_hit": 0,
+    "Technology": {
+      "n_resolved": 2,
+      "n_hit": 2,
       "n_miss": 0,
       "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
+      "hit_rate": 100.0,
+      "avg_return_pct": 18.34
     },
-    "Basic Materials": {
+    "Industrials": {
+      "n_resolved": 1,
+      "n_hit": 0,
+      "n_miss": 1,
+      "n_ambiguous": 0,
+      "hit_rate": 0.0,
+      "avg_return_pct": -8.35
+    },
+    "Consumer Defensive": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -148,15 +132,23 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Consumer Cyclical": {
-      "n_resolved": 1,
+    "Real Estate": {
+      "n_resolved": 0,
       "n_hit": 0,
-      "n_miss": 1,
+      "n_miss": 0,
       "n_ambiguous": 0,
-      "hit_rate": 0.0,
-      "avg_return_pct": -7.56
+      "hit_rate": null,
+      "avg_return_pct": null
     },
-    "Consumer Defensive": {
+    "Financial Services (misclassified as Tech)": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Communication Services": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -165,6 +157,14 @@
       "avg_return_pct": null
     },
     "Healthcare - Biotechnology": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Basic Materials": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -2315,11 +2315,11 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": 10.94,
+      "return_pct_in_horizon": 11.19,
       "max_favorable_pct": 13.57,
       "max_adverse_pct": -0.13,
       "price_at_flag": 405.09,
-      "price_at_horizon_end": 449.4,
+      "price_at_horizon_end": 450.4,
       "logic_version": 2,
       "notes": "only 4 bars elapsed",
       "screen_id": "screen_0"

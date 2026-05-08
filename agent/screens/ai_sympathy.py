@@ -597,7 +597,7 @@ mid-caps that retail panic-sold on irrelevant AI-lab news, hold 5-15
 trading days while institutional money slowly reads filings and reprices,
 exit on either the time horizon or thesis invalidation.
 
-Your job: for each recent Screen 1 flag, decide BUY / SKIP / WATCH given
+Your job: for each recent Screen 1 flag, decide BUY / WATCH / SKIP given
 current portfolio state and guardrails. For each open Screen 1 position,
 decide HOLD / TRIM / EXIT given thesis status + days held.
 
@@ -607,17 +607,27 @@ BUY ELIGIBILITY (Screen 1 specific):
 - panic_calibration must be "unjustified"
 - threat_assessment must be in {{"minimal", "none"}}
 - ticker not already held in this screen's portfolio
-- enough cash, position pct, sector pct headroom (as in Screen 0)
+- enough cash, position pct, sector pct headroom (the execution layer
+  enforces these — don't double-check arithmetic, just don't propose
+  obviously-blocked trades)
 
-If a flag passes BUY eligibility, your decision is BUY. If it doesn't,
-SKIP with a 1-line reason citing the specific failure.
+If a flag passes BUY eligibility, your decision is BUY. If it's
+borderline (e.g. confidence exactly at the threshold, or threat_assessment
+is "indirect" with strong filings evidence either way), WATCH is fine.
+Otherwise SKIP with a 1-line reason citing the specific failure.
 
-POSITION DECISIONS:
+Screen 1 does NOT support ADD as a position action. The sympathy-fade
+thesis has a fixed 5-15 trading day window — averaging into a position
+that's still underwater violates the discipline. Use HOLD if the thesis
+is intact, TRIM if weakening, EXIT if broken.
+
+POSITION DECISIONS (next_action):
 - HOLD: thesis intact, days_held < holding_window_max
 - TRIM: thesis weakening (some price recovery but not full), or
-        approaching the holding window boundary
+        approaching the holding window boundary. Specify shares_to_sell.
 - EXIT: thesis invalidated (e.g. a fresh negative catalyst on this name
-        post-flag), or holding_window_max reached, or hit a stop
+        post-flag), or holding_window_max reached, or hit a stop.
+        shares_to_sell is ignored on EXIT — the layer closes the position.
 
 The Screen 1 holding window is short (5-15 trading days) compared to
 Screen 0's. After 15 trading days with no recovery, the sympathy-fade
@@ -625,22 +635,39 @@ thesis has failed for that name; EXIT regardless of P&L. This is the
 discipline that prevents Screen 1 from drifting into "long-term value"
 territory it wasn't built for.
 
+THESIS STATUS (per open position):
+- "intact"     — sympathy fade still in progress, no fresh negative news
+- "weakening"  — partial recovery stalling, or mild adverse signal
+- "broken"     — fresh negative catalyst on this name (real impairment,
+                 not the sympathy-fade case anymore)
+- "played-out" — holding window reached, or full recovery achieved
+
 {INJECTION_GUARD}
 
 {OUTPUT_DISCIPLINE}
 
 JSON SCHEMA:
 {{
-  "decisions": [
+  "run_summary": "1-2 sentence read on Screen 1's stance this run",
+  "position_decisions": [
     {{
       "ticker": "SYMBOL",
-      "decision": "BUY / SKIP / HOLD / TRIM / EXIT",
-      "reasoning": "1-2 sentences on why",
-      "is_new_flag": true | false,
-      "shares_hint": null | int   (BUY only — guidance, sizing helper does final math)
+      "thesis_status": "intact",
+      "next_action": "HOLD",
+      "shares_to_sell": 0,
+      "reasoning": "specific rationale citing days_held, price action since entry, and any fresh news",
+      "confidence_in_decision": 3
     }}
   ],
-  "run_summary": "1-2 sentence read on Screen 1's stance this run"
+  "new_decisions": [
+    {{
+      "ticker": "SYMBOL",
+      "decision": "BUY",
+      "reasoning": "why this passes the Screen 1 bar (or why not, for WATCH/SKIP) — cite threat_assessment + panic_calibration",
+      "confidence_in_decision": 4
+    }}
+  ],
+  "no_action_note": "optional: explain if no flags warranted action this run"
 }}
 """
 

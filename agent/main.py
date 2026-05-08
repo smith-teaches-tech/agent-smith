@@ -19,11 +19,13 @@ is unchanged from F1. Screen 1 is wired in at three points:
   3. The existing F1 portfolio orchestrator iterates config.SCREENS, so
      Screen 1's portfolio pass runs automatically once it's registered.
 
-For F2 ship, Screen 1 reuses Screen 0's generic portfolio prompt
-(analyze.run_portfolio_pass). A Screen 1-specific portfolio prompt
-(ai_sympathy.build_screen_1_portfolio_prompt) is built but not yet
-wired — it'll land as a follow-up once we've watched Screen 1 run for
-a few days against the generic prompt.
+For F2 ship, Screen 1 reuses Screen 0's apply-decisions block by emitting
+the same JSON schema (position_decisions + new_decisions). Its prompt is
+its own — analyze.run_portfolio_pass_screen_1 dispatches to
+ai_sympathy.build_screen_1_portfolio_prompt for the 15-day-window
+discipline and threat_assessment / panic_calibration framing. The
+screen-agnostic apply block downstream sees a uniform shape from both
+screens.
 """
 import sys
 import json
@@ -430,11 +432,23 @@ def run_portfolio_for_screen(
     # screen. For F1 every screen inherits CLAUDE_PORTFOLIO_MODEL.
     claude_model = screen["claude_model"]
     print(f"[portfolio] running decision pass ({claude_model})...")
-    decisions = analyze.run_portfolio_pass(
-        portfolio_state=state,
-        recent_flags=recent_flags,
-        trends_summary=trends_summary,
-    )
+    if screen_id == "screen_1":
+        # Screen 1 uses its own portfolio prompt (15-day discipline,
+        # threat_assessment / panic_calibration framing). Output schema
+        # matches Screen 0's, so the apply-decisions block below stays
+        # screen-agnostic.
+        decisions = analyze.run_portfolio_pass_screen_1(
+            portfolio_state=state,
+            recent_flags=recent_flags,
+            screen_config=screen,
+            trends_summary=trends_summary,
+        )
+    else:
+        decisions = analyze.run_portfolio_pass(
+            portfolio_state=state,
+            recent_flags=recent_flags,
+            trends_summary=trends_summary,
+        )
 
     if "_parse_error" in decisions:
         print(f"[portfolio] ERROR: decision pass returned unparseable JSON: {decisions['_parse_error']}")

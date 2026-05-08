@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-05-08T17:31:01.610671+00:00",
+  "generated_at": "2026-05-08T17:25:21.954439+00:00",
   "screen_id": "screen_1",
   "status": "SKIPPED",
   "trigger": {
     "fired": true,
-    "reason": "OpenAI launched new voice intelligence features in its API with explicit applications in customer service, education, and creator platforms—a capability demo from a top-tier lab targeting vertical use cases that will likely trigger sympathy-fade selling in customer-service software and edtech stocks.",
+    "reason": "OpenAI launched new voice intelligence features in its API targeting customer service, education, and creator platforms—a concrete product release from a top-tier lab with clear applicability to adjacent listed sectors (customer-service software, edtech).",
     "primary_event": {
       "source_lab": "OpenAI",
       "is_anthropic": false,
       "headline": "OpenAI launches new voice intelligence features in its API",
-      "summary": "OpenAI announced new voice intelligence capabilities available through its API, designed for customer service systems and with applications across education and creator platforms. The release expands OpenAI's tooling for voice-driven automation across multiple verticals.",
+      "summary": "OpenAI released new voice intelligence capabilities for its API with applications spanning customer service systems, education, and creator platforms. The features extend OpenAI's API toolkit and lower barriers to voice-based automation across multiple verticals.",
       "substance_type": "capability_demo",
       "url": "https://techcrunch.com/2026/05/07/openai-launches-new-voice-intelligence-features-in-its-api/",
       "published_iso": "2026-05-07T22:24:50+00:00",
@@ -18,11 +18,15 @@
         "customer-service software",
         "edtech",
         "creator platforms",
-        "contact-center solutions",
-        "voice automation tools"
+        "contact center automation"
       ]
     },
     "secondary_events": [
+      {
+        "source_lab": "OpenAI",
+        "headline": "OpenAI introduces new 'Trusted Contact' safeguard for cases of possible self-harm",
+        "url": "https://techcrunch.com/2026/05/07/openai-introduces-new-trusted-contact-safeguard-for-cases-of-possible-self-harm/"
+      },
       {
         "source_lab": "Perplexity",
         "headline": "Perplexity's Personal Computer is now available to everyone on Mac",
@@ -33,7 +37,7 @@
     "_status": "ok"
   },
   "discovery": {
-    "trigger_acknowledgment": "OpenAI launched new voice intelligence features in its API with explicit applications in customer service, education, and creator platforms—a capability demo from a top-tier lab targeting vertical use cases that will likely trigger sympathy-fade selling in customer-service software and edtech stocks.",
+    "trigger_acknowledgment": "OpenAI launched new voice intelligence features in its API targeting customer service, education, and creator platforms—a concrete product release from a top-tier lab with clear applicability to adjacent listed sectors (customer-service software, edtech).",
     "run_summary": "trigger fired but no AI-adjacent candidates moved meaningfully today",
     "discoveries": [],
     "skipped": [],

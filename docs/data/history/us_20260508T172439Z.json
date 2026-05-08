@@ -1,0 +1,384 @@
+{
+  "generated_at": "2026-05-08T17:24:39.791642+00:00",
+  "status": {
+    "discovery": "OK",
+    "ai_analysis": "OK",
+    "errors": []
+  },
+  "market_context": {
+    "SPY": {
+      "price": 737.65,
+      "change_pct": 0.83,
+      "volume": 20727121,
+      "high": 737.75,
+      "low": 734.57
+    },
+    "QQQ": {
+      "price": 710.11,
+      "change_pct": 2.18,
+      "volume": 25440847,
+      "high": 710.22,
+      "low": 699.53
+    },
+    "DIA": {
+      "price": 495.89,
+      "change_pct": -0.0,
+      "volume": 1994483,
+      "high": 498.54,
+      "low": 495.64
+    },
+    "IWM": {
+      "price": 283.89,
+      "change_pct": 0.58,
+      "volume": 11612555,
+      "high": 284.17,
+      "low": 282.61
+    },
+    "^VIX": {
+      "price": 17.29,
+      "change_pct": 1.23,
+      "volume": 0,
+      "high": 17.45,
+      "low": 16.82
+    },
+    "XLK": {
+      "price": 175.19,
+      "change_pct": 3.24,
+      "volume": 5004468,
+      "high": 175.2,
+      "low": 171.31
+    },
+    "XLF": {
+      "price": 51.26,
+      "change_pct": -0.57,
+      "volume": 13754770,
+      "high": 51.74,
+      "low": 51.21
+    },
+    "XLE": {
+      "price": 55.9,
+      "change_pct": -0.1,
+      "volume": 17289513,
+      "high": 56.22,
+      "low": 55.47
+    },
+    "XLV": {
+      "price": 143.4,
+      "change_pct": -0.91,
+      "volume": 5834152,
+      "high": 145.05,
+      "low": 143.27
+    },
+    "XLI": {
+      "price": 173.84,
+      "change_pct": -0.09,
+      "volume": 3296561,
+      "high": 175.32,
+      "low": 173.49
+    },
+    "XLP": {
+      "price": 84.53,
+      "change_pct": 0.65,
+      "volume": 6417599,
+      "high": 84.8,
+      "low": 84.21
+    },
+    "XLY": {
+      "price": 120.47,
+      "change_pct": 0.5,
+      "volume": 3033231,
+      "high": 121.13,
+      "low": 119.94
+    },
+    "XLU": {
+      "price": 44.92,
+      "change_pct": -0.43,
+      "volume": 10537658,
+      "high": 45.51,
+      "low": 44.7
+    },
+    "XLB": {
+      "price": 51.74,
+      "change_pct": 0.65,
+      "volume": 4873232,
+      "high": 51.9,
+      "low": 51.51
+    },
+    "XLRE": {
+      "price": 44.58,
+      "change_pct": 0.41,
+      "volume": 1822146,
+      "high": 44.72,
+      "low": 44.45
+    },
+    "XLC": {
+      "price": 116.75,
+      "change_pct": -0.54,
+      "volume": 2599538,
+      "high": 117.18,
+      "low": 116.64
+    },
+    "SMH": {
+      "price": 565.7,
+      "change_pct": 4.74,
+      "volume": 4545695,
+      "high": 565.76,
+      "low": 549.11
+    },
+    "XBI": {
+      "price": 135.43,
+      "change_pct": 1.32,
+      "volume": 6567289,
+      "high": 135.47,
+      "low": 133.27
+    },
+    "ITA": {
+      "price": 223.92,
+      "change_pct": 0.63,
+      "volume": 350634,
+      "high": 224.65,
+      "low": 222.82
+    },
+    "KRE": {
+      "price": 69.68,
+      "change_pct": -0.39,
+      "volume": 5177664,
+      "high": 70.3,
+      "low": 69.64
+    },
+    "NVDA": {
+      "price": 215.79,
+      "change_pct": 2.03,
+      "volume": 82640042,
+      "high": 217.8,
+      "low": 212.89
+    },
+    "MSFT": {
+      "price": 416.92,
+      "change_pct": -0.91,
+      "volume": 14905493,
+      "high": 418.63,
+      "low": 414.36
+    },
+    "AAPL": {
+      "price": 291.98,
+      "change_pct": 1.58,
+      "volume": 25563104,
+      "high": 294.76,
+      "low": 290.0
+    },
+    "GOOGL": {
+      "price": 397.96,
+      "change_pct": -0.01,
+      "volume": 9980425,
+      "high": 401.37,
+      "low": 396.36
+    },
+    "AMZN": {
+      "price": 272.84,
+      "change_pct": 0.62,
+      "volume": 16758318,
+      "high": 273.49,
+      "low": 269.95
+    },
+    "META": {
+      "price": 609.74,
+      "change_pct": -1.15,
+      "volume": 7324666,
+      "high": 616.77,
+      "low": 606.06
+    },
+    "TSLA": {
+      "price": 426.79,
+      "change_pct": 3.64,
+      "volume": 43644282,
+      "high": 431.2,
+      "low": 416.39
+    },
+    "AVGO": {
+      "price": 432.94,
+      "change_pct": 4.94,
+      "volume": 10812387,
+      "high": 433.31,
+      "low": 414.0
+    },
+    "TSM": {
+      "price": 406.12,
+      "change_pct": -1.94,
+      "volume": 11277511,
+      "high": 416.98,
+      "low": 400.9
+    },
+    "ORCL": {
+      "price": 196.17,
+      "change_pct": 0.81,
+      "volume": 13706221,
+      "high": 198.0,
+      "low": 190.21
+    }
+  },
+  "movers_count": 0,
+  "news_count": 101,
+  "trump_posts_count": 17,
+  "discovery": {
+    "run_summary": "Tech-led risk-on tape with SMH +4.7% and QQQ +2.2% diverging sharply from flat DIA and weaker XLF/XLV. Movers feed is empty, so no mid-cap discoveries to flag tonight; the actionable signal is the Trump EU tariff deadline post and a memory/AI infrastructure theme building (DRAM ETF inflows, Akamai +20%, Nintendo flagging memory crunch).",
+    "market_context": {
+      "tone": "risk-on (concentrated in semis/tech)",
+      "notable_index_moves": [
+        "SMH +4.74% and XLK +3.24% vs DIA flat — narrow leadership, classic semi-led melt-up",
+        "AVGO +4.94% and NVDA +2.03% leading; TSM -1.94% diverging negatively, worth watching for tariff/Taiwan-specific concern",
+        "XLF -0.57% and KRE -0.39% weak despite risk-on tape — soft underbelly",
+        "VIX +1.23% to 17.29 rising alongside SPY up — non-confirmation worth noting"
+      ]
+    },
+    "discoveries": [],
+    "catalyst_chains": [
+      {
+        "primary_event": "Memory crunch theme intensifying: Nintendo hiking Switch 2 price $50 citing memory costs, DRAM ETF added $1B in a day, Akamai +20% on $1.8B AI infra deal",
+        "primary_ticker": "DRAM",
+        "secondary_opportunities": [
+          {
+            "ticker": "MU",
+            "relationship": "primary beneficiary of DRAM/HBM pricing",
+            "expected_direction": "up",
+            "confidence": 4
+          },
+          {
+            "ticker": "WDC",
+            "relationship": "memory/storage beneficiary",
+            "expected_direction": "up",
+            "confidence": 3
+          },
+          {
+            "ticker": "STX",
+            "relationship": "storage peer, sympathy",
+            "expected_direction": "up",
+            "confidence": 2
+          },
+          {
+            "ticker": "SMCI",
+            "relationship": "AI infra build-out beneficiary",
+            "expected_direction": "up",
+            "confidence": 2
+          }
+        ]
+      },
+      {
+        "primary_event": "TSM -1.94% diverging from semi rally (SMH +4.74%, AVGO +4.94%, NVDA +2.03%)",
+        "primary_ticker": "TSM",
+        "secondary_opportunities": [
+          {
+            "ticker": "AVGO",
+            "relationship": "TSM customer — divergence suggests tariff/geographic-specific concern at TSM rather than sector",
+            "expected_direction": "up",
+            "confidence": 2
+          }
+        ]
+      }
+    ],
+    "trump_signals": [
+      {
+        "post_summary": "Trump set July 4 deadline for EU to ratify trade deal and cut tariffs to zero, threatening 'much higher' tariffs otherwise. Framed as a Von der Leyen call.",
+        "potentially_affected": [
+          "STLA",
+          "VWAGY",
+          "BMWYY",
+          "MBGYY",
+          "LVMUY",
+          "DEO",
+          "BUD"
+        ],
+        "note": "Standard TACO-pattern setup: hard deadline + threat language, but framed cordially ('great call'). Market has likely learned to fade these — note SPY +0.83% same day. EU autos and luxury most exposed if deadline holds; US importers of EU goods (autos parts, spirits, luxury retail) face cost pressure. Watch for whether EU response is conciliatory or confrontational into next week. Mid-cap US names with EU revenue exposure (e.g., spirits distributors, specialty importers) worth scanning but no specific mid-cap mover to flag tonight."
+      }
+    ],
+    "no_signals_note": "Movers feed was empty — no mid-cap candidates surfaced to analyze. Index/sector data shows a clean semi-led risk-on day with memory as the visible sub-theme, and a Trump EU tariff post that markets shrugged off. Honest output: nothing in the discovery feed to underwrite specific mispricing calls. The catalyst chains and Trump signal above are forward-looking pointers, not reactions to specific moves."
+  },
+  "ai_analysis": {
+    "ai_announcements": [
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": false,
+        "headline": "OpenAI launches new voice intelligence features in its API",
+        "summary": "OpenAI added voice intelligence features to its API targeting customer service, education, and creator platforms.",
+        "affected_stocks": [
+          {
+            "ticker": "NICE",
+            "current_move_pct": 0.0,
+            "direct_overlap": "medium",
+            "switching_cost": "high",
+            "counter_thesis": "NICE already partners with OpenAI/embeds LLMs; voice API is a building block, not a turnkey contact center. Enterprise CCaaS requires workflow, compliance, WFM that NICE owns.",
+            "time_horizon": "1-2yr",
+            "already_priced_in_assessment": "partial",
+            "verdict": "RATIONAL",
+            "confidence": 2,
+            "research_pointers": [
+              "Check if NICE moved on the news",
+              "Compare to prior OpenAI voice releases (Realtime API) and NICE/FIVN reaction"
+            ]
+          },
+          {
+            "ticker": "FIVN",
+            "current_move_pct": 0.0,
+            "direct_overlap": "medium",
+            "switching_cost": "medium",
+            "counter_thesis": "Five9 has its own AI agents and OpenAI partnership; voice intelligence in API form does not equal a deployable contact center.",
+            "time_horizon": "1-2yr",
+            "already_priced_in_assessment": "partial",
+            "verdict": "RATIONAL",
+            "confidence": 2,
+            "research_pointers": [
+              "Look for sympathy moves vs no market reaction listed"
+            ]
+          }
+        ]
+      },
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": false,
+        "headline": "Perplexity Personal Computer available to all Mac users",
+        "summary": "Perplexity's agentic Mac app opens to general availability.",
+        "affected_stocks": [
+          {
+            "ticker": "GOOGL",
+            "current_move_pct": 0.0,
+            "direct_overlap": "low",
+            "switching_cost": "high",
+            "counter_thesis": "Search query share loss to Perplexity is a slow drip; Google has Gemini agents and Chrome distribution moat. Mac-only agent app is a niche launch.",
+            "time_horizon": "3-5yr",
+            "already_priced_in_assessment": "yes",
+            "verdict": "RATIONAL",
+            "confidence": 2,
+            "research_pointers": [
+              "Track Perplexity DAU disclosures",
+              "Apple/Perplexity rumored deal status"
+            ]
+          }
+        ]
+      },
+      {
+        "source": "TechCrunch AI",
+        "is_from_anthropic": false,
+        "headline": "SAP acquires Prior Labs for $1B; enterprise AI consolidation",
+        "summary": "SAP buys German AI startup Prior Labs; broader theme of enterprise AI M&A heating up.",
+        "affected_stocks": [
+          {
+            "ticker": "SAP",
+            "current_move_pct": 0.0,
+            "direct_overlap": "low",
+            "switching_cost": "high",
+            "counter_thesis": "Acquisition strengthens SAP's Joule/AI roadmap; $1B is small relative to SAP cap and signals offense, not defense.",
+            "time_horizon": "1-2yr",
+            "already_priced_in_assessment": "no",
+            "verdict": "RATIONAL",
+            "confidence": 2,
+            "research_pointers": [
+              "Confirm Prior Labs deal terms and tech (TabPFN tabular foundation models?)",
+              "Read-through to PLTR, ORCL on enterprise AI competitive intensity"
+            ]
+          }
+        ]
+      }
+    ],
+    "no_signals_note": "Quiet tape — market_data shows no actual stock moves to react to. News flow is incremental (OpenAI voice API, Perplexity Mac GA, SAP M&A rumor) with no obvious mispriced selloff or under-rally to flag. Anthropic mentioned only in passing (enterprise JV with OpenAI — likely loose reporting); no standalone Anthropic product news requiring bias-flagged call."
+  }
+}

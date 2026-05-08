@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-05-08T17:28:16.389728+00:00",
+  "screen_id": "screen_1",
+  "status": "SKIPPED",
+  "trigger": {
+    "fired": false,
+    "reason": "no-claude mode — classification skipped",
+    "primary_event": null,
+    "secondary_events": [],
+    "raw_news_count": 9,
+    "_status": "no_claude"
+  },
+  "discovery": {
+    "trigger_acknowledgment": "no-claude mode — classification skipped",
+    "run_summary": "no AI-event trigger fired this run: no-claude mode — classification skipped",
+    "discoveries": [],
+    "skipped": [],
+    "no_signals_note": "no AI-event trigger fired this run: no-claude mode — classification skipped",
+    "_status": "skipped"
+  }
+}
