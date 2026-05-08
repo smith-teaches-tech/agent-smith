@@ -1,12 +1,21 @@
 """
-agent-smith paper portfolio (Phase 1.5-lite).
+agent-smith paper portfolio (Phase 1.5-lite + F1 multi-screen).
 
 State machine that:
-  - Reads/writes docs/data/portfolio.json          (current state, single source of truth)
-  - Reads/writes docs/data/portfolio_history.json  (append-only audit log)
+  - Reads/writes docs/data/portfolios/{screen_id}.json          (current state per screen)
+  - Reads/writes docs/data/portfolios/{screen_id}_history.json  (append-only audit log per screen)
   - Marks positions to market via yfinance on every run
   - Applies buy/sell decisions from Claude's portfolio pass
   - Enforces guardrails: cash ≥ 0, position pct, sector pct, min cash
+
+F1 multi-screen note: every public function accepts an optional `screen_id`
+keyword argument that defaults to `config.DEFAULT_SCREEN_ID` ("screen_0").
+With one registered screen, behavior is byte-identical to pre-F1. Adding
+screens (F2+) requires no portfolio.py changes — the new screen just calls
+the same functions with its own screen_id and gets its own state file.
+
+The mutation logic itself (sizing, fees, mark-to-market, FIFO sells) is
+screen-agnostic and operates on whatever `state` dict it's handed.
 
 Executes paper trades at the **next US regular-session open** after a decision.
 That's appropriate given Michael runs the bot from Saudi Arabia (AST) and the
@@ -27,52 +36,89 @@ from . import config
 
 
 # ============================================================
-# File I/O
+# File I/O — screen-aware
 # ============================================================
 
-def _ensure_dirs() -> None:
-    Path(config.OUTPUT_PORTFOLIO).parent.mkdir(parents=True, exist_ok=True)
+def _resolve_paths(screen_id: str | None) -> dict[str, str]:
+    """
+    Resolve the (portfolio, history) file paths for a screen.
+    None falls back to DEFAULT_SCREEN_ID so callers that pre-date
+    F1 keep working without modification.
+    """
+    sid = screen_id or config.DEFAULT_SCREEN_ID
+    return config.screen_paths(sid)
 
 
-def _empty_state() -> dict[str, Any]:
+def _ensure_dirs(screen_id: str | None = None) -> None:
+    paths = _resolve_paths(screen_id)
+    Path(paths["portfolio"]).parent.mkdir(parents=True, exist_ok=True)
+
+
+def _empty_state(screen_id: str | None = None) -> dict[str, Any]:
+    """
+    Construct a fresh empty state for a given screen. The bankroll is
+    drawn from the screen's own config entry so per-screen bankrolls
+    are honored on first initialization.
+    """
+    sid = screen_id or config.DEFAULT_SCREEN_ID
+    screen = config.get_screen(sid)
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "bankroll_start": config.PAPER_PORTFOLIO_BANKROLL,
-        "cash": config.PAPER_PORTFOLIO_BANKROLL,
+        "screen_id": sid,
+        "bankroll_start": screen["bankroll"],
+        "cash": screen["bankroll"],
         "open_positions": [],
         "closed_positions": [],
         "trade_log": [],
     }
 
 
-def load_state() -> dict[str, Any]:
-    """Load current portfolio state, initializing if absent."""
-    path = Path(config.OUTPUT_PORTFOLIO)
+def load_state(screen_id: str | None = None) -> dict[str, Any]:
+    """Load current portfolio state for a screen, initializing if absent."""
+    paths = _resolve_paths(screen_id)
+    path = Path(paths["portfolio"])
     if not path.exists():
-        return _empty_state()
+        return _empty_state(screen_id)
     try:
         state = json.loads(path.read_text())
-        # Backfill any missing keys from older versions.
-        for k, v in _empty_state().items():
+        # Backfill any missing keys from older versions. screen_id is
+        # backfilled from the parameter, not the stored value, so a
+        # mis-located file (renamed across screens) gets corrected on
+        # next save.
+        for k, v in _empty_state(screen_id).items():
             state.setdefault(k, v)
+        # Ensure stored screen_id matches the one we loaded from.
+        # Defensive — catches the case where someone copies a file
+        # under a different name without re-stamping.
+        state["screen_id"] = screen_id or config.DEFAULT_SCREEN_ID
         return state
     except (json.JSONDecodeError, OSError) as e:
         print(f"[portfolio] WARN: could not parse {path}: {e}. Starting fresh.")
-        return _empty_state()
+        return _empty_state(screen_id)
 
 
-def save_state(state: dict[str, Any]) -> None:
-    _ensure_dirs()
+def save_state(state: dict[str, Any], screen_id: str | None = None) -> None:
+    """
+    Persist state to the screen's portfolio file. screen_id is taken
+    from the parameter if supplied, else from the state dict, else
+    falls back to DEFAULT_SCREEN_ID.
+    """
+    sid = screen_id or state.get("screen_id") or config.DEFAULT_SCREEN_ID
+    _ensure_dirs(sid)
     state["generated_at"] = datetime.now(timezone.utc).isoformat()
-    Path(config.OUTPUT_PORTFOLIO).write_text(
+    state["screen_id"] = sid  # keep the file's own claim consistent
+    paths = _resolve_paths(sid)
+    Path(paths["portfolio"]).write_text(
         json.dumps(state, indent=2, ensure_ascii=False)
     )
 
 
-def append_history(event: dict[str, Any]) -> None:
-    """Append-only audit log. We never rewrite earlier entries."""
-    _ensure_dirs()
-    path = Path(config.OUTPUT_PORTFOLIO_HISTORY)
+def append_history(event: dict[str, Any], screen_id: str | None = None) -> None:
+    """Append-only audit log for a screen. We never rewrite earlier entries."""
+    sid = screen_id or config.DEFAULT_SCREEN_ID
+    _ensure_dirs(sid)
+    paths = _resolve_paths(sid)
+    path = Path(paths["history"])
     history: list[dict[str, Any]] = []
     if path.exists():
         try:
@@ -81,7 +127,11 @@ def append_history(event: dict[str, Any]) -> None:
                 history = []
         except (json.JSONDecodeError, OSError):
             history = []
-    event = {"ts": datetime.now(timezone.utc).isoformat(), **event}
+    event = {
+        "ts": datetime.now(timezone.utc).isoformat(),
+        "screen_id": sid,
+        **event,
+    }
     history.append(event)
     path.write_text(json.dumps(history, indent=2, ensure_ascii=False))
 
@@ -313,11 +363,17 @@ def execute_buy(
     thesis: str,
     catalyst: str | None = None,
     reference_price: float | None = None,
+    screen_id: str | None = None,
 ) -> tuple[bool, str, dict[str, Any] | None]:
     """
     Execute a BUY at the next US regular-session open. Returns
     (success, reason, trade_dict). On failure, state is unchanged.
+
+    screen_id routes the audit-log entry to the correct per-screen
+    history file. Defaults to the state's stored screen_id, or
+    DEFAULT_SCREEN_ID if state has none (legacy state files).
     """
+    sid = screen_id or state.get("screen_id") or config.DEFAULT_SCREEN_ID
     next_open = _fetch_next_open_price(ticker)
     if next_open is None:
         return False, "no next-open price available yet; deferring", None
@@ -371,7 +427,7 @@ def execute_buy(
         "why": f"Opened per flag: {flag_classification} conf {flag_confidence} — {catalyst or 'thesis'}",
     }
     state["trade_log"].insert(0, trade)  # newest first
-    append_history({"kind": "buy", **trade})
+    append_history({"kind": "buy", **trade}, screen_id=sid)
     return True, "ok", trade
 
 
@@ -381,6 +437,7 @@ def execute_sell(
     ticker: str,
     shares: int | None = None,  # None = sell all
     exit_reasoning: str = "",
+    screen_id: str | None = None,
 ) -> tuple[bool, str, dict[str, Any] | None]:
     """
     Execute a SELL at the next US regular-session open. Closes (or trims)
@@ -388,7 +445,12 @@ def execute_sell(
 
     If the portfolio holds multiple lots of the same ticker (not currently
     allowed by the BUY path but guarded here anyway), we FIFO through them.
+
+    screen_id routes the audit-log entry to the correct per-screen
+    history file. Defaults to the state's stored screen_id, or
+    DEFAULT_SCREEN_ID if state has none (legacy state files).
     """
+    sid = screen_id or state.get("screen_id") or config.DEFAULT_SCREEN_ID
     positions = [p for p in state["open_positions"] if p["ticker"] == ticker]
     if not positions:
         return False, f"no open position in {ticker}", None
@@ -495,7 +557,7 @@ def execute_sell(
         "why": exit_reasoning or "closed position",
     }
     state["trade_log"].insert(0, trade)
-    append_history({"kind": "sell", **trade})
+    append_history({"kind": "sell", **trade}, screen_id=sid)
     return True, "ok", trade
 
 
@@ -560,21 +622,45 @@ def size_position(
 # Public entrypoint for main.py
 # ============================================================
 
-def refresh(state: dict[str, Any] | None = None) -> dict[str, Any]:
+def refresh(
+    state: dict[str, Any] | None = None,
+    screen_id: str | None = None,
+) -> dict[str, Any]:
     """
     Called every run. Marks positions to market and saves.
     Does NOT make new trading decisions — that's the portfolio pass's job.
+
+    screen_id picks which screen's portfolio file to refresh. Defaults to
+    DEFAULT_SCREEN_ID. When state is supplied, screen_id is read from
+    state["screen_id"] if not explicitly passed.
     """
+    sid = screen_id or (state.get("screen_id") if state else None) or config.DEFAULT_SCREEN_ID
     if state is None:
-        state = load_state()
+        state = load_state(screen_id=sid)
     state = mark_to_market(state)
-    save_state(state)
+    save_state(state, screen_id=sid)
     return state
 
 
+def refresh_all() -> list[dict[str, Any]]:
+    """
+    Refresh every registered screen's portfolio. Convenience for the
+    main orchestrator's non-portfolio-pass path (mark-to-market on every
+    run regardless of which run it is). Returns the list of refreshed
+    states in registration order.
+    """
+    return [refresh(screen_id=s["id"]) for s in config.SCREENS]
+
+
 if __name__ == "__main__":
-    # Quick sanity check when run directly.
-    s = load_state()
-    s = mark_to_market(s)
-    save_state(s)
-    print(f"equity=${total_equity(s):.2f} cash=${s['cash']:.2f} open={len(s['open_positions'])}")
+    # Quick sanity check when run directly. Iterates registered screens
+    # so the manual run gives an honest view of the whole paper book.
+    for screen in config.SCREENS:
+        sid = screen["id"]
+        s = load_state(screen_id=sid)
+        s = mark_to_market(s)
+        save_state(s, screen_id=sid)
+        print(
+            f"[{sid}] equity=${total_equity(s):.2f} "
+            f"cash=${s['cash']:.2f} open={len(s['open_positions'])}"
+        )

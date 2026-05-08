@@ -79,6 +79,9 @@ from typing import Any, Literal, Optional
 import yfinance as yf
 import pandas as pd
 
+from . import config
+from .classifications import normalize_classification
+
 logger = logging.getLogger(__name__)
 
 # ============================================================
@@ -89,22 +92,12 @@ logger = logging.getLogger(__name__)
 LOGIC_VERSION = 2
 
 
-def _normalize_classification(raw: Optional[str]) -> str:
-    """
-    Normalize classification labels to short forms for dashboard bucketing.
-    Discovery prompt outputs 'LIKELY OVERDONE', 'PARTIALLY OVERDONE' etc;
-    grading dashboards want just 'OVERDONE' / 'UNDERDONE' / 'RATIONAL' / 'UNCLEAR'.
-    """
-    if not raw:
-        return "UNCLEAR"
-    r = raw.upper()
-    if "OVERDONE" in r:
-        return "OVERDONE"
-    if "UNDERDONE" in r:
-        return "UNDERDONE"
-    if "RATIONAL" in r:
-        return "RATIONAL"
-    return "UNCLEAR"
+# Module-private alias for backwards compatibility with the existing
+# call sites. The canonical implementation lives in agent.classifications;
+# this module re-exports it under the old name so the diff stays small.
+# New code should import normalize_classification from agent.classifications
+# directly.
+_normalize_classification = normalize_classification
 
 
 GRADING_PARAMS = {
@@ -159,6 +152,11 @@ class Grade:
     price_at_horizon_end: Optional[float]
     logic_version: int
     notes: Optional[str] = None
+    # F1 multi-screen — which screen produced this call. None means
+    # "pre-F1 historic call, attribute to the default screen". The
+    # aggregator (compute_trends) substitutes config.DEFAULT_SCREEN_ID
+    # at read time so the by_screen bucket has no None key.
+    screen_id: Optional[str] = None
 
 
 # ============================================================
@@ -258,6 +256,11 @@ def grade_call(
         expected_direction=expected_dir,
         horizon_days=horizon_days,
         logic_version=version,
+        # F1 multi-screen: discovery dicts carry the screen_id of the
+        # screen that produced them (added in F2 onwards). Pre-F1
+        # discoveries have no field; we leave screen_id=None and the
+        # aggregator substitutes DEFAULT_SCREEN_ID at read time.
+        screen_id=discovery.get("screen_id"),
     )
 
     # Not graded — no directional call
@@ -563,6 +566,25 @@ def compute_trends(grades: list[Grade]) -> dict[str, Any]:
     for h in (5, 20, 60):
         by_horizon[str(h)] = bucket_stats([g for g in grades if g.horizon_days == h])
 
+    # F1 multi-screen aggregation. Grades with screen_id=None (pre-F1
+    # historic data) are attributed to DEFAULT_SCREEN_ID so they roll
+    # cleanly into the legacy bucket. Aggregating from registered screens
+    # rather than from grades' distinct screen_ids ensures every screen
+    # appears in the output even with zero trades — important so a newly
+    # added screen isn't invisible until its first trade.
+    by_screen: dict[str, Any] = {}
+    default_sid = config.DEFAULT_SCREEN_ID
+    for screen in config.SCREENS:
+        sid = screen["id"]
+        screen_grades = [
+            g for g in grades
+            if (g.screen_id or default_sid) == sid
+        ]
+        by_screen[sid] = {
+            "display_name": screen["display_name"],
+            **bucket_stats(screen_grades),
+        }
+
     # Leaderboards
     resolved = [g for g in grades if g.grade in ("HIT", "MISS", "AMBIGUOUS")]
     best = sorted(
@@ -583,6 +605,7 @@ def compute_trends(grades: list[Grade]) -> dict[str, Any]:
         "by_confidence": by_confidence,
         "by_sector": by_sector,
         "by_horizon_days": by_horizon,
+        "by_screen": by_screen,
         "best_calls": [asdict(g) for g in best],
         "worst_calls": [asdict(g) for g in worst],
         "all_grades": [asdict(g) for g in grades],

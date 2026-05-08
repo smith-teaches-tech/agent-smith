@@ -272,6 +272,26 @@ const fmtDate = iso => { if (!iso) return '—'; const d = new Date(iso); const 
 const fmtDateTime = iso => { if (!iso) return '—'; const d = new Date(iso); const mm = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'][d.getUTCMonth()]; return `${d.getUTCDate()} ${mm} · ${String(d.getUTCHours()).padStart(2,'0')}:${String(d.getUTCMinutes()).padStart(2,'0')} utc`; };
 const confDots = n => { let s=''; for(let i=1;i<=5;i++) s += (i<=n)?'●':'<span class="off">○</span>'; return s; };
 
+// Classification normalization — JS port of agent/classifications.py.
+// Algorithm must match the Python version verbatim. If you edit either
+// implementation, edit BOTH and the JS_REFERENCE_PORT docstring in
+// agent/classifications.py. See Known fragile seam §1.
+const CLS_BASE = ['OVERDONE', 'UNDERDONE', 'RATIONAL', 'UNCLEAR'];
+const CLS_PREFIXES = ['LIKELY', 'PARTIALLY'];
+
+function normalizeClassification(raw) {
+  if (!raw || typeof raw !== 'string') return 'UNCLEAR';
+  let upper = raw.trim().toUpperCase();
+  for (const prefix of CLS_PREFIXES) {
+    const token = prefix + ' ';
+    if (upper.startsWith(token)) {
+      upper = upper.slice(token.length).replace(/^\s+/, '');
+      break;
+    }
+  }
+  return CLS_BASE.includes(upper) ? upper : 'UNCLEAR';
+}
+
 // ============ STATE ============
 let DATA = null;
 let activeFilter = 'all', activeSort = 'date-desc';
@@ -282,7 +302,7 @@ async function load() {
   // Portfolio: optional (used only to filter out held positions; no-op if missing).
   const [suggestionsRes, portfolioRes] = await Promise.allSettled([
     fetch('data/suggestions.json', { cache: 'no-store' }),
-    fetch('data/portfolio.json', { cache: 'no-store' })
+    fetch('data/portfolios/screen_0.json', { cache: 'no-store' })
   ]);
 
   // Resolve suggestions data, falling back to sample on any failure.
@@ -366,7 +386,7 @@ function renderTable() {
         <td><div class="ticker">${e.ticker}</div><div class="company">${e.name}</div></td>
         <td class="hide-mobile"><span class="cls-pill cls-${e.classification}">${e.classification}</span></td>
         <td><span class="conf-dots">${confDots(e.confidence)}</span></td>
-        <td class="hide-mobile"><span class="date-col">${e.horizon_days}d</span></td>
+        <td class="hide-mobile"><span class="cls-pill cls-${normalizeClassification(e.classification)}">${e.classification}</span></td>
         <td><span class="decision-pill decision-${e.decision}">${decisionLabel}</span></td>
         <td class="num"><span class="since-move ${sinceCls}">${fmtPct(e.since_pct)}</span></td>
         <td><span class="verdict-pill ${verdictCls}">${verdictLabel}</span></td>

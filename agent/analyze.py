@@ -18,6 +18,7 @@ from typing import Any
 from anthropic import Anthropic
 
 from . import config
+from .classifications import is_directional
 
 
 # ============================================================
@@ -709,14 +710,10 @@ def run_portfolio_pass(
     slim_positions = [
         _summarize_open_position(p) for p in portfolio_state["open_positions"]
     ]
-    # Classification check is tolerant of LIKELY/PARTIALLY prefixes — same
-    # normalization the grader uses, so buy eligibility matches the discovery
-    # prompt's actual output.
-    def _is_buy_eligible(raw_cls: str | None) -> bool:
-        if not raw_cls:
-            return False
-        c = raw_cls.upper()
-        return "OVERDONE" in c or "UNDERDONE" in c
+    # Buy eligibility = directional call (OVERDONE/UNDERDONE), tolerant of
+    # LIKELY/PARTIALLY prefixes. Same normalization as grading uses, via the
+    # shared agent.classifications helper (single source of truth).
+    _is_buy_eligible = is_directional
 
     buy_eligible = [
         _summarize_discovery_for_portfolio(f)

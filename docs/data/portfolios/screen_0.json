@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-07T20:21:39.412254+00:00",
+  "generated_at": "2026-05-08T10:05:50.490776+00:00",
   "bankroll_start": 10000.0,
   "cash": 10284.22,
   "open_positions": [],
@@ -43,5 +43,6 @@
       "notional": 1591.09,
       "why": "Opened per flag: LIKELY OVERDONE conf 3 — CALX -14% print dragging networking peers"
     }
-  ]
+  ],
+  "screen_id": "screen_0"
 }

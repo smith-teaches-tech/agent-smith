@@ -183,7 +183,12 @@ GRADING_CLASSIFICATIONS_TO_GRADE = [
 OUTPUT_TRENDS = "docs/data/trends.json"
 
 # ============================================================
-# PAPER PORTFOLIO (Phase 1.5-lite)
+# PAPER PORTFOLIO — global defaults
+#
+# These remain the "global defaults" — every screen registered in SCREENS
+# below inherits these values unless it overrides them. Screen 0 (the
+# legacy general-mispricing screen) inherits all of them so its behavior
+# is byte-identical to the pre-F1 single-portfolio code path.
 # ============================================================
 
 PAPER_PORTFOLIO_BANKROLL = 10_000.0        # Starting cash in USD
@@ -202,6 +207,7 @@ PAPER_PORTFOLIO_DECISION_WINDOW_DAYS = 7
 # ============================================================
 # IBKR Pro Tiered fees (paper-trading model)
 # Numbers match IBKR's published pricing as of 2026.
+# These are screen-agnostic — every screen pays the same broker.
 # ============================================================
 IBKR_COMMISSION_PER_SHARE = 0.0035         # Base tier
 IBKR_COMMISSION_MIN = 0.35                 # Per-order minimum
@@ -225,8 +231,111 @@ CLAUDE_PORTFOLIO_MODEL = "claude-haiku-4-5-20251001"
 CLAUDE_PORTFOLIO_MAX_TOKENS = 16384
 
 # ============================================================
-# Output paths for Phase 1.5-lite portfolio files
+# SCREENS REGISTRY (F1 — multi-screen architecture)
+#
+# Each screen is one named bet on the market with its own paper
+# portfolio, dashboard tab, and grading bucket. Adding a new screen
+# is a new entry here plus a per-screen module under agent/screens/
+# (the per-screen module lands in F2; F1 only registers Screen 0).
+#
+# Required keys per screen:
+#   id                  — short stable identifier; becomes the file
+#                         basename for portfolios/{id}.json. Must be
+#                         filesystem-safe (lowercase, underscores).
+#   display_name        — human-readable name for dashboard headers.
+#   thesis_summary      — one-line description of what the screen bets
+#                         on. Surfaces in the master dashboard.
+#   bankroll            — starting paper cash in USD.
+#   max_position_pct    — single-position cap as fraction of equity.
+#   max_sector_pct      — single-sector cap as fraction of equity.
+#   min_cash_pct        — minimum cash reserve as fraction of equity.
+#   min_buy_confidence  — minimum discovery confidence for BUY eligibility.
+#   decision_window_days— how far back the portfolio pass looks for flags.
+#   claude_model        — model used for this screen's portfolio decisions.
+#
+# Screen 0 inherits every value from the PAPER_PORTFOLIO_* globals above
+# so behavior is byte-identical to pre-F1 code paths. Future screens
+# (F2+) can deviate per-screen — each named bet has different base-rate
+# expectations and may want different sizing / window / model.
 # ============================================================
-OUTPUT_PORTFOLIO = "docs/data/portfolio.json"
-OUTPUT_PORTFOLIO_HISTORY = "docs/data/portfolio_history.json"
+
+SCREENS: list[dict] = [
+    {
+        "id": "screen_0",
+        "display_name": "General mispricing",
+        "thesis_summary": (
+            "Wide-net OVERDONE/UNDERDONE labeling. Flags movers whose price "
+            "action looks behaviorally inconsistent with their available "
+            "catalyst signal. Legacy framing — runs as the comparison "
+            "baseline for named-thesis screens."
+        ),
+        "bankroll": PAPER_PORTFOLIO_BANKROLL,
+        "max_position_pct": PAPER_PORTFOLIO_MAX_POSITION_PCT,
+        "max_sector_pct": PAPER_PORTFOLIO_MAX_SECTOR_PCT,
+        "min_cash_pct": PAPER_PORTFOLIO_MIN_CASH_PCT,
+        "min_buy_confidence": PAPER_PORTFOLIO_MIN_BUY_CONFIDENCE,
+        "decision_window_days": PAPER_PORTFOLIO_DECISION_WINDOW_DAYS,
+        "claude_model": CLAUDE_PORTFOLIO_MODEL,
+    },
+]
+
+# ============================================================
+# Screen lookup helpers
+# ============================================================
+
+# Default screen id used by code paths that pre-date F1. Pointed at
+# Screen 0 so any unparameterized call lands on the legacy bucket.
+DEFAULT_SCREEN_ID = "screen_0"
+
+# Screens directory — per-screen state files live here.
+# Layout:
+#   docs/data/portfolios/screen_0.json              ← current state
+#   docs/data/portfolios/screen_0_history.json      ← append-only log
+# (suggestions.json is still written at docs/data/suggestions.json
+# in F1; per-screen suggestions paths arrive when Screen 1 needs its
+# own file in F2.)
+PORTFOLIOS_DIR = "docs/data/portfolios"
+
+
+def get_screen(screen_id: str) -> dict:
+    """
+    Return the SCREENS entry matching screen_id. Raises KeyError if
+    no such screen is registered. Use this at the boundary where a
+    screen_id from external input enters the system; downstream code
+    can then trust the dict's shape.
+    """
+    for s in SCREENS:
+        if s["id"] == screen_id:
+            return s
+    raise KeyError(
+        f"unknown screen_id={screen_id!r}; registered: "
+        f"{[s['id'] for s in SCREENS]}"
+    )
+
+
+def screen_paths(screen_id: str) -> dict[str, str]:
+    """
+    Return the canonical filesystem paths for a screen's state files.
+    Centralized here so code paths agree on the layout and a future
+    layout change touches one place.
+    """
+    return {
+        "portfolio": f"{PORTFOLIOS_DIR}/{screen_id}.json",
+        "history": f"{PORTFOLIOS_DIR}/{screen_id}_history.json",
+    }
+
+
+# ============================================================
+# Output paths (legacy single-screen)
+#
+# F1: these become backwards-compat aliases pointing at Screen 0's
+# paths. New code should call screen_paths(screen_id) directly.
+# Old code reads these constants and continues working unchanged.
+#
+# When the last consumer migrates to screen_paths(), these constants
+# can be deleted in a focused cleanup session — no rush; the alias
+# is cheap.
+# ============================================================
+OUTPUT_PORTFOLIO = screen_paths(DEFAULT_SCREEN_ID)["portfolio"]
+OUTPUT_PORTFOLIO_HISTORY = screen_paths(DEFAULT_SCREEN_ID)["history"]
 OUTPUT_SUGGESTIONS = "docs/data/suggestions.json"

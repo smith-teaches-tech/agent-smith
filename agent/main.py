@@ -208,34 +208,74 @@ def run_us(tickers_override: list[str] | None = None) -> dict[str, Any]:
 
 def run_portfolio(us_output: dict[str, Any] | None = None) -> dict[str, Any]:
     """
-    Portfolio pass: refresh mark-to-market, let Claude decide what to do,
-    apply decisions, write suggestions.json. Runs AFTER run_us() so we
-    can feed Claude the newest discoveries.
- 
+    Outer portfolio orchestrator. Iterates every registered screen and
+    runs the per-screen portfolio pass against each. Returns a dict
+    keyed by screen_id so callers can inspect per-screen outcomes.
+
+    F1 multi-screen wrapping: pre-F1 there was a single body that
+    matched today's `run_portfolio_for_screen` exactly. Wrapping was
+    chosen over inlining a screen-id parameter so the inner function
+    body — which is large and exercises every guardrail in the
+    portfolio module — stays one clean unit of execution per screen.
+    With one registered screen (Screen 0) behavior is identical to
+    pre-F1.
+    """
+    results: dict[str, Any] = {}
+    for screen in config.SCREENS:
+        sid = screen["id"]
+        try:
+            print(f"[portfolio] === screen={sid} ({screen['display_name']}) ===")
+            results[sid] = run_portfolio_for_screen(sid, us_output=us_output)
+        except Exception as e:
+            # Per-screen failure does not abort the run — other screens
+            # still get their portfolio pass. main()'s top-level except
+            # catches truly fatal cases.
+            print(f"[portfolio] screen={sid} FAILED: {e}")
+            import traceback
+            traceback.print_exc()
+            results[sid] = {"error": str(e)}
+    return results
+
+
+def run_portfolio_for_screen(
+    screen_id: str,
+    us_output: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """
+    Portfolio pass for one screen: refresh mark-to-market, let Claude
+    decide what to do, apply decisions, write suggestions.json. Runs
+    AFTER run_us() so we can feed Claude the newest discoveries.
+
     Args:
+      screen_id: which screen's bankroll, guardrails, and state file
+                 to use. Must match a registered SCREENS entry.
       us_output: the dict returned by run_us() on this same invocation.
                  If None, we read the latest discoveries off disk instead.
     """
     from pathlib import Path
     import json
- 
-    print("[portfolio] loading state and marking to market...")
-    state = pf.load_state()
+
+    screen = config.get_screen(screen_id)
+
+    print(f"[portfolio] loading state and marking to market...")
+    state = pf.load_state(screen_id=screen_id)
     state = pf.mark_to_market(state)
-    pf.save_state(state)
+    pf.save_state(state, screen_id=screen_id)
     print(f"[portfolio] equity=${pf.total_equity(state):.2f} cash=${state['cash']:.2f} open={len(state['open_positions'])}")
- 
+
     # ---- Gather recent flags ----------------------------------
     # We want buy-eligible discoveries from the last N days. The newest
     # run's output is passed in directly (us_output); older ones come
-    # from history/us_*.json.
-    print(f"[portfolio] gathering flags from last {config.PAPER_PORTFOLIO_DECISION_WINDOW_DAYS}d...")
+    # from history/us_*.json. Per-screen window may differ in the future;
+    # for F1, Screen 0 inherits the global default.
+    window_days = screen["decision_window_days"]
+    print(f"[portfolio] gathering flags from last {window_days}d...")
     recent_flags = _collect_recent_flags(
         us_output=us_output,
-        window_days=config.PAPER_PORTFOLIO_DECISION_WINDOW_DAYS,
+        window_days=window_days,
     )
     print(f"[portfolio] {len(recent_flags)} flags in window")
- 
+
     # ---- Trends summary ---------------------------------------
     trends_summary = None
     trends_path = Path(config.OUTPUT_TRENDS)
@@ -244,30 +284,33 @@ def run_portfolio(us_output: dict[str, Any] | None = None) -> dict[str, Any]:
             trends_summary = json.loads(trends_path.read_text())
         except json.JSONDecodeError:
             print("[portfolio] WARN: trends.json failed to parse; proceeding without")
- 
+
     # ---- Ask Claude (Haiku) for decisions ---------------------
-    print(f"[portfolio] running decision pass ({config.CLAUDE_PORTFOLIO_MODEL})...")
+    # Per-screen model lookup — F2 onwards may want different models per
+    # screen. For F1 every screen inherits CLAUDE_PORTFOLIO_MODEL.
+    claude_model = screen["claude_model"]
+    print(f"[portfolio] running decision pass ({claude_model})...")
     decisions = analyze.run_portfolio_pass(
         portfolio_state=state,
         recent_flags=recent_flags,
         trends_summary=trends_summary,
     )
- 
+
     if "_parse_error" in decisions:
         print(f"[portfolio] ERROR: decision pass returned unparseable JSON: {decisions['_parse_error']}")
         # Write suggestions.json with no entries but the error noted, so the
         # UI doesn't silently fall over.
         _write_suggestions(entries=[], error=decisions["_parse_error"])
         return decisions
- 
+
     # ---- Apply decisions --------------------------------------
     trade_summary = {"buys": 0, "sells": 0, "blocked": 0, "watched": 0, "skipped": 0}
     suggestion_entries: list[dict[str, Any]] = []
- 
+
     # Build a lookup from ticker → original flag, so we can annotate
     # BUY decisions with thesis, horizon, catalyst, etc.
     flags_by_ticker = {f["ticker"]: f for f in recent_flags if f.get("ticker")}
- 
+
     # 1) Apply position decisions (HOLD / ADD / TRIM / EXIT) first so that
     #    freed-up cash is available for any new BUYs.
     for d in decisions.get("position_decisions", []):
@@ -275,7 +318,7 @@ def run_portfolio(us_output: dict[str, Any] | None = None) -> dict[str, Any]:
         action = (d.get("next_action") or "HOLD").upper()
         reasoning = d.get("reasoning", "")
         thesis_status = d.get("thesis_status", "intact")
- 
+
         # Update the in-memory position with Claude's latest read,
         # whether or not it triggers a trade.
         for p in state["open_positions"]:
@@ -284,7 +327,7 @@ def run_portfolio(us_output: dict[str, Any] | None = None) -> dict[str, Any]:
                 p["next_action"] = action
                 p["latest_reasoning"] = reasoning
                 break
- 
+
         if action == "HOLD":
             continue
         if action == "ADD":
@@ -293,7 +336,7 @@ def run_portfolio(us_output: dict[str, Any] | None = None) -> dict[str, Any]:
             if not flag:
                 print(f"[portfolio] SKIP ADD {tkr}: no fresh flag to justify")
                 continue
-            ok = _try_buy(state, flag, reasoning_override=reasoning)
+            ok = _try_buy(state, flag, reasoning_override=reasoning, screen_id=screen_id)
             if ok: trade_summary["buys"] += 1
             else: trade_summary["blocked"] += 1
         elif action in ("TRIM", "EXIT"):
@@ -303,13 +346,14 @@ def run_portfolio(us_output: dict[str, Any] | None = None) -> dict[str, Any]:
                 ticker=tkr,
                 shares=shares,
                 exit_reasoning=reasoning,
+                screen_id=screen_id,
             )
             if ok:
                 trade_summary["sells"] += 1
                 print(f"[portfolio] {action} {tkr}: {msg}")
             else:
                 print(f"[portfolio] {action} {tkr} FAILED: {msg}")
- 
+
     # 2) Apply new-name decisions.
     for d in decisions.get("new_decisions", []):
         tkr = d.get("ticker")
@@ -318,9 +362,9 @@ def run_portfolio(us_output: dict[str, Any] | None = None) -> dict[str, Any]:
         flag = flags_by_ticker.get(tkr)
         if not flag:
             continue
- 
+
         if decision == "BUY":
-            ok = _try_buy(state, flag, reasoning_override=reasoning)
+            ok = _try_buy(state, flag, reasoning_override=reasoning, screen_id=screen_id)
             if ok:
                 trade_summary["buys"] += 1
             else:
@@ -339,21 +383,21 @@ def run_portfolio(us_output: dict[str, Any] | None = None) -> dict[str, Any]:
             suggestion_entries.append(
                 _build_suggestion_entry(flag, "SKIP", reasoning)
             )
- 
+
     # Also log decisions for ineligible flags (RATIONAL / UNCLEAR / conf<3)
     # so the watching page isn't empty — gives Michael the full picture.
     _extend_with_ineligible_flags(
         suggestion_entries,
         us_output=us_output,
     )
- 
-    pf.save_state(state)
+
+    pf.save_state(state, screen_id=screen_id)
     _write_suggestions(
         entries=suggestion_entries,
         error=None,
         run_summary=decisions.get("run_summary", ""),
     )
- 
+
     print(
         f"[portfolio] applied: {trade_summary['buys']} buys, "
         f"{trade_summary['sells']} sells, "
@@ -372,8 +416,14 @@ def _try_buy(
     state: dict[str, Any],
     flag: dict[str, Any],
     reasoning_override: str = "",
+    screen_id: str | None = None,
 ) -> bool:
-    """Size & execute a buy from a discovery flag. Returns True on success."""
+    """
+    Size & execute a buy from a discovery flag. Returns True on success.
+
+    screen_id routes the trade's audit-log entry to the correct
+    per-screen history file. Defaults to the state's stored screen_id.
+    """
     tkr = flag.get("ticker")
     # Use current_price if available, else last close off yfinance.
     ref_price = flag.get("price") or flag.get("current_price")
@@ -412,6 +462,7 @@ def _try_buy(
         ),
         catalyst=flag.get("catalyst"),
         reference_price=ref_price,
+        screen_id=screen_id,
     )
     if ok:
         print(f"[portfolio] BUY {tkr} × {shares}: {msg}")
@@ -658,7 +709,10 @@ def main() -> None:
         print(f"[grading] FAILED: {e}")
 
     # Portfolio pass: only on the designated 22:00 AST run (triggered via --portfolio).
-    # Mark-to-market on every other run so the dashboard stays current.
+    # Mark-to-market on every other run so the dashboard stays current. With
+    # multi-screen, refresh every registered screen — refresh_all() iterates
+    # config.SCREENS so adding a screen automatically gets it marked-to-market
+    # on every run.
     if args.portfolio:
         try:
             run_portfolio(us_output=us_output)
@@ -668,7 +722,7 @@ def main() -> None:
             traceback.print_exc()
     else:
         try:
-            pf.refresh()
+            pf.refresh_all()
         except Exception as e:
             print(f"[portfolio] mark-to-market failed (non-fatal): {e}")
 

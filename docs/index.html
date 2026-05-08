@@ -369,19 +369,25 @@ const fmtRunTime = iso => {
   return `last run · ${d.getUTCDate()} ${mm} · ${hh}:${mn} utc`;
 };
 
-// Classification normalizer: strips "LIKELY " / "PARTIALLY " prefixes for CSS lookup
-// while leaving the original label available to display verbatim.
-// Input  "LIKELY OVERDONE"      → "OVERDONE"
-// Input  "PARTIALLY RATIONAL"   → "RATIONAL"
-// Input  "OVERDONE"             → "OVERDONE"
-// Input  null/undefined/other   → "UNCLEAR" (safe fallback that has CSS)
+
+// Classification normalization — JS port of agent/classifications.py.
+// Algorithm must match the Python version verbatim. If you edit either
+// implementation, edit BOTH and the JS_REFERENCE_PORT docstring in
+// agent/classifications.py. See Known fragile seam §1.
+const CLS_BASE = ['OVERDONE', 'UNDERDONE', 'RATIONAL', 'UNCLEAR'];
+const CLS_PREFIXES = ['LIKELY', 'PARTIALLY'];
+
 function normalizeClassification(raw) {
   if (!raw || typeof raw !== 'string') return 'UNCLEAR';
-  const upper = raw.trim().toUpperCase();
-  const stripped = upper.replace(/^(LIKELY|PARTIALLY)\s+/, '');
-  // Only return a known class; otherwise UNCLEAR so CSS always matches.
-  if (['OVERDONE', 'UNDERDONE', 'RATIONAL', 'UNCLEAR'].includes(stripped)) return stripped;
-  return 'UNCLEAR';
+  let upper = raw.trim().toUpperCase();
+  for (const prefix of CLS_PREFIXES) {
+    const token = prefix + ' ';
+    if (upper.startsWith(token)) {
+      upper = upper.slice(token.length).replace(/^\s+/, '');
+      break;
+    }
+  }
+  return CLS_BASE.includes(upper) ? upper : 'UNCLEAR';
 }
 
 // ============ DATA LOAD ============
@@ -391,7 +397,7 @@ async function load() {
   // Portfolio: optional (holdings bar simply hides if missing).
   const [discoveryRes, portfolioRes] = await Promise.allSettled([
     fetch('data/latest_us.json', { cache: 'no-store' }),
-    fetch('data/portfolio.json', { cache: 'no-store' })
+fetch('data/portfolios/screen_0.json', { cache: 'no-store' })
   ]);
 
   // Resolve discovery payload
