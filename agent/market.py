@@ -11,6 +11,8 @@ from typing import Any
 import time
 import sys
 import io
+import json
+from pathlib import Path
 
 from . import config
 
@@ -149,6 +151,68 @@ def filter_unusual_movers(
     interesting.sort(key=score, reverse=True)
     return interesting[:cap]
 
+# SP400/SP600 constituent cache (local-dev accelerator)
+# - 30-day TTL: Wikipedia constituent changes happen ~quarterly with 0-3
+#   swaps each rebalance, so 30 days is comfortably below the cadence.
+# - GitHub Actions runs fresh containers each cron tick, so production
+#   always re-fetches from Wikipedia regardless of this cache.
+# - File location: .cache/market/constituents.json (gitignored via
+#   parent .cache/ entry from the Screen 1 work).
+_CONSTITUENT_CACHE_PATH = Path(".cache/market/constituents.json")
+_CONSTITUENT_CACHE_TTL_SECONDS = 30 * 24 * 60 * 60  # 30 days
+ 
+ 
+def _read_constituent_cache() -> list[str] | None:
+    """
+    Return the cached ticker list if present and fresh (< TTL old).
+    Returns None on miss, expired cache, or read/parse error.
+    """
+    path = _CONSTITUENT_CACHE_PATH
+    if not path.exists():
+        return None
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError) as e:
+        print(f"[market] constituent cache unreadable ({e}); will refetch")
+        return None
+ 
+    fetched_at = payload.get("fetched_at_unix", 0)
+    age_s = time.time() - fetched_at
+    if age_s > _CONSTITUENT_CACHE_TTL_SECONDS:
+        print(
+            f"[market] constituent cache expired "
+            f"(age {age_s/86400:.1f} days > 30); will refetch"
+        )
+        return None
+ 
+    tickers = payload.get("tickers")
+    if not isinstance(tickers, list) or not tickers:
+        return None
+ 
+    print(
+        f"[market] constituent cache hit "
+        f"({len(tickers)} tickers, age {age_s/86400:.1f} days)"
+    )
+    return tickers
+ 
+ 
+def _write_constituent_cache(tickers: list[str]) -> None:
+    """Persist the freshly-fetched list. Best-effort — failure is not fatal."""
+    try:
+        _CONSTITUENT_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        payload = {
+            "fetched_at_unix": time.time(),
+            "fetched_at_iso": __import__("datetime").datetime.utcnow().isoformat() + "Z",
+            "ttl_seconds": _CONSTITUENT_CACHE_TTL_SECONDS,
+            "tickers": tickers,
+        }
+        _CONSTITUENT_CACHE_PATH.write_text(
+            json.dumps(payload, indent=2),
+            encoding="utf-8",
+        )
+        print(f"[market] wrote constituent cache ({len(tickers)} tickers)")
+    except OSError as e:
+        print(f"[market] constituent cache write failed ({e}); continuing")
 
 # ============================================================
 # Candidate ticker sources
@@ -258,47 +322,66 @@ def _fetch_constituents_from_wikipedia(url: str, label: str) -> list[str]:
     )
 
 
-def get_discovery_candidates() -> list[str]:
+# The signature gains a force_refresh kwarg (default False) so existing
+# callers (`market.get_discovery_candidates()` with no args) work unchanged.
+ 
+def get_discovery_candidates(force_refresh: bool = False) -> list[str]:
     """
     Return the candidate ticker list for discovery scanning.
-
-    Tries to fetch fresh SP400 + SP600 constituent lists from Wikipedia
-    each run. On any failure, falls back to the hardcoded sample lists
-    and prints a warning visible in GitHub Actions output.
-
-    Returns deduplicated list of tickers.
+ 
+    Tries cache first (30-day TTL), falls back to live Wikipedia fetch
+    of SP400 + SP600 constituent lists. Cache is at
+    .cache/market/constituents.json — gitignored, local-dev only.
+ 
+    Args:
+      force_refresh: if True, bypass the cache and refetch from Wikipedia.
+                     Use after a known index rebalance or for debugging.
+                     Production cron runs (in fresh GitHub Actions
+                     containers) always have a cache miss naturally and
+                     don't need this flag.
+ 
+    Returns:
+      Deduplicated list of normalized tickers. Empty list on total
+      failure (Wikipedia 403 with no cache available).
     """
-    sp400: list[str] = []
-    sp600: list[str] = []
-
-    # Fetch SP400
+    if not force_refresh:
+        cached = _read_constituent_cache()
+        if cached:
+            return cached
+ 
+    print("[market] fetching SP400 + SP600 constituents from Wikipedia...")
+    tickers: list[str] = []
     try:
-        sp400 = _fetch_constituents_from_wikipedia(SP400_WIKIPEDIA_URL, "SP400")
+        sp400 = _fetch_constituents_from_wikipedia(
+            "https://en.wikipedia.org/wiki/List_of_S%26P_400_companies",
+            "SP400",
+        )
         print(f"[market] fetched {len(sp400)} SP400 constituents from Wikipedia")
+        tickers.extend(sp400)
     except Exception as e:
-        print(
-            f"[market] WARNING: SP400 fetch failed ({e!r}); "
-            f"falling back to hardcoded sample of {len(SP400_FALLBACK)} tickers",
-            file=sys.stderr,
-        )
-        sp400 = list(SP400_FALLBACK)
-
-    # Fetch SP600
+        print(f"[market] SP400 fetch failed: {e}")
+ 
     try:
-        sp600 = _fetch_constituents_from_wikipedia(SP600_WIKIPEDIA_URL, "SP600")
-        print(f"[market] fetched {len(sp600)} SP600 constituents from Wikipedia")
-    except Exception as e:
-        print(
-            f"[market] WARNING: SP600 fetch failed ({e!r}); "
-            f"falling back to hardcoded sample of {len(SP600_FALLBACK)} tickers",
-            file=sys.stderr,
+        sp600 = _fetch_constituents_from_wikipedia(
+            "https://en.wikipedia.org/wiki/List_of_S%26P_600_companies",
+            "SP600",
         )
-        sp600 = list(SP600_FALLBACK)
-
-    # Combine and deduplicate
-    combined = list(dict.fromkeys(sp400 + sp600))
-    print(f"[market] total discovery universe: {len(combined)} tickers")
-    return combined
+        print(f"[market] fetched {len(sp600)} SP600 constituents from Wikipedia")
+        tickers.extend(sp600)
+    except Exception as e:
+        print(f"[market] SP600 fetch failed: {e}")
+ 
+    # Deduplicate while preserving order (a ticker rarely appears in both,
+    # but defensive cheap dedup costs nothing).
+    deduped = list(dict.fromkeys(tickers))
+    print(f"[market] total discovery universe: {len(deduped)} tickers")
+ 
+    if deduped:
+        # Only cache successful (non-empty) fetches. A partial-failure
+        # write would otherwise lock us into a broken cache for 30 days.
+        _write_constituent_cache(deduped)
+ 
+    return deduped
 
 
 if __name__ == "__main__":
