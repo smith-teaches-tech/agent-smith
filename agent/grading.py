@@ -11,9 +11,30 @@ Each grade record stores the logic_version that produced it; a new version
 regrades only new calls and leaves historical grades stable unless the user
 explicitly requests a full rebuild.
 
-Grading definitions (LOGIC_VERSION 1):
+Grading definitions (LOGIC_VERSION 2 — path-aware):
+    HIT       — price crossed the directional ±3% threshold within the
+                horizon AND the final-bar price is still on the right side
+                of the flag price (positive for up-direction, negative for
+                down-direction). The thesis survived the full horizon.
+    MISS      — price crossed the *opposite* ±3% threshold within the
+                horizon AND ended on the wrong side, OR the move never
+                crossed either threshold but ended >3% in the wrong
+                direction.
+    AMBIGUOUS — neither extreme reached and the final-bar move is within
+                ±3% of flag price (no decisive resolution).
+    PENDING   — horizon hasn't elapsed yet
+    NOT_GRADED— non-directional classification (RATIONAL, UNCLEAR)
+
+This is stricter than v1 ("touched profitable at any point") but more
+lenient than final-bar-only ("must end >+3%"). It captures what actually
+matters: did the directional read survive the full horizon, such that a
+trader could realistically have captured profit (rather than a 30-second
+wick that round-tripped to a loss).
+
+Grading definitions (LOGIC_VERSION 1 — legacy, kept for cached grade replay):
     HIT       — price moved in predicted direction by ≥3% within horizon
-    MISS      — moved in opposite direction by ≥3% within horizon
+                (whichever threshold crossed first wins)
+    MISS      — moved in opposite direction by ≥3% within horizon first
     AMBIGUOUS — neither threshold crossed within horizon
     PENDING   — horizon hasn't elapsed yet
 
@@ -34,14 +55,16 @@ like "LIKELY OVERDONE" or "PARTIALLY RATIONAL". We normalize these down to
 the short forms (OVERDONE / UNDERDONE / RATIONAL / UNCLEAR) at read-time
 so grading logic and dashboard bucketing are clean.
 
-OVERDONE example:
-    CALX dropped -14% (move_pct=-14), classified OVERDONE → expected direction is UP.
-    If CALX is up ≥3% within horizon → HIT.
-    If CALX is down ≥3% more within horizon → MISS.
+OVERDONE example (v2):
+    CALX dropped -14% (move_pct=-14), classified OVERDONE → expected up.
+    If CALX rallies ≥3% within horizon AND ends ≥0% above entry → HIT.
+    If CALX rallies ≥3% but then round-trips to ending ≥3% below entry → MISS.
+    If never crosses either threshold and ends within ±3% → AMBIGUOUS.
 
-UNDERDONE example:
-    MANH up +5.9%, classified UNDERDONE → expected direction is UP (more upside).
-    If MANH up another ≥3% within horizon → HIT.
+UNDERDONE example (v2):
+    MANH up +5.9%, classified UNDERDONE → expected continuation up.
+    If MANH continues ≥3% AND ends positive at horizon → HIT.
+    If MANH spikes +3% intraday but ends -4% at horizon → MISS.
 """
 
 from __future__ import annotations
@@ -61,7 +84,9 @@ logger = logging.getLogger(__name__)
 # ============================================================
 # Versioning
 # ============================================================
-LOGIC_VERSION = 1
+# v1 = first-cross-wins ("touched profitable")
+# v2 = path-aware (directional cross + correct final-bar side)
+LOGIC_VERSION = 2
 
 
 def _normalize_classification(raw: Optional[str]) -> str:
@@ -92,7 +117,17 @@ GRADING_PARAMS = {
         },
         "default_horizon_days": 5,
         "graded_classifications": {"OVERDONE", "UNDERDONE"},
-    }
+    },
+    2: {
+        "hit_threshold_pct": 3.0,
+        "horizon_days_map": {
+            "days": 5,
+            "weeks": 20,
+            "months": 60,
+        },
+        "default_horizon_days": 5,
+        "graded_classifications": {"OVERDONE", "UNDERDONE"},
+    },
 }
 
 # ============================================================
@@ -319,26 +354,71 @@ def grade_call(
         if hit_crossed_idx is not None and miss_crossed_idx is not None:
             break
 
-    # Horizon-end return
+    # Horizon-end return (signed in the *expected* direction — positive
+    # means the directional thesis paid)
     price_at_horizon_end = float(horizon_slice["Close"].iloc[-1])
     if expected_dir == "up":
         return_pct = (price_at_horizon_end - price_at_flag) / price_at_flag * 100
     else:
         return_pct = (price_at_flag - price_at_horizon_end) / price_at_flag * 100
 
-    # Decide grade
-    if hit_crossed_idx is not None and (
-        miss_crossed_idx is None or hit_crossed_idx < miss_crossed_idx
-    ):
-        grade_label: GradeLabel = "HIT"
-    elif miss_crossed_idx is not None and (
-        hit_crossed_idx is None or miss_crossed_idx < hit_crossed_idx
-    ):
-        grade_label = "MISS"
-    elif horizon_reached:
-        grade_label = "AMBIGUOUS"
+    # ----------------------------------------------------------
+    # Decide grade (path-aware in v2; first-cross-wins in v1)
+    # ----------------------------------------------------------
+    if version >= 2:
+        # v2 — path-aware. The thesis must survive to the horizon.
+        # Use the directional return (return_pct is already signed in the
+        # expected direction) to decide which side of flag price we ended on.
+
+        if not horizon_reached:
+            # Not enough bars yet to deliver a final verdict.
+            # Pre-empt with MISS only if the thesis is already structurally
+            # broken: opposite threshold crossed AND currently >threshold
+            # in the wrong direction. Otherwise PENDING.
+            if miss_crossed_idx is not None and return_pct <= -threshold:
+                grade_label: GradeLabel = "MISS"
+            else:
+                grade_label = "PENDING"
+        else:
+            # Horizon fully elapsed. Path-aware decision.
+            hit_crossed = hit_crossed_idx is not None
+            miss_crossed = miss_crossed_idx is not None
+            ended_right_side = return_pct >= 0  # positive = thesis still alive
+            ended_decisive_wrong = return_pct <= -threshold
+
+            if hit_crossed and ended_right_side:
+                # Crossed in our favor and stayed there. Genuine HIT.
+                grade_label = "HIT"
+            elif ended_decisive_wrong:
+                # Whether or not we touched the favorable threshold, the
+                # final-bar print is decisively against us. MISS.
+                grade_label = "MISS"
+            elif miss_crossed and not ended_right_side:
+                # Adverse threshold crossed and we never recovered to the
+                # right side of flag. MISS even if not >threshold wrong.
+                grade_label = "MISS"
+            elif hit_crossed and not ended_right_side:
+                # Round-trip — touched profit, gave it all back, ended on
+                # the wrong side but not by >threshold. MISS (this is the
+                # exact case v2 was built to catch).
+                grade_label = "MISS"
+            else:
+                # Neither extreme reached, ended within ±threshold of flag.
+                grade_label = "AMBIGUOUS"
     else:
-        grade_label = "PENDING"
+        # v1 — legacy first-cross-wins. Kept for replay of cached grades.
+        if hit_crossed_idx is not None and (
+            miss_crossed_idx is None or hit_crossed_idx < miss_crossed_idx
+        ):
+            grade_label = "HIT"
+        elif miss_crossed_idx is not None and (
+            hit_crossed_idx is None or miss_crossed_idx < hit_crossed_idx
+        ):
+            grade_label = "MISS"
+        elif horizon_reached:
+            grade_label = "AMBIGUOUS"
+        else:
+            grade_label = "PENDING"
 
     return Grade(
         **base,
@@ -383,12 +463,18 @@ def grade_all_history(
     Walk history_dir, grade every discovery at its original flag time.
 
     If existing_grades is provided, re-use any grade whose (ticker, flagged_at,
-    logic_version) matches and whose grade is not PENDING/DATA_ERROR. This avoids
-    re-fetching prices for already-resolved calls.
+    logic_version) matches the *current* version and whose grade is not
+    PENDING/DATA_ERROR. This avoids re-fetching prices for already-resolved
+    calls. Grades from older versions are dropped — a version bump is an
+    explicit invalidation signal.
     """
     existing_lookup: dict[tuple[str, str, int], dict] = {}
     if existing_grades:
         for g in existing_grades:
+            # Only reuse cached grades that match the current logic version.
+            # On a version bump, the dict will be empty and everything regrades.
+            if g.get("logic_version") != version:
+                continue
             key = (g["ticker"], g["flagged_at"], g["logic_version"])
             if g["grade"] not in ("PENDING", "DATA_ERROR"):
                 existing_lookup[key] = g
@@ -518,13 +604,21 @@ def run(
     writes updated trends.json.
 
     rebuild=True ignores cached grades and regrades everything.
+
+    On a logic-version bump, the cached-grade reuse path is automatically
+    bypassed (grade_all_history filters by version), so the next run after
+    a version bump will fully regrade history under the new logic — no
+    manual rebuild flag needed.
     """
     existing_grades = None
     if output_path.exists() and not rebuild:
         try:
             existing = json.loads(output_path.read_text())
-            if existing.get("logic_version") == LOGIC_VERSION:
-                existing_grades = existing.get("all_grades")
+            # Note: we still read all_grades regardless of the file's
+            # logic_version. grade_all_history filters per-grade, so older
+            # records are silently dropped while same-version records are
+            # reused. This handles the version-bump transition cleanly.
+            existing_grades = existing.get("all_grades")
         except Exception as e:
             logger.warning("Failed to read existing trends.json, rebuilding: %s", e)
 
@@ -534,11 +628,12 @@ def run(
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(trends, indent=2, default=str))
     logger.info(
-        "Wrote %s — %d total calls, %d resolved, %d pending",
+        "Wrote %s — %d total calls, %d resolved, %d pending (logic v%d)",
         output_path,
         trends["n_total_calls"],
         trends["overall"]["n_resolved"],
         trends["n_pending"],
+        LOGIC_VERSION,
     )
     return trends
 

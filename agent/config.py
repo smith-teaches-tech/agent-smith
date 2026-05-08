@@ -196,7 +196,7 @@ OUTPUT_HISTORY_DIR = "docs/data/history"
 
 # Current grading logic version. Stamped into every grade so
 # threshold changes don't invalidate historical results.
-GRADING_LOGIC_VERSION = 1
+GRADING_LOGIC_VERSION = 2
 
 # ±pct move within horizon to count as HIT or MISS
 GRADING_HIT_THRESHOLD_PCT = 3.0
