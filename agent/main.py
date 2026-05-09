@@ -452,9 +452,13 @@ def run_portfolio_for_screen(
 
     if "_parse_error" in decisions:
         print(f"[portfolio] ERROR: decision pass returned unparseable JSON: {decisions['_parse_error']}")
-        # Write suggestions.json with no entries but the error noted, so the
+        # Write suggestions with no entries but the error noted, so the
         # UI doesn't silently fall over.
-        _write_suggestions(entries=[], error=decisions["_parse_error"])
+        _write_suggestions(
+            entries=[],
+            error=decisions["_parse_error"],
+            screen_id=screen_id,
+        )
         return decisions
 
     # ---- Apply decisions --------------------------------------
@@ -551,6 +555,7 @@ def run_portfolio_for_screen(
         entries=suggestion_entries,
         error=None,
         run_summary=decisions.get("run_summary", ""),
+        screen_id=screen_id,
     )
 
     print(
@@ -861,23 +866,51 @@ def _write_suggestions(
     entries: list[dict[str, Any]],
     error: str | None,
     run_summary: str = "",
+    screen_id: str | None = None,
 ) -> None:
-    """Write docs/data/suggestions.json in the schema suggestions.html expects."""
+    """
+    Write the watching-page data in the schema suggestions.html expects.
+
+    Per-screen output: each screen writes to its own
+    `docs/data/{screen_id}_suggestions.json` so multi-screen portfolio
+    passes don't clobber each other's entries (pre-fix, Screen 1 ran
+    after Screen 0 and overwrote the populated file with an empty one
+    on every cron tick).
+
+    Legacy alias: while the dashboard still fetches `suggestions.json`,
+    Screen 0 also writes that file. One transition cycle. Once
+    `docs/suggestions.html` reads `screen_0_suggestions.json` directly,
+    the alias write can be deleted.
+    """
     from pathlib import Path
     import json
 
+    sid = screen_id or config.DEFAULT_SCREEN_ID
     out = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
+        "screen_id": sid,
         "window_days": config.PAPER_PORTFOLIO_DECISION_WINDOW_DAYS,
         "run_summary": run_summary,
         "entries": entries,
     }
     if error:
         out["_error"] = error
-    path = Path(config.OUTPUT_SUGGESTIONS)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(out, indent=2, ensure_ascii=False))
-    print(f"  wrote {path}")
+
+    payload = json.dumps(out, indent=2, ensure_ascii=False)
+
+    # Per-screen file (the new canonical location)
+    per_screen_path = Path(f"docs/data/{sid}_suggestions.json")
+    per_screen_path.parent.mkdir(parents=True, exist_ok=True)
+    per_screen_path.write_text(payload)
+    print(f"  wrote {per_screen_path}")
+
+    # Legacy alias for one transition cycle: Screen 0 also writes
+    # the un-prefixed file the existing dashboard reads.
+    if sid == config.DEFAULT_SCREEN_ID:
+        legacy_path = Path(config.OUTPUT_SUGGESTIONS)
+        legacy_path.parent.mkdir(parents=True, exist_ok=True)
+        legacy_path.write_text(payload)
+        print(f"  wrote {legacy_path} (legacy alias)")
 
 
 def main() -> None:
