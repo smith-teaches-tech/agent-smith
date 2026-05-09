@@ -300,8 +300,12 @@ async function load() {
   // Fetch suggestions and portfolio in parallel.
   // Suggestions: required (falls back to sample data).
   // Portfolio: optional (used only to filter out held positions; no-op if missing).
+  //
+  // Reads Screen 0's per-screen file directly (post-F2 cleanup of the
+  // pre-fix shared `suggestions.json` that Screen 1 was clobbering).
+  // Screen 1 has its own dashboard page reading `screen_1_suggestions.json`.
   const [suggestionsRes, portfolioRes] = await Promise.allSettled([
-    fetch('data/suggestions.json', { cache: 'no-store' }),
+    fetch('data/screen_0_suggestions.json', { cache: 'no-store' }),
     fetch('data/portfolios/screen_0.json', { cache: 'no-store' })
   ]);
 
