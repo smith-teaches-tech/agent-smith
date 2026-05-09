@@ -129,7 +129,22 @@ def filter_unusual_movers(
 ) -> list[dict[str, Any]]:
     """
     From the discovery universe, keep only those moving unusually
-    (big % move OR unusual volume). Sort by interestingness.
+    (big % move OR unusual volume), then take a representative slice
+    of `max_candidates_per_run`.
+
+    Two selection modes:
+
+    - Stratified (default, since May 9 2026): bucket the filtered
+      movers by abs(change_pct) and take K from each bucket per
+      `stratified_buckets`. Within a bucket, rank by score and take
+      the top K. Under-filled buckets cascade their leftover capacity
+      to the next-smaller bucket so we never under-fill the prompt
+      and the small-mover bias is preserved on quiet days. See
+      selection_analysis.md for the data motivation.
+
+    - Top-N (legacy): score = |move%| + 2 × volume_multiple, sort
+      desc, take top max_candidates_per_run. Toggle via
+      `MOVEMENT_THRESHOLDS["stratified_sampling"] = False`.
     """
     if thresholds is None:
         thresholds = config.MOVEMENT_THRESHOLDS
@@ -138,18 +153,78 @@ def filter_unusual_movers(
     vol_mult_min = thresholds["volume_multiple_min"]
     cap = thresholds["max_candidates_per_run"]
 
+    # Score for ranking: combination of move size and volume anomaly.
+    # Used both as the within-bucket sort key (stratified mode) and as
+    # the global sort key (legacy top-N mode).
+    def score(m):
+        return abs(m.get("change_pct", 0)) + (m.get("volume_multiple", 0) * 2)
+
     interesting = [
         m for m in movers
         if abs(m.get("change_pct", 0)) >= pct_min
         or m.get("volume_multiple", 0) >= vol_mult_min
     ]
 
-    # Score for ranking: combination of move size and volume anomaly
-    def score(m):
-        return abs(m.get("change_pct", 0)) + (m.get("volume_multiple", 0) * 2)
+    if not thresholds.get("stratified_sampling", False):
+        # Legacy top-N mode
+        interesting.sort(key=score, reverse=True)
+        return interesting[:cap]
 
-    interesting.sort(key=score, reverse=True)
-    return interesting[:cap]
+    # ---- Stratified mode --------------------------------------
+    buckets_def = thresholds["stratified_buckets"]
+
+    # Place each mover into exactly one bucket by abs(change_pct).
+    # Iteration is in defined bucket order; first-match wins, which
+    # is correct because buckets are non-overlapping by construction.
+    bucketed: dict[str, list[dict[str, Any]]] = {b[0]: [] for b in buckets_def}
+    for m in interesting:
+        a = abs(m.get("change_pct", 0))
+        for label, lo, hi, _cap in buckets_def:
+            if lo <= a < hi:
+                bucketed[label].append(m)
+                break
+
+    # Sort within each bucket by score, descending.
+    for lst in bucketed.values():
+        lst.sort(key=score, reverse=True)
+
+    # Take K from each bucket. Track underfill so we can cascade it
+    # toward smaller buckets — preserves the small-mover bias on quiet
+    # days when the big-mover buckets are sparse.
+    chosen: list[dict[str, Any]] = []
+    spillover = 0  # unused capacity from previously processed buckets
+    # Process buckets from largest to smallest move so spillover flows
+    # naturally into the small-mover bucket where we want it.
+    for label, lo, hi, bucket_cap in reversed(buckets_def):
+        slots = bucket_cap + spillover
+        available = bucketed[label]
+        take = min(slots, len(available))
+        chosen.extend(available[:take])
+        spillover = slots - take  # what's left over goes to the next-smaller bucket
+
+    # If after all buckets we still have spillover (very quiet day where
+    # everything underfills), there's nothing to do — we just return
+    # fewer than `cap` movers. The discovery pass handles a smaller list
+    # gracefully.
+
+    # Final sort by score for downstream consumers that expect
+    # "interestingness order" (e.g. the retry path in main.py uses
+    # movers[:N//2] expecting the strongest signals are first).
+    chosen.sort(key=score, reverse=True)
+
+    # Diagnostic print so cron logs show the bucket distribution.
+    # Cheap to keep on permanently; aids the 2-week observation window.
+    counts = {b[0]: 0 for b in buckets_def}
+    for m in chosen:
+        a = abs(m.get("change_pct", 0))
+        for label, lo, hi, _ in buckets_def:
+            if lo <= a < hi:
+                counts[label] += 1
+                break
+    summary = ", ".join(f"{lbl}:{n}" for lbl, n in counts.items())
+    print(f"[market] stratified selection: {len(chosen)} movers ({summary})")
+
+    return chosen
 
 # SP400/SP600 constituent cache (local-dev accelerator)
 # - 30-day TTL: Wikipedia constituent changes happen ~quarterly with 0-3

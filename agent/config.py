@@ -56,6 +56,25 @@ MOVEMENT_THRESHOLDS = {
     "intraday_pct_min": 4.0,             # +/- 4% intraday
     "volume_multiple_min": 2.5,          # 2.5x average volume
     "max_candidates_per_run": 20,        # Hard cap before sending to Claude
+    # Stratified sampling: take K from each move-size bucket instead of
+    # top-N globally. Motivation in selection_analysis.md (May 9 2026):
+    # all 5 OVERDONE flags in 151-flag dataset live in the 4-8% bucket;
+    # post universe-expansion that bucket is empty because top-N-by-
+    # magnitude in a 1003-ticker universe is dominated by 10%+ movers.
+    # Caps must sum to max_candidates_per_run (20). Buckets are based on
+    # abs(change_pct). Volume-only admits land in "<4%". Spillover from
+    # under-filled buckets cascades upward toward smaller buckets to
+    # preserve the small-mover bias.
+    "stratified_sampling": True,         # toggle for A/B comparison if needed
+    "stratified_buckets": [
+        # (label, lo_inclusive, hi_exclusive, cap)
+        ("<4%",     0.0,    4.0,    2),
+        ("4-6%",    4.0,    6.0,    6),
+        ("6-8%",    6.0,    8.0,    4),
+        ("8-10%",   8.0,   10.0,    3),
+        ("10-15%", 10.0,   15.0,    3),
+        ("15%+",   15.0, 9999.0,    2),
+    ],
 }
 
 # ============================================================
