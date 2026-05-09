@@ -899,15 +899,17 @@ def _write_suggestions(
     payload = json.dumps(out, indent=2, ensure_ascii=False)
 
     # Per-screen file (the new canonical location)
-    per_screen_path = Path(f"docs/data/{sid}_suggestions.json")
+    per_screen_path = Path(config.screen_paths(sid)["suggestions"])
     per_screen_path.parent.mkdir(parents=True, exist_ok=True)
     per_screen_path.write_text(payload)
     print(f"  wrote {per_screen_path}")
 
     # Legacy alias for one transition cycle: Screen 0 also writes
-    # the un-prefixed file the existing dashboard reads.
+    # the un-prefixed file the existing dashboard reads. Delete this
+    # branch (and OUTPUT_SUGGESTIONS_LEGACY in config.py) once the
+    # dashboard reads screen_0_suggestions.json directly.
     if sid == config.DEFAULT_SCREEN_ID:
-        legacy_path = Path(config.OUTPUT_SUGGESTIONS)
+        legacy_path = Path(config.OUTPUT_SUGGESTIONS_LEGACY)
         legacy_path.parent.mkdir(parents=True, exist_ok=True)
         legacy_path.write_text(payload)
         print(f"  wrote {legacy_path} (legacy alias)")

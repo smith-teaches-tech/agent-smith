@@ -359,6 +359,7 @@ def screen_paths(screen_id: str) -> dict[str, str]:
     return {
         "portfolio": f"{PORTFOLIOS_DIR}/{screen_id}.json",
         "history": f"{PORTFOLIOS_DIR}/{screen_id}_history.json",
+        "suggestions": f"docs/data/{screen_id}_suggestions.json",
     }
 
 
@@ -372,7 +373,16 @@ def screen_paths(screen_id: str) -> dict[str, str]:
 # When the last consumer migrates to screen_paths(), these constants
 # can be deleted in a focused cleanup session — no rush; the alias
 # is cheap.
+#
+# F2 multi-screen note: OUTPUT_SUGGESTIONS now points at Screen 0's
+# suggestions file by convention, BUT during the transition cycle
+# main._write_suggestions also writes the un-prefixed legacy
+# `docs/data/suggestions.json` for the existing dashboard. Once
+# `docs/suggestions.html` reads `screen_0_suggestions.json` directly,
+# the legacy alias write in main.py can be removed and this constant
+# can stop pointing at a real file (or be deleted).
 # ============================================================
 OUTPUT_PORTFOLIO = screen_paths(DEFAULT_SCREEN_ID)["portfolio"]
 OUTPUT_PORTFOLIO_HISTORY = screen_paths(DEFAULT_SCREEN_ID)["history"]
 OUTPUT_SUGGESTIONS = "docs/data/suggestions.json"
+OUTPUT_SUGGESTIONS_LEGACY = "docs/data/suggestions.json"
