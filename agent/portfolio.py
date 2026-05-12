@@ -364,6 +364,7 @@ def execute_buy(
     catalyst: str | None = None,
     reference_price: float | None = None,
     screen_id: str | None = None,
+    tier: str | None = None,
 ) -> tuple[bool, str, dict[str, Any] | None]:
     """
     Execute a BUY at the next US regular-session open. Returns
@@ -372,6 +373,12 @@ def execute_buy(
     screen_id routes the audit-log entry to the correct per-screen
     history file. Defaults to the state's stored screen_id, or
     DEFAULT_SCREEN_ID if state has none (legacy state files).
+
+    tier: "conviction" | "exploratory" | None. Persisted to the position
+    record for downstream cap enforcement (main.py counts open
+    exploratory positions before opening a new one) and dashboard
+    display. None defaults to "conviction" on read for backward
+    compatibility with pre-May-12 positions that have no tier field.
     """
     sid = screen_id or state.get("screen_id") or config.DEFAULT_SCREEN_ID
     next_open = _fetch_next_open_price(ticker)
@@ -413,6 +420,7 @@ def execute_buy(
         "latest_reasoning": f"Opened position at ${fill:.2f}, +${fees:.2f} fees.",
         "next_action": "HOLD",
         "catalyst": catalyst,
+        "tier": tier or "conviction",
     }
     state["open_positions"].append(position)
 
@@ -503,6 +511,7 @@ def execute_sell(
                 "fees_total": fees,  # fees from this sell (all attributed here for simplicity)
                 "flag_classification": pos.get("flag_classification"),
                 "flag_confidence": pos.get("flag_confidence"),
+                "tier": pos.get("tier", "conviction"),
                 "exit_reasoning": exit_reasoning,
             }
             fully_closed_positions.append(closed)
@@ -540,6 +549,7 @@ def execute_sell(
                 "fees_total": fees,
                 "flag_classification": pos.get("flag_classification"),
                 "flag_confidence": pos.get("flag_confidence"),
+                "tier": pos.get("tier", "conviction"),
                 "exit_reasoning": exit_reasoning + " (partial)",
             }
             fully_closed_positions.append(partial)
@@ -571,10 +581,11 @@ def size_position(
     price: float,
     sector: str | None,
     confidence: int,
+    target_pct_override: float | None = None,
 ) -> int:
     """
     Pick a share count for a new buy that respects ALL guardrails
-    and scales with confidence.
+    and scales with confidence (or a caller-supplied override).
 
     Confidence multipliers on the base allocation:
       conf 5 → 25% of equity (hits position cap)
@@ -582,13 +593,22 @@ def size_position(
       conf 3 → 15%  (the minimum for a buy)
       conf 2 → 10%  (not used — min_buy_confidence is 3)
       conf 1 → 5%
+
+    target_pct_override: if set, bypass the confidence multiplier and
+    use this percentage of equity as the target notional. Used by the
+    exploratory tier (6% per position, regardless of confidence).
+    All position/sector/cash guardrails still apply on top — the
+    override only changes the *desired* sizing, not the caps.
     """
     if price <= 0:
         return 0
 
     equity = total_equity(state)
-    multiplier_by_conf = {5: 0.25, 4: 0.20, 3: 0.15, 2: 0.10, 1: 0.05}
-    target_pct = multiplier_by_conf.get(int(confidence), 0.10)
+    if target_pct_override is not None:
+        target_pct = target_pct_override
+    else:
+        multiplier_by_conf = {5: 0.25, 4: 0.20, 3: 0.15, 2: 0.10, 1: 0.05}
+        target_pct = multiplier_by_conf.get(int(confidence), 0.10)
     target_notional = equity * target_pct
 
     # Respect the max position ceiling no matter what.

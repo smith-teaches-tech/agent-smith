@@ -490,11 +490,27 @@ def run_portfolio_for_screen(
             continue
         if action == "ADD":
             # Adds are treated as fresh BUYs at the current sizing.
+            # Tier is inherited from the original position — exploratory
+            # stays exploratory, conviction stays conviction. No "promotion"
+            # path. If the position has no tier (legacy pre-May-12), default
+            # to conviction.
             flag = flags_by_ticker.get(tkr)
             if not flag:
                 print(f"[portfolio] SKIP ADD {tkr}: no fresh flag to justify")
                 continue
-            ok = _try_buy(state, flag, reasoning_override=reasoning, screen_id=screen_id)
+            existing_position = next(
+                (p for p in state["open_positions"] if p["ticker"] == tkr),
+                None,
+            )
+            inherited_tier = (
+                (existing_position or {}).get("tier") or "conviction"
+            )
+            ok = _try_buy(
+                state, flag,
+                reasoning_override=reasoning,
+                screen_id=screen_id,
+                tier=inherited_tier,
+            )
             if ok: trade_summary["buys"] += 1
             else: trade_summary["blocked"] += 1
         elif action in ("TRIM", "EXIT"):
@@ -513,6 +529,23 @@ def run_portfolio_for_screen(
                 print(f"[portfolio] {action} {tkr} FAILED: {msg}")
 
     # 2) Apply new-name decisions.
+    #
+    # Two-tier model (May 12, 2026):
+    #  - Conviction tier: Haiku says BUY + tier=conviction. Sizing via
+    #    pf.size_position's confidence-weighted formula (existing).
+    #  - Exploratory tier: Haiku says BUY + tier=exploratory. Sizing via
+    #    pf.size_position with target_pct_override = 6%. Hard cap of 4
+    #    simultaneous exploratory positions per screen, enforced here
+    #    (auto-converts the 5th to WATCH so the flag still surfaces on
+    #    the dashboard).
+    #  - Schema violation (BUY without valid tier): auto-convert to
+    #    WATCH with a logged warning. Equivalent to forfeiting the trade.
+    def _open_exploratory_count() -> int:
+        return sum(
+            1 for p in state["open_positions"]
+            if p.get("tier") == "exploratory"
+        )
+
     for d in decisions.get("new_decisions", []):
         tkr = d.get("ticker")
         decision = (d.get("decision") or "SKIP").upper()
@@ -522,7 +555,49 @@ def run_portfolio_for_screen(
             continue
 
         if decision == "BUY":
-            ok = _try_buy(state, flag, reasoning_override=reasoning, screen_id=screen_id)
+            tier = d.get("tier")
+            if tier not in ("conviction", "exploratory"):
+                # Schema violation. Convert to WATCH so the flag still
+                # surfaces but no trade fires.
+                print(
+                    f"[portfolio] WARN: BUY without valid tier for {tkr} "
+                    f"(got tier={tier!r}); converting to WATCH"
+                )
+                trade_summary["watched"] += 1
+                suggestion_entries.append(
+                    _build_suggestion_entry(
+                        flag, "WATCH",
+                        f"Auto-converted: BUY emitted with tier={tier!r}, "
+                        f"schema requires conviction|exploratory. Original "
+                        f"reasoning: {reasoning}",
+                    )
+                )
+                continue
+
+            if tier == "exploratory":
+                cap = config.EXPLORATORY_TIER["max_simultaneous"]
+                if _open_exploratory_count() >= cap:
+                    print(
+                        f"[portfolio] exploratory cap reached ({cap} open); "
+                        f"converting BUY {tkr} → WATCH"
+                    )
+                    trade_summary["watched"] += 1
+                    suggestion_entries.append(
+                        _build_suggestion_entry(
+                            flag, "WATCH",
+                            f"Auto-converted: exploratory tier cap reached "
+                            f"({cap} simultaneous open). Original reasoning: "
+                            f"{reasoning}",
+                        )
+                    )
+                    continue
+
+            ok = _try_buy(
+                state, flag,
+                reasoning_override=reasoning,
+                screen_id=screen_id,
+                tier=tier,
+            )
             if ok:
                 trade_summary["buys"] += 1
             else:
@@ -577,12 +652,19 @@ def _try_buy(
     flag: dict[str, Any],
     reasoning_override: str = "",
     screen_id: str | None = None,
+    tier: str | None = None,
 ) -> bool:
     """
     Size & execute a buy from a discovery flag. Returns True on success.
 
     screen_id routes the trade's audit-log entry to the correct
     per-screen history file. Defaults to the state's stored screen_id.
+
+    tier ("conviction"|"exploratory"|None): controls sizing.
+      - conviction (or None): confidence-weighted (15-25% per conf band).
+      - exploratory: fixed 6% of equity per
+        config.EXPLORATORY_TIER["position_pct_of_cash"], routed through
+        the same 25%/40%/10% guardrails as conviction sizing.
     """
     tkr = flag.get("ticker")
     # Use current_price if available, else last close off yfinance.
@@ -596,12 +678,25 @@ def _try_buy(
         print(f"[portfolio] BUY {tkr} DEFERRED: no reference price")
         return False
 
-    shares = pf.size_position(
-        state,
-        price=ref_price,
-        sector=flag.get("sector"),
-        confidence=int(flag.get("confidence") or 3),
-    )
+    # Tier dispatch: exploratory uses fixed 6% sizing; conviction (or
+    # unset, for backward compat) uses confidence-weighted sizing.
+    if tier == "exploratory":
+        target_pct = config.EXPLORATORY_TIER["position_pct_of_cash"]
+        shares = pf.size_position(
+            state,
+            price=ref_price,
+            sector=flag.get("sector"),
+            confidence=int(flag.get("confidence") or 3),
+            target_pct_override=target_pct,
+        )
+    else:
+        shares = pf.size_position(
+            state,
+            price=ref_price,
+            sector=flag.get("sector"),
+            confidence=int(flag.get("confidence") or 3),
+        )
+
     if shares <= 0:
         print(f"[portfolio] BUY {tkr} BLOCKED: sizing returned 0 shares (guardrail)")
         return False
@@ -623,9 +718,11 @@ def _try_buy(
         catalyst=flag.get("catalyst"),
         reference_price=ref_price,
         screen_id=screen_id,
+        tier=tier,
     )
     if ok:
-        print(f"[portfolio] BUY {tkr} × {shares}: {msg}")
+        tier_label = tier or "conviction"
+        print(f"[portfolio] BUY {tkr} × {shares} [{tier_label}]: {msg}")
     else:
         print(f"[portfolio] BUY {tkr} FAILED: {msg}")
     return ok

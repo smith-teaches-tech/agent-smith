@@ -93,6 +93,9 @@ select.sort-select { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem
 .action-ADD { color: var(--info); border-color: var(--info); }
 .action-TRIM { color: var(--warn); border-color: var(--warn); }
 .action-EXIT { color: var(--neg); border-color: var(--neg); }
+.tier-pill { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; padding: 0.1rem 0.4rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; border: 1px solid; margin-left: 0.4rem; vertical-align: middle; }
+.tier-conviction { color: var(--accent); border-color: var(--accent); }
+.tier-exploratory { color: var(--warn); border-color: var(--warn); opacity: 0.85; }
 .trade-side { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; padding: 0.15rem 0.45rem; border: 1px solid; }
 .trade-BUY { color: var(--pos); border-color: var(--pos); }
 .trade-SELL { color: var(--neg); border-color: var(--neg); }
@@ -434,9 +437,13 @@ function renderOpen() {
   tbody.innerHTML = data.map(p => {
     const pnlCls = signClass(p.unrealized_pnl);
     const thesisCls = p.thesis_status ? 'thesis-' + p.thesis_status.replace('_', '-') : '';
+    // Tier badge — defaults to "conviction" for legacy positions (pre-
+    // May 12, 2026) that have no tier field on the position record.
+    const tier = p.tier || 'conviction';
+    const tierBadge = `<span class="tier-pill tier-${tier}" title="${tier === 'exploratory' ? 'Exploratory tier — 6% sizing, test position' : 'Conviction tier — confidence-weighted sizing'}">${tier}</span>`;
     return `
       <tr class="data-row" data-t="${p.ticker}" onclick="toggleRow('pos-${p.ticker}')">
-        <td><div class="ticker">${p.ticker}</div><div class="company">${p.name}</div></td>
+        <td><div class="ticker">${p.ticker}${tierBadge}</div><div class="company">${p.name}</div></td>
         <td class="num">${p.shares}</td>
         <td class="num price">$${p.cost_basis.toFixed(2)}</td>
         <td class="num price">$${p.current_price.toFixed(2)}</td>

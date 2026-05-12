@@ -4,15 +4,8 @@ Pulls index/sector context, then scans for unusual movers
 in the discovery universe (mid-cap sweet spot).
 """
 import yfinance as yf
-import pandas as pd
-import requests
-from datetime import datetime, timedelta
 from typing import Any
 import time
-import sys
-import io
-import json
-from pathlib import Path
 
 from . import config
 
@@ -226,87 +219,42 @@ def filter_unusual_movers(
 
     return chosen
 
-# SP400/SP600 constituent cache (local-dev accelerator)
-# - 30-day TTL: Wikipedia constituent changes happen ~quarterly with 0-3
-#   swaps each rebalance, so 30 days is comfortably below the cadence.
-# - GitHub Actions runs fresh containers each cron tick, so production
-#   always re-fetches from Wikipedia regardless of this cache.
-# - File location: .cache/market/constituents.json (gitignored via
-#   parent .cache/ entry from the Screen 1 work).
-_CONSTITUENT_CACHE_PATH = Path(".cache/market/constituents.json")
-_CONSTITUENT_CACHE_TTL_SECONDS = 30 * 24 * 60 * 60  # 30 days
- 
- 
-def _read_constituent_cache() -> list[str] | None:
-    """
-    Return the cached ticker list if present and fresh (< TTL old).
-    Returns None on miss, expired cache, or read/parse error.
-    """
-    path = _CONSTITUENT_CACHE_PATH
-    if not path.exists():
-        return None
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except (json.JSONDecodeError, OSError) as e:
-        print(f"[market] constituent cache unreadable ({e}); will refetch")
-        return None
- 
-    fetched_at = payload.get("fetched_at_unix", 0)
-    age_s = time.time() - fetched_at
-    if age_s > _CONSTITUENT_CACHE_TTL_SECONDS:
-        print(
-            f"[market] constituent cache expired "
-            f"(age {age_s/86400:.1f} days > 30); will refetch"
-        )
-        return None
- 
-    tickers = payload.get("tickers")
-    if not isinstance(tickers, list) or not tickers:
-        return None
- 
-    print(
-        f"[market] constituent cache hit "
-        f"({len(tickers)} tickers, age {age_s/86400:.1f} days)"
-    )
-    return tickers
- 
- 
-def _write_constituent_cache(tickers: list[str]) -> None:
-    """Persist the freshly-fetched list. Best-effort — failure is not fatal."""
-    try:
-        _CONSTITUENT_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
-        payload = {
-            "fetched_at_unix": time.time(),
-            "fetched_at_iso": __import__("datetime").datetime.utcnow().isoformat() + "Z",
-            "ttl_seconds": _CONSTITUENT_CACHE_TTL_SECONDS,
-            "tickers": tickers,
-        }
-        _CONSTITUENT_CACHE_PATH.write_text(
-            json.dumps(payload, indent=2),
-            encoding="utf-8",
-        )
-        print(f"[market] wrote constituent cache ({len(tickers)} tickers)")
-    except OSError as e:
-        print(f"[market] constituent cache write failed ({e}); continuing")
 
 # ============================================================
 # Candidate ticker sources
 # ============================================================
-# Discovery universe: S&P 400 (mid-cap) + S&P 600 (small-cap) constituents.
+# Discovery universe: hand-picked subset of S&P 400 (mid-cap) and
+# S&P 600 (small-cap) names.
 #
-# Phase 1.5-lite update (2026-05-03): switched from a small hardcoded
-# sample (~80 tickers, ~8% coverage) to fetching the live constituent
-# lists from Wikipedia each run. Hardcoded fallback remains in place
-# in case the fetch fails — falls back loudly with a printed warning
-# visible in GitHub Actions output.
+# History:
+#   - Phase 1.5-lite (Apr 22, 2026): launched with this ~80-ticker
+#     hand-picked sample. Generated the EXTR +17.9% trade, plus
+#     all 5 OVERDONE flags that have ever been recorded.
+#   - Universe expansion (May 5, 2026): switched to live SP400+SP600
+#     fetch (~1003 tickers), in pursuit of a wider candidate pool.
+#   - Rollback (May 12, 2026): the wider universe produced almost no
+#     edge — May 11's run produced 51 SKIP decisions, zero OVERDONE /
+#     UNDERDONE flags, all entries either RATIONAL or UNCLEAR. The
+#     selection-analysis from May 9 already showed every OVERDONE flag
+#     lived in the 4-8% bucket; in a 1003-ticker universe that bucket
+#     is overwhelmed by movers that don't carry the same information
+#     content as the curated names did. Rolled back to the original 80.
+#
+# This list is deliberately small, hand-curated, and biased toward the
+# sectors where the strategy's mispricing thesis applies: biotech,
+# growth tech, defense, networking, gene editing, restaurants, and
+# the original "interesting names that move" set. No dividend-heavy
+# names (Michael is a non-US resident — 30% US dividend withholding
+# would shred returns). No REITs.
+#
+# To curate: edit DISCOVERY_UNIVERSE below directly. No re-deploy or
+# refresh needed — every cron tick reads the list at import time.
+#
+# The names below are the original Phase 1.5-lite sample, preserved
+# verbatim from market.py prior to the May 5 expansion.
 
-# Wikipedia constituent table URLs.
-SP400_WIKIPEDIA_URL = "https://en.wikipedia.org/wiki/List_of_S%26P_400_companies"
-SP600_WIKIPEDIA_URL = "https://en.wikipedia.org/wiki/List_of_S%26P_600_companies"
-
-# Fallback samples — used only if the live fetch fails.
-# These are the original Phase 1.5-lite samples; proven to work.
-SP400_FALLBACK = [
+# Original ~45 mid-cap names (S&P 400 segment).
+_MIDCAP_SEED = [
     "ALGN", "DECK", "PSTG", "WSM", "RGEN", "ENTG", "FIVE", "CHRW",
     "MEDP", "EXEL", "GTLS", "SAIA", "MANH", "JBL", "CASY", "BLDR",
     "RPM", "WST", "POOL", "FFIV", "TXRH", "INSM", "WSO", "AIT",
@@ -315,151 +263,54 @@ SP400_FALLBACK = [
     "FLEX", "JBLU", "ALK", "SAVE", "SKYW",
 ]
 
-SP600_FALLBACK = [
+# Original ~35 small-cap names (S&P 600 segment), grouped by theme.
+_SMALLCAP_SEED = [
+    # Industrial / energy / education
     "MGY", "MMSI", "UFPI", "AMR", "PRDO", "ATGE", "ENV", "BMI",
+    # Networking / semiconductors
     "CALX", "AEIS", "PLAB", "VECO", "PRGS", "EXTR", "CAMP",
+    # Defense / aerospace
     "AVAV", "KTOS", "MRCY", "DCO", "HEI",
+    # Biotech / gene editing
     "CRSP", "BEAM", "EDIT", "VCYT", "CDNA", "NTLA",
     "BBIO", "ITCI", "AXSM", "PTCT", "MYGN",
+    # Consumer staples / food
     "FIZZ", "CENT", "JJSF", "LANC",
 ]
 
-# Back-compat aliases (some external code may still reference these names)
-SP400_SAMPLE = SP400_FALLBACK
-SP600_SAMPLE = SP600_FALLBACK
+# The curated discovery universe — 80 hand-picked names.
+DISCOVERY_UNIVERSE: list[str] = _MIDCAP_SEED + _SMALLCAP_SEED
+
+# Back-compat aliases. Older code referenced these constant names;
+# keep them so any stale import doesn't break. Both now point at the
+# same curated list.
+SP400_FALLBACK = _MIDCAP_SEED
+SP600_FALLBACK = _SMALLCAP_SEED
+SP400_SAMPLE = _MIDCAP_SEED
+SP600_SAMPLE = _SMALLCAP_SEED
 
 
-def _normalize_ticker(symbol: str) -> str:
-    """
-    Convert Wikipedia-style share-class tickers (BRK.B) to yfinance-style (BRK-B).
-    Wikipedia uses '.' as the share-class separator; yfinance uses '-'.
-    Also strips whitespace and uppercases.
-    """
-    if not isinstance(symbol, str):
-        return ""
-    return symbol.strip().upper().replace(".", "-")
-
-
-def _fetch_constituents_from_wikipedia(url: str, label: str) -> list[str]:
-    """
-    Fetch S&P index constituent tickers from a Wikipedia page.
-
-    Wikipedia constituent pages include a sortable HTML table where one
-    column is named "Symbol" (or sometimes "Ticker symbol"). We fetch
-    the page with requests (using a real browser User-Agent — Wikipedia
-    returns 403 on the default urllib UA used by pandas.read_html), then
-    hand the HTML string to pandas to parse all tables, then pick the
-    first one that has a recognizable ticker column.
-
-    Returns a list of normalized, deduplicated tickers. Raises on any
-    failure — caller is responsible for fallback handling.
-    """
-    # Use a real browser User-Agent — Wikipedia 403s urllib's default UA.
-    headers = {
-        "User-Agent": (
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/120.0.0.0 Safari/537.36"
-        ),
-    }
-    resp = requests.get(url, headers=headers, timeout=30)
-    resp.raise_for_status()
-
-    # pandas.read_html accepts an HTML string. Requires lxml or html5lib
-    # for parsing — both are in requirements.
-    tables = pd.read_html(io.StringIO(resp.text))
-    if not tables:
-        raise ValueError(f"{label}: no tables found on page")
-
-    # Find the constituent table by looking for a ticker-like column header.
-    ticker_col_candidates = ("Symbol", "Ticker symbol", "Ticker")
-    for tbl in tables:
-        cols = [str(c) for c in tbl.columns]
-        for candidate in ticker_col_candidates:
-            if candidate in cols:
-                series = tbl[candidate].dropna().astype(str)
-                tickers = [_normalize_ticker(s) for s in series]
-                # Filter out anything that doesn't look like a real ticker.
-                # Real tickers are 1-6 chars, A-Z plus optional '-' for share class.
-                tickers = [
-                    t for t in tickers
-                    if t and 1 <= len(t) <= 6 and all(
-                        c.isalpha() or c == "-" for c in t
-                    )
-                ]
-                if len(tickers) >= 50:  # sanity check — real index has hundreds
-                    # Deduplicate while preserving order
-                    return list(dict.fromkeys(tickers))
-
-    raise ValueError(
-        f"{label}: no table with a recognizable ticker column "
-        f"(looked for {ticker_col_candidates!r})"
-    )
-
-
-# The signature gains a force_refresh kwarg (default False) so existing
-# callers (`market.get_discovery_candidates()` with no args) work unchanged.
- 
 def get_discovery_candidates(force_refresh: bool = False) -> list[str]:
     """
-    Return the candidate ticker list for discovery scanning.
- 
-    Tries cache first (30-day TTL), falls back to live Wikipedia fetch
-    of SP400 + SP600 constituent lists. Cache is at
-    .cache/market/constituents.json — gitignored, local-dev only.
- 
-    Args:
-      force_refresh: if True, bypass the cache and refetch from Wikipedia.
-                     Use after a known index rebalance or for debugging.
-                     Production cron runs (in fresh GitHub Actions
-                     containers) always have a cache miss naturally and
-                     don't need this flag.
- 
+    Return the curated 80-ticker discovery universe.
+
+    The force_refresh kwarg is preserved for backward compatibility with
+    any caller that still passes it (the constituent-cache mechanism it
+    used to control was removed in the May 12 rollback). It is now a
+    no-op.
+
     Returns:
-      Deduplicated list of normalized tickers. Empty list on total
-      failure (Wikipedia 403 with no cache available).
+      Deduplicated list of ticker symbols in their original curated
+      order — mid-cap segment first, then small-cap segment.
     """
-    if not force_refresh:
-        cached = _read_constituent_cache()
-        if cached:
-            return cached
- 
-    print("[market] fetching SP400 + SP600 constituents from Wikipedia...")
-    tickers: list[str] = []
-    try:
-        sp400 = _fetch_constituents_from_wikipedia(
-            "https://en.wikipedia.org/wiki/List_of_S%26P_400_companies",
-            "SP400",
-        )
-        print(f"[market] fetched {len(sp400)} SP400 constituents from Wikipedia")
-        tickers.extend(sp400)
-    except Exception as e:
-        print(f"[market] SP400 fetch failed: {e}")
- 
-    try:
-        sp600 = _fetch_constituents_from_wikipedia(
-            "https://en.wikipedia.org/wiki/List_of_S%26P_600_companies",
-            "SP600",
-        )
-        print(f"[market] fetched {len(sp600)} SP600 constituents from Wikipedia")
-        tickers.extend(sp600)
-    except Exception as e:
-        print(f"[market] SP600 fetch failed: {e}")
- 
-    # Deduplicate while preserving order (a ticker rarely appears in both,
-    # but defensive cheap dedup costs nothing).
-    deduped = list(dict.fromkeys(tickers))
-    print(f"[market] total discovery universe: {len(deduped)} tickers")
- 
-    if deduped:
-        # Only cache successful (non-empty) fetches. A partial-failure
-        # write would otherwise lock us into a broken cache for 30 days.
-        _write_constituent_cache(deduped)
- 
-    return deduped
+    # Dedup defensively while preserving order, in case the seed lists
+    # ever drift to overlap. Cheap and protects downstream callers.
+    return list(dict.fromkeys(DISCOVERY_UNIVERSE))
 
 
 if __name__ == "__main__":
     # Smoke test
     print("Indices:", fetch_context_quotes(config.INDICES[:2]))
-    print("Discovery candidate count:", len(get_discovery_candidates()))
+    candidates = get_discovery_candidates()
+    print(f"Discovery candidate count: {len(candidates)}")
+    print(f"First 10: {candidates[:10]}")

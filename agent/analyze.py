@@ -533,9 +533,56 @@ will reject trades that violate):
 - Always keep at least 10% in cash
 - Cash can never go negative
 
-Your job each run: review what's open and what's newly flagged, and
-output a decision for each. Be willing to SKIP. Inaction is usually the
-right choice — trading costs money (IBKR Pro Tiered fees + 0.1% slippage).
+A NOTE ON ACTIVITY LEVEL. This is a learning system, not a passive
+holding. If you flag interesting names every day but never trade, the
+grading loop produces zero signal — you learn nothing about whether
+your reads are right. Inaction is sometimes the right call, but
+*chronic* inaction is itself a failure mode. The two-tier sizing below
+exists specifically to let you take small calibrated bets on flags
+that don't reach the conviction bar, so the bot generates enough
+graded trades to actually learn.
+
+================================
+TWO BUY TIERS
+================================
+
+CONVICTION tier: for flags where the OVERDONE/UNDERDONE read is sharp
+and confidence is high. Sized 15-25% of equity, scaled by confidence
+(conf 5 -> 25%, conf 4 -> 20%, conf 3 -> 15%). Use sparingly — each
+conviction trade is a significant bankroll commitment.
+
+EXPLORATORY tier: for flags with a real catalyst URL, a coherent
+thesis, and confidence >= 3, where the situation is worth a small
+test position even if it doesn't meet conviction criteria. Sized at
+6% of equity per trade. Hard cap of 4 simultaneous exploratory
+positions per screen, enforced after your decision (if you BUY a
+5th exploratory, the execution layer auto-converts to WATCH).
+
+The exploratory tier exists because some flags carry real information
+that the OVERDONE/UNDERDONE labeling misses. Examples of legitimate
+exploratory candidates:
+  - PARTIALLY RATIONAL conf 4 with a clean 8-K and a sharp setup
+  - LIKELY UNDERDONE conf 3 with a clear catalyst and strong volume
+  - UNCLEAR conf 3 with a named catalyst URL where the thesis is
+    well-articulated and you want to learn whether it pays out
+
+Examples of what is NOT a legitimate exploratory candidate:
+  - Any flag without a cited catalyst URL
+  - Any flag where setup/thesis/what_kills are vague platitudes
+  - A flag you'd classify SKIP if exploratory tier didn't exist —
+    don't drift toward "trade everything"
+
+Be deliberate about tier choice. A marginal OVERDONE conf 3 with a
+great catalyst might be better as exploratory (6%) than conviction
+(15%) if the situation is interesting but not overwhelming. A rare
+PARTIALLY OVERDONE conf 4 with a crystal-clear setup might warrant
+conviction even though it would have been WATCH under stricter
+discipline — feel free to flag this in reasoning and pick the tier
+that fits the conviction, not the label.
+
+================================
+EXISTING POSITIONS
+================================
 
 For each OPEN position, assess:
 - thesis_status: intact / weakening / broken / played-out
@@ -546,24 +593,31 @@ For each OPEN position, assess:
 - next_action: HOLD / ADD / TRIM / EXIT
   * Default to HOLD. Only pick ADD when thesis is strengthening AND
     room under position/sector limits AND confidence improved.
+  * ADD inherits the original position's tier — exploratory stays
+    exploratory, conviction stays conviction. Don't try to "promote".
   * TRIM means reduce position (specify shares_to_sell).
   * EXIT means close entire position.
 
-For each NEW DISCOVERY (confidence ≥ 3 only), choose one:
-- BUY — open a position at next US open (execution layer sizes it)
+================================
+NEW FLAGS
+================================
+
+For each NEW DISCOVERY in the flagged pool, choose one:
+- BUY — open a position at next US open. REQUIRED: emit `tier` field
+  as "conviction" or "exploratory".
 - WATCH — interesting but wait for better entry / more confirmation
 - SKIP — quality doesn't justify entry
 
-Do NOT propose a BUY on a discovery whose classification is RATIONAL or
-UNCLEAR. Only OVERDONE and UNDERDONE with confidence ≥ 3 are buy-eligible.
-
-Do NOT try to outsmart the rules. If a trade would breach a limit, the
-execution layer will block it and write a NO_CASH decision to the
+Do NOT try to outsmart the rules. If a trade would breach a limit,
+the execution layer will block it and write a NO_CASH decision to the
 suggestions log — that's fine. Your job is judgement, not arithmetic.
 
 You will see recent grading data (hit rates by classification and
-confidence). Take it seriously — if your OVERDONE calls at confidence 2
-have been hitting only 30%, you should be more reluctant on new ones.
+confidence). Take it seriously — if your OVERDONE calls at confidence
+2 have been hitting only 30%, you should be more reluctant on new
+ones. But also notice the opposite: if your conviction-tier flags
+have been hitting at a good rate and you're still SKIP-ing most of
+them, that's evidence to be less conservative on the next batch.
 
 {INJECTION_GUARD}
 
@@ -586,12 +640,20 @@ JSON SCHEMA:
     {{
       "ticker": "SYMBOL",
       "decision": "BUY",
+      "tier": "conviction",
       "reasoning": "why this passes the bar (or why not, for WATCH/SKIP)",
       "confidence_in_decision": 4
     }}
   ],
   "no_action_note": "optional: explain if nothing warranted action this run"
 }}
+
+SCHEMA NOTES:
+- `tier` is REQUIRED when decision="BUY". Value must be "conviction"
+  or "exploratory". Omit (or set null) for WATCH/SKIP.
+- If you emit BUY without a valid tier, the execution layer auto-
+  converts to WATCH with a logged warning — equivalent to forfeiting
+  the trade.
 """
 
 
@@ -641,6 +703,82 @@ def _summarize_trends_for_prompt(trends: dict[str, Any] | None) -> str:
     return "\n".join(lines)
 
 
+# ============================================================
+# Buy-eligibility helpers
+#
+# Two-tier model (May 12, 2026):
+#   - Conviction tier:   OVERDONE/UNDERDONE @ conf >= 3. Sized 15-25%.
+#   - Exploratory tier:  any classification @ conf >= 3 with real
+#                        catalyst URL + populated thesis fields.
+#                        Sized 6%, capped at 4 simultaneous per screen.
+#
+# `_is_haiku_eligible` is the union — it's the gate that decides
+# whether a flag reaches Haiku at all. Haiku then decides BUY/WATCH/
+# SKIP and (on BUY) which tier.
+#
+# Cap-at-4 for exploratory positions is enforced at apply time in
+# main.py, not here (those rules are auditable in the trade log).
+# ============================================================
+
+def _is_buy_eligible(flag: dict[str, Any]) -> bool:
+    """
+    Conviction-eligible: OVERDONE/UNDERDONE at conf >= PAPER_PORTFOLIO_
+    MIN_BUY_CONFIDENCE. Used by callers that specifically want the
+    higher-bar conviction-tier pool.
+    """
+    conf = flag.get("confidence") or 0
+    return (
+        is_directional(flag.get("classification"))
+        and conf >= config.PAPER_PORTFOLIO_MIN_BUY_CONFIDENCE
+    )
+
+
+def _is_exploratory_eligible(flag: dict[str, Any]) -> bool:
+    """
+    Exploratory-eligible: a flag with real catalyst URL, populated
+    thesis fields, and confidence >= min_confidence. Classification
+    does NOT have to be OVERDONE/UNDERDONE — that's the entire point
+    of the tier: PARTIALLY-RATIONAL conf 4 with a clean 8-K can land
+    a 6% test position even though it'd never reach conviction.
+
+    Haiku still decides BUY vs WATCH vs SKIP among the gated pool.
+    """
+    rules = config.EXPLORATORY_TIER["eligibility"]
+    conf = flag.get("confidence") or 0
+    if conf < rules["min_confidence"]:
+        return False
+
+    if rules["require_catalyst_url"]:
+        url = (flag.get("catalyst_url") or "").strip()
+        if not url:
+            return False
+
+    if rules["require_thesis_fields_populated"]:
+        # Pedagogical schema check: did discovery actually reason about
+        # this name, or are setup/thesis/what_kills stubs? Fall back to
+        # the pre-rewrite field names (mechanism, what_would_falsify)
+        # so flags from the schema-transition window still qualify.
+        thesis_fields = [
+            flag.get("setup"),
+            flag.get("thesis") or flag.get("mechanism"),
+            flag.get("what_kills") or flag.get("what_would_falsify"),
+        ]
+        for f in thesis_fields:
+            if not (f and isinstance(f, str) and len(f.strip()) > 20):
+                return False
+
+    return True
+
+
+def _is_haiku_eligible(flag: dict[str, Any]) -> bool:
+    """
+    Union gate: a flag reaches Haiku's portfolio pass if it's either
+    conviction-eligible OR exploratory-eligible. Haiku decides tier
+    (conviction/exploratory) and action (BUY/WATCH/SKIP) per flag.
+    """
+    return _is_buy_eligible(flag) or _is_exploratory_eligible(flag)
+
+
 def _summarize_open_position(pos: dict[str, Any]) -> dict[str, Any]:
     """Strip a portfolio position down to what Claude needs to decide."""
     return {
@@ -685,6 +823,10 @@ def _summarize_discovery_for_portfolio(d: dict[str, Any]) -> dict[str, Any]:
         "what_kills": d.get("what_kills") or d.get("what_would_falsify"),
         "what_to_learn": d.get("what_to_learn"),
         "catalyst": d.get("catalyst"),
+        # Exploratory-tier gate requires a real catalyst URL; pass it
+        # through so Haiku can reason about whether exploratory sizing
+        # is justified vs. conviction (or vs. WATCH/SKIP).
+        "catalyst_url": d.get("catalyst_url"),
         "time_horizon": d.get("time_horizon", "days"),
     }
 
@@ -710,16 +852,14 @@ def run_portfolio_pass(
     slim_positions = [
         _summarize_open_position(p) for p in portfolio_state["open_positions"]
     ]
-    # Buy eligibility = directional call (OVERDONE/UNDERDONE), tolerant of
-    # LIKELY/PARTIALLY prefixes. Same normalization as grading uses, via the
-    # shared agent.classifications helper (single source of truth).
-    _is_buy_eligible = is_directional
-
+    # Widened May 12: exploratory tier brings catalyst+conf3+thesis-
+    # populated flags into Haiku's view alongside conviction-eligible
+    # flags. Haiku decides BUY/WATCH/SKIP and (on BUY) which tier.
+    # See `_is_haiku_eligible` above for the union rule.
     buy_eligible = [
         _summarize_discovery_for_portfolio(f)
         for f in recent_flags
-        if _is_buy_eligible(f.get("classification"))
-        and (f.get("confidence") or 0) >= config.PAPER_PORTFOLIO_MIN_BUY_CONFIDENCE
+        if _is_haiku_eligible(f)
     ]
 
     user_content = "\n".join([

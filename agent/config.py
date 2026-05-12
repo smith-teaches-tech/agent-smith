@@ -58,13 +58,17 @@ MOVEMENT_THRESHOLDS = {
     "max_candidates_per_run": 20,        # Hard cap before sending to Claude
     # Stratified sampling: take K from each move-size bucket instead of
     # top-N globally. Motivation in selection_analysis.md (May 9 2026):
-    # all 5 OVERDONE flags in 151-flag dataset live in the 4-8% bucket;
-    # post universe-expansion that bucket is empty because top-N-by-
-    # magnitude in a 1003-ticker universe is dominated by 10%+ movers.
-    # Caps must sum to max_candidates_per_run (20). Buckets are based on
-    # abs(change_pct). Volume-only admits land in "<4%". Spillover from
-    # under-filled buckets cascades upward toward smaller buckets to
-    # preserve the small-mover bias.
+    # all 5 OVERDONE flags in 151-flag dataset lived in the 4-8% bucket.
+    # Originally introduced to fight 1003-ticker universe dilution where
+    # top-N-by-magnitude was dominated by 10%+ movers. After the May 12
+    # rollback to the curated 80-ticker universe the buckets still pull
+    # their weight: on quiet days the cascade backfills toward 4-8%
+    # automatically, and the bucket-distribution diagnostic is a useful
+    # health signal regardless of universe size. Caps sum to
+    # max_candidates_per_run (20). Buckets are based on abs(change_pct).
+    # Volume-only admits land in "<4%". Spillover from under-filled
+    # buckets cascades downward (largest → smallest) to preserve the
+    # small-mover bias when the big-mover buckets are sparse.
     "stratified_sampling": True,         # toggle for A/B comparison if needed
     "stratified_buckets": [
         # (label, lo_inclusive, hi_exclusive, cap)
@@ -222,6 +226,41 @@ PAPER_PORTFOLIO_MIN_BUY_CONFIDENCE = 3
 # Decision window: Claude sees last N days of flagged OVERDONE/UNDERDONE names
 # when making buy/sell decisions.
 PAPER_PORTFOLIO_DECISION_WINDOW_DAYS = 7
+
+# ============================================================
+# Exploratory tier (May 12, 2026 — Session D shipped)
+#
+# A second BUY lane for flags with a real catalyst + meaningful
+# confidence that don't reach the conviction bar but Haiku judges
+# worth a small test position. Goal: more grading data, faster
+# learning loop, capped downside (6% × 4 positions = 24% of
+# bankroll at peak vs. ~0% under the conviction-only regime that
+# made one trade in 30 days).
+#
+# The eligibility rule below is a *gate* — flags that don't satisfy
+# it never reach Haiku as exploratory candidates. Haiku still
+# decides BUY vs WATCH vs SKIP within the gated pool, and decides
+# CONVICTION vs EXPLORATORY tier per flag. The hard cap on
+# simultaneous exploratory positions is enforced at apply time
+# (not in prompt), so the cap is auditable.
+#
+# Sizing is enforced via `pf.size_position(..., target_pct_override=
+# EXPLORATORY_TIER["position_pct_of_cash"])`, which routes through
+# the same 25%/40%/10% guardrails as conviction sizing — so this
+# tier can't sneak around the position/sector/cash caps.
+# ============================================================
+EXPLORATORY_TIER = {
+    # Sizing
+    "position_pct_of_cash": 0.06,            # 6% of equity per exploratory position
+    "max_simultaneous": 4,                    # hard cap, per screen
+    # Eligibility gate — a flag must pass ALL of these to even appear
+    # to Haiku as an exploratory candidate (Haiku then decides tier).
+    "eligibility": {
+        "min_confidence": 3,                  # conf 3+ required
+        "require_catalyst_url": True,         # must cite a real catalyst
+        "require_thesis_fields_populated": True,  # pedagogical schema fields non-stub
+    },
+}
 
 # ============================================================
 # IBKR Pro Tiered fees (paper-trading model)
