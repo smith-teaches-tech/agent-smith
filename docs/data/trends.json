@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-11T20:54:38.624822+00:00",
+  "generated_at": "2026-05-12T20:30:37.357133+00:00",
   "logic_version": 2,
   "grading_params": {
     "hit_threshold_pct": 3.0,
@@ -9,28 +9,28 @@
       "months": 60
     },
     "default_horizon_days": 5,
-    "graded_classifications": "{'OVERDONE', 'UNDERDONE'}"
+    "graded_classifications": "{'UNDERDONE', 'OVERDONE'}"
   },
-  "n_total_calls": 164,
-  "n_not_graded": 159,
-  "n_pending": 0,
-  "n_data_error": 1,
+  "n_total_calls": 167,
+  "n_not_graded": 161,
+  "n_pending": 1,
+  "n_data_error": 0,
   "overall": {
-    "n_resolved": 4,
-    "n_hit": 2,
+    "n_resolved": 5,
+    "n_hit": 3,
     "n_miss": 2,
     "n_ambiguous": 0,
-    "hit_rate": 50.0,
-    "avg_return_pct": 5.19
+    "hit_rate": 60.0,
+    "avg_return_pct": 6.18
   },
   "by_classification": {
     "OVERDONE": {
-      "n_resolved": 4,
-      "n_hit": 2,
+      "n_resolved": 5,
+      "n_hit": 3,
       "n_miss": 2,
       "n_ambiguous": 0,
-      "hit_rate": 50.0,
-      "avg_return_pct": 5.19
+      "hit_rate": 60.0,
+      "avg_return_pct": 6.18
     },
     "UNDERDONE": {
       "n_resolved": 0,
@@ -51,12 +51,12 @@
       "avg_return_pct": null
     },
     "2": {
-      "n_resolved": 2,
-      "n_hit": 1,
+      "n_resolved": 3,
+      "n_hit": 2,
       "n_miss": 1,
       "n_ambiguous": 0,
-      "hit_rate": 50.0,
-      "avg_return_pct": -1.19
+      "hit_rate": 66.7,
+      "avg_return_pct": 2.58
     },
     "3": {
       "n_resolved": 2,
@@ -84,7 +84,23 @@
     }
   },
   "by_sector": {
-    "Financial Services": {
+    "Technology": {
+      "n_resolved": 2,
+      "n_hit": 2,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": 100.0,
+      "avg_return_pct": 18.34
+    },
+    "Industrials": {
+      "n_resolved": 2,
+      "n_hit": 1,
+      "n_miss": 1,
+      "n_ambiguous": 0,
+      "hit_rate": 50.0,
+      "avg_return_pct": 0.9
+    },
+    "Energy": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -100,15 +116,7 @@
       "hit_rate": 0.0,
       "avg_return_pct": -7.56
     },
-    "Technology": {
-      "n_resolved": 2,
-      "n_hit": 2,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": 100.0,
-      "avg_return_pct": 18.34
-    },
-    "Healthcare - Biotechnology": {
+    "Healthcare": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -124,13 +132,37 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Industrials": {
-      "n_resolved": 1,
+    "Communication Services": {
+      "n_resolved": 0,
       "n_hit": 0,
-      "n_miss": 1,
+      "n_miss": 0,
       "n_ambiguous": 0,
-      "hit_rate": 0.0,
-      "avg_return_pct": -8.35
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Basic Materials": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Real Estate": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Healthcare - Biotechnology": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
     },
     "Consumer Defensive": {
       "n_resolved": 0,
@@ -148,39 +180,7 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Energy": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Basic Materials": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Communication Services": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Healthcare": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Real Estate": {
+    "Financial Services": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -191,12 +191,12 @@
   },
   "by_horizon_days": {
     "5": {
-      "n_resolved": 3,
-      "n_hit": 2,
+      "n_resolved": 4,
+      "n_hit": 3,
       "n_miss": 1,
       "n_ambiguous": 0,
-      "hit_rate": 66.7,
-      "avg_return_pct": 9.7
+      "hit_rate": 75.0,
+      "avg_return_pct": 9.81
     },
     "20": {
       "n_resolved": 1,
@@ -218,12 +218,12 @@
   "by_screen": {
     "screen_0": {
       "display_name": "General mispricing",
-      "n_resolved": 4,
-      "n_hit": 2,
+      "n_resolved": 5,
+      "n_hit": 3,
       "n_miss": 2,
       "n_ambiguous": 0,
-      "hit_rate": 50.0,
-      "avg_return_pct": 5.19
+      "hit_rate": 60.0,
+      "avg_return_pct": 6.18
     },
     "screen_1": {
       "display_name": "AI-event sympathy fade",
@@ -253,6 +253,27 @@
       "max_adverse_pct": -1.12,
       "price_at_flag": 16.9,
       "price_at_horizon_end": 22.09,
+      "logic_version": 2,
+      "notes": null,
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "SAIA",
+      "name": "Saia, Inc.",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-04T20:15:13+00:00",
+      "run_file": "us_20260504T201513Z.json",
+      "classification": "OVERDONE",
+      "confidence": 2,
+      "move_pct_at_flag": -8.23,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "HIT",
+      "return_pct_in_horizon": 10.14,
+      "max_favorable_pct": 13.57,
+      "max_adverse_pct": -0.13,
+      "price_at_flag": 405.09,
+      "price_at_horizon_end": 446.18,
       "logic_version": 2,
       "notes": null,
       "screen_id": "screen_0"
@@ -381,6 +402,27 @@
       "max_adverse_pct": -1.45,
       "price_at_flag": 48.13,
       "price_at_horizon_end": 51.0,
+      "logic_version": 2,
+      "notes": null,
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "SAIA",
+      "name": "Saia, Inc.",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-04T20:15:13+00:00",
+      "run_file": "us_20260504T201513Z.json",
+      "classification": "OVERDONE",
+      "confidence": 2,
+      "move_pct_at_flag": -8.23,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "HIT",
+      "return_pct_in_horizon": 10.14,
+      "max_favorable_pct": 13.57,
+      "max_adverse_pct": -0.13,
+      "price_at_flag": 405.09,
+      "price_at_horizon_end": 446.18,
       "logic_version": 2,
       "notes": null,
       "screen_id": "screen_0"
@@ -2330,14 +2372,14 @@
       "move_pct_at_flag": -8.23,
       "expected_direction": "up",
       "horizon_days": 5,
-      "grade": "DATA_ERROR",
-      "return_pct_in_horizon": null,
-      "max_favorable_pct": null,
-      "max_adverse_pct": null,
-      "price_at_flag": null,
-      "price_at_horizon_end": null,
+      "grade": "HIT",
+      "return_pct_in_horizon": 10.14,
+      "max_favorable_pct": 13.57,
+      "max_adverse_pct": -0.13,
+      "price_at_flag": 405.09,
+      "price_at_horizon_end": 446.18,
       "logic_version": 2,
-      "notes": "No price data returned",
+      "notes": null,
       "screen_id": "screen_0"
     },
     {
@@ -3850,6 +3892,69 @@
       "price_at_horizon_end": null,
       "logic_version": 2,
       "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "AEIS",
+      "name": "Advanced Energy Industries, Inc",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-12T20:30:10+00:00",
+      "run_file": "us_20260512T203010Z.json",
+      "classification": "OVERDONE",
+      "confidence": 3,
+      "move_pct_at_flag": -4.38,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "PENDING",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": 339.4200134277344,
+      "price_at_horizon_end": null,
+      "logic_version": 2,
+      "notes": "No post-flag bars yet",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "EXTR",
+      "name": "Extreme Networks, Inc.",
+      "sector": "Technology",
+      "flagged_at": "2026-05-12T20:30:10+00:00",
+      "run_file": "us_20260512T203010Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -6.25,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 2,
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "PLAB",
+      "name": "Photronics, Inc.",
+      "sector": "Technology",
+      "flagged_at": "2026-05-12T20:30:10+00:00",
+      "run_file": "us_20260512T203010Z.json",
+      "classification": "RATIONAL",
+      "confidence": 3,
+      "move_pct_at_flag": -5.42,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 2,
+      "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     }
   ]

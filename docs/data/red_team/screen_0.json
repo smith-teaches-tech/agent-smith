@@ -1,0 +1,22 @@
+[
+  {
+    "ts": "2026-05-12T20:31:28.458349+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio is flat cash at $10.3k. Track record shows 60% hit rate (3/5), with OVERDONE calls at 60% hit rate and confidence-3 calls at 50%. This suggests moderate calibration across all confidence levels. Reviewing 18 new flags across earnings season: most are correctly classified as RATIONAL or PARTIALLY RATIONAL (dominated by post-earnings reactions and sector sympathy). Three OVERDONE candidates (AEIS, and two UNCLEAR/PARTIALLY names warrant consideration), two UNCLEAR momentum plays (AAON, MIDD), and one strong CONVICTION candidate (PLNT short, but we don't short in this framework). I'm identifying 2–3 buys: one exploratory (AEIS as a sympathy fade on solid 8-K reading), one conviction (PLNT as a clear structural break if I could short—instead I'll skip), and one exploratory (AAON on data-center asymmetry).",
+    "ticker": "AEIS",
+    "survived": true,
+    "weakest_link": "The bull case assumes the 8-K delay (May 8 filing hitting 4 days later on May 12) proves it's routine governance, but SEC filings often circulate with a 1-2 day lag and May 8 is a Friday, so a Monday repricing is structurally normal.",
+    "critique": "The thesis rests heavily on 8-K timing logic: that routine governance filings don't reprice stocks days later. But Friday 8-K filings routinely reprice into the Monday open, especially if market participants were focused on other news over the weekend. The real issue is that without reading the actual 8-K exhibit, we cannot distinguish a routine director election (5.02) from a departure or succession gap—the bull case assumes 5.02+5.03+5.07+9.01 in combination proves routine, but that pattern alone does not rule out a management announcement bundled within 5.02. The 4.4% move on below-average volume is consistent with both sympathy drag AND a market that correctly priced in governance risk that institutional holders didn't notice until Monday morning.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-05-12T20:31:28.458349+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio is flat cash at $10.3k. Track record shows 60% hit rate (3/5), with OVERDONE calls at 60% hit rate and confidence-3 calls at 50%. This suggests moderate calibration across all confidence levels. Reviewing 18 new flags across earnings season: most are correctly classified as RATIONAL or PARTIALLY RATIONAL (dominated by post-earnings reactions and sector sympathy). Three OVERDONE candidates (AEIS, and two UNCLEAR/PARTIALLY names warrant consideration), two UNCLEAR momentum plays (AAON, MIDD), and one strong CONVICTION candidate (PLNT short, but we don't short in this framework). I'm identifying 2–3 buys: one exploratory (AEIS as a sympathy fade on solid 8-K reading), one conviction (PLNT as a clear structural break if I could short—instead I'll skip), and one exploratory (AAON on data-center asymmetry).",
+    "ticker": "AAON",
+    "survived": false,
+    "weakest_link": "The bull thesis hinges on the unread 8.01 containing 'asymmetric news' (contract or guide raise), but a 31% move on earnings alone in a small-cap industrial is explained by short covering and does not require material business news to justify.",
+    "critique": "AAON is a $1.5B market-cap stock with a historically volatile shareholder base and small float; a 31% single-day move is within the range for a beat on sentiment alone, without requiring a named hyperscaler contract or raised guide. The bull case explicitly acknowledges the move could be 'purely a short squeeze on a guide-raise,' which is a euphemism for momentum-driven repricing that has no fundamental anchor. The 8.01 is unread and the reasoning that 'data-center liquid cooling exposure makes a contract plausible' is narrative backfill, not forward-looking evidence. Until the 8.01 exhibit is filed and confirms a specific contract or material guide change, this is a classic post-earnings momentum trap where the 31% move front-runs news that may not materialize.",
+    "confidence_in_critique": 4
+  }
+]
