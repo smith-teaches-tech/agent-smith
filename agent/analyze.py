@@ -131,12 +131,73 @@ Focus on mid-cap US stocks ($2B-$20B market cap) where mispricings
 actually exist and persist. Avoid commentary on mega-caps unless they
 appear in catalyst chains.
 
-For each interesting mover, classify the move as:
-- LIKELY RATIONAL: news justifies the magnitude
-- PARTIALLY RATIONAL: some justification but possibly overdone
-- LIKELY OVERDONE: move significantly exceeds news justification
-- LIKELY UNDERDONE: news suggests bigger move warranted than seen
-- UNCLEAR: insufficient information
+==================================
+CLASSIFICATION — FOUR LABELS, NO HEDGES
+==================================
+
+Every discovery gets exactly one of four labels:
+
+- OVERDONE: the move is bigger than the catalyst justifies, in either
+  direction. A directional call expecting some retracement.
+- UNDERDONE: the catalyst justifies a bigger move than what has been
+  priced in. A directional call expecting follow-through.
+- RATIONAL: the move's magnitude is appropriate to the catalyst.
+  Observational, not actionable. Useful for the audit trail and for
+  flagging the catalyst itself.
+- UNCLEAR: you genuinely cannot construct either a bull or bear
+  thesis at confidence 3+ from the evidence available.
+
+Do NOT prepend "LIKELY", "PARTIALLY", "POSSIBLY", or any other hedge to
+these labels. Confidence (1-5) does the hedging work. A conf-3 OVERDONE
+is a hedged directional call; a conf-5 OVERDONE is a strong one. The
+label itself commits to a direction; the confidence number says how hard.
+
+==================================
+UNCLEAR IS A FAILURE MODE
+==================================
+
+UNCLEAR is the right answer when neither a bull nor a bear case can be
+articulated at confidence 3+ — not when the case is mixed, not when both
+sides have arguments, not when the news is ambiguous. Mixed/ambiguous
+evidence is the normal condition for a tradeable mispricing; if you can
+still articulate one side as more likely than the other at conf 3+, the
+honest label is OVERDONE or UNDERDONE at conf 3, not UNCLEAR at conf 2.
+
+Concretely, before defaulting to UNCLEAR, ask:
+
+  "Can I articulate a bull case at conf 3+? Can I articulate a bear case
+  at conf 3+? If YES to either — commit to that direction. If NO to both
+  — UNCLEAR is honest. If BOTH look plausible at conf 3+ — pick the
+  stronger of the two and commit at the lower of the two confidences."
+
+The failure mode this prompt is correcting: UNCLEAR-conf-2 used as a
+default when one side IS articulable but feels uncertain. That label
+combination produces no signal for the portfolio pass and no learning
+for the grader — it's the worst output a discovery run can emit. A
+wrong OVERDONE-conf-3 teaches more than a defensive UNCLEAR-conf-2.
+
+==================================
+BOLDNESS IS GATED BY THE SCHEMA
+==================================
+
+The pressure above is to commit to a direction when one is articulable.
+That pressure is NOT a license to invent theses. The schema below is
+the gate: a directional call (OVERDONE/UNDERDONE) is only valid if
+ALL of these are non-trivial and specific:
+
+  - setup     (names the SITUATION TYPE, not a generic phrase)
+  - thesis    (concrete read, not "mixed signals" or "unclear catalyst")
+  - what_confirms (specific evidence that would strengthen the call)
+  - what_kills    (specific evidence that would invalidate the call)
+
+If you cannot fill those four fields with situation-specific content,
+the directional call fails the gate — downgrade to UNCLEAR. The schema
+is the discipline that prevents the anti-UNCLEAR pressure from drifting
+into manufactured signal.
+
+==================================
+PATTERNS WORTH FLAGGING
+==================================
 
 Pay special attention to:
 - Sympathy selling/buying (stock dragged by sector or peer move)
@@ -246,7 +307,7 @@ JSON SCHEMA:
       "sector": "sector",
       "move_pct": -5.2,
       "volume_multiple": 3.1,
-      "classification": "LIKELY OVERDONE",
+      "classification": "OVERDONE",
       "confidence": 3,
       "setup": "name the situation type in one phrase",
       "thesis": "your actual read on the move",
@@ -561,8 +622,10 @@ positions per screen, enforced after your decision (if you BUY a
 The exploratory tier exists because some flags carry real information
 that the OVERDONE/UNDERDONE labeling misses. Examples of legitimate
 exploratory candidates:
-  - PARTIALLY RATIONAL conf 4 with a clean 8-K and a sharp setup
-  - LIKELY UNDERDONE conf 3 with a clear catalyst and strong volume
+  - RATIONAL conf 4 with a clean 8-K but a setup wrinkle worth testing
+    (the move's magnitude is justified but the SHAPE of the catalyst
+    is unusual in a way that might play out further)
+  - UNDERDONE conf 3 with a clear catalyst and strong volume
   - UNCLEAR conf 3 with a named catalyst URL where the thesis is
     well-articulated and you want to learn whether it pays out
 
@@ -575,10 +638,10 @@ Examples of what is NOT a legitimate exploratory candidate:
 Be deliberate about tier choice. A marginal OVERDONE conf 3 with a
 great catalyst might be better as exploratory (6%) than conviction
 (15%) if the situation is interesting but not overwhelming. A rare
-PARTIALLY OVERDONE conf 4 with a crystal-clear setup might warrant
-conviction even though it would have been WATCH under stricter
-discipline — feel free to flag this in reasoning and pick the tier
-that fits the conviction, not the label.
+OVERDONE/UNDERDONE conf 5 with a crystal-clear setup is the opposite —
+the kind of high-confidence directional call that conviction sizing
+was designed for. Pick the tier that fits the conviction, not the
+label.
 
 ================================
 EXISTING POSITIONS
@@ -738,8 +801,8 @@ def _is_exploratory_eligible(flag: dict[str, Any]) -> bool:
     Exploratory-eligible: a flag with real catalyst URL, populated
     thesis fields, and confidence >= min_confidence. Classification
     does NOT have to be OVERDONE/UNDERDONE — that's the entire point
-    of the tier: PARTIALLY-RATIONAL conf 4 with a clean 8-K can land
-    a 6% test position even though it'd never reach conviction.
+    of the tier: RATIONAL conf 4 with a clean 8-K and a setup wrinkle
+    can land a 6% test position even though it'd never reach conviction.
 
     Haiku still decides BUY vs WATCH vs SKIP among the gated pool.
     """
