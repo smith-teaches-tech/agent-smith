@@ -289,6 +289,24 @@ CLAUDE_PORTFOLIO_MODEL = "claude-haiku-4-5-20251001"
 CLAUDE_PORTFOLIO_MAX_TOKENS = 16384
 
 # ============================================================
+# RED-TEAM PASS MODEL (queued item 2, May 12, 2026)
+#
+# After Haiku makes a BUY decision in the portfolio pass, the red-
+# team pass argues the OPPOSITE case for that ticker and returns a
+# survived/killed verdict per BUY. Only survivors proceed to
+# _try_buy; killed BUYs are downgraded to WATCH with the bear
+# critique as the reasoning, so the dissent is visible in the
+# suggestions UI.
+#
+# Haiku again — cheap, structured, one-shot per BUY decision.
+# Output is a small JSON list; 4096 max_tokens is plenty.
+# Roadmap cost estimate: ~$0.005-0.01 per BUY × typically 1-3 BUYs
+# per pass = ~$0.03/run worst case.
+# ============================================================
+CLAUDE_RED_TEAM_MODEL = "claude-haiku-4-5-20251001"
+CLAUDE_RED_TEAM_MAX_TOKENS = 4096
+
+# ============================================================
 # SCREENS REGISTRY (F1 — multi-screen architecture)
 #
 # Each screen is one named bet on the market with its own paper
@@ -444,3 +462,9 @@ OUTPUT_PORTFOLIO = screen_paths(DEFAULT_SCREEN_ID)["portfolio"]
 OUTPUT_PORTFOLIO_HISTORY = screen_paths(DEFAULT_SCREEN_ID)["history"]
 OUTPUT_SUGGESTIONS = "docs/data/suggestions.json"
 OUTPUT_SUGGESTIONS_LEGACY = "docs/data/suggestions.json"
+
+# Red-team verdict log directory. One append-only JSON array per
+# screen at `red_team/{screen_id}.json` — same pattern as the
+# portfolio history files. Append-only on write; consumers (dashboard
+# strip, future grader) apply their own time window on read.
+OUTPUT_RED_TEAM_DIR = "docs/data/red_team"

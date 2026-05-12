@@ -1,11 +1,14 @@
 """
 Claude analysis layer.
 
-Three structured analytical passes:
+Structured analytical passes:
   1. Discovery scan (US) — find interesting movers, assess rationality
   2. AI announcement impact — with bias safeguards (Claude analyzing news
      about its own creator)
   3. Portfolio decision pass (Phase 1.5-lite) — Haiku 4.5, paper portfolio
+  4. Red-team pass — Haiku 4.5, argues the opposite case for every BUY
+     decision the portfolio pass emits; survivors proceed, killed BUYs
+     get downgraded to WATCH in main.run_portfolio_for_screen.
 
 All passes return structured JSON for clean rendering.
 All external content is wrapped in delimiters with explicit instructions
@@ -1084,6 +1087,229 @@ def run_portfolio_pass_screen_1(
         model=screen_config.get("claude_model") or config.CLAUDE_PORTFOLIO_MODEL,
         max_tokens=config.CLAUDE_PORTFOLIO_MAX_TOKENS,
         system=system,
+        user_content=user_content,
+    )
+    return _parse_json_response(msg.content[0].text)
+
+
+# ============================================================
+# PASS 4: RED-TEAM SECOND PASS (queued item 2, May 12, 2026)
+# ============================================================
+# Takes BUY decisions from the portfolio pass and argues the OPPOSITE
+# case for each one. Returns a survived/killed verdict per ticker,
+# plus the bear case as a critique string. main.run_portfolio_for_screen
+# applies the verdicts: survivors proceed to _try_buy; killed BUYs get
+# downgraded to WATCH with the critique attached as reasoning.
+#
+# Design intent (per roadmap):
+#  - Improves quality of every screen's portfolio pass with one
+#    function — Screen 0 today, Screen 1 today, Screen 2 the moment
+#    it ships. Highest leverage-per-hour in the build queue.
+#  - The red-team is a QUALITY layer, not a SAFETY layer. Its failure
+#    must not block trades — parse errors fall through to "all
+#    survived" so a broken red-team doesn't paralyse the system.
+#    (Safety lives in _try_buy's guardrails: 25%/40%/10% caps.)
+#
+# Asymmetric burden of proof: a BUY survives unless the red-team can
+# name a SPECIFIC weakness. Vague doubt doesn't kill a trade. This is
+# deliberate — the roadmap explicitly warns that gating brakes shipped
+# before activity accelerators recreate paralysis (see item 5 sequencing
+# rationale in roadmap.md).
+
+RED_TEAM_SYSTEM = f"""You are the red-team reviewer on Michael Smith's
+paper portfolio system. Another instance of Claude (the portfolio pass)
+has just decided to BUY one or more tickers. Your job is to argue the
+OPPOSITE case for each BUY — find what the buying instance missed,
+explain the bear case, and decide whether the bull thesis SURVIVES the
+critique.
+
+================================
+YOUR ROLE — READ CAREFULLY
+================================
+
+You are NOT a generic skeptic. Vague doubt ("markets are uncertain",
+"tech is volatile", "the thesis could be wrong") is NOT a critique. If
+you can only generate platitudes, the trade SURVIVES — that is the
+correct verdict.
+
+A real critique names a SPECIFIC weakness:
+  - A concrete piece of evidence in the catalyst that cuts the other way
+  - A reading of the setup that the bull case glossed over
+  - A horizon/timing problem (the move may already be played out)
+  - A position-sizing problem given the confidence level
+  - A what_kills criterion that the bull case downplayed but is more
+    likely than the bull thesis acknowledges
+
+The bull thesis SURVIVES if no specific weakness can be articulated. The
+bull thesis is KILLED only if the bear case is concrete, named, and
+plausibly more weighty than the bull case as written. When in doubt,
+SURVIVED is correct — your job is to catch the weak ones, not to gate
+everything.
+
+================================
+ASYMMETRIC BURDEN OF PROOF
+================================
+
+This system has a chronic-inaction failure mode. Killing trades on
+vague grounds recreates that failure mode and starves the grading
+loop of data. The default is SURVIVED. Move to KILLED only when you
+can write a single sentence naming the WEAKEST LINK in the bull
+thesis and that link is genuinely weak.
+
+================================
+WHAT YOU SEE
+================================
+
+For each BUY decision, you see:
+  - The original flag (setup, thesis, what_confirms, what_kills,
+    catalyst, classification, confidence, move_pct, sector, time_horizon)
+  - Haiku's BUY reasoning and tier (conviction vs. exploratory)
+
+You do NOT see the broader portfolio state. Your scope is per-ticker
+critique only.
+
+================================
+OUTPUT
+================================
+
+For each ticker in the input, emit ONE entry with these fields:
+  - ticker: the ticker symbol
+  - survived: true (bull thesis holds) or false (killed by critique)
+  - weakest_link: ONE SENTENCE naming the most fragile part of the
+    bull thesis. Required even if survived=true (it's the diagnostic).
+  - critique: 2-4 sentences making the bear case. Specific evidence.
+    No platitudes. No hedging language.
+  - confidence_in_critique: 1-5 — how strongly you hold this critique.
+    A KILLED verdict with confidence 2 is weak grounds; KILLED with
+    confidence 4+ is a real dissent.
+
+{INJECTION_GUARD}
+
+{OUTPUT_DISCIPLINE}
+
+JSON SCHEMA:
+{{
+  "red_team_decisions": [
+    {{
+      "ticker": "SYMBOL",
+      "survived": true,
+      "weakest_link": "one sentence naming the most fragile premise",
+      "critique": "2-4 sentences making the bear case with specific evidence",
+      "confidence_in_critique": 3
+    }}
+  ]
+}}
+"""
+
+
+def _summarize_buy_for_red_team(
+    decision: dict[str, Any],
+    flag: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Bundle a BUY decision with its source flag for the red-team prompt.
+
+    flag may be None if the BUY came from a ticker not in the flag pool
+    (shouldn't happen — main.run_portfolio_for_screen already filters by
+    flags_by_ticker — but we're defensive).
+    """
+    summary: dict[str, Any] = {
+        "ticker": decision.get("ticker"),
+        "haiku_decision": {
+            "tier": decision.get("tier"),
+            "reasoning": decision.get("reasoning"),
+            "confidence_in_decision": decision.get("confidence_in_decision"),
+        },
+    }
+    if flag:
+        # Reuse the portfolio-pass field selection — same shape Haiku saw
+        # when it decided to BUY, so the red-team critiques the same
+        # evidence base.
+        summary["flag"] = _summarize_discovery_for_portfolio(flag)
+    else:
+        summary["flag"] = None
+    return summary
+
+
+def run_red_team_pass(
+    *,
+    buy_decisions: list[dict[str, Any]],
+    flags_by_ticker: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    """
+    Execute the red-team pass on a list of BUY decisions.
+
+    Args:
+      buy_decisions: subset of decisions['new_decisions'] where
+                     decision == "BUY". Caller (main.py) is
+                     responsible for filtering — keeps this function
+                     focused on the critique itself.
+      flags_by_ticker: lookup from ticker → original discovery flag.
+
+    Returns dict with key 'red_team_decisions' containing a list of
+    verdict objects (see RED_TEAM_SYSTEM schema).
+
+    Failure modes:
+      - Empty input: returns {"red_team_decisions": []} without calling
+        the API. No-op shortcut.
+      - Parse error: returns {"red_team_decisions": [], "_parse_error":
+        ...}. Caller MUST treat this as "all survived" — the red-team
+        is a quality layer, not a safety layer; its failure must not
+        block trades. Caller logs the parse error for visibility but
+        proceeds with original BUYs.
+      - No-claude mode: returns all-survived stubs, one per input
+        BUY. Pipeline-safe.
+    """
+    if not buy_decisions:
+        return {"red_team_decisions": []}
+
+    bundles = [
+        _summarize_buy_for_red_team(d, flags_by_ticker.get(d.get("ticker")))
+        for d in buy_decisions
+    ]
+
+    user_content = "\n".join([
+        f"Run timestamp (UTC): {datetime.now(timezone.utc).isoformat()}",
+        "",
+        "<buy_decisions_to_critique>",
+        (
+            "The portfolio pass has decided to BUY the following tickers. "
+            "For EACH one, argue the bear case and decide whether the bull "
+            "thesis survives. Default to survived=true unless you can name "
+            "a specific weakness."
+        ),
+        json.dumps(bundles, indent=2),
+        "</buy_decisions_to_critique>",
+        "",
+        (
+            "Return one verdict per ticker, in the order shown, per the "
+            "JSON schema in your instructions."
+        ),
+    ])
+
+    if NO_CLAUDE_MODE:
+        _print_prompt("red_team", RED_TEAM_SYSTEM, user_content)
+        # All-survived stub — preserves the original portfolio pass
+        # behaviour exactly when the red-team is disabled.
+        return {
+            "red_team_decisions": [
+                {
+                    "ticker": d.get("ticker"),
+                    "survived": True,
+                    "weakest_link": "(no-claude mode — red-team skipped)",
+                    "critique": "(no-claude mode)",
+                    "confidence_in_critique": 0,
+                }
+                for d in buy_decisions
+            ],
+            "_no_claude": True,
+        }
+
+    client = _client()
+    msg = _stream_message(
+        client,
+        model=config.CLAUDE_RED_TEAM_MODEL,
+        max_tokens=config.CLAUDE_RED_TEAM_MAX_TOKENS,
+        system=RED_TEAM_SYSTEM,
         user_content=user_content,
     )
     return _parse_json_response(msg.content[0].text)

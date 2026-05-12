@@ -41,6 +41,9 @@ from . import portfolio as pf
 def _ensure_output_dirs() -> None:
     Path(config.OUTPUT_HISTORY_DIR).mkdir(parents=True, exist_ok=True)
     Path("docs/data").mkdir(parents=True, exist_ok=True)
+    # Red-team verdict logs (one append-only JSON per screen). Created
+    # lazily here so first-run on a fresh checkout doesn't error out.
+    Path(config.OUTPUT_RED_TEAM_DIR).mkdir(parents=True, exist_ok=True)
 
 
 def _write_output(data: dict[str, Any], latest_path: str, kind: str) -> None:
@@ -469,6 +472,89 @@ def run_portfolio_for_screen(
     # BUY decisions with thesis, horizon, catalyst, etc.
     flags_by_ticker = {f["ticker"]: f for f in recent_flags if f.get("ticker")}
 
+    # ---- Red-team second pass ----------------------------------
+    # Take every NEW BUY decision and argue the opposite case. Killed
+    # BUYs are downgraded to WATCH in-place on the decisions dict, with
+    # the bear critique as the reasoning. Survivors proceed unchanged
+    # into the loops below. ADDs (in position_decisions) are NOT red-
+    # teamed in this version — different evidence base.
+    #
+    # Failure handling: if the red-team call fails to return parseable
+    # JSON, we log a warning and let ALL BUYs through unchanged. The
+    # red-team is a QUALITY layer, not a SAFETY layer — a broken red-
+    # team must not paralyse the system. Safety lives in _try_buy's
+    # 25%/40%/10% guardrails, which run regardless.
+    #
+    # Persisted verdicts: every BUY that goes through the red-team
+    # (survived or killed) is appended to docs/data/red_team/{screen_id}
+    # .json for later review. Retention is read-side: dashboard /
+    # graders apply their own time window.
+    red_team_by_ticker: dict[str, dict[str, Any]] = {}
+    new_buy_decisions = [
+        d for d in decisions.get("new_decisions", [])
+        if (d.get("decision") or "").upper() == "BUY"
+    ]
+    if new_buy_decisions:
+        print(f"[red-team] reviewing {len(new_buy_decisions)} BUY decision(s)...")
+        rt_result = analyze.run_red_team_pass(
+            buy_decisions=new_buy_decisions,
+            flags_by_ticker=flags_by_ticker,
+        )
+        if analyze.is_parse_error(rt_result):
+            print(
+                f"[red-team] WARN: parse error from red-team pass: "
+                f"{rt_result.get('_parse_error')}. All BUYs pass through "
+                f"unchanged (quality layer, not safety layer)."
+            )
+        else:
+            verdicts = rt_result.get("red_team_decisions") or []
+            for v in verdicts:
+                vt = v.get("ticker")
+                if vt:
+                    red_team_by_ticker[vt] = v
+
+            # Mutate decisions['new_decisions'] in place: killed BUYs
+            # become WATCH with the bear critique as reasoning.
+            killed = 0
+            survived = 0
+            for d in decisions.get("new_decisions", []):
+                if (d.get("decision") or "").upper() != "BUY":
+                    continue
+                v = red_team_by_ticker.get(d.get("ticker"))
+                if not v:
+                    # Red-team omitted this ticker. Per design,
+                    # treat as survived (don't fail-closed on a
+                    # quality layer).
+                    continue
+                if v.get("survived") is False:
+                    killed += 1
+                    bear = v.get("critique") or ""
+                    weakest = v.get("weakest_link") or ""
+                    d["decision"] = "WATCH"
+                    d["reasoning"] = (
+                        f"Killed by red-team. Weakest link: {weakest} "
+                        f"Bear case: {bear} "
+                        f"(Haiku's original BUY reasoning: {d.get('reasoning','')})"
+                    )
+                    # Clear the tier — it's no longer a BUY.
+                    d["tier"] = None
+                else:
+                    survived += 1
+            print(
+                f"[red-team] {survived} survived, {killed} killed "
+                f"(killed BUYs downgraded to WATCH)"
+            )
+
+        # Persist the verdict log regardless of survived/killed split,
+        # but only when we actually have verdicts. On parse error,
+        # red_team_by_ticker is empty and there's nothing to log.
+        if red_team_by_ticker:
+            _append_red_team_log(
+                screen_id=screen_id,
+                verdicts=list(red_team_by_ticker.values()),
+                run_summary=decisions.get("run_summary", ""),
+            )
+
     # 1) Apply position decisions (HOLD / ADD / TRIM / EXIT) first so that
     #    freed-up cash is available for any new BUYs.
     for d in decisions.get("position_decisions", []):
@@ -553,6 +639,12 @@ def run_portfolio_for_screen(
         flag = flags_by_ticker.get(tkr)
         if not flag:
             continue
+        # Red-team verdict (if this ticker was originally a BUY).
+        # None for Haiku-originated WATCH/SKIP rows. Threaded into
+        # _build_suggestion_entry so the dashboard can render the
+        # verdict badge consistently across WATCH, NO_CASH, and
+        # red-team-downgraded WATCH rows.
+        rt_verdict = red_team_by_ticker.get(tkr)
 
         if decision == "BUY":
             tier = d.get("tier")
@@ -570,6 +662,7 @@ def run_portfolio_for_screen(
                         f"Auto-converted: BUY emitted with tier={tier!r}, "
                         f"schema requires conviction|exploratory. Original "
                         f"reasoning: {reasoning}",
+                        red_team=rt_verdict,
                     )
                 )
                 continue
@@ -588,6 +681,7 @@ def run_portfolio_for_screen(
                             f"Auto-converted: exploratory tier cap reached "
                             f"({cap} simultaneous open). Original reasoning: "
                             f"{reasoning}",
+                            red_team=rt_verdict,
                         )
                     )
                     continue
@@ -604,17 +698,23 @@ def run_portfolio_for_screen(
                 # Blocked by a guardrail — log it as NO_CASH suggestion
                 trade_summary["blocked"] += 1
                 suggestion_entries.append(
-                    _build_suggestion_entry(flag, "NO_CASH", reasoning)
+                    _build_suggestion_entry(
+                        flag, "NO_CASH", reasoning, red_team=rt_verdict,
+                    )
                 )
         elif decision == "WATCH":
             trade_summary["watched"] += 1
             suggestion_entries.append(
-                _build_suggestion_entry(flag, "WATCH", reasoning)
+                _build_suggestion_entry(
+                    flag, "WATCH", reasoning, red_team=rt_verdict,
+                )
             )
         else:
             trade_summary["skipped"] += 1
             suggestion_entries.append(
-                _build_suggestion_entry(flag, "SKIP", reasoning)
+                _build_suggestion_entry(
+                    flag, "SKIP", reasoning, red_team=rt_verdict,
+                )
             )
 
     # Also log decisions for ineligible flags (RATIONAL / UNCLEAR / conf<3)
@@ -843,8 +943,19 @@ def _build_suggestion_entry(
     flag: dict[str, Any],
     decision: str,
     reasoning: str,
+    red_team: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Build one row for suggestions.json."""
+    """Build one row for suggestions.json.
+
+    red_team (optional): the red-team verdict for this flag, if one
+    exists. Carried through to the dashboard so the UI can render a
+    badge ("KILLED BY RED-TEAM" or "SURVIVED RED-TEAM") on the WATCH/
+    NO_CASH row. Shape matches analyze.run_red_team_pass output:
+    {survived, weakest_link, critique, confidence_in_critique}.
+    Only present on entries that originated as BUY decisions — Haiku-
+    originated WATCH/SKIP rows never see the red-team and have
+    red_team=None.
+    """
     return {
         "ticker": flag.get("ticker"),
         "name": flag.get("name"),
@@ -875,6 +986,9 @@ def _build_suggestion_entry(
         "what_kills": flag.get("what_kills") or flag.get("what_would_falsify"),
         "decision": decision,
         "reasoning": reasoning,
+        # Red-team verdict (None for entries that never went through the
+        # red-team — e.g. Haiku-originated WATCH/SKIP, or ineligible flags).
+        "red_team": red_team,
         # Price/verdict fields are filled in on subsequent runs by the
         # suggestions-refresh step (not built yet — MVP leaves them null).
         "price_at_flag": None,
@@ -1010,6 +1124,56 @@ def _write_suggestions(
         legacy_path.parent.mkdir(parents=True, exist_ok=True)
         legacy_path.write_text(payload)
         print(f"  wrote {legacy_path} (legacy alias)")
+
+
+def _append_red_team_log(
+    screen_id: str,
+    verdicts: list[dict[str, Any]],
+    run_summary: str = "",
+) -> None:
+    """Append red-team verdicts to docs/data/red_team/{screen_id}.json.
+
+    Append-only single JSON array per screen, mirroring the pattern in
+    portfolio.append_history. Each entry wraps one ticker's verdict
+    with a timestamp and the screen_id so future consumers can filter
+    and join without a separate index.
+
+    Append-only by design — retention is a READ-side concern. Future
+    dashboard / grader code applies its own time window (e.g. last
+    3 days, last 14 days, last 90 days) on read.
+
+    Silent on empty verdicts list: avoids writing meaningless empty-
+    array entries when a portfolio pass produced no BUYs to critique.
+    """
+    if not verdicts:
+        return
+
+    from pathlib import Path
+    import json
+
+    path = Path(config.OUTPUT_RED_TEAM_DIR) / f"{screen_id}.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    existing: list[dict[str, Any]] = []
+    if path.exists():
+        try:
+            existing = json.loads(path.read_text())
+            if not isinstance(existing, list):
+                existing = []
+        except (json.JSONDecodeError, OSError):
+            existing = []
+
+    ts = datetime.now(timezone.utc).isoformat()
+    for v in verdicts:
+        existing.append({
+            "ts": ts,
+            "screen_id": screen_id,
+            "run_summary": run_summary,
+            **v,
+        })
+
+    path.write_text(json.dumps(existing, indent=2, ensure_ascii=False))
+    print(f"  wrote {path} ({len(verdicts)} verdict(s) appended)")
 
 
 def main() -> None:
