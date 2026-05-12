@@ -159,7 +159,6 @@ CLAUDE_MAX_TOKENS = 16384  # May 7 PM: reduced from 32768 after Actions hit Anth
                            # comfortable headroom. Still 4x the original (broken) 4k cap.
                            # Followup: switch to streaming API (analyze.py) so we can raise this
                            # again. See agent-smith-roadmap.md "Session C followups".
-CLAUDE_TEMPERATURE = 0.3  # Low — we want consistent analytical output
 
 # Time horizon for "recent" news in each run
 NEWS_LOOKBACK_HOURS = 12
@@ -174,13 +173,11 @@ OUTPUT_HISTORY_DIR = "docs/data/history"
 # ============================================================
 # GRADING (Phase 1.5-lite)
 # ============================================================
-
-# Current grading logic version. Stamped into every grade so
-# threshold changes don't invalidate historical results.
-GRADING_LOGIC_VERSION = 1
-
-# ±pct move within horizon to count as HIT or MISS
-GRADING_HIT_THRESHOLD_PCT = 3.0
+# Only GRADING_HORIZON_DAYS is consumed by code (main._horizon_to_days
+# reads it). Threshold, logic version, and classifications-to-grade
+# are owned by `grading.py` directly (LOGIC_VERSION = 2, GRADING_PARAMS,
+# and the per-version classifications list); the prior config-side
+# fossils were never wired up. Removed May 12.
 
 # time_horizon (string) → trading-day count used by grader
 GRADING_HORIZON_DAYS = {
@@ -188,19 +185,6 @@ GRADING_HORIZON_DAYS = {
     "weeks": 20,
     "months": 60,
 }
-
-# Only these classifications get graded; others are NOT_GRADED.
-# Matches the discovery prompt's output labels (which include "LIKELY"
-# and "PARTIALLY" prefixes). Anything with OVERDONE or UNDERDONE in it
-# is directional enough to grade.
-GRADING_CLASSIFICATIONS_TO_GRADE = [
-    "OVERDONE",
-    "UNDERDONE",
-    "LIKELY OVERDONE",
-    "LIKELY UNDERDONE",
-    "PARTIALLY OVERDONE",
-    "PARTIALLY UNDERDONE",
-]
 
 # Phase 1.5-lite output path
 OUTPUT_TRENDS = "docs/data/trends.json"
@@ -440,27 +424,19 @@ def screen_paths(screen_id: str) -> dict[str, str]:
 
 
 # ============================================================
-# Output paths (legacy single-screen)
+# Output paths
 #
-# F1: these become backwards-compat aliases pointing at Screen 0's
-# paths. New code should call screen_paths(screen_id) directly.
-# Old code reads these constants and continues working unchanged.
+# screen_paths(screen_id) is the canonical API for new code. The
+# OUTPUT_PORTFOLIO / OUTPUT_PORTFOLIO_HISTORY / OUTPUT_SUGGESTIONS
+# back-compat aliases were removed May 12 after the last consumer
+# migrated.
 #
-# When the last consumer migrates to screen_paths(), these constants
-# can be deleted in a focused cleanup session — no rush; the alias
-# is cheap.
-#
-# F2 multi-screen note: OUTPUT_SUGGESTIONS now points at Screen 0's
-# suggestions file by convention, BUT during the transition cycle
-# main._write_suggestions also writes the un-prefixed legacy
-# `docs/data/suggestions.json` for the existing dashboard. Once
-# `docs/suggestions.html` reads `screen_0_suggestions.json` directly,
-# the legacy alias write in main.py can be removed and this constant
-# can stop pointing at a real file (or be deleted).
+# OUTPUT_SUGGESTIONS_LEGACY remains: main._write_suggestions still
+# also writes the un-prefixed `docs/data/suggestions.json` for the
+# existing dashboard. Once `docs/suggestions.html` reads
+# `screen_0_suggestions.json` directly, that alias write can be
+# removed and this constant can be deleted too.
 # ============================================================
-OUTPUT_PORTFOLIO = screen_paths(DEFAULT_SCREEN_ID)["portfolio"]
-OUTPUT_PORTFOLIO_HISTORY = screen_paths(DEFAULT_SCREEN_ID)["history"]
-OUTPUT_SUGGESTIONS = "docs/data/suggestions.json"
 OUTPUT_SUGGESTIONS_LEGACY = "docs/data/suggestions.json"
 
 # Red-team verdict log directory. One append-only JSON array per

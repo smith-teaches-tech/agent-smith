@@ -281,23 +281,10 @@ _SMALLCAP_SEED = [
 # The curated discovery universe — 80 hand-picked names.
 DISCOVERY_UNIVERSE: list[str] = _MIDCAP_SEED + _SMALLCAP_SEED
 
-# Back-compat aliases. Older code referenced these constant names;
-# keep them so any stale import doesn't break. Both now point at the
-# same curated list.
-SP400_FALLBACK = _MIDCAP_SEED
-SP600_FALLBACK = _SMALLCAP_SEED
-SP400_SAMPLE = _MIDCAP_SEED
-SP600_SAMPLE = _SMALLCAP_SEED
 
-
-def get_discovery_candidates(force_refresh: bool = False) -> list[str]:
+def get_discovery_candidates() -> list[str]:
     """
     Return the curated 80-ticker discovery universe.
-
-    The force_refresh kwarg is preserved for backward compatibility with
-    any caller that still passes it (the constituent-cache mechanism it
-    used to control was removed in the May 12 rollback). It is now a
-    no-op.
 
     Returns:
       Deduplicated list of ticker symbols in their original curated
