@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-12T20:30:37.357133+00:00",
-  "logic_version": 2,
+  "generated_at": "2026-05-13T20:47:09.743801+00:00",
+  "logic_version": 3,
   "grading_params": {
     "hit_threshold_pct": 3.0,
     "horizon_days_map": {
@@ -9,28 +9,28 @@
       "months": 60
     },
     "default_horizon_days": 5,
-    "graded_classifications": "{'UNDERDONE', 'OVERDONE'}"
+    "graded_classifications": "{'OVERDONE', 'UNDERDONE'}"
   },
-  "n_total_calls": 167,
-  "n_not_graded": 161,
-  "n_pending": 1,
+  "n_total_calls": 175,
+  "n_not_graded": 169,
+  "n_pending": 2,
   "n_data_error": 0,
   "overall": {
-    "n_resolved": 5,
+    "n_resolved": 4,
     "n_hit": 3,
-    "n_miss": 2,
+    "n_miss": 1,
     "n_ambiguous": 0,
-    "hit_rate": 60.0,
-    "avg_return_pct": 6.18
+    "hit_rate": 75.0,
+    "avg_return_pct": 9.81
   },
   "by_classification": {
     "OVERDONE": {
-      "n_resolved": 5,
+      "n_resolved": 4,
       "n_hit": 3,
-      "n_miss": 2,
+      "n_miss": 1,
       "n_ambiguous": 0,
-      "hit_rate": 60.0,
-      "avg_return_pct": 6.18
+      "hit_rate": 75.0,
+      "avg_return_pct": 9.81
     },
     "UNDERDONE": {
       "n_resolved": 0,
@@ -51,12 +51,12 @@
       "avg_return_pct": null
     },
     "2": {
-      "n_resolved": 3,
+      "n_resolved": 2,
       "n_hit": 2,
-      "n_miss": 1,
+      "n_miss": 0,
       "n_ambiguous": 0,
-      "hit_rate": 66.7,
-      "avg_return_pct": 2.58
+      "hit_rate": 100.0,
+      "avg_return_pct": 8.05
     },
     "3": {
       "n_resolved": 2,
@@ -84,23 +84,15 @@
     }
   },
   "by_sector": {
-    "Technology": {
-      "n_resolved": 2,
-      "n_hit": 2,
+    "Consumer Defensive": {
+      "n_resolved": 0,
+      "n_hit": 0,
       "n_miss": 0,
       "n_ambiguous": 0,
-      "hit_rate": 100.0,
-      "avg_return_pct": 18.34
+      "hit_rate": null,
+      "avg_return_pct": null
     },
-    "Industrials": {
-      "n_resolved": 2,
-      "n_hit": 1,
-      "n_miss": 1,
-      "n_ambiguous": 0,
-      "hit_rate": 50.0,
-      "avg_return_pct": 0.9
-    },
-    "Energy": {
+    "Communication Services": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -116,7 +108,7 @@
       "hit_rate": 0.0,
       "avg_return_pct": -7.56
     },
-    "Healthcare": {
+    "Financial Services (misclassified as Tech)": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -124,7 +116,7 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Utilities": {
+    "Healthcare - Biotechnology": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -132,7 +124,31 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Communication Services": {
+    "Financial Services": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Technology": {
+      "n_resolved": 2,
+      "n_hit": 2,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": 100.0,
+      "avg_return_pct": 18.34
+    },
+    "Industrials": {
+      "n_resolved": 1,
+      "n_hit": 1,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": 100.0,
+      "avg_return_pct": 10.14
+    },
+    "Energy": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -156,7 +172,7 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Healthcare - Biotechnology": {
+    "Healthcare": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -164,23 +180,7 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Consumer Defensive": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Financial Services (misclassified as Tech)": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Financial Services": {
+    "Utilities": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -199,12 +199,12 @@
       "avg_return_pct": 9.81
     },
     "20": {
-      "n_resolved": 1,
+      "n_resolved": 0,
       "n_hit": 0,
-      "n_miss": 1,
+      "n_miss": 0,
       "n_ambiguous": 0,
-      "hit_rate": 0.0,
-      "avg_return_pct": -8.35
+      "hit_rate": null,
+      "avg_return_pct": null
     },
     "60": {
       "n_resolved": 0,
@@ -218,12 +218,12 @@
   "by_screen": {
     "screen_0": {
       "display_name": "General mispricing",
-      "n_resolved": 5,
+      "n_resolved": 4,
       "n_hit": 3,
-      "n_miss": 2,
+      "n_miss": 1,
       "n_ambiguous": 0,
-      "hit_rate": 60.0,
-      "avg_return_pct": 6.18
+      "hit_rate": 75.0,
+      "avg_return_pct": 9.81
     },
     "screen_1": {
       "display_name": "AI-event sympathy fade",
@@ -253,7 +253,7 @@
       "max_adverse_pct": -1.12,
       "price_at_flag": 16.9,
       "price_at_horizon_end": 22.09,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": null,
       "screen_id": "screen_0"
     },
@@ -274,7 +274,7 @@
       "max_adverse_pct": -0.13,
       "price_at_flag": 405.09,
       "price_at_horizon_end": 446.18,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": null,
       "screen_id": "screen_0"
     },
@@ -295,7 +295,7 @@
       "max_adverse_pct": -1.45,
       "price_at_flag": 48.13,
       "price_at_horizon_end": 51.0,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": null,
       "screen_id": "screen_0"
     },
@@ -316,55 +316,13 @@
       "max_adverse_pct": -8.42,
       "price_at_flag": 63.53,
       "price_at_horizon_end": 58.73,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": null,
-      "screen_id": "screen_0"
-    },
-    {
-      "ticker": "AVAV",
-      "name": "AeroVironment",
-      "sector": "Industrials",
-      "flagged_at": "2026-04-29T20:11:15+00:00",
-      "run_file": "us_20260429T201115Z.json",
-      "classification": "OVERDONE",
-      "confidence": 2,
-      "move_pct_at_flag": -4.6,
-      "expected_direction": "up",
-      "horizon_days": 20,
-      "grade": "MISS",
-      "return_pct_in_horizon": -8.35,
-      "max_favorable_pct": 6.73,
-      "max_adverse_pct": -9.81,
-      "price_at_flag": 183.5,
-      "price_at_horizon_end": 168.18,
-      "logic_version": 2,
-      "notes": "only 6 bars elapsed",
       "screen_id": "screen_0"
     }
   ],
   "worst_calls": [
     {
-      "ticker": "AVAV",
-      "name": "AeroVironment",
-      "sector": "Industrials",
-      "flagged_at": "2026-04-29T20:11:15+00:00",
-      "run_file": "us_20260429T201115Z.json",
-      "classification": "OVERDONE",
-      "confidence": 2,
-      "move_pct_at_flag": -4.6,
-      "expected_direction": "up",
-      "horizon_days": 20,
-      "grade": "MISS",
-      "return_pct_in_horizon": -8.35,
-      "max_favorable_pct": 6.73,
-      "max_adverse_pct": -9.81,
-      "price_at_flag": 183.5,
-      "price_at_horizon_end": 168.18,
-      "logic_version": 2,
-      "notes": "only 6 bars elapsed",
-      "screen_id": "screen_0"
-    },
-    {
       "ticker": "BBY",
       "name": "Best Buy Co., Inc.",
       "sector": "Consumer Cyclical",
@@ -381,7 +339,7 @@
       "max_adverse_pct": -8.42,
       "price_at_flag": 63.53,
       "price_at_horizon_end": 58.73,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": null,
       "screen_id": "screen_0"
     },
@@ -402,7 +360,7 @@
       "max_adverse_pct": -1.45,
       "price_at_flag": 48.13,
       "price_at_horizon_end": 51.0,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": null,
       "screen_id": "screen_0"
     },
@@ -423,7 +381,7 @@
       "max_adverse_pct": -0.13,
       "price_at_flag": 405.09,
       "price_at_horizon_end": 446.18,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": null,
       "screen_id": "screen_0"
     },
@@ -444,7 +402,7 @@
       "max_adverse_pct": -1.12,
       "price_at_flag": 16.9,
       "price_at_horizon_end": 22.09,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": null,
       "screen_id": "screen_0"
     }
@@ -467,7 +425,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -488,7 +446,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -509,7 +467,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -530,7 +488,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -551,7 +509,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -572,7 +530,7 @@
       "max_adverse_pct": -8.42,
       "price_at_flag": 63.53,
       "price_at_horizon_end": 58.73,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": null,
       "screen_id": "screen_0"
     },
@@ -593,7 +551,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -614,7 +572,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -635,7 +593,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -656,7 +614,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -677,7 +635,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -698,7 +656,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -719,7 +677,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -740,7 +698,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -761,7 +719,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -782,7 +740,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -803,7 +761,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -824,7 +782,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -845,7 +803,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -866,7 +824,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -887,7 +845,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -908,7 +866,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -929,7 +887,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -950,7 +908,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -971,7 +929,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -992,7 +950,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -1013,7 +971,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1034,7 +992,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1055,7 +1013,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1076,7 +1034,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -1097,7 +1055,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1118,7 +1076,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -1139,7 +1097,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1160,7 +1118,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1181,7 +1139,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1202,7 +1160,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1223,7 +1181,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1244,7 +1202,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -1265,7 +1223,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1286,7 +1244,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1307,7 +1265,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -1328,7 +1286,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1349,7 +1307,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -1370,7 +1328,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1391,7 +1349,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1412,7 +1370,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -1433,7 +1391,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -1454,7 +1412,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1475,7 +1433,7 @@
       "max_adverse_pct": -1.12,
       "price_at_flag": 16.9,
       "price_at_horizon_end": 22.09,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": null,
       "screen_id": "screen_0"
     },
@@ -1496,7 +1454,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1517,7 +1475,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1538,7 +1496,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1559,7 +1517,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1580,7 +1538,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1601,7 +1559,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -1622,7 +1580,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1643,7 +1601,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1664,7 +1622,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1685,7 +1643,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1706,7 +1664,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -1727,7 +1685,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1748,7 +1706,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -1769,7 +1727,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -1790,7 +1748,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -1811,7 +1769,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -1832,7 +1790,7 @@
       "max_adverse_pct": -1.45,
       "price_at_flag": 48.13,
       "price_at_horizon_end": 51.0,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": null,
       "screen_id": "screen_0"
     },
@@ -1853,7 +1811,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1874,7 +1832,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1895,7 +1853,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1916,7 +1874,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -1937,7 +1895,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -1958,7 +1916,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -1979,7 +1937,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2000,7 +1958,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2021,7 +1979,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2042,7 +2000,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2057,14 +2015,14 @@
       "move_pct_at_flag": -4.6,
       "expected_direction": "up",
       "horizon_days": 20,
-      "grade": "MISS",
-      "return_pct_in_horizon": -8.35,
+      "grade": "PENDING",
+      "return_pct_in_horizon": -12.27,
       "max_favorable_pct": 6.73,
-      "max_adverse_pct": -9.81,
+      "max_adverse_pct": -14.99,
       "price_at_flag": 183.5,
-      "price_at_horizon_end": 168.18,
-      "logic_version": 2,
-      "notes": "only 6 bars elapsed",
+      "price_at_horizon_end": 160.99,
+      "logic_version": 3,
+      "notes": "only 10 bars elapsed",
       "screen_id": "screen_0"
     },
     {
@@ -2084,7 +2042,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2105,7 +2063,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2126,7 +2084,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2147,7 +2105,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2168,7 +2126,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2189,7 +2147,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2210,7 +2168,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2231,7 +2189,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2252,7 +2210,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2273,7 +2231,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2294,7 +2252,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2315,7 +2273,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2336,7 +2294,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2357,7 +2315,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2378,7 +2336,7 @@
       "max_adverse_pct": -0.13,
       "price_at_flag": 405.09,
       "price_at_horizon_end": 446.18,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": null,
       "screen_id": "screen_0"
     },
@@ -2399,7 +2357,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2420,7 +2378,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2441,7 +2399,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2462,7 +2420,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2483,7 +2441,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2504,7 +2462,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2525,7 +2483,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2546,7 +2504,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2567,7 +2525,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2588,7 +2546,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2609,7 +2567,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2630,7 +2588,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2651,7 +2609,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2672,7 +2630,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2693,7 +2651,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2714,7 +2672,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2735,7 +2693,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2756,7 +2714,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2777,7 +2735,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2798,7 +2756,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2819,7 +2777,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2840,7 +2798,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2861,7 +2819,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2882,7 +2840,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2903,7 +2861,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2924,7 +2882,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2945,7 +2903,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -2966,7 +2924,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -2987,7 +2945,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3008,7 +2966,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -3029,7 +2987,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3050,7 +3008,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3071,7 +3029,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -3092,7 +3050,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3113,7 +3071,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3134,7 +3092,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -3155,7 +3113,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3176,7 +3134,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -3197,7 +3155,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -3218,7 +3176,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3239,7 +3197,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3260,7 +3218,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3281,7 +3239,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3302,7 +3260,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3323,7 +3281,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -3344,7 +3302,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3365,7 +3323,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -3386,7 +3344,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3407,7 +3365,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3428,7 +3386,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3449,7 +3407,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3470,7 +3428,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3491,7 +3449,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3512,7 +3470,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -3533,7 +3491,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3554,7 +3512,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3575,7 +3533,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3596,7 +3554,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3617,7 +3575,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -3638,7 +3596,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -3659,7 +3617,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3680,7 +3638,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3701,7 +3659,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3722,7 +3680,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3743,7 +3701,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -3764,7 +3722,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3785,7 +3743,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -3806,7 +3764,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -3827,7 +3785,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3848,7 +3806,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3869,7 +3827,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     },
@@ -3890,7 +3848,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -3906,13 +3864,13 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": null,
-      "max_favorable_pct": null,
-      "max_adverse_pct": null,
-      "price_at_flag": 339.4200134277344,
-      "price_at_horizon_end": null,
-      "logic_version": 2,
-      "notes": "No post-flag bars yet",
+      "return_pct_in_horizon": -0.07,
+      "max_favorable_pct": 1.02,
+      "max_adverse_pct": -2.4,
+      "price_at_flag": 339.42,
+      "price_at_horizon_end": 339.19,
+      "logic_version": 3,
+      "notes": "only 1 bars elapsed",
       "screen_id": "screen_0"
     },
     {
@@ -3932,7 +3890,7 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     },
@@ -3953,8 +3911,176 @@
       "max_adverse_pct": null,
       "price_at_flag": null,
       "price_at_horizon_end": null,
-      "logic_version": 2,
+      "logic_version": 3,
       "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "KTOS",
+      "name": "Kratos Defense & Security Solutions",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-13T20:46:59+00:00",
+      "run_file": "us_20260513T204659Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -8.44,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "AVAV",
+      "name": "AeroVironment, Inc.",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-13T20:46:59+00:00",
+      "run_file": "us_20260513T204659Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -4.66,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "MANH",
+      "name": "Manhattan Associates, Inc.",
+      "sector": "Technology",
+      "flagged_at": "2026-05-13T20:46:59+00:00",
+      "run_file": "us_20260513T204659Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -6.88,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "RGEN",
+      "name": "Repligen Corporation",
+      "sector": "Healthcare",
+      "flagged_at": "2026-05-13T20:46:59+00:00",
+      "run_file": "us_20260513T204659Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -5.78,
+      "expected_direction": null,
+      "horizon_days": 20,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "DCO",
+      "name": "Ducommun Incorporated",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-13T20:46:59+00:00",
+      "run_file": "us_20260513T204659Z.json",
+      "classification": "RATIONAL",
+      "confidence": 3,
+      "move_pct_at_flag": 4.22,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "BBIO",
+      "name": "BridgeBio Pharma, Inc.",
+      "sector": "Healthcare",
+      "flagged_at": "2026-05-13T20:46:59+00:00",
+      "run_file": "us_20260513T204659Z.json",
+      "classification": "RATIONAL",
+      "confidence": 3,
+      "move_pct_at_flag": 4.03,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "AMR",
+      "name": "Alpha Metallurgical Resources",
+      "sector": "Basic Materials",
+      "flagged_at": "2026-05-13T20:46:59+00:00",
+      "run_file": "us_20260513T204659Z.json",
+      "classification": "RATIONAL",
+      "confidence": 3,
+      "move_pct_at_flag": -4.57,
+      "expected_direction": null,
+      "horizon_days": 20,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "AXSM",
+      "name": "Axsome Therapeutics, Inc.",
+      "sector": "Healthcare",
+      "flagged_at": "2026-05-13T20:46:59+00:00",
+      "run_file": "us_20260513T204659Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": 5.04,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     }
   ]

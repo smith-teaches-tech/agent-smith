@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-12T20:31:28.577817+00:00",
+  "generated_at": "2026-05-13T20:48:17.969999+00:00",
   "bankroll_start": 10000.0,
-  "cash": 9932.8,
+  "cash": 9381.54,
   "open_positions": [
     {
       "ticker": "AEIS",
@@ -10,20 +10,44 @@
       "shares": 1,
       "cost_basis": 351.0707,
       "cost_total": 351.42,
-      "current_price": 351.0707,
-      "value": 351.07,
-      "unrealized_pnl": -0.35,
-      "unrealized_pct": -0.1,
+      "current_price": 339.19,
+      "value": 339.19,
+      "unrealized_pnl": -12.23,
+      "unrealized_pct": -3.48,
       "opened_at": "2026-05-12T20:31:28.574534+00:00",
-      "days_held": 0,
+      "days_held": 1,
       "flag_classification": "OVERDONE",
       "flag_confidence": 3,
       "flag_horizon": "days",
       "thesis": "no mechanism. Catalyst: Semi-cap sympathy with SMH -2.6%; May 8 8-K likely annual meeting results. Falsified by: n/a.",
       "thesis_status": "intact",
-      "latest_reasoning": "Opened position at $351.07, +$0.35 fees.",
+      "latest_reasoning": "Position held for 1 day at -3.48% on sympathy with SMH -2.6% semiconductor selloff, not on negative governance news. The May 8 8-K exhibits show routine annual-meeting items (5.02 director election, 5.03 charter, 5.07 shareholder votes, 9.01 boilerplate). No structural governance departure or impairment. The discovery reaffirms thesis: OVERDONE conf3 call flagged today shows same 8-K analysis concluding the move is extended. If SMH stabilizes over next 1-3 sessions and AEIS reverses faster than peers (LRCX, AMAT), thesis validates. If SMH continues lower, sympathy drag will persist regardless of fundamentals. Holding to test the mean-reversion signal within the stated 'days' horizon.",
       "next_action": "HOLD",
       "catalyst": "Semi-cap sympathy with SMH -2.6%; May 8 8-K likely annual meeting results",
+      "tier": "exploratory",
+      "price_stale": false
+    },
+    {
+      "ticker": "TXRH",
+      "name": "Texas Roadhouse, Inc.",
+      "sector": "Consumer Cyclical",
+      "shares": 3,
+      "cost_basis": 183.6334,
+      "cost_total": 551.26,
+      "current_price": 183.6334,
+      "value": 550.9,
+      "unrealized_pnl": -0.36,
+      "unrealized_pct": -0.07,
+      "opened_at": "2026-05-13T20:48:17.967044+00:00",
+      "days_held": 0,
+      "flag_classification": "LIKELY RATIONAL",
+      "flag_confidence": 4,
+      "flag_horizon": "weeks",
+      "thesis": "no mechanism. Catalyst: Q1 2026 earnings + likely capital return announcement. Falsified by: n/a.",
+      "thesis_status": "intact",
+      "latest_reasoning": "Opened position at $183.63, +$0.36 fees.",
+      "next_action": "HOLD",
+      "catalyst": "Q1 2026 earnings + likely capital return announcement",
       "tier": "exploratory"
     }
   ],
@@ -47,6 +71,16 @@
     }
   ],
   "trade_log": [
+    {
+      "date": "2026-05-13T20:48:17.967057+00:00",
+      "side": "BUY",
+      "ticker": "TXRH",
+      "shares": 3,
+      "fill_price": 183.6334,
+      "fees": 0.3596,
+      "notional": 550.9,
+      "why": "Opened per flag: LIKELY RATIONAL conf 4 — Q1 2026 earnings + likely capital return announcement"
+    },
     {
       "date": "2026-05-12T20:31:28.574546+00:00",
       "side": "BUY",

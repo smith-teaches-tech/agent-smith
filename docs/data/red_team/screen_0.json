@@ -18,5 +18,25 @@
     "weakest_link": "The bull thesis hinges on the unread 8.01 containing 'asymmetric news' (contract or guide raise), but a 31% move on earnings alone in a small-cap industrial is explained by short covering and does not require material business news to justify.",
     "critique": "AAON is a $1.5B market-cap stock with a historically volatile shareholder base and small float; a 31% single-day move is within the range for a beat on sentiment alone, without requiring a named hyperscaler contract or raised guide. The bull case explicitly acknowledges the move could be 'purely a short squeeze on a guide-raise,' which is a euphemism for momentum-driven repricing that has no fundamental anchor. The 8.01 is unread and the reasoning that 'data-center liquid cooling exposure makes a contract plausible' is narrative backfill, not forward-looking evidence. Until the 8.01 exhibit is filed and confirms a specific contract or material guide change, this is a classic post-earnings momentum trap where the 31% move front-runs news that may not materialize.",
     "confidence_in_critique": 4
+  },
+  {
+    "ts": "2026-05-13T20:48:17.770909+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "AEIS position showing early weakness (-3.48% in 1 day) on sympathy selling tied to SMH semiconductor weakness, not governance catalyst. The discovery flags add 24 new candidates spanning earnings reactions, sector moves, and strategic disclosures. Track record shows 75% hit rate overall with notable conf3 weakness (50%), suggesting I should be more selective on conf3 flags and lean toward higher-conviction or exploratory tiers only for those with exceptional catalysts. No new conviction-tier setups present; several exploratory candidates with named catalysts warrant small positions.",
+    "ticker": "TXRH",
+    "survived": true,
+    "weakest_link": "The bull case assumes the 8.01 is a capital-return announcement signaling confidence, but the 8-K filing is sparse and provides no explicit confirmation of what the 8.01 actually contains.",
+    "critique": "The haiku decision rests on pattern-matching: historically, TXRH 2.02 + 8.01 pairings signal dividend/buyback + beat = confidence signal. However, the actual 8-K URL provided (https://www.sec.gov/Archives/edgar/data/1289460/000110465926057105/txrh-20260506x8k.htm) is not accessible for verification in real-time, and without confirming that the 8.01 is indeed a capital-return action rather than, say, a governance change or a guidance revision, the thesis rests on an assumption. If the 8.01 is unrelated to capital return, the +12% move becomes purely a beat on comps, which is less durable in a consumer-headwind environment. The setup is sound (quality compounder, real volume), but the 'capital return = confidence' lever is unconfirmed.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-05-13T20:48:17.770909+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "AEIS position showing early weakness (-3.48% in 1 day) on sympathy selling tied to SMH semiconductor weakness, not governance catalyst. The discovery flags add 24 new candidates spanning earnings reactions, sector moves, and strategic disclosures. Track record shows 75% hit rate overall with notable conf3 weakness (50%), suggesting I should be more selective on conf3 flags and lean toward higher-conviction or exploratory tiers only for those with exceptional catalysts. No new conviction-tier setups present; several exploratory candidates with named catalysts warrant small positions.",
+    "ticker": "AAON",
+    "survived": false,
+    "weakest_link": "The bull thesis hinges on the 8.01 being a major data-center contract or raised guide, but the haiku explicitly acknowledges that 8.01 could be routine (dividend/buyback), in which case a 31% move is a short squeeze already extended and unsustainable.",
+    "critique": "A 31% single-day move demands an extraordinary catalyst, yet the bull case admits the asymmetric upside depends entirely on what the 8.01 disclosure contains—which is not yet verified. The risk/reward is inverted: if the 8.01 is routine (the very real possibility the haiku flags), the move is already played and a short squeeze unwind is the immediate risk. Even if a contract exists, a 31% move on announcement day leaves minimal edge for a 6% position on a multi-day horizon; the market has already front-run the discovery. The classification is correctly marked UNCLEAR, but that uncertainty should argue for waiting for the 8.01 to be read before committing capital, not for exploratory sizing now.",
+    "confidence_in_critique": 4
   }
 ]

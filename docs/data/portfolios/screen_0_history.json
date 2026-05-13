@@ -35,5 +35,18 @@
     "fees": 0.3532,
     "notional": 351.07,
     "why": "Opened per flag: OVERDONE conf 3 — Semi-cap sympathy with SMH -2.6%; May 8 8-K likely annual meeting results"
+  },
+  {
+    "ts": "2026-05-13T20:48:17.967225+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-05-13T20:48:17.967057+00:00",
+    "side": "BUY",
+    "ticker": "TXRH",
+    "shares": 3,
+    "fill_price": 183.6334,
+    "fees": 0.3596,
+    "notional": 550.9,
+    "why": "Opened per flag: LIKELY RATIONAL conf 4 — Q1 2026 earnings + likely capital return announcement"
   }
 ]
