@@ -11,25 +11,39 @@ Each grade record stores the logic_version that produced it; a new version
 regrades only new calls and leaves historical grades stable unless the user
 explicitly requests a full rebuild.
 
-Grading definitions (LOGIC_VERSION 2 — path-aware):
-    HIT       — price crossed the directional ±3% threshold within the
-                horizon AND the final-bar price is still on the right side
-                of the flag price (positive for up-direction, negative for
-                down-direction). The thesis survived the full horizon.
-    MISS      — price crossed the *opposite* ±3% threshold within the
-                horizon AND ended on the wrong side, OR the move never
-                crossed either threshold but ended >3% in the wrong
-                direction.
-    AMBIGUOUS — neither extreme reached and the final-bar move is within
-                ±3% of flag price (no decisive resolution).
-    PENDING   — horizon hasn't elapsed yet
-    NOT_GRADED— non-directional classification (RATIONAL, UNCLEAR)
+Grading definitions (LOGIC_VERSION 3 — current, symmetric pre-horizon):
+    HIT       — at horizon end: price crossed the directional ±3%
+                threshold within the horizon AND the final-bar price is
+                still on the right side of the flag price (positive for
+                up-direction, negative for down-direction). The thesis
+                survived the full horizon.
+    MISS      — at horizon end: price crossed the *opposite* ±3%
+                threshold within the horizon AND ended on the wrong
+                side, OR the move never crossed either threshold but
+                ended >3% in the wrong direction, OR a round-trip
+                (touched favorable threshold then ended on the wrong
+                side of flag).
+    AMBIGUOUS — at horizon end: neither extreme reached and the
+                final-bar move is within ±3% of flag price.
+    PENDING   — horizon hasn't elapsed yet. v3 keeps every not-yet-
+                elapsed record PENDING regardless of intermediate
+                excursions. No early HIT, no early MISS — symmetric.
+                Once a grade resolves under v3 it is effectively locked
+                (horizon is closed, subsequent passes recompute on the
+                same window and yield the same answer).
+    NOT_GRADED— non-directional classification (RATIONAL, UNCLEAR).
 
-This is stricter than v1 ("touched profitable at any point") but more
-lenient than final-bar-only ("must end >+3%"). It captures what actually
-matters: did the directional read survive the full horizon, such that a
-trader could realistically have captured profit (rather than a 30-second
-wick that round-tripped to a loss).
+The v3 symmetric-pre-horizon rule replaces v2's asymmetric early-MISS
+branch, which biased the hit rate downward and allowed graded MISS
+records to flip back to HIT on later passes as new bars softened the
+adverse path. Surfaced by AVAV graded MISS at 6/20 bars elapsed
+(May 2026).
+
+Grading definitions (LOGIC_VERSION 2 — legacy, kept for cached grade replay):
+    Same horizon-end logic as v3, but pre-horizon allowed an early MISS
+    if the adverse threshold had been crossed AND the current return was
+    >threshold in the wrong direction. No corresponding early HIT. This
+    asymmetry was the bug v3 fixes.
 
 Grading definitions (LOGIC_VERSION 1 — legacy, kept for cached grade replay):
     HIT       — price moved in predicted direction by ≥3% within horizon
@@ -55,13 +69,13 @@ like "LIKELY OVERDONE" or "PARTIALLY RATIONAL". We normalize these down to
 the short forms (OVERDONE / UNDERDONE / RATIONAL / UNCLEAR) at read-time
 so grading logic and dashboard bucketing are clean.
 
-OVERDONE example (v2):
+OVERDONE example (v2/v3, horizon-end semantics identical):
     CALX dropped -14% (move_pct=-14), classified OVERDONE → expected up.
     If CALX rallies ≥3% within horizon AND ends ≥0% above entry → HIT.
     If CALX rallies ≥3% but then round-trips to ending ≥3% below entry → MISS.
     If never crosses either threshold and ends within ±3% → AMBIGUOUS.
 
-UNDERDONE example (v2):
+UNDERDONE example (v2/v3, horizon-end semantics identical):
     MANH up +5.9%, classified UNDERDONE → expected continuation up.
     If MANH continues ≥3% AND ends positive at horizon → HIT.
     If MANH spikes +3% intraday but ends -4% at horizon → MISS.
@@ -88,8 +102,19 @@ logger = logging.getLogger(__name__)
 # Versioning
 # ============================================================
 # v1 = first-cross-wins ("touched profitable")
-# v2 = path-aware (directional cross + correct final-bar side)
-LOGIC_VERSION = 2
+# v2 = path-aware (directional cross + correct final-bar side).
+#      Pre-horizon: early MISS allowed when adverse threshold breached AND
+#      currently >threshold in wrong direction. Early HIT NOT allowed.
+#      This asymmetry biased the hit rate downward and let already-assigned
+#      MISS grades flip back to HIT on subsequent passes as new bars
+#      softened the adverse path. Surfaced May 2026 via AVAV graded MISS
+#      at 6/20 bars elapsed.
+# v3 = v2 logic at horizon, but symmetric pre-horizon: ALL not-yet-elapsed
+#      records stay PENDING. No early HIT, no early MISS. Once a record
+#      is graded HIT/MISS/AMBIGUOUS under v3 the horizon has fully elapsed,
+#      so the grade is effectively locked (subsequent passes recompute on
+#      the same closed window and yield the same answer).
+LOGIC_VERSION = 3
 
 
 # Module-private alias for backwards compatibility with the existing
@@ -112,6 +137,20 @@ GRADING_PARAMS = {
         "graded_classifications": {"OVERDONE", "UNDERDONE"},
     },
     2: {
+        "hit_threshold_pct": 3.0,
+        "horizon_days_map": {
+            "days": 5,
+            "weeks": 20,
+            "months": 60,
+        },
+        "default_horizon_days": 5,
+        "graded_classifications": {"OVERDONE", "UNDERDONE"},
+    },
+    3: {
+        # Same thresholds as v2 — the v3 difference is in the branching
+        # logic (pre-horizon always PENDING). Bumped so the cache
+        # invalidation in grade_all_history sweeps v2 grades and
+        # regrades them under v3 semantics.
         "hit_threshold_pct": 3.0,
         "horizon_days_map": {
             "days": 5,
@@ -369,21 +408,32 @@ def grade_call(
     # Decide grade (path-aware in v2; first-cross-wins in v1)
     # ----------------------------------------------------------
     if version >= 2:
-        # v2 — path-aware. The thesis must survive to the horizon.
+        # v2/v3 — path-aware. The thesis must survive to the horizon.
         # Use the directional return (return_pct is already signed in the
         # expected direction) to decide which side of flag price we ended on.
 
         if not horizon_reached:
-            # Not enough bars yet to deliver a final verdict.
-            # Pre-empt with MISS only if the thesis is already structurally
-            # broken: opposite threshold crossed AND currently >threshold
-            # in the wrong direction. Otherwise PENDING.
-            if miss_crossed_idx is not None and return_pct <= -threshold:
-                grade_label: GradeLabel = "MISS"
+            # Pre-horizon behavior depends on version.
+            #
+            # v3 (current): symmetric — always PENDING. No early HIT, no
+            # early MISS. Grades only resolve when the horizon has fully
+            # elapsed, at which point the result is deterministic on a
+            # closed window and effectively locked.
+            #
+            # v2 (legacy): asymmetric — early MISS when adverse threshold
+            # breached AND currently >threshold in wrong direction; no
+            # corresponding early HIT. Preserved here for replay of cached
+            # v2 grades only; live grading runs at LOGIC_VERSION=3.
+            if version >= 3:
+                grade_label: GradeLabel = "PENDING"
             else:
-                grade_label = "PENDING"
+                # v2 legacy branch
+                if miss_crossed_idx is not None and return_pct <= -threshold:
+                    grade_label = "MISS"
+                else:
+                    grade_label = "PENDING"
         else:
-            # Horizon fully elapsed. Path-aware decision.
+            # Horizon fully elapsed. Path-aware decision (shared by v2/v3).
             hit_crossed = hit_crossed_idx is not None
             miss_crossed = miss_crossed_idx is not None
             ended_right_side = return_pct >= 0  # positive = thesis still alive
