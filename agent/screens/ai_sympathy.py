@@ -60,69 +60,406 @@ from ..analyze import _stream_message, _parse_json_response, NO_CLAUDE_MODE
 # Curated for the SP400+SP600 mid-cap focus (excludes mega-caps and
 # delisted names).
 #
-# Categories below are illustrative for the maintainer; the screen does
-# NOT use category labels — every ticker here is treated as "potentially
-# in the sympathy-fade blast radius" until the per-name analysis says
-# otherwise.
+# Each entry encodes the thesis-fit hypothesis:
+#   panic_narrative      — what retail will say when they sell this name
+#                          on AI-lab news ("AI replaces X")
+#   false_victim_pattern — why a 10-K read should show the panic is wrong
+#                          (or, for `expected_role: "real_victim_control"`,
+#                          why the panic is plausibly correct — a control)
+#   subsector            — coarse category for diagnostics
+#   expected_role        — "false_victim" (default thesis-fit, BUY-eligible
+#                          on confirmed unjustified panic) or
+#                          "real_victim_control" (kept in basket so the
+#                          filings read has a name it SHOULD correctly
+#                          identify as exposed — a calibration check)
 #
-# Maintenance: prune/add over time. Companies don't move categories
-# often, so this list is not a moving target.
-AI_ADJACENT_TICKERS: tuple[str, ...] = (
-    # Customer-service / contact-center software (high overlap with
-    # OpenAI voice, Anthropic agent capabilities)
-    "FIVN",   # Five9
-    "NICE",   # NICE Ltd
-    "RNG",    # RingCentral
-    "LIVN",   # LivaNova (sympathy by name; not actually CCaaS — kept as control)
-    "VRNT",   # Verint Systems
-    # Edtech (Chegg-style AI-disruption risk)
-    "STRA",   # Strategic Education
-    "LRN",    # Stride
-    "LAUR",   # Laureate Education
-    "LOPE",   # Grand Canyon Education
-    "ATGE",   # Adtalem Global Education
-    # Mid-cap SaaS often sympathy-faded on "AI replaces SaaS" narratives
-    "ZD",     # Ziff Davis
-    "VRNS",   # Varonis
-    "ENV",    # Envestnet
-    "SPSC",   # SPS Commerce
-    "BL",     # BlackLine
-    "PCTY",   # Paylocity
-    "PAYC",   # Paycom
-    "WK",     # Workiva
-    "DOMO",   # Domo
-    "FROG",   # JFrog
-    # Cybersecurity / encryption (Anthropic Mythos / OpenAI security tooling
-    # → "AI eats security analysts" narrative)
-    "QLYS",   # Qualys
-    "RPD",    # Rapid7
-    "TENB",   # Tenable
-    "VRNS",   # Varonis (also above; dedup at use)
-    "OSPN",   # OneSpan
-    # Translation / language services
-    "RWAY",   # Runway (private, won't resolve — kept as a known-bad control)
-    # Document / workflow automation
-    "INTR",   # Inter & Co (control)
-    "DOCN",   # DigitalOcean (cloud, peripheral but historically sympathy-faded)
-    "BILL",   # Bill.com
-    # Healthcare AI workflow disruption
-    "RCM",    # R1 RCM
-    "EVH",    # Evolent Health
-    "PHR",    # Phreesia
-    "HQY",    # HealthEquity (peripheral)
-    # Marketing/martech
-    "ZUO",    # Zuora
-    "YEXT",   # Yext
-    "SPT",    # Sprout Social
-    # Voice/transcription specifically
-    "AUDC",   # AudioCodes
-    "RNG",    # RingCentral (also above; dedup at use)
-)
+# These fields are piped into the discovery prompt as hypothesis context
+# so the per-candidate filings read becomes "test this specific
+# false-victim claim" rather than "freely assess threat."
+#
+# Maintenance: prune/add over time. Edit this dict, not the helper.
+# Companies don't move categories often, so this list is not a moving
+# target. Curation rationale documented in screen_1 design notes (see
+# session log May 2026 universe rebuild).
+AI_ADJACENT_UNIVERSE: dict[str, dict[str, str]] = {
+    # ---- Vertical workflow software (workflow + regulatory moat) ----
+    "MANH": {
+        "name": "Manhattan Associates",
+        "subsector": "vertical_workflow_supply_chain",
+        "panic_narrative": "AI agents replace supply-chain planning and WMS software.",
+        "false_victim_pattern": (
+            "Deeply embedded WMS at enterprise warehouses; AI optimizes "
+            "inside the system, not replaces the system of record. "
+            "Multi-year deployments, integrations with ERP, physical "
+            "warehouse hardware. Customer switching cost is the moat, "
+            "not text generation."
+        ),
+        "expected_role": "false_victim",
+    },
+    "TYL": {
+        "name": "Tyler Technologies",
+        "subsector": "vertical_workflow_government",
+        "panic_narrative": "AI replaces government records, court, and municipal software.",
+        "false_victim_pattern": (
+            "Government procurement cycles measured in years; decades of "
+            "municipal contracts; FedRAMP and state-specific compliance. "
+            "No government CIO is replacing court records of record with "
+            "an LLM."
+        ),
+        "expected_role": "false_victim",
+    },
+    "PCTY": {
+        "name": "Paylocity",
+        "subsector": "vertical_workflow_hr_payroll",
+        "panic_narrative": "AI replaces HR/payroll software with agentic back-office tools.",
+        "false_victim_pattern": (
+            "Payroll tax compliance per state, employment law per "
+            "jurisdiction, regulatory audit trail. AI doesn't file your "
+            "941 or handle state UI registrations."
+        ),
+        "expected_role": "false_victim",
+    },
+    "PAYC": {
+        "name": "Paycom Software",
+        "subsector": "vertical_workflow_hr_payroll",
+        "panic_narrative": "AI replaces HR/payroll software with agentic back-office tools.",
+        "false_victim_pattern": (
+            "Same as PCTY — payroll tax compliance, jurisdictional law, "
+            "audit trail. Customer relationship is the bank-of-record "
+            "for employee comp, not a text interface."
+        ),
+        "expected_role": "false_victim",
+    },
+    "BLKB": {
+        "name": "Blackbaud",
+        "subsector": "vertical_workflow_nonprofit",
+        "panic_narrative": "AI replaces nonprofit / fundraising / donor management software.",
+        "false_victim_pattern": (
+            "Tax-exempt accounting rules, donor data privacy, integrations "
+            "into specific giving workflows. Switching cost compounds with "
+            "20+ years of donor history per customer."
+        ),
+        "expected_role": "false_victim",
+    },
+    "WK": {
+        "name": "Workiva",
+        "subsector": "vertical_workflow_compliance",
+        "panic_narrative": "AI replaces financial reporting and SOX compliance prep.",
+        "false_victim_pattern": (
+            "XBRL tagging, SOX audit trail, Big 4 auditor workflow "
+            "integration. AI helps draft, but the regulatory-grade "
+            "review and audit trail is the product."
+        ),
+        "expected_role": "false_victim",
+    },
+    "NCNO": {
+        "name": "nCino",
+        "subsector": "vertical_workflow_banking",
+        "panic_narrative": "AI replaces bank loan origination and onboarding software.",
+        "false_victim_pattern": (
+            "Bank regulatory examination (OCC, FDIC), embedded in core "
+            "banking systems, multi-year deployments. AI agents don't "
+            "have a banking charter."
+        ),
+        "expected_role": "false_victim",
+    },
+
+    # ---- Healthcare IT (regulatory + integration moat) ----
+    "HQY": {
+        "name": "HealthEquity",
+        "subsector": "healthcare_workflow_benefits",
+        "panic_narrative": "AI replaces benefits administration and HSA management.",
+        "false_victim_pattern": (
+            "HSA custodian (trust-bank regulation), employer integrations, "
+            "IRS reporting requirements. AI agents don't hold deposit "
+            "trust accounts."
+        ),
+        "expected_role": "false_victim",
+    },
+    "EVH": {
+        "name": "Evolent Health",
+        "subsector": "healthcare_value_based_care",
+        "panic_narrative": "AI replaces value-based-care management software.",
+        "false_victim_pattern": (
+            "Payer contracts, specialty networks, clinical risk-sharing "
+            "arrangements. The product is the contract + network, with "
+            "software as the wrapper."
+        ),
+        "expected_role": "false_victim",
+    },
+    "PHR": {
+        "name": "Phreesia",
+        "subsector": "healthcare_workflow_intake",
+        "panic_narrative": "AI replaces patient intake and pre-visit workflows.",
+        "false_victim_pattern": (
+            "HIPAA, PMS/EMR integrations, payer-specific eligibility "
+            "checks. The work is mostly integration plumbing, not the "
+            "patient-facing form."
+        ),
+        "expected_role": "false_victim",
+    },
+    "OMCL": {
+        "name": "Omnicell",
+        "subsector": "healthcare_pharmacy_automation",
+        "panic_narrative": "AI replaces pharmacy automation and medication management.",
+        "false_victim_pattern": (
+            "Physical robotics in hospital pharmacies; DEA Schedule II "
+            "compliance; physical bar-code dispensing infrastructure. "
+            "AI doesn't unlock a narcotic cabinet."
+        ),
+        "expected_role": "false_victim",
+    },
+    "HCAT": {
+        "name": "Health Catalyst",
+        "subsector": "healthcare_analytics",
+        "panic_narrative": "AI replaces healthcare analytics with general-purpose data agents.",
+        "false_victim_pattern": (
+            "Provider data warehousing, deeply embedded analytics inside "
+            "health-system EHRs, multi-year implementations. AI agents "
+            "without HIPAA BAA + EHR integration can't touch the data."
+        ),
+        "expected_role": "false_victim",
+    },
+
+    # ---- Edtech with structural moats ----
+    "DUOL": {
+        "name": "Duolingo",
+        "subsector": "edtech_consumer",
+        "panic_narrative": "AI tutors (GPT, Gemini) replace language-learning apps.",
+        "false_victim_pattern": (
+            "Daily-habit social product; gamification + streak loops; "
+            "social leaderboards. The moat is the dopamine loop, not "
+            "instructional content quality. AI is a feature inside DUOL, "
+            "not a replacement for it."
+        ),
+        "expected_role": "false_victim",
+    },
+    "LRN": {
+        "name": "Stride, Inc.",
+        "subsector": "edtech_k12_accredited",
+        "panic_narrative": "AI tutors replace online K-12 schools and curriculum providers.",
+        "false_victim_pattern": (
+            "State charter contracts, accreditation, federal/state "
+            "education funding eligibility. Parents need an accredited "
+            "transcript; AI agents don't issue diplomas."
+        ),
+        "expected_role": "false_victim",
+    },
+
+    # ---- Cybersecurity beneficiaries (defense demand rises as AI helps attackers) ----
+    "TENB": {
+        "name": "Tenable",
+        "subsector": "cyber_vulnerability_mgmt",
+        "panic_narrative": "AI replaces vulnerability scanning and prioritization.",
+        "false_victim_pattern": (
+            "Continuous scanning across hybrid infrastructure with an "
+            "agent footprint. AI helps prioritize findings but doesn't "
+            "replace the data-collection layer. Demand rises as AI-"
+            "generated exploits proliferate."
+        ),
+        "expected_role": "false_victim",
+    },
+    "QLYS": {
+        "name": "Qualys",
+        "subsector": "cyber_vulnerability_mgmt",
+        "panic_narrative": "AI replaces vulnerability scanning and cloud security posture.",
+        "false_victim_pattern": (
+            "Similar to TENB; additional moat in compliance scanning "
+            "(PCI, HIPAA reporting). The audit trail is the product."
+        ),
+        "expected_role": "false_victim",
+    },
+    "VRNS": {
+        "name": "Varonis",
+        "subsector": "cyber_data_governance",
+        "panic_narrative": "AI replaces data classification and access-governance tools.",
+        "false_victim_pattern": (
+            "DIRECT AI BENEFICIARY. Data discovery, classification, and "
+            "access-rights mapping is the layer UNDER what AI agents "
+            "need to operate safely. More enterprise AI deployments → "
+            "more demand for Varonis."
+        ),
+        "expected_role": "false_victim",
+    },
+    "CYBR": {
+        "name": "CyberArk",
+        "subsector": "cyber_privileged_access",
+        "panic_narrative": "AI replaces identity and privileged access management.",
+        "false_victim_pattern": (
+            "DIRECT AI BENEFICIARY. The more AI agents exist holding "
+            "credentials, the more privileged access management matters. "
+            "Agent identity is a future growth wedge, not a threat."
+        ),
+        "expected_role": "false_victim",
+    },
+    "OSPN": {
+        "name": "OneSpan",
+        "subsector": "cyber_authentication",
+        "panic_narrative": "AI replaces authentication and e-signature workflows.",
+        "false_victim_pattern": (
+            "Regulated authentication (banking, government) with "
+            "cryptographic device base and PSD2/eIDAS compliance. "
+            "Standards-bound — AI doesn't redefine the standard."
+        ),
+        "expected_role": "false_victim",
+    },
+
+    # ---- Picks-and-shovels (mistakenly lumped with 'AI software' on bad days) ----
+    "PLAB": {
+        "name": "Photronics",
+        "subsector": "semis_picks_shovels",
+        "panic_narrative": "Tech selloff drags semiconductors; AI capex slowdown fears.",
+        "false_victim_pattern": (
+            "Photomask supplier. Every chip — including every AI "
+            "accelerator — needs masks. Direct AI capex beneficiary; "
+            "panic on AI-lab news is mechanically backwards."
+        ),
+        "expected_role": "false_victim",
+    },
+    "ONTO": {
+        "name": "Onto Innovation",
+        "subsector": "semis_picks_shovels",
+        "panic_narrative": "Semi-cap sympathy selloff on tech weakness.",
+        "false_victim_pattern": (
+            "Process control for advanced semiconductor nodes. AI chip "
+            "manufacturing requires more, not less, process control. "
+            "Direct AI capex beneficiary."
+        ),
+        "expected_role": "false_victim",
+    },
+    "AEIS": {
+        "name": "Advanced Energy Industries",
+        "subsector": "semis_picks_shovels",
+        "panic_narrative": "Semi-cap sympathy; data-center capex peak fears.",
+        "false_victim_pattern": (
+            "Power delivery for fabs and data centers. AI buildout requires "
+            "the power-conditioning infrastructure AEIS sells. Direct "
+            "capex beneficiary, not victim."
+        ),
+        "expected_role": "false_victim",
+    },
+    "CGNX": {
+        "name": "Cognex",
+        "subsector": "industrial_machine_vision",
+        "panic_narrative": "General-purpose AI vision models commoditize industrial machine vision.",
+        "false_victim_pattern": (
+            "Industrial machine vision in factories with installed base, "
+            "integrator network, deterministic precision required for "
+            "manufacturing QA. LLM-based vision doesn't deliver the "
+            "deterministic latency/precision factory floors require."
+        ),
+        "expected_role": "false_victim",
+    },
+    "AMBA": {
+        "name": "Ambarella",
+        "subsector": "semis_edge_ai",
+        "panic_narrative": "Edge-AI inference commoditized by general-purpose AI chips.",
+        "false_victim_pattern": (
+            "DIRECT AI BENEFICIARY. Edge inference SoCs for automotive, "
+            "security cameras, robotics. Every edge-AI deployment is "
+            "potentially Ambarella's TAM."
+        ),
+        "expected_role": "false_victim",
+    },
+
+    # ---- Physical-world / regulated services (no AI threat surface) ----
+    "CASS": {
+        "name": "Cass Information Systems",
+        "subsector": "physical_world_freight_payment",
+        "panic_narrative": "AI replaces freight payment processing and audit.",
+        "false_victim_pattern": (
+            "Regulated bank holding company. Decades of freight payment "
+            "relationships with shippers and carriers. FDIC oversight. "
+            "AI agents don't get FDIC-insured deposits."
+        ),
+        "expected_role": "false_victim",
+    },
+    "ALRM": {
+        "name": "Alarm.com",
+        "subsector": "physical_world_security_iot",
+        "panic_narrative": "AI replaces home and small-business security monitoring.",
+        "false_victim_pattern": (
+            "Hardware-software integration with installer dealer network, "
+            "UL listings, insurance partnerships, physical sensor base. "
+            "AI doesn't install a door sensor."
+        ),
+        "expected_role": "false_victim",
+    },
+    "VRRM": {
+        "name": "Verra Mobility",
+        "subsector": "physical_world_municipal_services",
+        "panic_narrative": "AI replaces tolling and red-light camera enforcement software.",
+        "false_victim_pattern": (
+            "Municipal contracts (multi-year), physical camera infrastructure, "
+            "court-admissible chain of custody. AI doesn't replace the "
+            "physical camera or the legal evidentiary process."
+        ),
+        "expected_role": "false_victim",
+    },
+    "JAMF": {
+        "name": "Jamf Holding",
+        "subsector": "device_management",
+        "panic_narrative": "AI agents replace device management and IT admin tooling.",
+        "false_victim_pattern": (
+            "Apple-ecosystem MDM with Apple Business Manager integration. "
+            "Enterprise device fleet management requires physical and "
+            "regulatory layers (kernel extensions, MDM protocol) AI "
+            "doesn't pierce."
+        ),
+        "expected_role": "false_victim",
+    },
+
+    # ---- Cloud retail panic-sold ----
+    "DOCN": {
+        "name": "DigitalOcean Holdings",
+        "subsector": "cloud_smb",
+        "panic_narrative": "Hyperscalers (AWS, GCP, Azure) plus cheap AI inference make commodity cloud obsolete.",
+        "false_victim_pattern": (
+            "Developer affinity, simple pricing, SMB and indie-developer "
+            "focus that hyperscalers underserve. AI inference offerings "
+            "now in their product set — they're integrating the threat, "
+            "not being replaced by it."
+        ),
+        "expected_role": "false_victim",
+    },
+
+    # ---- Real victim control (calibration check — filings SHOULD flag this) ----
+    "AUDC": {
+        "name": "AudioCodes",
+        "subsector": "voice_telephony_hardware",
+        "panic_narrative": "Voice-agent capabilities at human parity replace VoIP/SIP hardware vendors.",
+        "false_victim_pattern": (
+            "CONTROL — kept in basket to test that the filings read can "
+            "correctly identify a NAME WHERE THE AI PANIC IS PLAUSIBLE. "
+            "Voice telephony hardware/software for enterprise PBX has "
+            "real exposure to AI voice agents collapsing telephony "
+            "stacks. If the discovery pass repeatedly calls AUDC a "
+            "'false victim' on AI-event days, the prompt is too "
+            "permissive — recalibrate."
+        ),
+        "expected_role": "real_victim_control",
+    },
+}
+
+
+# Backwards-compatible flat-tuple view. Code paths that just need the
+# list of tickers (filtering, fetching quotes) still work unchanged.
+AI_ADJACENT_TICKERS: tuple[str, ...] = tuple(AI_ADJACENT_UNIVERSE.keys())
 
 
 def _ai_adjacent_universe() -> list[str]:
     """Deduplicated AI-adjacent ticker list. Cheap; computed each call."""
     return list(dict.fromkeys(t.upper() for t in AI_ADJACENT_TICKERS))
+
+
+def _ai_adjacent_rationale(ticker: str) -> dict[str, str] | None:
+    """
+    Return the curation rationale for one ticker, or None if ticker is
+    not in the curated universe (e.g. came in via Screen 0 movers ∩
+    AI-adjacent path with an expanded match). Callers should treat
+    None as "no false-victim hypothesis to test — assess freely."
+    """
+    return AI_ADJACENT_UNIVERSE.get(ticker.upper())
 
 
 # ============================================================
@@ -404,6 +741,13 @@ def _build_screen_1_discovery_user_content(
         filings = c.get("screen_1_filings") or {}
         k10 = filings.get("k10")
         q10 = filings.get("q10")
+        # Pull the curated false-victim hypothesis for this ticker, if any.
+        # Names that came in via the Screen 0 movers ∩ AI-adjacent path
+        # (not yet wired, but allowed by build_candidate_basket) won't
+        # have a rationale entry — the model sees null and is expected
+        # to assess freely without a pre-loaded hypothesis.
+        ticker_upper = (c.get("ticker") or "").upper()
+        rationale = _ai_adjacent_rationale(ticker_upper)
         candidate_blocks.append({
             "ticker": c.get("ticker"),
             "name": c.get("name"),
@@ -414,6 +758,12 @@ def _build_screen_1_discovery_user_content(
             "price": c.get("price"),
             "market_cap": c.get("market_cap"),
             "catalyst_signals": c.get("catalyst_signals", {}),
+            # Curation hypothesis: tells the discovery pass why this
+            # name was put in the basket in the first place, and what
+            # false-victim claim a 10-K read should TEST. None when
+            # the ticker came in via a path that didn't go through
+            # AI_ADJACENT_UNIVERSE.
+            "curation": rationale,
             "screen_1_filings": {
                 "k10": (
                     {
@@ -451,6 +801,32 @@ def _build_screen_1_discovery_user_content(
         "<candidates>",
         "Each candidate has its 10-K and 10-Q Risk Factors text inline.",
         "Read them carefully before assessing threat for that candidate.",
+        "",
+        "Each candidate also has a `curation` block (or null). When non-null,",
+        "it records WHY this ticker was put in the basket — the specific",
+        "`panic_narrative` retail is expected to apply, and the",
+        "`false_victim_pattern` the curator believes a careful filings read",
+        "should reveal. Your job is to TEST that hypothesis against the",
+        "filings, not to defer to it. The hypothesis can be wrong:",
+        "  - If the filings CONFIRM the false-victim pattern → strong",
+        "    'unjustified' panic_calibration with the moat cited from",
+        "    filing text.",
+        "  - If the filings CONTRADICT the curation hypothesis (e.g. a new",
+        "    risk factor mentioning AI-specific exposure, a customer-",
+        "    concentration shift, or a Q-over-Q revenue drop in the",
+        "    threatened segment) → 'justified' panic_calibration and a",
+        "    SKIP recommendation. Calling out a wrong curation hypothesis",
+        "    is HIGH-VALUE output — log it explicitly.",
+        "  - If `expected_role` is 'real_victim_control', the curator",
+        "    believes the AI panic is PLAUSIBLY CORRECT for this name.",
+        "    Default expectation: filings should reveal real exposure,",
+        "    and the screen should NOT recommend BUY. If you find this",
+        "    control name actually IS a false victim, say so loudly —",
+        "    that's a meaningful curation finding.",
+        "",
+        "Candidates without `curation` (null) came in via the movers-only",
+        "path. Assess them freely without a pre-loaded hypothesis.",
+        "",
         json.dumps(candidate_blocks, indent=2),
         "</candidates>",
         "",
