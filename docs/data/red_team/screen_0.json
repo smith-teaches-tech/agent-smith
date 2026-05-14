@@ -38,5 +38,15 @@
     "weakest_link": "The bull thesis hinges on the 8.01 being a major data-center contract or raised guide, but the haiku explicitly acknowledges that 8.01 could be routine (dividend/buyback), in which case a 31% move is a short squeeze already extended and unsustainable.",
     "critique": "A 31% single-day move demands an extraordinary catalyst, yet the bull case admits the asymmetric upside depends entirely on what the 8.01 disclosure contains—which is not yet verified. The risk/reward is inverted: if the 8.01 is routine (the very real possibility the haiku flags), the move is already played and a short squeeze unwind is the immediate risk. Even if a contract exists, a 31% move on announcement day leaves minimal edge for a 6% position on a multi-day horizon; the market has already front-run the discovery. The classification is correctly marked UNCLEAR, but that uncertainty should argue for waiting for the 8.01 to be read before committing capital, not for exploratory sizing now.",
     "confidence_in_critique": 4
+  },
+  {
+    "ts": "2026-05-14T20:30:23.746852+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio down -1.94% (AEIS) and -3.64% (TXRH) after 0-1 day hold; both theses remain intact but neither warrants action yet. New flag pool is dominated by rational earnings reactions with appropriate magnitudes; AEIS reappears as OVERDONE conf 3 with better-articulated thesis (annual meeting false signal), worth reconsidering. Most new flags are SKIP or WATCH — they're correctly priced on available info, and conviction-tier entries require high-confidence reversal reads that this batch doesn't generate.",
+    "ticker": "AEIS",
+    "survived": false,
+    "weakest_link": "The bull thesis assumes routine annual-meeting filings fade quickly via mean reversion, but provides no evidence that semi-cap sympathy selloffs on 'light volume' actually reverse faster than the broader SMH decline that triggered them.",
+    "critique": "The bull case rests on two untested premises: (1) the 8-K is definitely routine governance (5.02/5.03/5.07/9.01 bundle), and (2) if routine, AEIS will mean-revert faster than peers LRCX/AMAT/ACLS over 1-3 days. However, the flag itself acknowledges that the -4.38% move aligns 'more with SMH -2.6% sympathy than with the May 8 8-K'—meaning the 8-K timing and the selloff timing don't match. If sympathy is the true driver, AEIS won't outperform until SMH stabilizes; the exploratory position sizes on the assumption of a fade that depends on external (SMH) rather than company-specific (AEIS governance clarity) catalysts. The confidence level (3/5) already signals weak conviction, yet the trade is being added to at 6% notional exposure. Adding to a sympathy play with no AEIS-specific reversal trigger is betting on relative strength in a down market, not on a discrete catalyst.",
+    "confidence_in_critique": 4
   }
 ]

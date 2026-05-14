@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-13T20:47:09.743801+00:00",
+  "generated_at": "2026-05-14T20:29:35.866721+00:00",
   "logic_version": 3,
   "grading_params": {
     "hit_threshold_pct": 3.0,
@@ -9,10 +9,10 @@
       "months": 60
     },
     "default_horizon_days": 5,
-    "graded_classifications": "{'OVERDONE', 'UNDERDONE'}"
+    "graded_classifications": "{'UNDERDONE', 'OVERDONE'}"
   },
-  "n_total_calls": 175,
-  "n_not_graded": 169,
+  "n_total_calls": 180,
+  "n_not_graded": 174,
   "n_pending": 2,
   "n_data_error": 0,
   "overall": {
@@ -84,6 +84,30 @@
     }
   },
   "by_sector": {
+    "Technology": {
+      "n_resolved": 2,
+      "n_hit": 2,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": 100.0,
+      "avg_return_pct": 18.34
+    },
+    "Communication Services": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Healthcare - Biotechnology": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
     "Consumer Defensive": {
       "n_resolved": 0,
       "n_hit": 0,
@@ -92,7 +116,47 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Communication Services": {
+    "Basic Materials": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Utilities": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Financial Services": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Industrials": {
+      "n_resolved": 1,
+      "n_hit": 1,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": 100.0,
+      "avg_return_pct": 10.14
+    },
+    "Energy": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Healthcare": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -116,71 +180,7 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Healthcare - Biotechnology": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Financial Services": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Technology": {
-      "n_resolved": 2,
-      "n_hit": 2,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": 100.0,
-      "avg_return_pct": 18.34
-    },
-    "Industrials": {
-      "n_resolved": 1,
-      "n_hit": 1,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": 100.0,
-      "avg_return_pct": 10.14
-    },
-    "Energy": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Basic Materials": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
     "Real Estate": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Healthcare": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Utilities": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -2016,13 +2016,13 @@
       "expected_direction": "up",
       "horizon_days": 20,
       "grade": "PENDING",
-      "return_pct_in_horizon": -12.27,
+      "return_pct_in_horizon": -9.93,
       "max_favorable_pct": 6.73,
       "max_adverse_pct": -14.99,
       "price_at_flag": 183.5,
-      "price_at_horizon_end": 160.99,
+      "price_at_horizon_end": 165.27,
       "logic_version": 3,
-      "notes": "only 10 bars elapsed",
+      "notes": "only 11 bars elapsed",
       "screen_id": "screen_0"
     },
     {
@@ -3864,13 +3864,13 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": -0.07,
-      "max_favorable_pct": 1.02,
+      "return_pct_in_horizon": 1.53,
+      "max_favorable_pct": 3.47,
       "max_adverse_pct": -2.4,
       "price_at_flag": 339.42,
-      "price_at_horizon_end": 339.19,
+      "price_at_horizon_end": 344.6,
       "logic_version": 3,
-      "notes": "only 1 bars elapsed",
+      "notes": "only 2 bars elapsed",
       "screen_id": "screen_0"
     },
     {
@@ -4081,6 +4081,111 @@
       "price_at_horizon_end": null,
       "logic_version": 3,
       "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "JLL",
+      "name": "Jones Lang LaSalle Incorporated",
+      "sector": "Real Estate",
+      "flagged_at": "2026-05-14T20:29:05+00:00",
+      "run_file": "us_20260514T202905Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -7.0,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "SAIA",
+      "name": "Saia, Inc.",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-14T20:29:05+00:00",
+      "run_file": "us_20260514T202905Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": 6.46,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "EXTR",
+      "name": "Extreme Networks",
+      "sector": "Technology",
+      "flagged_at": "2026-05-14T20:29:05+00:00",
+      "run_file": "us_20260514T202905Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": 8.52,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "BEAM",
+      "name": "Beam Therapeutics",
+      "sector": "Healthcare",
+      "flagged_at": "2026-05-14T20:29:05+00:00",
+      "run_file": "us_20260514T202905Z.json",
+      "classification": "RATIONAL",
+      "confidence": 2,
+      "move_pct_at_flag": -7.28,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "KTOS",
+      "name": "Kratos Defense",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-14T20:29:05+00:00",
+      "run_file": "us_20260514T202905Z.json",
+      "classification": "RATIONAL",
+      "confidence": 2,
+      "move_pct_at_flag": 4.5,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=RATIONAL not in graded set",
       "screen_id": "screen_0"
     }
   ]
