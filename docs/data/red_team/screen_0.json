@@ -48,5 +48,35 @@
     "weakest_link": "The bull thesis assumes routine annual-meeting filings fade quickly via mean reversion, but provides no evidence that semi-cap sympathy selloffs on 'light volume' actually reverse faster than the broader SMH decline that triggered them.",
     "critique": "The bull case rests on two untested premises: (1) the 8-K is definitely routine governance (5.02/5.03/5.07/9.01 bundle), and (2) if routine, AEIS will mean-revert faster than peers LRCX/AMAT/ACLS over 1-3 days. However, the flag itself acknowledges that the -4.38% move aligns 'more with SMH -2.6% sympathy than with the May 8 8-K'—meaning the 8-K timing and the selloff timing don't match. If sympathy is the true driver, AEIS won't outperform until SMH stabilizes; the exploratory position sizes on the assumption of a fade that depends on external (SMH) rather than company-specific (AEIS governance clarity) catalysts. The confidence level (3/5) already signals weak conviction, yet the trade is being added to at 6% notional exposure. Adding to a sympathy play with no AEIS-specific reversal trigger is betting on relative strength in a down market, not on a discrete catalyst.",
     "confidence_in_critique": 4
+  },
+  {
+    "ts": "2026-05-15T20:19:06.774453+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio down 5.5% in 2 days (AEIS -7.96%, TXRH -3.15%). AEIS thesis is weakening—new flag reclassifies it as RATIONAL (sector beta), not OVERDONE, and the 8-K exhibits URL confirms benign event. TXRH thesis intact on earnings catalyst. New flags mostly sector-sympathy RATIONAL calls (AEIS, KTOS, DCO, BBIO, AMR, CELH, HE) or justified post-earnings moves (SHAK, WHR, IBP). Two high-confidence conviction candidates emerge: SHAK (LIKELY RATIONAL conf 4, -32.5% over 5 days on dual bad-news catalysts) and HL (LIKELY RATIONAL conf 4, +11% on rational silver beta). One strong exploratory: DCO (UNDERDONE conf 3, post-earnings give-back with defense sector weakness as ongoing catalyst).",
+    "ticker": "DCO",
+    "survived": true,
+    "weakest_link": "The thesis assumes post-earnings sector sympathy will persist, but the 1.04x volume on today's -5.17% move suggests exhaustion of the reversion rather than the beginning of a larger fade.",
+    "critique": "The bull case frames today's decline as the start of a multi-day sector-driven give-back, but the evidence points the other way: DCO gained +4.75% over 5 days on positive earnings, then gave back only -5.17% today on sub-average volume in a day when ITA fell -3.2%. That's a mild sector sympathy move, not a sustained breakdown. If the post-earnings bid was fragile (as claimed), we'd expect to see volume expansion into the decline, not compression. The 'what_kills' criterion—defense stabilization—is already partially in place: at 1.04x volume, this pullback lacks conviction.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-05-15T20:19:06.774453+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio down 5.5% in 2 days (AEIS -7.96%, TXRH -3.15%). AEIS thesis is weakening—new flag reclassifies it as RATIONAL (sector beta), not OVERDONE, and the 8-K exhibits URL confirms benign event. TXRH thesis intact on earnings catalyst. New flags mostly sector-sympathy RATIONAL calls (AEIS, KTOS, DCO, BBIO, AMR, CELH, HE) or justified post-earnings moves (SHAK, WHR, IBP). Two high-confidence conviction candidates emerge: SHAK (LIKELY RATIONAL conf 4, -32.5% over 5 days on dual bad-news catalysts) and HL (LIKELY RATIONAL conf 4, +11% on rational silver beta). One strong exploratory: DCO (UNDERDONE conf 3, post-earnings give-back with defense sector weakness as ongoing catalyst).",
+    "ticker": "SHAK",
+    "survived": true,
+    "weakest_link": "The conviction sizing (20%) at confidence 4 assumes the 5-day -32.5% move has already price-discovered the bad news, but if the 5.02 officer departure is abrupt and material (not pre-planned), the thesis has frontrun the true earnings digest and may not stabilize for days.",
+    "critique": "The bull thesis rests on the claim that 'price-discovery has already occurred' and magnitude is justified—therefore further weakness requires new catalyst. But the haiku reasoning explicitly flags that the 5.02 filing exhibit must be read to confirm whether this is planned succession or abrupt departure, and that determination hasn't been made. If it's an abrupt loss of key operations leadership, institutional unwind may extend well past a single -8% day; the 20% conviction position sizes this as already-digested when it may still be digesting. The thesis also assumes a relief bounce on 'planned transition with strong replacement,' but Shake Shack's track record of filling executive vacancies is thin.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-05-15T20:19:06.774453+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio down 5.5% in 2 days (AEIS -7.96%, TXRH -3.15%). AEIS thesis is weakening—new flag reclassifies it as RATIONAL (sector beta), not OVERDONE, and the 8-K exhibits URL confirms benign event. TXRH thesis intact on earnings catalyst. New flags mostly sector-sympathy RATIONAL calls (AEIS, KTOS, DCO, BBIO, AMR, CELH, HE) or justified post-earnings moves (SHAK, WHR, IBP). Two high-confidence conviction candidates emerge: SHAK (LIKELY RATIONAL conf 4, -32.5% over 5 days on dual bad-news catalysts) and HL (LIKELY RATIONAL conf 4, +11% on rational silver beta). One strong exploratory: DCO (UNDERDONE conf 3, post-earnings give-back with defense sector weakness as ongoing catalyst).",
+    "ticker": "HL",
+    "survived": false,
+    "weakest_link": "Silver has already gained 7% to multi-month highs and HL is up +17.6% in 5 days; entering a conviction 20% position at confidence 4 into commodity momentum this extended assumes the AI-driven narrative has multiple sessions of runway when crowded positioning and profit-taking risk are the dominant near-term mechanics.",
+    "critique": "The bull case correctly identifies rational fundamentals (silver +7%, HL operating leverage) but sizes the position at conviction weight (20%, conf 4) into an already-extended 5-day move (+17.6%). The 'what_kills' criterion explicitly names silver reversal on profit-taking as the risk, yet the position size does not reflect that risk in proportion to the confidence rating. Commodity moves of this magnitude in 5 days typically see mean-reversion pressure within 1–3 sessions, and HL's positive earnings floor (5/5) is 10 days old by now—no longer a fresh catalyst. The AI narrative supporting silver is sentiment-driven, not a new fundamental shift; institutional crowding into this trade is visible in the speed and breadth of the move.",
+    "confidence_in_critique": 3
   }
 ]

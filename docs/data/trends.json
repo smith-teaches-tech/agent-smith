@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-14T20:29:35.866721+00:00",
+  "generated_at": "2026-05-15T20:18:13.096825+00:00",
   "logic_version": 3,
   "grading_params": {
     "hit_threshold_pct": 3.0,
@@ -11,9 +11,9 @@
     "default_horizon_days": 5,
     "graded_classifications": "{'UNDERDONE', 'OVERDONE'}"
   },
-  "n_total_calls": 180,
-  "n_not_graded": 174,
-  "n_pending": 2,
+  "n_total_calls": 186,
+  "n_not_graded": 179,
+  "n_pending": 3,
   "n_data_error": 0,
   "overall": {
     "n_resolved": 4,
@@ -84,31 +84,7 @@
     }
   },
   "by_sector": {
-    "Technology": {
-      "n_resolved": 2,
-      "n_hit": 2,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": 100.0,
-      "avg_return_pct": 18.34
-    },
-    "Communication Services": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Healthcare - Biotechnology": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Consumer Defensive": {
+    "Financial Services (misclassified as Tech)": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -124,7 +100,15 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Utilities": {
+    "Energy": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Healthcare - Biotechnology": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -140,6 +124,38 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
+    "Healthcare": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Technology": {
+      "n_resolved": 2,
+      "n_hit": 2,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": 100.0,
+      "avg_return_pct": 18.34
+    },
+    "Consumer Defensive": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Real Estate": {
+      "n_resolved": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
     "Industrials": {
       "n_resolved": 1,
       "n_hit": 1,
@@ -148,15 +164,7 @@
       "hit_rate": 100.0,
       "avg_return_pct": 10.14
     },
-    "Energy": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Healthcare": {
+    "Communication Services": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -172,15 +180,7 @@
       "hit_rate": 0.0,
       "avg_return_pct": -7.56
     },
-    "Financial Services (misclassified as Tech)": {
-      "n_resolved": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Real Estate": {
+    "Utilities": {
       "n_resolved": 0,
       "n_hit": 0,
       "n_miss": 0,
@@ -2016,13 +2016,13 @@
       "expected_direction": "up",
       "horizon_days": 20,
       "grade": "PENDING",
-      "return_pct_in_horizon": -9.93,
+      "return_pct_in_horizon": -13.9,
       "max_favorable_pct": 6.73,
       "max_adverse_pct": -14.99,
       "price_at_flag": 183.5,
-      "price_at_horizon_end": 165.27,
+      "price_at_horizon_end": 158.0,
       "logic_version": 3,
-      "notes": "only 11 bars elapsed",
+      "notes": "only 12 bars elapsed",
       "screen_id": "screen_0"
     },
     {
@@ -3864,13 +3864,13 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": 1.53,
+      "return_pct_in_horizon": -4.7,
       "max_favorable_pct": 3.47,
-      "max_adverse_pct": -2.4,
+      "max_adverse_pct": -4.97,
       "price_at_flag": 339.42,
-      "price_at_horizon_end": 344.6,
+      "price_at_horizon_end": 323.46,
       "logic_version": 3,
-      "notes": "only 2 bars elapsed",
+      "notes": "only 3 bars elapsed",
       "screen_id": "screen_0"
     },
     {
@@ -4178,6 +4178,132 @@
       "move_pct_at_flag": 4.5,
       "expected_direction": null,
       "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "AEIS",
+      "name": "Advanced Energy Industries",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-15T20:17:44+00:00",
+      "run_file": "us_20260515T201744Z.json",
+      "classification": "RATIONAL",
+      "confidence": 3,
+      "move_pct_at_flag": -6.13,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "KTOS",
+      "name": "Kratos Defense & Security",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-15T20:17:44+00:00",
+      "run_file": "us_20260515T201744Z.json",
+      "classification": "RATIONAL",
+      "confidence": 4,
+      "move_pct_at_flag": -5.03,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "DCO",
+      "name": "Ducommun Incorporated",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-15T20:17:44+00:00",
+      "run_file": "us_20260515T201744Z.json",
+      "classification": "UNDERDONE",
+      "confidence": 3,
+      "move_pct_at_flag": -5.17,
+      "expected_direction": "down",
+      "horizon_days": 5,
+      "grade": "PENDING",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": 143.75,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "No post-flag bars yet",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "BEAM",
+      "name": "Beam Therapeutics",
+      "sector": "Healthcare",
+      "flagged_at": "2026-05-15T20:17:44+00:00",
+      "run_file": "us_20260515T201744Z.json",
+      "classification": "RATIONAL",
+      "confidence": 4,
+      "move_pct_at_flag": -5.42,
+      "expected_direction": null,
+      "horizon_days": 20,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "WEX",
+      "name": "WEX Inc.",
+      "sector": "Technology",
+      "flagged_at": "2026-05-15T20:17:44+00:00",
+      "run_file": "us_20260515T201744Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": 5.52,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 3,
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "BLDR",
+      "name": "Builders FirstSource",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-15T20:17:44+00:00",
+      "run_file": "us_20260515T201744Z.json",
+      "classification": "RATIONAL",
+      "confidence": 4,
+      "move_pct_at_flag": -4.31,
+      "expected_direction": null,
+      "horizon_days": 20,
       "grade": "NOT_GRADED",
       "return_pct_in_horizon": null,
       "max_favorable_pct": null,

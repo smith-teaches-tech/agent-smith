@@ -48,5 +48,44 @@
     "fees": 0.3596,
     "notional": 550.9,
     "why": "Opened per flag: LIKELY RATIONAL conf 4 — Q1 2026 earnings + likely capital return announcement"
+  },
+  {
+    "ts": "2026-05-15T20:19:06.841823+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-05-15T20:19:06.841693+00:00",
+    "side": "SELL",
+    "ticker": "AEIS",
+    "shares": 1,
+    "fill_price": 328.655,
+    "fees": 0.3625,
+    "notional": 328.65,
+    "why": "Original entry was OVERDONE conf 3 on 8-K surprise narrative. New flag reclassifies as RATIONAL conf 3 and provides 8-K URL (https://www.sec.gov/Archives/edgar/data/927003/000110465926060543/aeis-20260513x8k.htm) confirming two consecutive 8.01 filings are 'likely investor conference / presentation materials'—benign. Thesis killed: the move (-6.13% new vs -7.96% realized) is pure sector beta (1.6x SMH), not an idiosyncratic catalyst. Position down -7.96% after 2 days with no directional edge remaining. Conviction gone; exit to redeploy capital."
+  },
+  {
+    "ts": "2026-05-15T20:19:06.988231+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-05-15T20:19:06.988042+00:00",
+    "side": "BUY",
+    "ticker": "DCO",
+    "shares": 4,
+    "fill_price": 149.0089,
+    "fees": 0.3628,
+    "notional": 596.04,
+    "why": "Opened per flag: UNDERDONE conf 3 — Defense sector pullback after positive earnings reaction faded"
+  },
+  {
+    "ts": "2026-05-15T20:19:07.126207+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-05-15T20:19:07.126048+00:00",
+    "side": "BUY",
+    "ticker": "SHAK",
+    "shares": 33,
+    "fill_price": 60.9509,
+    "fees": 0.4556,
+    "notional": 2011.38,
+    "why": "Opened per flag: LIKELY RATIONAL conf 4 — Earnings + officer departure announced 5/7"
   }
 ]
