@@ -265,6 +265,28 @@ IBKR_CLEARING_PER_SHARE = 0.0002           # Clearing/settlement
 PAPER_SLIPPAGE_PCT = 0.001                 # 0.1%
 
 # ============================================================
+# BENCHMARK COMPARISON (Build queue item 3, May 16, 2026)
+#
+# Every paper trade captures SPY and IWM prices at open and at close,
+# so closed trades can report alpha-vs-benchmark instead of raw P&L.
+# Raw "+17.9% on EXTR" is meaningless without "vs SPY +X% same window".
+#
+# Both benchmarks are always stored on every trade. Which one is the
+# *primary* comparison is a display decision resolved at render time
+# in portfolio.html using BENCHMARK_PRIMARY_CAP_USD:
+#   market cap >= threshold  -> SPY is primary  (large/mid-cap proxy)
+#   market cap <  threshold  -> IWM is primary  (small-cap proxy)
+# Storing both keeps portfolio.py purely mechanical and means changing
+# the rule is a one-line dashboard edit, not a data migration.
+#
+# Benchmark capture is best-effort: a failed fetch stores null and the
+# trade still proceeds. Benchmark data is nice-to-have, never a gate
+# on executing a paper trade.
+# ============================================================
+BENCHMARK_TICKERS = ["SPY", "IWM"]         # captured at every open and close
+BENCHMARK_PRIMARY_CAP_USD = 5_000_000_000  # >= $5B -> SPY primary, else IWM
+
+# ============================================================
 # PORTFOLIO PASS MODEL
 # Opus is expensive; portfolio reasoning is cheaper and
 # benefits less from maximum reasoning depth.

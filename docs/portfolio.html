@@ -260,8 +260,8 @@ footer p { margin-bottom: 0.3rem; }
         <th class="hide-mobile" style="width: 10%;">held</th>
         <th class="num" style="width: 9%;">avg cost</th>
         <th class="num" style="width: 9%;">exit</th>
-        <th class="num" style="width: 11%;">p&l $</th>
-        <th class="num" style="width: 9%;">p&l %</th>
+        <th class="num" style="width: 10%;">p&l %</th>
+        <th class="num" style="width: 11%;">alpha</th>
         <th>exit reasoning</th>
         <th style="width: 20px;"></th>
       </tr>
@@ -360,7 +360,26 @@ const SAMPLE_PORTFOLIO = {
       opened_at: "2026-04-15T15:00:00Z", closed_at: "2026-04-22T14:00:00Z", days_held: 5,
       realized_pnl: -31.05, realized_pct: -3.98, fees_total: 2.80,
       flag_classification: "OVERDONE", flag_confidence: 2,
-      exit_reasoning: "Hit -3% miss threshold on day 5. No catalyst for reversion emerging; uranium spot weakness spreading. Exit per rule — thesis broken."
+      exit_reasoning: "Hit -3% miss threshold on day 5. No catalyst for reversion emerging; uranium spot weakness spreading. Exit per rule — thesis broken.",
+      market_cap_at_close: 28.0e9,
+      benchmark_at_open: { SPY: 521.40, IWM: 205.10 },
+      benchmark_at_close: { SPY: 525.90, IWM: 203.80 },
+      benchmark_return_pct: { SPY: 0.86, IWM: -0.63 },
+      alpha_pct: { SPY: -4.84, IWM: -3.35 }
+    },
+    {
+      ticker: "ADTN", name: "ADTRAN Holdings", sector: "Technology",
+      shares: 45, avg_cost: 14.95, exit_price: 16.10, days_held: 6,
+      opened_at: "2026-04-23T13:30:00Z", closed_at: "2026-05-01T14:00:00Z",
+      realized_pnl: 50.57, realized_pct: 7.49, fees_total: 1.28,
+      flag_classification: "OVERDONE", flag_confidence: 3,
+      exit_reasoning: "Reverted +7.5% as networking-peer sympathy unwound. Catalyst exhausted; took the gain.",
+      market_cap_at_close: 1.4e9,
+      benchmark_backfilled: true,
+      benchmark_at_open: { SPY: 524.10, IWM: 204.60 },
+      benchmark_at_close: { SPY: 531.20, IWM: 209.30 },
+      benchmark_return_pct: { SPY: 1.35, IWM: 2.30 },
+      alpha_pct: { SPY: 6.14, IWM: 5.19 }
     }
   ],
   trade_log: [
@@ -611,6 +630,30 @@ function renderOpen() {
       </td></tr>`;
   }).join('');
 }
+// Build queue item 3: pick the primary benchmark for a closed trade by
+// market cap. >= $5B -> SPY, else IWM. Falls back to SPY if cap is unknown.
+// The cap threshold mirrors config.BENCHMARK_PRIMARY_CAP_USD; if that
+// constant changes, change this one line to match.
+const BENCHMARK_PRIMARY_CAP_USD = 5e9;
+function primaryBenchmark(c) {
+  const cap = c.market_cap_at_close;
+  if (typeof cap === 'number' && cap < BENCHMARK_PRIMARY_CAP_USD) return 'IWM';
+  return 'SPY';
+}
+function alphaCell(c) {
+  // alpha_pct may be absent (pre-feature trade) or null per-benchmark
+  // (failed fetch / missing open). Degrade to an em-dash, never crash.
+  const alpha = c.alpha_pct || {};
+  const bm = primaryBenchmark(c);
+  const v = alpha[bm];
+  if (typeof v !== 'number') {
+    return `<span class="pnl-cell muted" title="benchmark data unavailable">—</span>`;
+  }
+  const cls = signClass(v);
+  const tag = c.benchmark_backfilled ? ' *' : '';
+  return `<span class="pnl-cell ${cls}" title="vs ${bm}${c.benchmark_backfilled ? ' (backfilled)' : ''}">`
+       + `${fmtPct(v)} <span style="font-size:0.62rem;color:var(--fg-muted);">${bm}${tag}</span></span>`;
+}
 function renderClosed() {
   const tbody = document.getElementById('closed-tbody');
   const empty = document.getElementById('closed-empty');
@@ -619,13 +662,23 @@ function renderClosed() {
   empty.style.display = 'none';
   tbody.innerHTML = P.closed_positions.map(c => {
     const pnlCls = signClass(c.realized_pnl);
+    const bmReturn = c.benchmark_return_pct || {};
+    const bmOpen = c.benchmark_at_open || {};
+    const bmClose = c.benchmark_at_close || {};
+    const benchRows = ['SPY', 'IWM'].map(bm => {
+      const ret = bmReturn[bm];
+      const a = (c.alpha_pct || {})[bm];
+      const retTxt = (typeof ret === 'number') ? fmtPct(ret) : '—';
+      const aTxt = (typeof a === 'number') ? fmtPct(a) : '—';
+      return `<dt>${bm}</dt><dd>${retTxt} <span style="color:var(--fg-muted);">(alpha ${aTxt})</span></dd>`;
+    }).join('');
     return `<tr class="data-row" onclick="toggleRow('closed-${c.ticker}')">
       <td><div class="ticker">${c.ticker}</div><div class="company">${c.name}</div></td>
       <td class="hide-mobile" style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--fg-muted);">${c.days_held}d · ${fmtDate(c.opened_at)}→${fmtDate(c.closed_at)}</td>
       <td class="num price">$${c.avg_cost.toFixed(2)}</td>
       <td class="num price">$${c.exit_price.toFixed(2)}</td>
-      <td class="num"><span class="pnl-cell ${pnlCls}">${fmtUSD(c.realized_pnl)}</span></td>
       <td class="num"><span class="pnl-cell ${pnlCls}">${fmtPct(c.realized_pct)}</span></td>
+      <td class="num">${alphaCell(c)}</td>
       <td style="font-size:0.75rem;">${c.exit_reasoning.split('.')[0]}.</td>
       <td><span class="chev">▸</span></td>
     </tr>
@@ -641,8 +694,15 @@ function renderClosed() {
             <dt>opened</dt><dd>${fmtDateTime(c.opened_at)}</dd>
             <dt>closed</dt><dd>${fmtDateTime(c.closed_at)}</dd>
             <dt>days held</dt><dd>${c.days_held}</dd>
+            <dt>realized p&l</dt><dd>${fmtUSD(c.realized_pnl)} (${fmtPct(c.realized_pct)})</dd>
             <dt>fees</dt><dd>${fmtUSD(c.fees_total)}</dd>
             <dt>original flag</dt><dd>${c.flag_classification} conf ${c.flag_confidence}</dd>
+          </dl>
+        </div>
+        <div>
+          <div class="detail-label">benchmark${c.benchmark_backfilled ? ' (* backfilled)' : ''}</div>
+          <dl class="trade-details">
+            ${benchRows}
           </dl>
         </div>
       </div>
