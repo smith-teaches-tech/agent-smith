@@ -243,6 +243,19 @@ def run_us(tickers_override: list[str] | None = None) -> dict[str, Any]:
         import traceback
         traceback.print_exc()
 
+    # ------------------------------------------------------------
+    # Screen 2 (pre-earnings filings read) — sequenced after Screen 1.
+    # Independent of both Screen 0 and Screen 1: its trigger is the
+    # earnings calendar, not the mover set or the AI-event trigger.
+    # Same defensive-try rationale as Screen 1 above.
+    # ------------------------------------------------------------
+    try:
+        run_screen_2()
+    except Exception as e:
+        print(f"[us] run_screen_2 raised unexpectedly: {e}")
+        import traceback
+        traceback.print_exc()
+
     failed_passes = [name for name in ("discovery", "ai_analysis") if status[name] == "FAILED"]
     if failed_passes:
         raise RuntimeError(
@@ -341,6 +354,74 @@ def run_screen_1(us_output: dict[str, Any] | None = None) -> dict[str, Any]:
     # dashboard reads the two screens independently.
     _write_output(output, "docs/data/screen_1_us.json", "screen_1_us")
     print(f"[screen_1] === complete (status={screen_1_status}) ===")
+    return output
+
+
+# ============================================================
+# Screen 2 (pre-earnings filings read) — discovery orchestrator
+# ============================================================
+
+def run_screen_2() -> dict[str, Any]:
+    """
+    Run Screen 2's per-name pre-earnings discovery pass for one cron tick.
+
+    Sequenced AFTER run_us() and run_screen_1(). Takes no us_output:
+    Screen 2's trigger is the earnings calendar, fully independent of
+    Screen 0's movers and Screen 1's AI-event trigger.
+
+    Always returns a usable dict; never raises. Writes
+    docs/data/screen_2_us.json on every run — a no-trigger run (no
+    universe name reports earnings in the T+3..T+7 window) writes a
+    clean SKIPPED file, so the dashboard always has something fresh.
+
+    The Screen 2 portfolio pass that consumes these flags runs later
+    in run_portfolio()'s SCREENS-iteration loop — picked up
+    automatically now that screen_2 is registered in config.SCREENS.
+    NOTE: that pass currently routes through the generic
+    run_portfolio_pass (the run_portfolio_for_screen dispatch only
+    special-cases screen_1). A dedicated run_portfolio_pass_screen_2
+    with the T-2/T+1 holding-window discipline is a tracked follow-up,
+    not a blocker for producing flags.
+    """
+    from .screens import screen_2
+
+    print("[screen_2] === Screen 2: pre-earnings filings read ===")
+
+    try:
+        result = screen_2.run_screen_2_discovery()
+        if result.get("_status") == "ok":
+            screen_2_status = "OK"
+        elif result.get("_status") == "error":
+            screen_2_status = "FAILED"
+        else:
+            # no-trigger / no-candidates day — a clean skip, not a
+            # failure. SKIPPED keeps the dashboard banner neutral.
+            screen_2_status = "SKIPPED"
+    except Exception as e:
+        print(f"[screen_2] discovery raised unexpectedly: {e}")
+        import traceback
+        traceback.print_exc()
+        result = {
+            "run_summary": f"Screen 2 discovery failed: {e}",
+            "discoveries": [],
+            "skipped": [],
+            "_status": "error",
+            "_error": str(e),
+        }
+        screen_2_status = "FAILED"
+
+    output = {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "screen_id": "screen_2",
+        "status": screen_2_status,
+        "discovery": result,
+    }
+
+    # Distinct filename + latest path, same convention as Screen 1, so
+    # history archive doesn't collide and the dashboard reads each
+    # screen independently.
+    _write_output(output, "docs/data/screen_2_us.json", "screen_2_us")
+    print(f"[screen_2] === complete (status={screen_2_status}) ===")
     return output
 
 

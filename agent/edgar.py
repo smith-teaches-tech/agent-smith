@@ -467,6 +467,333 @@ def get_filings_for_ai_threat_assessment(ticker: str) -> dict:
 
     return out
 
+
+# ============================================================
+# Screen 2 — Pre-earnings filings read
+# ============================================================
+#
+# Public surface added by this extension:
+#     get_8k_earnings_exhibit_text(ticker, quarters=4) -> list[dict]
+#     get_latest_10k_business_section(ticker)          -> dict | None
+#     get_filings_for_pre_earnings_read(ticker)        -> dict
+#
+# All three are additive — the 8-K fetcher, the Screen 1 Risk Factors
+# fetchers, and the standalone test are untouched.
+#
+# What Screen 2 needs that Screen 1 did not:
+# - The TEXT of an 8-K's earnings press release exhibit (Exhibit 99.1),
+#   not just the 8-K's primary cover document. The press release is a
+#   SEPARATE file inside the same accession folder; finding it requires
+#   reading the accession's index.json.
+# - The 10-K BUSINESS section (Item 1) — "what the company actually
+#   does" — which Screen 1 never needed (it only read Risk Factors).
+#
+# Design notes:
+# - Reuses the Screen 1 cache infrastructure (_cache_read/_cache_write,
+#   _CACHE_DIR) and the HTML→text machinery (_html_to_text, _fetch_text).
+# - Cache keys for 8-K exhibits use accession (immutable once filed) so
+#   invalidation is automatic — a new earnings 8-K is a new accession,
+#   cache miss, fresh fetch. Same model as the Risk Factors cache.
+# - Per-ticker / per-filing failures never raise. Missing data returns
+#   None or an empty list; Screen 2's prompt is told to qualify its
+#   confidence when filing data is thin.
+# - Polite to SEC: index.json is a metadata call (0.15s, like other
+#   JSON); exhibit document fetches go through _fetch_text (0.3s).
+
+# Earnings press releases are long but not 10-K-long. 60K chars
+# (~15K tokens) comfortably holds prepared remarks + financial tables
+# + guidance for all but the most verbose issuers.
+_EARNINGS_EXHIBIT_MAX_CHARS = 60_000
+
+# 10-K Business section: capped like Risk Factors. Item 1 is usually
+# the longest narrative section of a 10-K; 40K chars (~10K tokens)
+# truncates the verbose outliers.
+_BUSINESS_SECTION_MAX_CHARS = 40_000
+
+
+def _fetch_accession_index(cik: str, accession_clean: str) -> Optional[dict]:
+    """
+    Fetch the index.json for one filing accession. The index lists every
+    document in the accession folder with its `type` (EX-99.1, 10-K, ...)
+    and `name` (the actual filename). Returns the parsed dict or None.
+    """
+    url = (
+        f"https://www.sec.gov/Archives/edgar/data/"
+        f"{int(cik)}/{accession_clean}/index.json"
+    )
+    time.sleep(0.15)
+    return _fetch_json(url)
+
+
+def _find_earnings_exhibit_doc(index_data: dict) -> Optional[str]:
+    """
+    Given an accession index.json, return the filename of the earnings
+    press release exhibit, or None.
+
+    Preference order:
+      1. document `type` is exactly "EX-99.1"  (the canonical earnings PR)
+      2. document `type` starts with "EX-99"   (EX-99.2 etc. — fallback)
+    SEC's `type` tagging is mostly reliable but not universal; when no
+    EX-99* type is present the caller falls back to the 8-K primary doc.
+    """
+    items = (index_data.get("directory", {}) or {}).get("item", [])
+    if not items:
+        return None
+
+    ex_99_1: Optional[str] = None
+    ex_99_any: Optional[str] = None
+    for entry in items:
+        doc_type = (entry.get("type") or "").upper().strip()
+        name = entry.get("name") or ""
+        if not name:
+            continue
+        if doc_type == "EX-99.1":
+            ex_99_1 = name
+        elif doc_type.startswith("EX-99") and ex_99_any is None:
+            ex_99_any = name
+
+    return ex_99_1 or ex_99_any
+
+
+def _extract_section(
+    text: str,
+    start_re: "re.Pattern[str]",
+    end_re: "re.Pattern[str]",
+    max_chars: int,
+) -> tuple[str, bool]:
+    """
+    Generic section extractor: same TOC-vs-real-section logic as
+    _extract_risk_factors, parameterized on the start/end patterns so
+    the 10-K Business section can reuse it. Returns (text, truncated);
+    ("", False) when the start header is not found.
+    """
+    starts = list(start_re.finditer(text))
+    if not starts:
+        return "", False
+
+    best_section = ""
+    for start_match in starts:
+        section_start = start_match.end()
+        end_match = end_re.search(text, pos=section_start)
+        section_end = end_match.start() if end_match else len(text)
+        candidate = text[section_start:section_end].strip()
+        if len(candidate) > len(best_section):
+            best_section = candidate
+
+    if not best_section:
+        return "", False
+
+    truncated = False
+    if len(best_section) > max_chars:
+        best_section = best_section[:max_chars]
+        truncated = True
+    return best_section, truncated
+
+
+# 10-K Business section: "Item 1. Business", ending at "Item 1A" (Risk
+# Factors) or "Item 2" (Properties). Same formatting-tolerance as the
+# Risk Factors regex. The negative lookahead on "1a" keeps "Item 1A"
+# from matching the Item 1 START pattern.
+_BUSINESS_START_RE = re.compile(
+    r"(?:^|\n)\s*item\s*1\.?\s*(?![a-z])\s*[:\-\u2013\u2014]?\s*business\b",
+    flags=re.IGNORECASE,
+)
+_BUSINESS_END_RE = re.compile(
+    r"(?:^|\n)\s*item\s*(?:1\s*a|1\s*b|2)\b",
+    flags=re.IGNORECASE,
+)
+
+
+def get_8k_earnings_exhibit_text(ticker: str, quarters: int = 4) -> list[dict]:
+    """
+    Fetch the earnings press release text (Exhibit 99.1) from the most
+    recent earnings 8-Ks for `ticker`.
+
+    An "earnings 8-K" is an 8-K carrying item code 2.02 (Results of
+    Operations and Financial Condition). For each, the press release is
+    Exhibit 99.1 — a separate document in the accession folder, located
+    via the accession index.json.
+
+    Args:
+        ticker:   stock ticker
+        quarters: how many recent earnings 8-Ks to fetch (default 4 =
+                  one fiscal year)
+
+    Returns:
+        list of dicts, newest first, each with: ticker, filing_date,
+        accession, exhibit_text, truncated, char_count, source_url.
+        Empty list if the ticker is unknown or no earnings 8-Ks found.
+        Individual filings whose exhibit can't be fetched are skipped,
+        not error-stubbed — a short list is the signal.
+    """
+    ticker = ticker.upper()
+    cik_map = _load_ticker_to_cik()
+    cik = cik_map.get(ticker)
+    if not cik:
+        return []
+
+    # Earnings 8-Ks are filed quarterly; a 400-day window comfortably
+    # captures 4 of them even with late filers and fiscal-year quirks.
+    earnings_8ks = [
+        f for f in get_recent_filings(ticker, days=400, form_types=("8-K",))
+        if "2.02" in f.get("items", [])
+    ]
+    if not earnings_8ks:
+        return []
+
+    out: list[dict] = []
+    for filing in earnings_8ks[:quarters]:
+        accession = filing["accession_number"]
+        accession_clean = accession.replace("-", "")
+
+        # Cache check first — keyed on accession (immutable once filed).
+        cache_key = f"{accession}_EX99"
+        cached = _cache_read(ticker, cache_key)
+        if cached is not None:
+            out.append(cached)
+            continue
+
+        index_data = _fetch_accession_index(cik, accession_clean)
+        exhibit_name = (
+            _find_earnings_exhibit_doc(index_data) if index_data else None
+        )
+
+        # Fall back to the 8-K primary document if no EX-99* is tagged.
+        # The primary doc is the 8-K cover — less ideal than the press
+        # release, but it often references the same numbers and is
+        # better than nothing. Flagged via `fell_back_to_primary`.
+        fell_back = False
+        if exhibit_name:
+            doc_url = (
+                f"https://www.sec.gov/Archives/edgar/data/"
+                f"{int(cik)}/{accession_clean}/{exhibit_name}"
+            )
+        else:
+            doc_url = filing["url"]
+            fell_back = True
+
+        html = _fetch_text(doc_url)
+        if not html:
+            print(f"[edgar] {ticker} 8-K {filing['date']}: exhibit fetch failed")
+            continue
+
+        text = _html_to_text(html)
+        truncated = False
+        if len(text) > _EARNINGS_EXHIBIT_MAX_CHARS:
+            text = text[:_EARNINGS_EXHIBIT_MAX_CHARS]
+            truncated = True
+
+        payload = {
+            "ticker": ticker,
+            "filing_date": filing["date"],
+            "accession": accession,
+            "exhibit_text": text,
+            "truncated": truncated,
+            "char_count": len(text),
+            "fell_back_to_primary": fell_back,
+            "source_url": doc_url,
+        }
+        _cache_write(ticker, cache_key, payload)
+        out.append(payload)
+
+    return out
+
+
+def get_latest_10k_business_section(ticker: str) -> Optional[dict]:
+    """
+    Fetch and extract the Business section (Item 1) from `ticker`'s most
+    recent 10-K. Returns None if the filing is unavailable or the
+    section can't be extracted.
+
+    Cache-aware: keyed on accession + "_BIZ" suffix so it does not
+    collide with the Risk Factors cache entry for the same 10-K.
+    """
+    meta = _get_latest_filing_meta(ticker, "10-K")
+    if not meta:
+        return None
+
+    ticker_u = meta["ticker"]
+    cache_key = f"{meta['accession_number']}_BIZ"
+    cached = _cache_read(ticker_u, cache_key)
+    if cached is not None:
+        return cached
+
+    html = _fetch_text(meta["url"])
+    if not html:
+        return None
+
+    text = _html_to_text(html)
+    business, truncated = _extract_section(
+        text, _BUSINESS_START_RE, _BUSINESS_END_RE, _BUSINESS_SECTION_MAX_CHARS
+    )
+    if not business:
+        print(f"[edgar] {ticker_u} 10-K: Business section extraction failed")
+        return None
+
+    payload = {
+        "ticker": ticker_u,
+        "form": meta["form"],
+        "filing_date": meta["filing_date"],
+        "accession": meta["accession_number"],
+        "business": business,
+        "truncated": truncated,
+        "char_count": len(business),
+        "source_url": meta["url"],
+    }
+    _cache_write(ticker_u, cache_key, payload)
+    return payload
+
+
+def get_filings_for_pre_earnings_read(ticker: str) -> dict:
+    """
+    One-call helper for Screen 2's per-name pass. Bundles the four
+    filing inputs the pre-earnings read needs:
+
+        {
+          "ticker": str,
+          "business": dict | None,       # latest 10-K Item 1 Business
+          "k10_risk": dict | None,       # latest 10-K Risk Factors
+          "q10_risk": dict | None,       # latest 10-Q Risk Factors
+          "earnings_8ks": list[dict],    # last ~4 quarters of EX-99.1
+          "errors": [str, ...],          # human-readable gaps
+        }
+
+    Always returns a dict — Screen 2 can render even when everything is
+    missing (the prompt is told to downgrade confidence on thin data).
+
+    Reuses get_latest_10k_risk_factors / get_latest_10q_risk_factors
+    from the Screen 1 extension; their cache entries are shared, so a
+    name read by both screens fetches Risk Factors only once.
+    """
+    ticker = ticker.upper()
+    out: dict = {
+        "ticker": ticker,
+        "business": None,
+        "k10_risk": None,
+        "q10_risk": None,
+        "earnings_8ks": [],
+        "errors": [],
+    }
+
+    out["business"] = get_latest_10k_business_section(ticker)
+    if out["business"] is None:
+        out["errors"].append("10-K Business section unavailable")
+
+    out["k10_risk"] = get_latest_10k_risk_factors(ticker)
+    if out["k10_risk"] is None:
+        out["errors"].append("10-K Risk Factors unavailable")
+
+    out["q10_risk"] = get_latest_10q_risk_factors(ticker)
+    if out["q10_risk"] is None:
+        out["errors"].append("10-Q Risk Factors unavailable")
+
+    out["earnings_8ks"] = get_8k_earnings_exhibit_text(ticker, quarters=4)
+    if not out["earnings_8ks"]:
+        out["errors"].append("no earnings 8-K exhibits found")
+
+    return out
+
+
 # --- standalone test entry point ---
 if __name__ == "__main__":
     # Test against May 5 movers
@@ -484,3 +811,42 @@ if __name__ == "__main__":
         else:
             print(f"{ticker}: no recent 8-Ks")
         print()
+
+    # ---- Screen 2 pre-earnings read smoke test ----
+    # Two well-covered names; confirms 8-K EX-99.1 location, 10-K
+    # Business extraction, and the bundling helper all work end to end.
+    print("=" * 60)
+    print("[edgar] Screen 2 — pre-earnings read smoke test")
+    print("=" * 60)
+    for ticker in ["WMT", "NVDA"]:
+        print(f"\n--- {ticker} ---")
+        bundle = get_filings_for_pre_earnings_read(ticker)
+
+        biz = bundle["business"]
+        if biz:
+            trunc = " (truncated)" if biz["truncated"] else ""
+            print(f"  10-K Business: {biz['char_count']} chars{trunc} "
+                  f"(filed {biz['filing_date']})")
+        else:
+            print("  10-K Business: MISSING")
+
+        for label, key in (("10-K Risk", "k10_risk"), ("10-Q Risk", "q10_risk")):
+            rf = bundle[key]
+            if rf:
+                trunc = " (truncated)" if rf["truncated"] else ""
+                print(f"  {label}: {rf['char_count']} chars{trunc}")
+            else:
+                print(f"  {label}: MISSING")
+
+        ex = bundle["earnings_8ks"]
+        print(f"  earnings 8-Ks: {len(ex)} found")
+        for e in ex:
+            fb = " [fell back to 8-K primary]" if e["fell_back_to_primary"] else ""
+            trunc = " (truncated)" if e["truncated"] else ""
+            print(f"    {e['filing_date']}: {e['char_count']} chars{trunc}{fb}")
+
+        if bundle["errors"]:
+            print(f"  errors: {bundle['errors']}")
+    print()
+    print("Eyeball: Business + Risk sections should be multi-thousand "
+          "chars; earnings 8-Ks should be 4 with few/no fall-backs.")

@@ -396,6 +396,43 @@ SCREENS: list[dict] = [
         # Discovery model is Opus, hardcoded in ai_sympathy.py.
         "claude_model": CLAUDE_PORTFOLIO_MODEL,
     },
+
+    {
+        "id": "screen_2",
+        "display_name": "Pre-earnings filings read",
+        "thesis_summary": (
+            "Buys mid-caps where a careful read of the 10-K, 10-Q, and "
+            "last ~4 quarters of 8-K earnings exhibits — done with the "
+            "same discipline across the whole curated universe — "
+            "suggests the upcoming earnings print will land better or "
+            "worse than the market expects. Proactive and event-timed: "
+            "fires on the earnings calendar, not on price action or "
+            "AI-lab news. Holds across the print only."
+        ),
+        "bankroll": PAPER_PORTFOLIO_BANKROLL,
+        # Guardrails: match Screen 0 / Screen 1 for now. May tighten
+        # once Screen 2's hit-rate distribution has live data.
+        "max_position_pct": PAPER_PORTFOLIO_MAX_POSITION_PCT,
+        "max_sector_pct": PAPER_PORTFOLIO_MAX_SECTOR_PCT,
+        "min_cash_pct": PAPER_PORTFOLIO_MIN_CASH_PCT,
+        # Confidence threshold: match Screen 0. Screen 2's confidence
+        # calibration lives in screen_2.py's discovery prompt; this
+        # threshold gates which flags reach the portfolio pass.
+        "min_buy_confidence": PAPER_PORTFOLIO_MIN_BUY_CONFIDENCE,
+        # Decision window: 3 trading days. A Screen 2 flag is tied to a
+        # specific earnings date; once the print has passed, the flag
+        # is stale. Tight window keeps the portfolio pass from acting
+        # on a flag whose event has already happened.
+        "decision_window_days": 3,
+        # Holding window: 4 trading days. Screen 2's edge is pre-print
+        # reading quality — the position spans the earnings print
+        # (T-2 entry, T+1 exit) and is force-exited after. No drift
+        # into post-earnings holding, which the screen has no edge on.
+        "holding_window_days": 4,
+        # Portfolio-pass model: Haiku 4.5 (matches the other screens).
+        # Discovery model is Opus, hardcoded in screen_2.py.
+        "claude_model": CLAUDE_PORTFOLIO_MODEL,
+    },
 ]
 
 # ============================================================
