@@ -122,7 +122,17 @@ footer p { margin-bottom: 0.3rem; }
   .detail-inner { grid-template-columns: 1fr; padding: 1rem; gap: 1rem; }
   .masthead { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
   nav { overflow-x: auto; }
+  .screen-switch { overflow-x: auto; padding-left: 1rem; padding-right: 1rem; }
 }
+/* SCREEN SWITCHER — segmented control under the nav (matches portfolio.html) */
+.screen-switch { display: flex; gap: 0; padding: 0.6rem 2rem 0; align-items: center; }
+.screen-switch-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-right: 0.75rem; white-space: nowrap; }
+.screen-seg { display: flex; border: 1px solid var(--rule-strong); }
+.screen-seg button { background: transparent; border: none; border-right: 1px solid var(--rule-strong); color: var(--fg-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.4rem 0.85rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.06em; transition: background 0.15s, color 0.15s; white-space: nowrap; }
+.screen-seg button:last-child { border-right: none; }
+.screen-seg button:hover { color: var(--fg); }
+.screen-seg button.active { background: var(--accent); color: var(--bg); font-weight: 600; }
+.screen-seg button:disabled { opacity: 0.5; cursor: progress; }
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -152,6 +162,14 @@ footer p { margin-bottom: 0.3rem; }
     <a href="portfolio.html">portfolio</a>
     <a href="suggestions.html" class="active">watching</a>
   </nav>
+  <div class="screen-switch">
+    <span class="screen-switch-label">screen</span>
+    <div class="screen-seg" id="screen-seg">
+      <button data-screen="screen_0" class="active">0 · mispricing</button>
+      <button data-screen="screen_1">1 · ai-fade</button>
+      <button data-screen="screen_2">2 · pre-earnings</button>
+    </div>
+  </div>
 </header>
 
 <main>
@@ -341,31 +359,46 @@ function normalizeClassification(raw) {
 // ============ STATE ============
 let DATA = null;
 let activeFilter = 'all', activeSort = 'date-desc';
+// Which screen's watching list is displayed. Switched via the
+// segmented control in the header — same pattern as portfolio.html.
+// Every fetch path below keys off this, so adding a screen is a new
+// <button> in the markup plus an entry in SCREEN_LABELS.
+let currentScreen = 'screen_0';
+const SCREEN_LABELS = {
+  screen_0: 'general mispricing',
+  screen_1: 'AI-event sympathy fade',
+  screen_2: 'pre-earnings filings read',
+};
 
 async function load() {
-  // Fetch suggestions and portfolio in parallel.
-  // Suggestions: required (falls back to sample data).
-  // Portfolio: optional (used only to filter out held positions; no-op if missing).
-  //
-  // Reads Screen 0's per-screen file directly (post-F2 cleanup of the
-  // pre-fix shared `suggestions.json` that Screen 1 was clobbering).
-  // Screen 1 has its own dashboard page reading `screen_1_suggestions.json`.
+  // Fetch suggestions and portfolio in parallel, both for the
+  // currently-selected screen.
+  //   suggestions: screen_{id}_suggestions.json — written by
+  //     main._write_suggestions on every portfolio pass for that screen.
+  //   portfolio:   portfolios/{id}.json — optional, used only to filter
+  //     out names that screen already holds (no-op if missing).
   const [suggestionsRes, portfolioRes] = await Promise.allSettled([
-    fetch('data/screen_0_suggestions.json', { cache: 'no-store' }),
-    fetch('data/portfolios/screen_0.json', { cache: 'no-store' })
+    fetch(`data/${currentScreen}_suggestions.json`, { cache: 'no-store' }),
+    fetch(`data/portfolios/${currentScreen}.json`, { cache: 'no-store' })
   ]);
 
-  // Resolve suggestions data, falling back to sample on any failure.
+  // Resolve suggestions data. screen_0 falls back to sample data for
+  // offline preview; the other screens show a clean empty state rather
+  // than screen_0's demo rows under the wrong heading.
   try {
     if (suggestionsRes.status !== 'fulfilled' || !suggestionsRes.value.ok) {
       throw new Error('suggestions not ready');
     }
     DATA = await suggestionsRes.value.json();
   } catch (e) {
-    DATA = SAMPLE_SUGGESTIONS;
+    DATA = currentScreen === 'screen_0'
+      ? SAMPLE_SUGGESTIONS
+      : { generated_at: null, screen_id: currentScreen, entries: [] };
   }
+  if (!Array.isArray(DATA.entries)) DATA.entries = [];
 
-  // Build set of held tickers from portfolio (graceful degrade if portfolio missing).
+  // Build set of held tickers from that screen's portfolio
+  // (graceful degrade if the portfolio file is missing).
   let heldTickers = new Set();
   try {
     if (portfolioRes.status === 'fulfilled' && portfolioRes.value.ok) {
@@ -387,6 +420,29 @@ async function load() {
   document.getElementById('last-update').textContent = 'updated ' + fmtDateTime(DATA.generated_at);
   renderKPIs();
   renderTable();
+}
+
+// Switch the displayed screen, re-fetch, and re-render. Disables the
+// segmented control during the fetch so a fast double-tap can't
+// interleave two loads.
+async function switchScreen(screenId) {
+  if (screenId === currentScreen) return;
+  currentScreen = screenId;
+  const seg = document.getElementById('screen-seg');
+  seg.querySelectorAll('button').forEach(b => {
+    b.classList.toggle('active', b.dataset.screen === screenId);
+    b.disabled = true;
+  });
+  // Reset per-screen view state so filters/sorts don't leak across screens.
+  activeFilter = 'all'; activeSort = 'date-desc';
+  document.querySelectorAll('.chip').forEach(x =>
+    x.classList.toggle('active', x.dataset.filter === 'all'));
+  const sortSel = document.getElementById('sort');
+  if (sortSel) sortSel.value = 'date-desc';
+  document.getElementById('loading').style.display = '';
+  document.getElementById('last-update').textContent = 'loading…';
+  await load();
+  seg.querySelectorAll('button').forEach(b => { b.disabled = false; });
 }
 
 function renderKPIs() {
@@ -528,6 +584,8 @@ document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () =
   c.classList.add('active'); activeFilter = c.dataset.filter; renderTable();
 }));
 document.getElementById('sort').addEventListener('change', e => { activeSort = e.target.value; renderTable(); });
+document.querySelectorAll('#screen-seg button').forEach(b =>
+  b.addEventListener('click', () => switchScreen(b.dataset.screen)));
 load();
 </script>
 </body>

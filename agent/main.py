@@ -484,15 +484,45 @@ def run_portfolio_for_screen(
     pf.save_state(state, screen_id=screen_id)
     print(f"[portfolio] equity=${pf.total_equity(state):.2f} cash=${state['cash']:.2f} open={len(state['open_positions'])}")
 
+    # ---- Screen 2: T+1 hard exit (code-enforced holding window) -
+    # Screen 2's edge is pre-print reading; past T+1 the screen has no
+    # edge on the name. Close every position whose earnings print has
+    # passed BEFORE the decision pass runs, so Haiku never sees a
+    # post-print position to reason about. This is the structural
+    # enforcement of the holding window — the Haiku prompt also
+    # instructs EXIT on post-print names, but a prompt is a backstop,
+    # not the discipline. Screen-2-only: other screens have their own
+    # (or no) holding-window rules.
+    if screen_id == "screen_2":
+        from .screens import screen_2_portfolio
+        sweep = screen_2_portfolio.force_exit_elapsed_positions(
+            state, screen_id=screen_id
+        )
+        if sweep["exited"] or sweep["exit_failed"]:
+            # Positions changed (or attempted to) — persist immediately
+            # so the closed positions are on disk even if a later step
+            # in this pass fails.
+            pf.save_state(state, screen_id=screen_id)
+            print(
+                f"[portfolio] post-T+1-exit: equity=${pf.total_equity(state):.2f} "
+                f"cash=${state['cash']:.2f} open={len(state['open_positions'])}"
+            )
+
     # ---- Gather recent flags ----------------------------------
     # Screen 0 reads from us_output + history/us_*.json.
     # Screen 1 reads from screen_1_us.json + history/screen_1_us_*.json.
+    # Screen 2 reads from screen_2_us.json + history/screen_2_us_*.json.
     # The data shape is identical; only the source files differ.
     window_days = screen["decision_window_days"]
     print(f"[portfolio] gathering flags from last {window_days}d...")
     if screen_id == "screen_1":
         recent_flags = _collect_screen_1_flags(
             screen_1_output=None,  # always read from disk
+            window_days=window_days,
+        )
+    elif screen_id == "screen_2":
+        recent_flags = _collect_screen_2_flags(
+            screen_2_output=None,  # always read from disk
             window_days=window_days,
         )
     else:
@@ -522,6 +552,21 @@ def run_portfolio_for_screen(
         # matches Screen 0's, so the apply-decisions block below stays
         # screen-agnostic.
         decisions = analyze.run_portfolio_pass_screen_1(
+            portfolio_state=state,
+            recent_flags=recent_flags,
+            screen_config=screen,
+            trends_summary=trends_summary,
+        )
+    elif screen_id == "screen_2":
+        # Screen 2 uses its own portfolio prompt (pre-earnings filings-
+        # read framing, T-2/T+1 holding window, long-only UNDERDONE-only
+        # BUYs, no exploratory tier). Output schema matches Screen 0's,
+        # so the apply-decisions block below stays screen-agnostic.
+        # NOTE: Screen 2 decisions carry no `tier` field; main._try_buy
+        # treats tier=None as conviction sizing, which is exactly what
+        # Screen 2 wants — no special-casing needed downstream.
+        from .screens import screen_2_portfolio
+        decisions = screen_2_portfolio.run_screen_2_portfolio_pass(
             portfolio_state=state,
             recent_flags=recent_flags,
             screen_config=screen,
@@ -1020,6 +1065,71 @@ def _collect_screen_1_flags(
     return list(by_ticker.values())
 
 
+def _collect_screen_2_flags(
+    *,
+    screen_2_output: dict[str, Any] | None,
+    window_days: int,
+) -> list[dict[str, Any]]:
+    """
+    Return Screen 2 discovery flags from the last N days.
+    Newest first. Deduplicates by ticker (keeps the latest flag per name).
+
+    Mirrors _collect_screen_1_flags exactly, but reads Screen 2's
+    distinct files:
+      - newest run: screen_2_output param, OR screen_2_us.json on disk
+        if param is None
+      - older runs: history/screen_2_us_*.json
+
+    Screen 2's discovery output shape mirrors Screen 0's and Screen 1's:
+      {"discovery": {"discoveries": [...]}}
+    Only the filename differs. Screen 2 flags carry extra fields
+    (earnings_date, trading_days_out, filings_evidence, guidance_pattern)
+    that the Screen 2 portfolio pass consumes; this collector preserves
+    the whole flag dict, so those fields pass through untouched.
+    """
+    cutoff = datetime.now(timezone.utc) - timedelta(days=window_days)
+    by_ticker: dict[str, dict[str, Any]] = {}
+
+    # 1) Newest run — prefer the param, fall back to disk.
+    if screen_2_output is None:
+        s2_path = Path("docs/data/screen_2_us.json")
+        if s2_path.exists():
+            try:
+                screen_2_output = json.loads(s2_path.read_text())
+            except (json.JSONDecodeError, OSError) as e:
+                print(f"[screen_2] could not read {s2_path}: {e}")
+                screen_2_output = None
+
+    if screen_2_output:
+        for d in (screen_2_output.get("discovery") or {}).get("discoveries", []):
+            t = d.get("ticker")
+            if t:
+                by_ticker[t] = d
+
+    # 2) Older runs from history/screen_2_us_*.json.
+    hist_dir = Path(config.OUTPUT_HISTORY_DIR)
+    if hist_dir.exists():
+        for path in sorted(hist_dir.glob("screen_2_us_*.json"), reverse=True):
+            try:
+                data = json.loads(path.read_text())
+            except (json.JSONDecodeError, OSError):
+                continue
+            try:
+                generated = datetime.fromisoformat(
+                    data.get("generated_at", "").replace("Z", "+00:00")
+                )
+                if generated < cutoff:
+                    break  # sorted newest-first
+            except ValueError:
+                continue
+            for d in (data.get("discovery") or {}).get("discoveries", []):
+                t = d.get("ticker")
+                if t and t not in by_ticker:  # keep newest per ticker
+                    by_ticker[t] = d
+
+    return list(by_ticker.values())
+
+
 def _build_suggestion_entry(
     flag: dict[str, Any],
     decision: str,
@@ -1122,6 +1232,11 @@ def _extend_with_ineligible_flags(
     if screen_id == "screen_1":
         flags = _collect_screen_1_flags(
             screen_1_output=None,
+            window_days=window_days,
+        )
+    elif screen_id == "screen_2":
+        flags = _collect_screen_2_flags(
+            screen_2_output=None,
             window_days=window_days,
         )
     else:

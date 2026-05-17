@@ -11,7 +11,17 @@ Each grade record stores the logic_version that produced it; a new version
 regrades only new calls and leaves historical grades stable unless the user
 explicitly requests a full rebuild.
 
-Grading definitions (LOGIC_VERSION 3 — current, symmetric pre-horizon):
+Grading definitions (LOGIC_VERSION 4 — current):
+    v4 keeps v3's HIT/MISS/AMBIGUOUS/PENDING horizon logic verbatim
+    (see the v3 block below). The v4 change is confined to direction
+    derivation: a flag carrying no move_pct (Screen 2 and any future
+    filings-based screen) derives its expected direction from the
+    classification alone — UNDERDONE expects the stock UP, OVERDONE
+    expects it DOWN — rather than relative to a price move. See
+    _expected_direction for the full rationale. Move-relative flags
+    (Screen 0 / Screen 1) grade identically to v3.
+
+Grading definitions (LOGIC_VERSION 3 — symmetric pre-horizon):
     HIT       — at horizon end: price crossed the directional ±3%
                 threshold within the horizon AND the final-bar price is
                 still on the right side of the flag price (positive for
@@ -58,11 +68,14 @@ Horizon mapping (from call's time_horizon field):
     "months" → 60 trading days
     missing  → defaults to 5 trading days
 
-Direction mapping (from classification + move_pct):
-    OVERDONE    → expects mean-reversion (opposite of move_pct direction)
-    UNDERDONE   → expects continuation (same direction as move_pct)
-    RATIONAL    → not graded (no directional call)
-    UNCLEAR     → not graded (no directional call)
+Direction mapping:
+    Move-relative flags (move_pct present — Screen 0 / Screen 1):
+        OVERDONE  → expects mean-reversion (opposite of move_pct direction)
+        UNDERDONE → expects continuation (same direction as move_pct)
+    Classification-only flags (no move_pct — Screen 2 / filings-based):
+        OVERDONE  → expects the stock DOWN (bearish filings read)
+        UNDERDONE → expects the stock UP   (bullish filings read)
+    RATIONAL / UNCLEAR → not graded (no directional call), either shape.
 
 Classification normalization: the discovery prompt outputs longer labels
 like "LIKELY OVERDONE" or "PARTIALLY RATIONAL". We normalize these down to
@@ -114,7 +127,19 @@ logger = logging.getLogger(__name__)
 #      is graded HIT/MISS/AMBIGUOUS under v3 the horizon has fully elapsed,
 #      so the grade is effectively locked (subsequent passes recompute on
 #      the same closed window and yield the same answer).
-LOGIC_VERSION = 3
+# v4 = v3 horizon/pre-horizon logic UNCHANGED. The v4 difference is in
+#      direction derivation (_expected_direction): classification-only
+#      flags — those carrying no move_pct, i.e. Screen 2 and any future
+#      filings-based screen — now derive direction from classification
+#      alone (UNDERDONE→up, OVERDONE→down) instead of being forced
+#      through the move-relative branch with a coerced move_pct=0.0,
+#      which inverted every Screen 2 call. Move-relative flags
+#      (Screen 0 / Screen 1) are graded identically to v3. The bump
+#      exists so grade_all_history's cache invalidation sweeps the v3
+#      grades — including any Screen 2 grades already mis-resolved — and
+#      regrades them under the corrected direction logic. Thresholds and
+#      horizons are unchanged from v3.
+LOGIC_VERSION = 4
 
 
 # Module-private alias for backwards compatibility with the existing
@@ -151,6 +176,22 @@ GRADING_PARAMS = {
         # logic (pre-horizon always PENDING). Bumped so the cache
         # invalidation in grade_all_history sweeps v2 grades and
         # regrades them under v3 semantics.
+        "hit_threshold_pct": 3.0,
+        "horizon_days_map": {
+            "days": 5,
+            "weeks": 20,
+            "months": 60,
+        },
+        "default_horizon_days": 5,
+        "graded_classifications": {"OVERDONE", "UNDERDONE"},
+    },
+    4: {
+        # Identical params to v3. The v4 difference is purely in
+        # _expected_direction (classification-only flags derive
+        # direction from classification alone), not in thresholds,
+        # horizons, or the graded-classification set. Kept as its own
+        # entry so the version bump invalidates the v3 cache and
+        # regrades history under the corrected direction logic.
         "hit_threshold_pct": 3.0,
         "horizon_days_map": {
             "days": 5,
@@ -203,13 +244,55 @@ class Grade:
 # ============================================================
 
 
-def _expected_direction(classification: str, move_pct: float) -> Optional[str]:
+def _expected_direction(
+    classification: str, move_pct: Optional[float]
+) -> Optional[str]:
     """Return 'up' / 'down' based on classification, or None if not graded.
 
     Assumes `classification` has already been normalized to a short form
     (OVERDONE / UNDERDONE / RATIONAL / UNCLEAR) by _normalize_classification.
+
+    Two flag shapes are supported, distinguished by whether `move_pct`
+    is present:
+
+    MOVE-RELATIVE flags (move_pct is a number) — Screen 0 / Screen 1.
+        These flag a *price mover*. The classification's directional
+        meaning is relative to the move:
+          OVERDONE  → mean-reversion, opposite the move
+          UNDERDONE → continuation, same direction as the move
+
+    CLASSIFICATION-ONLY flags (move_pct is None) — Screen 2 and any
+    future filings-based screen.
+        These flag a company on an *event calendar*, not a price move.
+        There is no move to reference, so the classification carries
+        the entire directional claim on its own:
+          OVERDONE  → the read is bearish  → expect the stock DOWN
+          UNDERDONE → the read is bullish  → expect the stock UP
+        Screen 2's UNDERDONE means "the filings say this print lands
+        better than the market expects" — an unconditionally bullish
+        call. Feeding it through the move-relative branch with a
+        coerced move_pct=0.0 would resolve every UNDERDONE to 'down'
+        and grade every correct Screen 2 call as a MISS. The
+        move_pct-is-None check is what prevents that inversion.
+
+    The detection is on the DATA, not the screen id: a flag with no
+    move_pct is intrinsically classification-only, so any future
+    filings-based screen is handled without touching this function.
+    The check is `move_pct is None` specifically (not falsiness) so a
+    genuine 0.0% mover, were one ever to occur, still takes the
+    move-relative path.
     """
     c = (classification or "").upper()
+
+    if move_pct is None:
+        # Classification-only flag — classification alone sets direction.
+        if c == "OVERDONE":
+            return "down"
+        if c == "UNDERDONE":
+            return "up"
+        return None
+
+    # Move-relative flag — direction is relative to the price move.
     if c == "OVERDONE":
         # Expect mean reversion — direction opposite to the move
         return "up" if move_pct < 0 else "down"
@@ -277,7 +360,17 @@ def grade_call(
     # Normalize up-front so everything downstream uses the short form
     classification = _normalize_classification(discovery.get("classification"))
     confidence = int(discovery.get("confidence", 0) or 0)
-    move_pct = float(discovery.get("move_pct", 0) or 0)
+    # move_pct: present (a number) on Screen 0 / Screen 1 price-mover
+    # flags; ABSENT on Screen 2 (and any future filings-based screen)
+    # whose flags are classification-only. Read it as Optional and do
+    # NOT coerce a missing value to 0.0 — _expected_direction needs the
+    # genuine None to pick the classification-only direction branch.
+    # Coercing here was the bug that would have inverted every Screen 2
+    # grade. The `or None` guard also maps a stored JSON null to None.
+    _raw_move = discovery.get("move_pct")
+    move_pct: Optional[float] = (
+        float(_raw_move) if _raw_move is not None else None
+    )
     time_horizon = discovery.get("time_horizon")
 
     horizon_days = _horizon_days(time_horizon, version)
@@ -291,7 +384,12 @@ def grade_call(
         run_file=run_file,
         classification=classification,
         confidence=confidence,
-        move_pct_at_flag=move_pct,
+        # move_pct_at_flag is a display/audit field on the Grade record
+        # and never feeds the grade decision (only expected_dir does).
+        # Store 0.0 when the flag carried no move_pct so the dataclass
+        # field stays a concrete float; the genuine None was already
+        # consumed by _expected_direction above.
+        move_pct_at_flag=move_pct if move_pct is not None else 0.0,
         expected_direction=expected_dir,
         horizon_days=horizon_days,
         logic_version=version,
@@ -523,6 +621,7 @@ def _parse_history_filename(path: Path) -> Optional[tuple[datetime, str]]:
 _PREFIX_TO_SCREEN_ID: dict[str, Optional[str]] = {
     "us": "screen_0",
     "screen_1_us": "screen_1",
+    "screen_2_us": "screen_2",
     # Taiwan experiment ran Apr 2026, deleted in Session E.5. 23 history
     # files preserved on disk as audit trail. Excluded from grading
     # because Taiwan ran under a different universe + prompt; rolling

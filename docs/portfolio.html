@@ -151,7 +151,17 @@ footer p { margin-bottom: 0.3rem; }
   .detail-inner { grid-template-columns: 1fr; padding: 1rem; gap: 1rem; }
   .masthead { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
   nav { overflow-x: auto; }
+  .screen-switch { overflow-x: auto; }
 }
+/* SCREEN SWITCHER — segmented control under the nav */
+.screen-switch { display: flex; gap: 0; padding: 0.6rem 2rem 0; align-items: center; }
+.screen-switch-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-right: 0.75rem; white-space: nowrap; }
+.screen-seg { display: flex; border: 1px solid var(--rule-strong); }
+.screen-seg button { background: transparent; border: none; border-right: 1px solid var(--rule-strong); color: var(--fg-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.4rem 0.85rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.06em; transition: background 0.15s, color 0.15s; white-space: nowrap; }
+.screen-seg button:last-child { border-right: none; }
+.screen-seg button:hover { color: var(--fg); }
+.screen-seg button.active { background: var(--accent); color: var(--bg); font-weight: 600; }
+.screen-seg button:disabled { opacity: 0.5; cursor: progress; }
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -181,6 +191,14 @@ footer p { margin-bottom: 0.3rem; }
     <a href="portfolio.html" class="active">portfolio</a>
     <a href="suggestions.html">watching</a>
   </nav>
+  <div class="screen-switch">
+    <span class="screen-switch-label">screen</span>
+    <div class="screen-seg" id="screen-seg">
+      <button data-screen="screen_0" class="active">0 · mispricing</button>
+      <button data-screen="screen_1">1 · ai-fade</button>
+      <button data-screen="screen_2">2 · pre-earnings</button>
+    </div>
+  </div>
 </header>
 
 <main>
@@ -433,25 +451,36 @@ let P = null;
 let RT = null;  // Red-team log (array of verdicts); falls back to SAMPLE_RED_TEAM on miss.
 let posFilter = 'all', posSort = 'pnl-desc';
 const RT_WINDOW_DAYS = 14;  // Read-side time window for the dashboard strip.
+// Which screen's portfolio is currently displayed. Switched via the
+// segmented control in the header. Every fetch path below keys off
+// this, so adding a screen is a new <button> in the markup plus an
+// entry in SCREEN_LABELS — no other JS change.
+let currentScreen = 'screen_0';
+const SCREEN_LABELS = {
+  screen_0: 'general mispricing',
+  screen_1: 'AI-event sympathy fade',
+  screen_2: 'pre-earnings filings read',
+};
 
 async function load() {
+  // Per-screen state file. screen_0 keeps the legacy path it has
+  // always used; screen_1 / screen_2 read their own portfolios/{id}.json
+  // written by portfolio.save_state(screen_id=...).
   try {
-const r = await fetch('data/portfolios/screen_0.json', { cache: 'no-store' });
+    const r = await fetch(`data/portfolios/${currentScreen}.json`, { cache: 'no-store' });
     if (!r.ok) throw new Error('not ready');
     P = await r.json();
   } catch(e) {
-    P = SAMPLE_PORTFOLIO;
+    // Only screen_0 has a sample fallback for offline preview; for the
+    // other screens a missing file is shown as a clean empty state
+    // rather than screen_0's demo data under the wrong heading.
+    P = currentScreen === 'screen_0' ? SAMPLE_PORTFOLIO : emptyPortfolio();
   }
-  // Fetch the red-team log separately and fail gracefully — the file
-  // legitimately doesn't exist on first deploy until the next portfolio
-  // pass produces at least one BUY decision. Fall back to an empty
-  // array (clean empty state) rather than SAMPLE_RED_TEAM so a missing
-  // file is unambiguous: no data = no badge, no fake demo state on
-  // production. SAMPLE_RED_TEAM is retained for offline local preview
-  // only — see the override at the bottom of this script (commented out
-  // by default).
+  // Red-team log — per screen, same as the portfolio file. Fail
+  // gracefully to an empty array: the file legitimately does not exist
+  // until that screen's portfolio pass produces at least one BUY.
   try {
-    const rtR = await fetch('data/red_team/screen_0.json', { cache: 'no-store' });
+    const rtR = await fetch(`data/red_team/${currentScreen}.json`, { cache: 'no-store' });
     if (!rtR.ok) throw new Error('not ready');
     RT = await rtR.json();
     if (!Array.isArray(RT)) RT = [];
@@ -465,6 +494,43 @@ const r = await fetch('data/portfolios/screen_0.json', { cache: 'no-store' });
   renderOpen();
   renderClosed();
   renderLog();
+}
+
+// Clean empty-state portfolio for a screen with no state file yet.
+// Same shape portfolio.py's _empty_state writes, so every render
+// function below operates on it without a missing-key crash.
+function emptyPortfolio() {
+  return {
+    generated_at: null,
+    screen_id: currentScreen,
+    bankroll_start: 10000,
+    cash: 10000,
+    open_positions: [],
+    closed_positions: [],
+    trade_log: [],
+  };
+}
+
+// Switch the displayed screen, re-fetch, and re-render. Disables the
+// segmented control while the fetch is in flight so a fast double-tap
+// can't interleave two loads.
+async function switchScreen(screenId) {
+  if (screenId === currentScreen) return;
+  currentScreen = screenId;
+  const seg = document.getElementById('screen-seg');
+  seg.querySelectorAll('button').forEach(b => {
+    b.classList.toggle('active', b.dataset.screen === screenId);
+    b.disabled = true;
+  });
+  // Reset per-screen view state so filters/sorts don't leak across screens.
+  posFilter = 'all'; posSort = 'pnl-desc';
+  document.querySelectorAll('.chip[data-filter-pos]').forEach(x =>
+    x.classList.toggle('active', x.dataset.filterPos === 'all'));
+  const sortSel = document.getElementById('sort-pos');
+  if (sortSel) sortSel.value = 'pnl-desc';
+  document.getElementById('last-update').textContent = 'loading…';
+  await load();
+  seg.querySelectorAll('button').forEach(b => { b.disabled = false; });
 }
 function totalValue() {
   const invested = P.open_positions.reduce((s, p) => s + p.value, 0);
@@ -751,6 +817,8 @@ document.querySelectorAll('.chip[data-filter-pos]').forEach(c => c.addEventListe
   c.classList.add('active'); posFilter = c.dataset.filterPos; renderOpen();
 }));
 document.getElementById('sort-pos').addEventListener('change', e => { posSort = e.target.value; renderOpen(); });
+document.querySelectorAll('#screen-seg button').forEach(b =>
+  b.addEventListener('click', () => switchScreen(b.dataset.screen)));
 load();
 </script>
 </body>
