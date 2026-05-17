@@ -486,9 +486,14 @@ function renderKPIs() {
   const unrealized = P.open_positions.reduce((s, o) => s + o.unrealized_pnl, 0);
   const totalPnl = realized + unrealized;
 
-  // Capital actually deployed (cost basis of all positions, open + closed)
-  const totalCost = P.open_positions.reduce((s, p) => s + p.cost_total, 0)
-                  + P.closed_positions.reduce((s, c) => s + c.cost_total, 0);
+  // Capital actually deployed (cost basis of all positions, open + closed).
+  // NOTE: open positions carry `cost_total`; closed positions do NOT — their
+  // schema stores `avg_cost` + `shares`. Summing `c.cost_total` on a closed
+  // record yields `undefined`, which makes the whole reduce NaN and silently
+  // collapses Total Return to the "no capital deployed yet" empty state.
+  // Always derive closed-position cost from avg_cost * shares.
+  const totalCost = P.open_positions.reduce((s, p) => s + (p.cost_total || 0), 0)
+                  + P.closed_positions.reduce((s, c) => s + (c.avg_cost * c.shares), 0);
   const roi = totalCost > 0 ? (totalPnl / totalCost) * 100 : 0;
   const bankrollPct = (totalPnl / P.bankroll_start) * 100;
 
