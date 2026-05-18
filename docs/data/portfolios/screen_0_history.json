@@ -87,5 +87,18 @@
     "fees": 0.4556,
     "notional": 2011.38,
     "why": "Opened per flag: LIKELY RATIONAL conf 4 — Earnings + officer departure announced 5/7"
+  },
+  {
+    "ts": "2026-05-18T20:28:47.477927+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-05-18T20:28:47.477705+00:00",
+    "side": "BUY",
+    "ticker": "AEIS",
+    "shares": 1,
+    "fill_price": 328.0177,
+    "fees": 0.3532,
+    "notional": 328.02,
+    "why": "Opened per flag: OVERDONE conf 3 — Today's 8-K with financing signature (1.01/2.03/3.02) on top of ongoing semicap sector pressure"
   }
 ]

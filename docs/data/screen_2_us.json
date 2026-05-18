@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-05-18T20:27:56.685813+00:00",
+  "screen_id": "screen_2",
+  "status": "OK",
+  "discovery": {
+    "run_summary": "All six earnings 8-Ks fell back to cover-page documents — no Exhibit 99.1 financial detail was readable, severely limiting guidance-pattern reads. Strongest filing-grounded calls: ASAN (CEO/COO/GC/CFO transitions stacked with cut FY26 guide pattern reflected in 8-K disclosures = OVERDONE risk), and MOD (Reverse Morris Trust spin pending introduces fresh 10-Q risk factors and execution distraction). Others classified RATIONAL or UNCLEAR given the lack of P&L visibility in the filings bundle.",
+    "discoveries": [
+      {
+        "ticker": "ASAN",
+        "name": "Asana, Inc.",
+        "sector": "saas_software",
+        "earnings_date": "2026-05-28",
+        "trading_days_out": 7,
+        "classification": "OVERDONE",
+        "confidence": 3,
+        "filings_evidence": "The Nov 30, 2025 8-K disclosed simultaneous resignations of the COO (Anne Raimondi) and General Counsel, accompanied by 'updated guidance for the fourth quarter and full fiscal year 2026' — typically a downward revision context. The Mar 2, 2026 8-K announced an additional $160M buyback authorization, often used to cushion soft prints. The 10-K shows net loss widened-context ($189M FY26) and dollar-based net retention at only 97% for Core and 96% for $100K+ customers — both sub-100%, indicating contraction within the existing base. Q3 10-Q risk factors flag 'longer sales cycles' and 'reduction in renewal rates' as ongoing.",
+        "guidance_pattern": "Cover-page 8-Ks reference 'updated guidance' in both Sept 2025 and Dec 2025 prints — pattern suggests management has been resetting expectations downward each quarter through FY26.",
+        "setup": "Pre-Q1 FY27 print with NRR below 100%, stacked C-suite departures (COO, GC, plus prior CFO/CEO turnover at peer SaaS names), and a freshly enlarged buyback that reads as defensive.",
+        "thesis": "Filings show a sub-100% net retention business with repeated guidance resets and significant executive departures right before the print. The market may be under-pricing the risk that retention deteriorates further or that the new leadership team uses the print as a 'kitchen sink' opportunity.",
+        "what_confirms": "NRR ticking down again from 97%, FY27 guidance materially below current consensus, billings deceleration, or further commentary on macro/budget scrutiny in customer accounts.",
+        "what_kills": "AI Studio / AI Teammates monetization showing real ARR contribution, NRR stabilizing or upticking, or large-customer count ($100K+) re-accelerating which would suggest the enterprise motion is finally compounding.",
+        "what_to_learn": "When a SaaS company has DBNRR <100% AND stacked senior departures AND raises buyback simultaneously with earnings, that combination historically precedes guide-downs more often than upside surprises.",
+        "catalyst": "Q1 FY27 earnings 2026-05-28",
+        "catalyst_url": null,
+        "research_pointers": [
+          "Check whether Q4 FY26 (reported Mar 2026) DBNRR was 97% or lower vs. the 96-97% trend",
+          "Verify FY27 revenue guide vs. consensus on the May 28 print",
+          "Look for any 8-K between Mar and May 2026 disclosing further executive departures",
+          "Track $100K+ customer count change QoQ"
+        ],
+        "time_horizon": "days"
+      },
+      {
+        "ticker": "MOD",
+        "name": "Modine Manufacturing Company",
+        "sector": "industrials_specialty",
+        "earnings_date": "2026-05-26",
+        "trading_days_out": 5,
+        "classification": "UNCLEAR",
+        "confidence": 2,
+        "filings_evidence": "The Feb 5, 2026 10-Q added four entirely new risk factors related to the proposed Reverse Morris Trust spin of Performance Technologies into Gentherm — including explicit 'uncertainties while the Reverse Morris Trust transaction is pending,' employee/customer distraction risk, and the warning that 'we may be unable to achieve some or all of the anticipated benefits.' The 10-K shows FY25 revenue of $2.6B (+7% YoY) with Data Center Cooling now 25% of revenue (up from 12%), but Performance Technologies softness in agriculture and commercial vehicle markets.",
+        "guidance_pattern": "Cannot read guidance pattern — all four earnings 8-Ks are cover-page-only fallbacks with no financial detail.",
+        "setup": "Pre-Q4 FY26 print with a transformational spin-merger pending, Data Center Cooling momentum, and Performance Technologies headwinds.",
+        "thesis": "Filings present a genuinely two-sided setup: bullish Data Center Cooling secular tailwind vs. bearish PT softness plus deal-execution risk and management distraction. Without earnings P&L visibility, conviction is too low to commit directionally.",
+        "what_confirms": "n/a — UNCLEAR",
+        "what_kills": "n/a — UNCLEAR",
+        "what_to_learn": "When a mid-cap announces a Reverse Morris Trust shortly before a print, the 10-Q risk factor delta is the single most important read; track whether management distraction shows up in the print as missed PT margins.",
+        "catalyst": "Q4 FY26 earnings 2026-05-26",
+        "catalyst_url": null,
+        "research_pointers": [
+          "Pull the actual Q3 FY26 Exhibit 99.1 to read Data Center Cooling growth rate and PT margin trajectory",
+          "Check Gentherm transaction timeline updates and any regulatory approval news",
+          "Watch backlog disclosure for Data Center Cooling in the print"
+        ],
+        "time_horizon": "days"
+      }
+    ],
+    "skipped": [
+      {
+        "ticker": "BAH",
+        "reason": "Earnings 8-Ks are all cover-page fallbacks — no visibility into book-to-bill, backlog or guidance pattern. 10-K flags DOGE/contract-review headwinds but no fresh Q10 risk factor changes; filings too thin for a confident directional read."
+      },
+      {
+        "ticker": "BOX",
+        "reason": "All four earnings 8-Ks fell back to cover documents. 10-K shows non-cancellable backlog grew to $1.06B from $861M (+23%) and net retention only 104% — mixed but not directionally decisive without revenue/billings detail. RATIONAL."
+      },
+      {
+        "ticker": "ESTC",
+        "reason": "Earnings 8-Ks are cover-page fallbacks. 10-K notes Elastic Cloud now 46% of revenue and acknowledges 'slowing consumption' but no recent risk factor changes in Q10. Insufficient filing evidence to commit directionally — UNCLEAR."
+      },
+      {
+        "ticker": "MDB",
+        "reason": "Significant CEO transition (Ittycheria out, Desai in Nov 2025) and CFO/CAO changes disclosed in earnings 8-Ks, but Q3 print (Dec 2025) was already absorbed by the market. The Q10 risk factor specifically calls out 'slower than historical growth of our existing Atlas applications' — bearish signal — but new CEO's first full quarter may have reset bar low. Mixed signals; filing evidence too two-sided for a high-conviction directional call — UNCLEAR."
+      }
+    ],
+    "no_signals_note": "The earnings 8-K bundle uniformly fell back to cover-page documents across all six candidates, removing the most important Screen 2 input (Exhibit 99.1 prepared financials and guidance commentary). This forced higher-than-usual reliance on 10-K/10-Q risk factor deltas and structural disclosures. Only ASAN had a filing-grounded directional read at confidence 3.",
+    "_status": "ok",
+    "_candidate_count": 6,
+    "_triggered_tickers": [
+      "BAH",
+      "BOX",
+      "MOD",
+      "ESTC",
+      "MDB",
+      "ASAN"
+    ],
+    "_as_of": "2026-05-18"
+  }
+}
