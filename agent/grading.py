@@ -749,12 +749,22 @@ def compute_trends(grades: list[Grade]) -> dict[str, Any]:
         avg_return = (
             sum(g.return_pct_in_horizon or 0 for g in resolved) / n if n else None
         )
+        # hit_rate counts only DECISIVE outcomes — HIT vs MISS. AMBIGUOUS
+        # (price ended within ±threshold of the flag, thesis neither
+        # confirmed nor denied) is a tie: it is reported via n_ambiguous
+        # but excluded from the rate's denominator entirely. Counting a
+        # tie as a miss understates the call's directional accuracy and
+        # biases the portfolio pass toward over-conservatism (it consumes
+        # hit_rate to calibrate). A bucket that is all ties has no
+        # decisive outcomes, so hit_rate is null, not 0.
+        decisive = hits + misses
         return {
             "n_resolved": n,
+            "n_decisive": decisive,
             "n_hit": hits,
             "n_miss": misses,
             "n_ambiguous": amb,
-            "hit_rate": round(hits / n * 100, 1) if n else None,
+            "hit_rate": round(hits / decisive * 100, 1) if decisive else None,
             "avg_return_pct": round(avg_return, 2) if avg_return is not None else None,
         }
 

@@ -72,6 +72,7 @@ main { padding: 1.5rem 2rem 0; max-width: 1400px; }
 .hit-rate-bar-fill.weak { background: var(--fg-dim); }
 .hit-rate-bar-fill.strong { background: var(--pos); }
 .n-tag { color: var(--fg-dim); font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; }
+.n-amb { color: var(--fg-muted); font-size: 0.66rem; opacity: 0.7; }
 /* ============ TOOLBAR (reused from index) ============ */
 .toolbar { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; padding-bottom: 0.75rem; }
 .toolbar-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-right: 0.25rem; }
@@ -277,24 +278,24 @@ const SAMPLE_TRENDS = {
   n_not_graded: 5,
   n_pending: 3,
   n_data_error: 0,
-  overall: { n_resolved: 6, n_hit: 3, n_miss: 2, n_ambiguous: 1, hit_rate: 50.0, avg_return_pct: 1.2 },
+  overall: { n_resolved: 6, n_decisive: 5, n_hit: 3, n_miss: 2, n_ambiguous: 1, hit_rate: 60.0, avg_return_pct: 1.2 },
   by_classification: {
-    OVERDONE: { n_resolved: 4, n_hit: 2, n_miss: 1, n_ambiguous: 1, hit_rate: 50.0, avg_return_pct: 2.1 },
-    UNDERDONE: { n_resolved: 2, n_hit: 1, n_miss: 1, n_ambiguous: 0, hit_rate: 50.0, avg_return_pct: -0.6 }
+    OVERDONE: { n_resolved: 4, n_decisive: 3, n_hit: 2, n_miss: 1, n_ambiguous: 1, hit_rate: 66.7, avg_return_pct: 2.1 },
+    UNDERDONE: { n_resolved: 2, n_decisive: 2, n_hit: 1, n_miss: 1, n_ambiguous: 0, hit_rate: 50.0, avg_return_pct: -0.6 }
   },
   by_confidence: {
-    "2": { n_resolved: 3, n_hit: 1, n_miss: 1, n_ambiguous: 1, hit_rate: 33.3, avg_return_pct: 0.4 },
-    "3": { n_resolved: 2, n_hit: 1, n_miss: 1, n_ambiguous: 0, hit_rate: 50.0, avg_return_pct: 1.1 },
-    "4": { n_resolved: 1, n_hit: 1, n_miss: 0, n_ambiguous: 0, hit_rate: 100.0, avg_return_pct: 5.8 }
+    "2": { n_resolved: 3, n_decisive: 2, n_hit: 1, n_miss: 1, n_ambiguous: 1, hit_rate: 50.0, avg_return_pct: 0.4 },
+    "3": { n_resolved: 2, n_decisive: 2, n_hit: 1, n_miss: 1, n_ambiguous: 0, hit_rate: 50.0, avg_return_pct: 1.1 },
+    "4": { n_resolved: 1, n_decisive: 1, n_hit: 1, n_miss: 0, n_ambiguous: 0, hit_rate: 100.0, avg_return_pct: 5.8 }
   },
   by_horizon_days: {
-    "5": { n_resolved: 5, n_hit: 3, n_miss: 1, n_ambiguous: 1, hit_rate: 60.0, avg_return_pct: 1.9 },
-    "20": { n_resolved: 1, n_hit: 0, n_miss: 1, n_ambiguous: 0, hit_rate: 0.0, avg_return_pct: -2.3 }
+    "5": { n_resolved: 5, n_decisive: 4, n_hit: 3, n_miss: 1, n_ambiguous: 1, hit_rate: 75.0, avg_return_pct: 1.9 },
+    "20": { n_resolved: 1, n_decisive: 1, n_hit: 0, n_miss: 1, n_ambiguous: 0, hit_rate: 0.0, avg_return_pct: -2.3 }
   },
   by_sector: {
-    "Technology": { n_resolved: 4, n_hit: 2, n_miss: 1, n_ambiguous: 1, hit_rate: 50.0, avg_return_pct: 1.5 },
-    "Financials": { n_resolved: 1, n_hit: 1, n_miss: 0, n_ambiguous: 0, hit_rate: 100.0, avg_return_pct: 4.1 },
-    "Energy": { n_resolved: 1, n_hit: 0, n_miss: 1, n_ambiguous: 0, hit_rate: 0.0, avg_return_pct: -3.8 }
+    "Technology": { n_resolved: 4, n_decisive: 3, n_hit: 2, n_miss: 1, n_ambiguous: 1, hit_rate: 66.7, avg_return_pct: 1.5 },
+    "Financials": { n_resolved: 1, n_decisive: 1, n_hit: 1, n_miss: 0, n_ambiguous: 0, hit_rate: 100.0, avg_return_pct: 4.1 },
+    "Energy": { n_resolved: 1, n_decisive: 1, n_hit: 0, n_miss: 1, n_ambiguous: 0, hit_rate: 0.0, avg_return_pct: -3.8 }
   },
   all_grades: [
     { ticker: "ADTN", name: "ADTRAN Holdings", sector: "Technology", flagged_at: "2026-04-22T20:06:00Z", run_file: "us_20260422T200601Z.json", classification: "OVERDONE", confidence: 3, move_pct_at_flag: -6.2, expected_direction: "up", horizon_days: 5, grade: "PENDING", return_pct_in_horizon: null, max_favorable_pct: 0.8, max_adverse_pct: -1.2, price_at_flag: 14.82, price_at_horizon_end: null, logic_version: 1, notes: "only 1 bars elapsed" },
@@ -375,20 +376,31 @@ function renderKPIs() {
 }
 
 function renderBreakdowns() {
-  const row = (label, stats, labelClass = '') => `<tr><td><span class="breakdown-label ${labelClass}">${label}</span></td><td class="num">${hitRateBar(stats.hit_rate, stats.n_resolved)}</td><td class="num"><span class="n-tag">${stats.n_resolved}</span></td></tr>`;
+  // The hit rate's denominator is n_decisive (HIT+MISS); ambiguous
+  // calls are excluded. Show n_decisive next to the rate so the bar
+  // and its sample size agree. n_resolved (which includes ambiguous)
+  // is the broader "graded" count and is shown separately.
+  const row = (label, stats, labelClass = '') => {
+    const nDec = stats.n_decisive != null ? stats.n_decisive : 0;
+    const nRes = stats.n_resolved != null ? stats.n_resolved : 0;
+    const nCell = nRes > nDec
+      ? `<span class="n-tag">${nDec}<span class="n-amb"> +${nRes - nDec} amb</span></span>`
+      : `<span class="n-tag">${nDec}</span>`;
+    return `<tr><td><span class="breakdown-label ${labelClass}">${label}</span></td><td class="num">${hitRateBar(stats.hit_rate, nDec)}</td><td class="num">${nCell}</td></tr>`;
+  };
   const bc = document.getElementById('bt-class-body');
   bc.innerHTML = ['OVERDONE', 'UNDERDONE'].map(cls => {
-    const s = TRENDS.by_classification[cls] || {n_resolved:0,hit_rate:null};
+    const s = TRENDS.by_classification[cls] || {n_resolved:0,n_decisive:0,hit_rate:null};
     return row(cls.toLowerCase(), s, 'cls-' + cls);
   }).join('');
   const bcf = document.getElementById('bt-conf-body');
   bcf.innerHTML = ['5','4','3','2','1'].map(c => {
-    const s = TRENDS.by_confidence[c] || {n_resolved:0,hit_rate:null};
+    const s = TRENDS.by_confidence[c] || {n_resolved:0,n_decisive:0,hit_rate:null};
     return row(`conf ${c}`, s);
   }).join('');
   const bh = document.getElementById('bt-horizon-body');
   bh.innerHTML = ['5','20','60'].map(h => {
-    const s = TRENDS.by_horizon_days[h] || {n_resolved:0,hit_rate:null};
+    const s = TRENDS.by_horizon_days[h] || {n_resolved:0,n_decisive:0,hit_rate:null};
     return row(`${h} days`, s);
   }).join('');
   const bs = document.getElementById('bt-sector-body');

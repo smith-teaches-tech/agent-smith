@@ -920,13 +920,22 @@ def _try_buy(
         the same 25%/40%/10% guardrails as conviction sizing.
     """
     tkr = flag.get("ticker")
-    # Use current_price if available, else last close off yfinance.
-    ref_price = flag.get("price") or flag.get("current_price")
+    # Reference price for SIZING ONLY (share count). Always prefer a
+    # live fetch — the flag's `price` field is emitted by the discovery
+    # model and must not be trusted as data (same failure class as the
+    # fabricated move_pct: a hallucinated price mis-sizes the position).
+    # The flag price is kept only as a last resort if the live fetch
+    # fails, so a transient yfinance error still lets a trade size
+    # rather than deferring outright.
+    prices = pf.fetch_current_prices([tkr])
+    ref_price = prices.get(tkr)
     if ref_price is None:
-        # Best-effort lookup at the reference price the execution layer will
-        # use anyway — next-open. This is just for sizing.
-        prices = pf.fetch_current_prices([tkr])
-        ref_price = prices.get(tkr)
+        ref_price = flag.get("price") or flag.get("current_price")
+        if ref_price is not None:
+            print(
+                f"[portfolio] {tkr}: live price fetch failed — sizing off "
+                f"flag-supplied price {ref_price} (last-resort fallback)"
+            )
     if not ref_price or ref_price <= 0:
         print(f"[portfolio] BUY {tkr} DEFERRED: no reference price")
         return False

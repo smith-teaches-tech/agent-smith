@@ -848,19 +848,33 @@ def _summarize_trends_for_prompt(trends: dict[str, Any] | None) -> str:
             f"none resolved yet (horizons pending)."
         )
 
-    lines = [
-        f"Overall: {overall.get('hit_rate', 0):.0f}% hit rate across "
-        f"{n} resolved calls ({overall.get('n_hit', 0)} hit / "
-        f"{overall.get('n_miss', 0)} miss / {overall.get('n_ambiguous', 0)} ambiguous). "
-        f"Avg return in predicted direction: {overall.get('avg_return_pct', 0):+.1f}%.",
-    ]
+    lines = []
+    hr = overall.get("hit_rate")
+    n_dec = overall.get("n_decisive", 0)
+    if hr is None:
+        # Resolved calls exist but none were decisive (all ambiguous).
+        lines.append(
+            f"Overall: no decisive calls yet — {n} resolved, all ambiguous "
+            f"(ended within the grading threshold). "
+            f"Avg return in predicted direction: "
+            f"{overall.get('avg_return_pct', 0) or 0:+.1f}%."
+        )
+    else:
+        lines.append(
+            f"Overall: {hr:.0f}% hit rate across {n_dec} decisive calls "
+            f"({overall.get('n_hit', 0)} hit / {overall.get('n_miss', 0)} miss). "
+            f"{overall.get('n_ambiguous', 0)} ambiguous (tie — excluded from "
+            f"hit rate). {n} resolved total. "
+            f"Avg return in predicted direction: "
+            f"{overall.get('avg_return_pct', 0) or 0:+.1f}%."
+        )
     if by_cls:
         parts = []
         for cls in ("OVERDONE", "UNDERDONE"):
             s = by_cls.get(cls)
-            if s and s.get("n_resolved", 0) > 0:
+            if s and s.get("hit_rate") is not None:
                 parts.append(
-                    f"{cls} {s['hit_rate']:.0f}% (n={s['n_resolved']})"
+                    f"{cls} {s['hit_rate']:.0f}% (n={s.get('n_decisive', 0)})"
                 )
         if parts:
             lines.append("By classification: " + " · ".join(parts))
@@ -868,9 +882,9 @@ def _summarize_trends_for_prompt(trends: dict[str, Any] | None) -> str:
         parts = []
         for conf in ("5", "4", "3", "2", "1"):
             s = by_conf.get(conf)
-            if s and s.get("n_resolved", 0) > 0:
+            if s and s.get("hit_rate") is not None:
                 parts.append(
-                    f"conf{conf}: {s['hit_rate']:.0f}% (n={s['n_resolved']})"
+                    f"conf{conf}: {s['hit_rate']:.0f}% (n={s.get('n_decisive', 0)})"
                 )
         if parts:
             lines.append("By confidence: " + " · ".join(parts))
