@@ -292,6 +292,23 @@ different purposes — populate them deliberately, not perfunctorily.
   pattern-of-the-week — leave this field out (null or absent). Forcing
   a lesson on every flag dilutes the lessons that genuinely teach.
 
+==================================
+DO NOT REPORT PRICE NUMBERS
+==================================
+
+You are NOT the source of any price or volume figure. Do not put a
+percentage move, a 5-day return, a volume multiple, or any other
+numeric price/volume statistic into the JSON below — there are no
+fields for them, and the system overwrites them from the actual
+market data after you respond.
+
+This extends to your prose fields too. In `thesis`, `what_kills`,
+`catalyst`, etc., describe the SITUATION ("a sharp multi-day run-up",
+"an extended move") — do NOT assert a specific number ("up 17.6% in
+5 days"). If you state a figure, it is a figure you invented; the
+data layer never gave it to you. Reason about magnitude
+qualitatively and let the joined data carry the numbers.
+
 {INJECTION_GUARD}
 
 {OUTPUT_DISCIPLINE}
@@ -308,8 +325,6 @@ JSON SCHEMA:
       "ticker": "SYMBOL",
       "name": "Company name",
       "sector": "sector",
-      "move_pct": -5.2,
-      "volume_multiple": 3.1,
       "classification": "OVERDONE",
       "confidence": 3,
       "setup": "name the situation type in one phrase",
@@ -350,13 +365,74 @@ JSON SCHEMA:
 """
 
 
+def _join_price_data(
+    discovery: dict[str, Any],
+    movers: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Overwrite model-emitted price fields with real mover data.
+
+    The discovery model must not be the source of any price/volume
+    number (see "DO NOT REPORT PRICE NUMBERS" in DISCOVERY_SYSTEM).
+    This joins each discovery to its mover dict by ticker and stamps
+    in the authoritative computed values:
+
+      move_pct           <- mover["change_pct"]        (1-day)
+      five_day_change_pct<- mover["five_day_change_pct"](5-day)
+      volume_multiple    <- mover["volume_multiple"]
+
+    Any discovery whose ticker is absent from the mover list gets its
+    price fields set to None and a "_price_join_failed": True marker —
+    a flag the model invented for a ticker that was never a mover, or
+    a ticker-symbol mismatch. Downstream consumers (the portfolio
+    summary) treat None price fields as "unknown", and main.py logs
+    the marker loudly.
+
+    Mutates and returns `discovery` in place. No-op (returns as-is) on
+    parse-error dicts or dicts with no "discoveries" list.
+    """
+    if not isinstance(discovery, dict):
+        return discovery
+    discoveries = discovery.get("discoveries")
+    if not isinstance(discoveries, list):
+        return discovery
+
+    by_ticker = {
+        m.get("ticker"): m for m in movers if m.get("ticker")
+    }
+
+    for d in discoveries:
+        if not isinstance(d, dict):
+            continue
+        m = by_ticker.get(d.get("ticker"))
+        if m is None:
+            # Flag references a ticker that was never in the mover
+            # list. Null the numbers so nothing stale/invented leaks
+            # downstream, and mark it for main.py to log.
+            d["move_pct"] = None
+            d["five_day_change_pct"] = None
+            d["volume_multiple"] = None
+            d["_price_join_failed"] = True
+            continue
+        d["move_pct"] = m.get("change_pct")
+        d["five_day_change_pct"] = m.get("five_day_change_pct")
+        d["volume_multiple"] = m.get("volume_multiple")
+
+    return discovery
+
+
 def run_discovery_pass(
     market_context: dict[str, Any],
     movers: list[dict[str, Any]],
     news: list[dict[str, Any]],
     trump_posts: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    """Execute the main US discovery analysis pass."""
+    """Execute the main US discovery analysis pass.
+
+    Price/volume numbers on each returned discovery are NOT taken from
+    the model — they are joined in from `movers` by ticker via
+    _join_price_data after the pass returns. The model only produces
+    the qualitative analysis (classification, thesis, etc.).
+    """
     # Trim news to catalyst-tagged items + recent untagged for context
     catalyst_news = [n for n in news if n.get("catalysts")][:30]
     other_news = [n for n in news if not n.get("catalysts") and "error" not in n][:15]
@@ -384,7 +460,10 @@ def run_discovery_pass(
         system=DISCOVERY_SYSTEM,
         user_content=user_content,
     )
-    return _parse_json_response(msg.content[0].text)
+    parsed = _parse_json_response(msg.content[0].text)
+    # Authoritative price/volume numbers come from mover data, never
+    # the model. No-op on parse-error dicts (no "discoveries" list).
+    return _join_price_data(parsed, movers)
 
 
 def _build_discovery_prompt(
@@ -685,6 +764,35 @@ ones. But also notice the opposite: if your conviction-tier flags
 have been hitting at a good rate and you're still SKIP-ing most of
 them, that's evidence to be less conservative on the next batch.
 
+================================
+PRICE FIGURES — USE ONLY WHAT IS GIVEN
+================================
+
+Each flag carries numeric price fields supplied by the data layer:
+  - move_pct             — the 1-day % move
+  - five_day_change_pct  — the % move over the last 5 trading days
+  - volume_multiple      — volume vs. its recent average
+
+These are the ONLY price numbers you may cite. Rules:
+
+- If a field is null or absent, the value is UNKNOWN. Say "5-day
+  move not available" — do NOT guess it, do NOT infer it from
+  move_pct, and do NOT treat null as zero. A null five_day_change_pct
+  means exactly that: you don't know the 5-day move.
+- Never state a percentage that is not one of these supplied fields.
+  Do not derive "up ~18% this week" from a catalyst description, a
+  news headline, or your own estimate. If you want to reason about
+  whether a move is extended or crowded, reason QUALITATIVELY unless
+  five_day_change_pct is actually populated.
+- The flag's prose fields (thesis, catalyst, what_kills) may mention
+  magnitude in words. Trust the numeric fields over any number that
+  appears in prose — prose is the analyst's description, the numeric
+  fields are measured data.
+
+This rule exists because invented price figures have driven real
+mis-sized decisions. An honest "5-day move unknown" is always better
+than a confident fabricated number.
+
 {INJECTION_GUARD}
 
 {OUTPUT_DISCIPLINE}
@@ -875,6 +983,11 @@ def _summarize_discovery_for_portfolio(d: dict[str, Any]) -> dict[str, Any]:
     back to those so the 7-day window straddling the schema change
     continues to work. The new fields (setup, what_confirms,
     what_to_learn) didn't exist on old flags — no fallback possible.
+
+    five_day_change_pct (added 2026-05-18): real 5-day return joined
+    from mover data. Absent on flags created before that date — None
+    is the correct "unknown" value and downstream prose must not read
+    it as zero.
     """
     return {
         "ticker": d.get("ticker"),
@@ -883,6 +996,14 @@ def _summarize_discovery_for_portfolio(d: dict[str, Any]) -> dict[str, Any]:
         "classification": d.get("classification"),
         "confidence": d.get("confidence"),
         "move_pct": d.get("move_pct"),
+        # Real 5-day return, joined from mover data in run_discovery_pass.
+        # Passed through so the portfolio pass and red-team reason about
+        # crowding / extension on an ACTUAL number instead of inventing
+        # one. May be None on old flags (pre-2026-05-18, before the join
+        # existed) or on a _price_join_failed flag — downstream prose
+        # must treat None as "unknown", not as zero.
+        "five_day_change_pct": d.get("five_day_change_pct"),
+        "volume_multiple": d.get("volume_multiple"),
         "setup": d.get("setup"),
         "thesis": d.get("thesis") or d.get("mechanism"),
         "what_confirms": d.get("what_confirms"),
@@ -1162,11 +1283,30 @@ WHAT YOU SEE
 
 For each BUY decision, you see:
   - The original flag (setup, thesis, what_confirms, what_kills,
-    catalyst, classification, confidence, move_pct, sector, time_horizon)
+    catalyst, classification, confidence, sector, time_horizon, and
+    the numeric price fields move_pct, five_day_change_pct,
+    volume_multiple)
   - Haiku's BUY reasoning and tier (conviction vs. exploratory)
 
 You do NOT see the broader portfolio state. Your scope is per-ticker
 critique only.
+
+PRICE FIGURES — USE ONLY WHAT IS GIVEN. The numeric fields above are
+the only price numbers you may cite in your critique.
+  - move_pct is the 1-day move; five_day_change_pct is the 5-day move;
+    volume_multiple is volume vs. recent average.
+  - If a field is null or absent, that figure is UNKNOWN. Do not guess
+    it, do not infer it from another field, do not treat null as zero.
+  - "The move is extended / crowded" is a common and legitimate
+    red-team critique — but if you make it, anchor it to
+    five_day_change_pct when that field is populated. If it is null,
+    make the crowding argument QUALITATIVELY and say the 5-day figure
+    was not available; do NOT invent a percentage to support the point.
+  - Numbers that appear in the flag's prose (thesis, catalyst, Haiku's
+    reasoning) are descriptions, not data. If Haiku's reasoning cites a
+    percentage that is not one of the numeric fields, that number is
+    suspect — treat the numeric fields as ground truth and you may
+    legitimately flag the prose figure as unverified.
 
 ================================
 OUTPUT

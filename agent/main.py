@@ -203,6 +203,33 @@ def run_us(tickers_override: list[str] | None = None) -> dict[str, Any]:
             })
             ai_analysis = retry  # use the recovered result downstream
 
+    # ------------------------------------------------------------
+    # Price-join integrity check. run_discovery_pass joins real
+    # price/volume numbers onto every discovery by ticker. A flag
+    # whose ticker is absent from the mover list gets price fields
+    # nulled and marked "_price_join_failed" — that means the model
+    # invented a flag for a ticker that was never a mover, or a
+    # ticker-symbol mismatch. Either way it is a real defect: log it
+    # loudly and surface it in the status block, but do NOT abort
+    # (the flag's price fields are safely None downstream).
+    join_failures = [
+        d.get("ticker")
+        for d in (discovery.get("discoveries") or [])
+        if isinstance(d, dict) and d.get("_price_join_failed")
+    ]
+    if join_failures:
+        print(
+            f"[us] WARNING: {len(join_failures)} discovery flag(s) failed "
+            f"price-data join (ticker not in mover list): "
+            f"{', '.join(str(t) for t in join_failures)}",
+            file=sys.stderr,
+        )
+        status["errors"].append({
+            "pass": "discovery",
+            "error": "price_join_failed",
+            "tickers": join_failures,
+        })
+
     output = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "status": status,

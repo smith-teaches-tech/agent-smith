@@ -49,7 +49,12 @@ from typing import Any
 from anthropic import Anthropic
 
 from .. import config, edgar, market, news, ai_events
-from ..analyze import _stream_message, _parse_json_response, NO_CLAUDE_MODE
+from ..analyze import (
+    _stream_message,
+    _parse_json_response,
+    _join_price_data,
+    NO_CLAUDE_MODE,
+)
 
 
 # ============================================================
@@ -501,7 +506,11 @@ def _hardcoded_movers_for_today(min_abs_move_pct: float = 3.0) -> list[dict[str,
         return []
     return [
         m for m in all_quotes
-        if abs(m.get("move_pct") or 0) >= min_abs_move_pct
+        # market.fetch_movers_universe emits the 1-day move as
+        # `change_pct`, not `move_pct`. Reading the wrong key here
+        # silently disabled this 3% filter (every .get returned None
+        # -> 0). Fixed 2026-05-18.
+        if abs(m.get("change_pct") or 0) >= min_abs_move_pct
     ]
 
 
@@ -540,8 +549,11 @@ def build_candidate_basket(
             by_ticker[t] = m
 
     candidates = list(by_ticker.values())
-    # Sort by absolute move (largest panic first), keep top N
-    candidates.sort(key=lambda m: abs(m.get("move_pct") or 0), reverse=True)
+    # Sort by absolute move (largest panic first), keep top N.
+    # `change_pct` is the key market.fetch_movers_universe emits —
+    # the previous `move_pct` lookup always returned None, which
+    # silently disabled this panic-first sort. Fixed 2026-05-18.
+    candidates.sort(key=lambda m: abs(m.get("change_pct") or 0), reverse=True)
     capped = candidates[:max_candidates]
 
     print(
@@ -686,6 +698,28 @@ filings are entirely missing (the data isn't there to make a call). Each
 skip should appear in the `skipped` array with a one-line reason — this
 is part of the pedagogical record, not noise.
 
+==================================
+PRICE FIGURES — READ, DON'T AUTHOR
+==================================
+
+Each candidate carries numeric price fields supplied by the data
+layer: move_pct (1-day move), five_day_change_pct (5-day move),
+volume_multiple. READ these — panic_calibration depends on move_pct,
+and five_day_change_pct tells you whether a sympathy move is already
+extended. But:
+
+- Do NOT emit move_pct, five_day_change_pct, or volume_multiple in
+  your output JSON. There are no fields for them; the system stamps
+  the authoritative values in after you respond.
+- Do NOT state a percentage in your prose fields (thesis,
+  filings_evidence, what_kills, etc.) that is not one of the supplied
+  numeric fields. Describe magnitude in words ("a sharp sympathy
+  drop", "an already-extended week") unless you are quoting the exact
+  supplied number. Any percentage you compute or estimate yourself is
+  a fabrication — the data layer never gave it to you.
+- If a numeric field is null or absent, that figure is UNKNOWN. Do
+  not guess it, infer it from another field, or treat null as zero.
+
 {INJECTION_GUARD}
 
 {OUTPUT_DISCIPLINE}
@@ -699,8 +733,6 @@ JSON SCHEMA:
       "ticker": "SYMBOL",
       "name": "Company name",
       "sector": "sector",
-      "move_pct": -5.2,
-      "volume_multiple": 3.1,
       "classification": "OVERDONE",
       "confidence": 4,
       "threat_assessment": "minimal",
@@ -753,7 +785,15 @@ def _build_screen_1_discovery_user_content(
             "name": c.get("name"),
             "sector": c.get("sector"),
             "industry": c.get("industry"),
-            "move_pct": c.get("move_pct"),
+            # The model reads move_pct for panic calibration. Source it
+            # from `change_pct` (what fetch_movers_universe emits) — the
+            # old `c.get("move_pct")` always read None. five_day_change_pct
+            # is passed through so the discovery pass can reason about
+            # whether a sympathy move is already extended. Both are
+            # re-stamped authoritatively by _join_price_data after the
+            # pass returns; this is the INPUT the model sees.
+            "move_pct": c.get("change_pct"),
+            "five_day_change_pct": c.get("five_day_change_pct"),
             "volume_multiple": c.get("volume_multiple"),
             "price": c.get("price"),
             "market_cap": c.get("market_cap"),
@@ -955,6 +995,24 @@ def run_screen_1_discovery(
     parsed["_candidate_count"] = len(enriched)
     parsed["_trigger"] = trigger.get("primary_event")  # for downstream grading attribution
 
+    # Authoritative price/volume numbers come from the candidate data,
+    # never the model. `enriched` carries change_pct / five_day_change_pct
+    # from market.fetch_movers_universe; _join_price_data overwrites each
+    # discovery's price fields by ticker and marks any flag whose ticker
+    # is absent from the basket with _price_join_failed.
+    _join_price_data(parsed, enriched)
+    join_failures = [
+        d.get("ticker")
+        for d in (parsed.get("discoveries") or [])
+        if isinstance(d, dict) and d.get("_price_join_failed")
+    ]
+    if join_failures:
+        print(
+            f"[screen_1] WARNING: {len(join_failures)} discovery flag(s) "
+            f"failed price-data join (ticker not in candidate basket): "
+            f"{', '.join(str(t) for t in join_failures)}"
+        )
+
     print(
         f"[screen_1] discovery complete: "
         f"{len(parsed.get('discoveries') or [])} discoveries, "
@@ -991,6 +1049,21 @@ If a flag passes BUY eligibility, your decision is BUY. If it's
 borderline (e.g. confidence exactly at the threshold, or threat_assessment
 is "indirect" with strong filings evidence either way), WATCH is fine.
 Otherwise SKIP with a 1-line reason citing the specific failure.
+
+PRICE FIGURES — USE ONLY WHAT IS GIVEN. Each flag carries numeric
+fields supplied by the data layer: move_pct (1-day move),
+five_day_change_pct (5-day move), volume_multiple. These are the only
+price numbers you may cite.
+- If a field is null or absent, that figure is UNKNOWN. Do not guess
+  it, infer it from another field, or treat null as zero. Say "5-day
+  move not available" rather than estimating.
+- Never state a percentage that is not one of these supplied fields.
+  If you want to argue a sympathy move is already extended or crowded,
+  anchor that to five_day_change_pct when it is populated; if it is
+  null, make the argument qualitatively — do not invent a number.
+- Numbers in the flag's prose (thesis, filings_evidence, catalyst) are
+  descriptions, not data. Trust the numeric fields over any figure
+  that appears in prose.
 
 Screen 1 does NOT support ADD as a position action. The sympathy-fade
 thesis has a fixed 5-15 trading day window — averaging into a position
@@ -1096,6 +1169,12 @@ def build_screen_1_portfolio_prompt(
             "name": f.get("name"),
             "sector": f.get("sector"),
             "move_pct": f.get("move_pct"),
+            # Real price context joined from candidate data in
+            # run_screen_1_discovery — passed through so Haiku reasons
+            # about extension/crowding on an actual number. May be None
+            # on flags created before 2026-05-18; None means "unknown".
+            "five_day_change_pct": f.get("five_day_change_pct"),
+            "volume_multiple": f.get("volume_multiple"),
             "classification": f.get("classification"),
             "confidence": f.get("confidence"),
             "threat_assessment": f.get("threat_assessment"),
