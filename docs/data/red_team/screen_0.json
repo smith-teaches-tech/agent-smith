@@ -88,5 +88,15 @@
     "weakest_link": "The bull thesis hinges on the 8-K terms being 'neutral or accretive,' but Haiku acknowledges this requires reading the actual exhibit before entry—a precondition that shifts the trade from thesis-driven to due-diligence-dependent.",
     "critique": "Haiku's thesis is logically sound: a financing event can be misparsed by a sector-wide selloff, and the five-day drawdown of 12.93% does suggest overshoot if the capital structure is reasonable. However, the bull case relies entirely on unverified details. The flag correctly identifies that items 1.01/2.03/3.02 typically indicate a convertible or structured financing, but 'could easily be accretive' is speculative without the coupon, conversion price, and use-of-proceeds language from the exhibit itself. The 8-K URL is provided, but the recommendation to 'hit the URL and validate terms before or at entry' means the trade is not yet validated—it is a research task masquerading as a buy signal. The sector conflation thesis is real and the timing (today's filing amid group weakness) is credible, but exploratory sizing at 6% on a confidence-3 setup where the core valuation input is untested is appropriately cautious.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-05-19T20:36:30.325921+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio down modestly (3 of 4 positions underwater). SHAK thesis intact and in profit—hold. TXRH and DCO deteriorating on sector/macro pressure; both hold pending their near-term catalysts. AEIS re-entry flagged at conf 3 (OVERDONE) after 4-day loss; re-entry bar unmet (new flag is still conf 3, exit reasoning already cited sector beta as thesis-killer). New flag pool contains 1 exploratory candidate (BLDR, UNDERDONE conf 3 with named 8-K combo) and 4 rational/low-confidence names (KTOS, BBIO, AMR all RATIONAL conf 3; DCO is a duplicate already held). AEIS re-entry rejected; BLDR merits exploratory position test.",
+    "ticker": "BLDR",
+    "survived": true,
+    "weakest_link": "The thesis assumes Reg FD disclosure on the same day as officer departure signals negative guidance, but the actual exhibit content is unknown and could be routine.",
+    "critique": "The bull case rests on a pattern-match (8-K combo + macro stress = guide risk) without verifying the Reg FD exhibit content. The SEC filing URL is provided but the actual disclosure is not quoted—it could easily be benign investor-day reaffirmation or simply a routine regulatory filing unrelated to the officer departure timing. The five_day_change_pct of -8.78% and volume_multiple of 0.84x are consistent with modest, non-panicked selling; this suggests the market has NOT yet repriced on negative guidance, which would be required for the thesis to hold. The officer departure alone is insufficient—many such changes are planned, named successions. The thesis survives only if Reg FD exhibit is actually negative; without that verified, this is exploratory positioning on incomplete information.",
+    "confidence_in_critique": 3
   }
 ]

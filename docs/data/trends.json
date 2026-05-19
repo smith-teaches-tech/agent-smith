@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-18T20:27:58.312562+00:00",
+  "generated_at": "2026-05-19T20:35:51.748278+00:00",
   "logic_version": 4,
   "grading_params": {
     "hit_threshold_pct": 3.0,
@@ -9,30 +9,30 @@
       "months": 60
     },
     "default_horizon_days": 5,
-    "graded_classifications": "{'OVERDONE', 'UNDERDONE'}"
+    "graded_classifications": "{'UNDERDONE', 'OVERDONE'}"
   },
-  "n_total_calls": 192,
-  "n_not_graded": 183,
-  "n_pending": 5,
+  "n_total_calls": 199,
+  "n_not_graded": 186,
+  "n_pending": 8,
   "n_data_error": 0,
   "overall": {
-    "n_resolved": 4,
-    "n_decisive": 4,
+    "n_resolved": 5,
+    "n_decisive": 5,
     "n_hit": 3,
-    "n_miss": 1,
+    "n_miss": 2,
     "n_ambiguous": 0,
-    "hit_rate": 75.0,
-    "avg_return_pct": 9.81
+    "hit_rate": 60.0,
+    "avg_return_pct": 5.69
   },
   "by_classification": {
     "OVERDONE": {
-      "n_resolved": 4,
-      "n_decisive": 4,
+      "n_resolved": 5,
+      "n_decisive": 5,
       "n_hit": 3,
-      "n_miss": 1,
+      "n_miss": 2,
       "n_ambiguous": 0,
-      "hit_rate": 75.0,
-      "avg_return_pct": 9.81
+      "hit_rate": 60.0,
+      "avg_return_pct": 5.69
     },
     "UNDERDONE": {
       "n_resolved": 0,
@@ -64,13 +64,13 @@
       "avg_return_pct": 8.05
     },
     "3": {
-      "n_resolved": 2,
-      "n_decisive": 2,
+      "n_resolved": 3,
+      "n_decisive": 3,
       "n_hit": 1,
-      "n_miss": 1,
+      "n_miss": 2,
       "n_ambiguous": 0,
-      "hit_rate": 50.0,
-      "avg_return_pct": 11.58
+      "hit_rate": 33.3,
+      "avg_return_pct": 4.12
     },
     "4": {
       "n_resolved": 0,
@@ -92,6 +92,15 @@
     }
   },
   "by_sector": {
+    "Communication Services": {
+      "n_resolved": 0,
+      "n_decisive": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
     "Consumer Defensive": {
       "n_resolved": 0,
       "n_decisive": 0,
@@ -101,16 +110,7 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Technology": {
-      "n_resolved": 2,
-      "n_decisive": 2,
-      "n_hit": 2,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": 100.0,
-      "avg_return_pct": 18.34
-    },
-    "saas_software": {
+    "Real Estate": {
       "n_resolved": 0,
       "n_decisive": 0,
       "n_hit": 0,
@@ -137,14 +137,14 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Communication Services": {
-      "n_resolved": 0,
-      "n_decisive": 0,
-      "n_hit": 0,
+    "Technology": {
+      "n_resolved": 2,
+      "n_decisive": 2,
+      "n_hit": 2,
       "n_miss": 0,
       "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
+      "hit_rate": 100.0,
+      "avg_return_pct": 18.34
     },
     "Financial Services": {
       "n_resolved": 0,
@@ -155,7 +155,7 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Real Estate": {
+    "Healthcare - Biotechnology": {
       "n_resolved": 0,
       "n_decisive": 0,
       "n_hit": 0,
@@ -164,7 +164,7 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Healthcare": {
+    "saas_software": {
       "n_resolved": 0,
       "n_decisive": 0,
       "n_hit": 0,
@@ -191,7 +191,25 @@
       "hit_rate": 0.0,
       "avg_return_pct": -7.56
     },
-    "Healthcare - Biotechnology": {
+    "Energy": {
+      "n_resolved": 0,
+      "n_decisive": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Industrials": {
+      "n_resolved": 2,
+      "n_decisive": 2,
+      "n_hit": 1,
+      "n_miss": 1,
+      "n_ambiguous": 0,
+      "hit_rate": 50.0,
+      "avg_return_pct": -0.32
+    },
+    "Healthcare": {
       "n_resolved": 0,
       "n_decisive": 0,
       "n_hit": 0,
@@ -208,35 +226,17 @@
       "n_ambiguous": 0,
       "hit_rate": null,
       "avg_return_pct": null
-    },
-    "Energy": {
-      "n_resolved": 0,
-      "n_decisive": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Industrials": {
-      "n_resolved": 1,
-      "n_decisive": 1,
-      "n_hit": 1,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": 100.0,
-      "avg_return_pct": 10.14
     }
   },
   "by_horizon_days": {
     "5": {
-      "n_resolved": 4,
-      "n_decisive": 4,
+      "n_resolved": 5,
+      "n_decisive": 5,
       "n_hit": 3,
-      "n_miss": 1,
+      "n_miss": 2,
       "n_ambiguous": 0,
-      "hit_rate": 75.0,
-      "avg_return_pct": 9.81
+      "hit_rate": 60.0,
+      "avg_return_pct": 5.69
     },
     "20": {
       "n_resolved": 0,
@@ -260,13 +260,13 @@
   "by_screen": {
     "screen_0": {
       "display_name": "General mispricing",
-      "n_resolved": 4,
-      "n_decisive": 4,
+      "n_resolved": 5,
+      "n_decisive": 5,
       "n_hit": 3,
-      "n_miss": 1,
+      "n_miss": 2,
       "n_ambiguous": 0,
-      "hit_rate": 75.0,
-      "avg_return_pct": 9.81
+      "hit_rate": 60.0,
+      "avg_return_pct": 5.69
     },
     "screen_1": {
       "display_name": "AI-event sympathy fade",
@@ -373,9 +373,51 @@
       "logic_version": 4,
       "notes": null,
       "screen_id": "screen_0"
+    },
+    {
+      "ticker": "AEIS",
+      "name": "Advanced Energy Industries, Inc",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-12T20:30:10+00:00",
+      "run_file": "us_20260512T203010Z.json",
+      "classification": "OVERDONE",
+      "confidence": 3,
+      "move_pct_at_flag": -4.38,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "MISS",
+      "return_pct_in_horizon": -10.78,
+      "max_favorable_pct": 3.47,
+      "max_adverse_pct": -13.84,
+      "price_at_flag": 339.42,
+      "price_at_horizon_end": 302.84,
+      "logic_version": 4,
+      "notes": null,
+      "screen_id": "screen_0"
     }
   ],
   "worst_calls": [
+    {
+      "ticker": "AEIS",
+      "name": "Advanced Energy Industries, Inc",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-12T20:30:10+00:00",
+      "run_file": "us_20260512T203010Z.json",
+      "classification": "OVERDONE",
+      "confidence": 3,
+      "move_pct_at_flag": -4.38,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "MISS",
+      "return_pct_in_horizon": -10.78,
+      "max_favorable_pct": 3.47,
+      "max_adverse_pct": -13.84,
+      "price_at_flag": 339.42,
+      "price_at_horizon_end": 302.84,
+      "logic_version": 4,
+      "notes": null,
+      "screen_id": "screen_0"
+    },
     {
       "ticker": "BBY",
       "name": "Best Buy Co., Inc.",
@@ -463,6 +505,27 @@
   ],
   "all_grades": [
     {
+      "ticker": "PLAB",
+      "name": "Photronics, Inc.",
+      "sector": "Technology",
+      "flagged_at": "2026-05-19T20:32:54+00:00",
+      "run_file": "screen_1_us_20260519T203254Z.json",
+      "classification": "OVERDONE",
+      "confidence": 3,
+      "move_pct_at_flag": -3.7,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "PENDING",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": 45.77000045776367,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "No post-flag bars yet",
+      "screen_id": "screen_1"
+    },
+    {
       "ticker": "ASAN",
       "name": "Asana, Inc.",
       "sector": "saas_software",
@@ -474,13 +537,13 @@
       "expected_direction": "down",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": null,
-      "max_favorable_pct": null,
-      "max_adverse_pct": null,
-      "price_at_flag": 6.559999942779541,
-      "price_at_horizon_end": null,
+      "return_pct_in_horizon": -1.07,
+      "max_favorable_pct": 0.46,
+      "max_adverse_pct": -7.7,
+      "price_at_flag": 6.56,
+      "price_at_horizon_end": 6.63,
       "logic_version": 4,
-      "notes": "No post-flag bars yet",
+      "notes": "only 1 bars elapsed",
       "screen_id": "screen_2"
     },
     {
@@ -502,6 +565,48 @@
       "price_at_horizon_end": null,
       "logic_version": 4,
       "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_2"
+    },
+    {
+      "ticker": "MOD",
+      "name": "Modine Manufacturing",
+      "sector": "industrials_specialty",
+      "flagged_at": "2026-05-19T20:35:50+00:00",
+      "run_file": "screen_2_us_20260519T203550Z.json",
+      "classification": "OVERDONE",
+      "confidence": 3,
+      "move_pct_at_flag": 0.0,
+      "expected_direction": "down",
+      "horizon_days": 5,
+      "grade": "PENDING",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": 244.49000549316406,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "No post-flag bars yet",
+      "screen_id": "screen_2"
+    },
+    {
+      "ticker": "ASAN",
+      "name": "Asana",
+      "sector": "saas_software",
+      "flagged_at": "2026-05-19T20:35:50+00:00",
+      "run_file": "screen_2_us_20260519T203550Z.json",
+      "classification": "OVERDONE",
+      "confidence": 3,
+      "move_pct_at_flag": 0.0,
+      "expected_direction": "down",
+      "horizon_days": 5,
+      "grade": "PENDING",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": 6.630000114440918,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "No post-flag bars yet",
       "screen_id": "screen_2"
     },
     {
@@ -2112,13 +2217,13 @@
       "expected_direction": "up",
       "horizon_days": 20,
       "grade": "PENDING",
-      "return_pct_in_horizon": -11.98,
+      "return_pct_in_horizon": -12.68,
       "max_favorable_pct": 6.73,
       "max_adverse_pct": -14.99,
       "price_at_flag": 183.5,
-      "price_at_horizon_end": 161.52,
+      "price_at_horizon_end": 160.23,
       "logic_version": 4,
-      "notes": "only 13 bars elapsed",
+      "notes": "only 14 bars elapsed",
       "screen_id": "screen_0"
     },
     {
@@ -3959,14 +4064,14 @@
       "move_pct_at_flag": -4.38,
       "expected_direction": "up",
       "horizon_days": 5,
-      "grade": "PENDING",
-      "return_pct_in_horizon": -8.94,
+      "grade": "MISS",
+      "return_pct_in_horizon": -10.78,
       "max_favorable_pct": 3.47,
-      "max_adverse_pct": -10.26,
+      "max_adverse_pct": -13.84,
       "price_at_flag": 339.42,
-      "price_at_horizon_end": 309.06,
+      "price_at_horizon_end": 302.84,
       "logic_version": 4,
-      "notes": "only 4 bars elapsed",
+      "notes": null,
       "screen_id": "screen_0"
     },
     {
@@ -4338,13 +4443,13 @@
       "expected_direction": "down",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": -1.12,
-      "max_favorable_pct": 0.42,
+      "return_pct_in_horizon": 1.39,
+      "max_favorable_pct": 3.55,
       "max_adverse_pct": -2.55,
       "price_at_flag": 143.75,
-      "price_at_horizon_end": 145.36,
+      "price_at_horizon_end": 141.75,
       "logic_version": 4,
-      "notes": "only 1 bars elapsed",
+      "notes": "only 2 bars elapsed",
       "screen_id": "screen_0"
     },
     {
@@ -4422,13 +4527,13 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": null,
-      "max_favorable_pct": null,
-      "max_adverse_pct": null,
-      "price_at_flag": 309.05999755859375,
-      "price_at_horizon_end": null,
+      "return_pct_in_horizon": -2.01,
+      "max_favorable_pct": 0.39,
+      "max_adverse_pct": -5.37,
+      "price_at_flag": 309.06,
+      "price_at_horizon_end": 302.84,
       "logic_version": 4,
-      "notes": "No post-flag bars yet",
+      "notes": "only 1 bars elapsed",
       "screen_id": "screen_0"
     },
     {
@@ -4482,6 +4587,90 @@
       "classification": "UNCLEAR",
       "confidence": 2,
       "move_pct_at_flag": 7.85,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "BLDR",
+      "name": "Builders FirstSource, Inc.",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-19T20:31:43+00:00",
+      "run_file": "us_20260519T203143Z.json",
+      "classification": "UNDERDONE",
+      "confidence": 3,
+      "move_pct_at_flag": -5.4,
+      "expected_direction": "down",
+      "horizon_days": 5,
+      "grade": "PENDING",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": 66.38999938964844,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "No post-flag bars yet",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "ONTO",
+      "name": "Onto Innovation Inc.",
+      "sector": "Technology",
+      "flagged_at": "2026-05-19T20:31:43+00:00",
+      "run_file": "us_20260519T203143Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -2.53,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "RGEN",
+      "name": "Repligen Corporation",
+      "sector": "Healthcare",
+      "flagged_at": "2026-05-19T20:31:43+00:00",
+      "run_file": "us_20260519T203143Z.json",
+      "classification": "RATIONAL",
+      "confidence": 2,
+      "move_pct_at_flag": 4.15,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "SKYW",
+      "name": "SkyWest, Inc.",
+      "sector": "Industrials",
+      "flagged_at": "2026-05-19T20:31:43+00:00",
+      "run_file": "us_20260519T203143Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": -4.14,
       "expected_direction": null,
       "horizon_days": 5,
       "grade": "NOT_GRADED",

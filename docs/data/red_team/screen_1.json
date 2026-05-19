@@ -1,0 +1,12 @@
+[
+  {
+    "ts": "2026-05-19T20:36:39.262858+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 flags one OVERDONE sympathy fade: PLAB, a photomask supplier mechanically benefiting from AI-accelerator proliferation, sold off on irrelevant AI-lab news. Cash position is full; one BUY eligible.",
+    "ticker": "PLAB",
+    "survived": true,
+    "weakest_link": "The thesis assumes Google's agentic-AI announcement mechanically increases photomask demand in the near term, but foundry capex cycles lag announcements by quarters and the catalyst alone does not confirm PLAB customer demand is accelerating.",
+    "critique": "The bull case rests on a causal chain (Google announces agents → foundries increase capex → PLAB wins orders) that is logically sound but temporally loose. The 5-day decline of -11.95% suggests market-wide tech contagion, not PLAB-specific repricing; the 1-day move of -3.7% is modest and volume_multiple of 0.88 indicates ordinary trading, not panic selling that would validate a 'sympathy fade' narrative. The bull case names confirmation signals (\"customer commentary\", \"leading-edge mix\") but provides no current evidence these are materializing—Haiku's reasoning cites filings but does not quote or date them. Without Q1 2026 foundry commentary already in hand, the near-term catalyst is announcement only, not order flow.",
+    "confidence_in_critique": 2
+  }
+]

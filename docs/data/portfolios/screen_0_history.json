@@ -100,5 +100,31 @@
     "fees": 0.3532,
     "notional": 328.02,
     "why": "Opened per flag: OVERDONE conf 3 — Today's 8-K with financing signature (1.01/2.03/3.02) on top of ongoing semicap sector pressure"
+  },
+  {
+    "ts": "2026-05-19T20:36:31.279732+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-05-19T20:36:31.279556+00:00",
+    "side": "SELL",
+    "ticker": "AEIS",
+    "shares": 1,
+    "fill_price": 302.2574,
+    "fees": 0.3618,
+    "notional": 302.26,
+    "why": "Re-evaluation required: original entry was OVERDONE conf 3 on 8-K surprise, closed 4 days ago at -6.48% realized loss. New flag re-lists AEIS as OVERDONE conf 3 with 1.01/2.03/3.02 financing signature and sector beta narrative. However, I explicitly exited this position 4 days ago because thesis was killed: the move was pure semicap-sector beta (1.6x SMH), not idiosyncratic catalyst, and conviction was gone. The new flag argues financing terms (convert premium, use of proceeds) could be priced in—plausible, but it is the SAME 8-K event I already saw on exit day (timestamp 5/13), and the re-entry bar is NOT met: confidence is still 3 (re-entry requires ≥4), and there is NO genuinely new information (the 8-K itself was the prior-exit catalyst; flag just re-describes it with added thesis flavor about financing terms). Thesis was killed by sector beta; flag does not supply new information to resurrect it. Exit to stop further drift and redeploy cash."
+  },
+  {
+    "ts": "2026-05-19T20:36:31.892117+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-05-19T20:36:31.891930+00:00",
+    "side": "BUY",
+    "ticker": "BLDR",
+    "shares": 9,
+    "fill_price": 69.069,
+    "fees": 0.3788,
+    "notional": 621.62,
+    "why": "Opened per flag: UNDERDONE conf 3 — Multi-item 8-K (5.02 officer change + 7.01 Reg FD) coinciding with 30-yr yield spike and mortgage rate surge"
   }
 ]
