@@ -617,6 +617,11 @@ def execute_sell(
                 "fees_total": fees,  # fees from this sell (all attributed here for simplicity)
                 "flag_classification": pos.get("flag_classification"),
                 "flag_confidence": pos.get("flag_confidence"),
+                # flag_horizon carried so the re-entry guard can compute a
+                # horizon-tied lookback window from a closed record. Default
+                # "days" handles positions opened before this field was
+                # carried (the conservative default — shortest window).
+                "flag_horizon": pos.get("flag_horizon", "days"),
                 "tier": pos.get("tier", "conviction"),
                 "exit_reasoning": exit_reasoning,
             }
@@ -664,6 +669,7 @@ def execute_sell(
                 "fees_total": fees,
                 "flag_classification": pos.get("flag_classification"),
                 "flag_confidence": pos.get("flag_confidence"),
+                "flag_horizon": pos.get("flag_horizon", "days"),
                 "tier": pos.get("tier", "conviction"),
                 "exit_reasoning": exit_reasoning + " (partial)",
             }
@@ -760,6 +766,102 @@ def size_position(
 
     shares = math.floor(target_notional / apply_slippage(price, "BUY"))
     return max(0, shares)
+
+
+# ============================================================
+# Re-entry guard — closed-position lookup
+# ============================================================
+
+def recent_close_for_ticker(
+    state: dict[str, Any],
+    ticker: str,
+    *,
+    now: datetime | None = None,
+) -> dict[str, Any] | None:
+    """
+    Return a re-entry record if `ticker` was closed recently, else None.
+
+    "Recently" is horizon-tied. Each closed position carries the
+    flag_horizon it was opened on ("days"/"weeks"/"months"). That maps
+    through config.GRADING_HORIZON_DAYS to a calendar-day count
+    (5/20/60), and the lookback window is that count floored at
+    config.RE_ENTRY_WINDOW_FLOOR_DAYS. Rationale: a name re-flagged
+    while its prior thesis window is still conceptually live is the
+    suspicious case; the floor stops a short "days" horizon from
+    giving a 5-day window that misses a day-6 re-buy.
+
+    Scans state["closed_positions"] for the MOST RECENT close of this
+    ticker (closed_positions is newest-first — execute_sell prepends —
+    but we compare timestamps explicitly rather than trust order, so a
+    hand-edited file can't fool the guard). If that close is inside the
+    window, returns a record the prompt builder and the apply-time
+    floor both consume:
+
+        {
+          "ticker":               "AEIS",
+          "closed_at":            "2026-05-15T20:19:06+00:00",
+          "days_since_close":     3,
+          "window_days":          10,
+          "realized_pct":         -6.48,
+          "was_loss":             True,
+          "exit_reasoning":       "...thesis killed: pure sector beta...",
+          "prior_classification": "OVERDONE",
+          "prior_confidence":     3,
+        }
+
+    Fires on wins and losses alike — re-buying a name just sold for a
+    gain is performance-chasing and warrants the same raised bar.
+    `was_loss` lets the prompt frame the two cases differently; the
+    apply-time confidence floor applies regardless.
+
+    Returns None when: the ticker was never closed, or its most recent
+    close is older than the window. None means "guard does not apply" —
+    a normal first-time BUY.
+    """
+    now = now or datetime.now(timezone.utc)
+    closed = state.get("closed_positions") or []
+
+    # Find the most recent close for this ticker by timestamp.
+    most_recent: dict[str, Any] | None = None
+    most_recent_dt: datetime | None = None
+    for rec in closed:
+        if rec.get("ticker") != ticker:
+            continue
+        raw = rec.get("closed_at")
+        if not raw:
+            continue
+        try:
+            dt = datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        if most_recent_dt is None or dt > most_recent_dt:
+            most_recent_dt = dt
+            most_recent = rec
+
+    if most_recent is None or most_recent_dt is None:
+        return None
+
+    # Horizon-tied window, floored.
+    horizon = (most_recent.get("flag_horizon") or "days").lower()
+    horizon_days = config.GRADING_HORIZON_DAYS.get(horizon, 5)
+    window_days = max(horizon_days, config.RE_ENTRY_WINDOW_FLOOR_DAYS)
+
+    days_since = (now - most_recent_dt).days
+    if days_since > window_days:
+        return None  # prior close is stale — guard does not apply
+
+    realized_pct = most_recent.get("realized_pct")
+    return {
+        "ticker": ticker,
+        "closed_at": most_recent.get("closed_at"),
+        "days_since_close": days_since,
+        "window_days": window_days,
+        "realized_pct": realized_pct,
+        "was_loss": (realized_pct is not None and realized_pct < 0),
+        "exit_reasoning": most_recent.get("exit_reasoning") or "",
+        "prior_classification": most_recent.get("flag_classification"),
+        "prior_confidence": most_recent.get("flag_confidence"),
+    }
 
 
 # ============================================================

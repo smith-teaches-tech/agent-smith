@@ -765,6 +765,48 @@ have been hitting at a good rate and you're still SKIP-ing most of
 them, that's evidence to be less conservative on the next batch.
 
 ================================
+RE-ENTRY DISCIPLINE — RECENTLY CLOSED NAMES
+================================
+
+Some new flags may carry a <re_entry_warning> block. That block
+appears when the flagged ticker is a name you CLOSED recently — the
+block gives you the date you closed it, the realized result, and the
+exact exit reasoning you wrote at the time.
+
+A re-entry is not automatically wrong. But it is the single easiest
+way for this system to fool itself: discovery re-flags a weak name
+every day a sector stays weak, and if you evaluate each flag cold you
+will keep re-buying a thesis you already closed out. That is how the
+bot re-bought a semiconductor-equipment name three days after exiting
+it at a loss — the re-buy thesis was, in part, the very same "sector
+pressure" the exit had already judged to be non-tradeable beta.
+
+When a flag carries a <re_entry_warning>, BUY is only justified if
+BOTH of these hold:
+
+  1. CONFIDENCE >= 4. A recently-closed name needs a higher bar than
+     a fresh one. If the flag's confidence is 3, the answer is WATCH,
+     not BUY — the execution layer will enforce this regardless of
+     what you emit, so emitting BUY at conf 3 here just forfeits the
+     trade. (Wins count too: re-buying a name you just sold for a
+     gain is performance-chasing and gets the same raised bar.)
+
+  2. GENUINELY NEW INFORMATION. The new thesis must rest on a fact
+     that did NOT exist, or was NOT known, at your last exit. State
+     plainly in your reasoning what that new information is. A new
+     8-K, an earnings print, a guidance change, a named acquisition —
+     those can be new. A continuation of the same sector move, the
+     same macro backdrop, or a re-description of the catalyst you
+     already cited is NOT new information. If you cited and rejected
+     "sector pressure" on the way out, you cannot cite it on the way
+     back in.
+
+If you cannot satisfy both, return WATCH and say why. Re-entering a
+recently-closed name should be RARE — treat the <re_entry_warning>
+as a strong prior against the trade that genuinely new, confidence-4
+evidence must overcome.
+
+================================
 PRICE FIGURES — USE ONLY WHAT IS GIVEN
 ================================
 
@@ -1037,6 +1079,7 @@ def run_portfolio_pass(
     portfolio_state: dict[str, Any],
     recent_flags: list[dict[str, Any]],
     trends_summary: dict[str, Any] | None,
+    re_entry_notes: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """
     Execute the portfolio decision pass.
@@ -1047,9 +1090,18 @@ def run_portfolio_pass(
       recent_flags:     list of discovery items from the last N days,
                         typically flattened from latest_us.json + history/
       trends_summary:   trends.json contents (or None if grading hasn't run)
+      re_entry_notes:   optional {ticker: re-entry record} for any flagged
+                        ticker that was closed recently. Each record is the
+                        output of portfolio.recent_close_for_ticker. When a
+                        flagged ticker appears here, a <re_entry_warning>
+                        block is added to the prompt so Haiku sees the prior
+                        exit post-mortem. The hard confidence-4 floor is
+                        enforced separately, at apply time in main.py — this
+                        parameter only drives the prompt context.
 
     Returns JSON per PORTFOLIO_SYSTEM's schema.
     """
+    re_entry_notes = re_entry_notes or {}
     slim_positions = [
         _summarize_open_position(p) for p in portfolio_state["open_positions"]
     ]
@@ -1062,6 +1114,49 @@ def run_portfolio_pass(
         for f in recent_flags
         if _is_haiku_eligible(f)
     ]
+
+    # Re-entry warnings: for any buy-eligible flag whose ticker was
+    # closed recently, surface the prior exit post-mortem so Haiku
+    # evaluates the re-buy against its own past decision rather than
+    # cold. Only build blocks for tickers actually in the eligible
+    # pool — a re-entry note for a name Haiku won't see this run is
+    # noise. The hard confidence-4 floor is enforced at apply time in
+    # main.py; this block is the judgment-side context only.
+    eligible_tickers = {f.get("ticker") for f in buy_eligible}
+    re_entry_blocks: list[str] = []
+    for tkr in sorted(eligible_tickers):
+        note = re_entry_notes.get(tkr)
+        if not note:
+            continue
+        result_word = "a LOSS" if note.get("was_loss") else "a GAIN"
+        realized = note.get("realized_pct")
+        realized_str = (
+            f"{realized:+.2f}%" if isinstance(realized, (int, float))
+            else "unknown"
+        )
+        re_entry_blocks.append("\n".join([
+            f'<re_entry_warning ticker="{tkr}">',
+            f"You CLOSED {tkr} {note.get('days_since_close')} day(s) ago "
+            f"for {result_word} (realized {realized_str}).",
+            f"Prior flag was {note.get('prior_classification')} "
+            f"confidence {note.get('prior_confidence')}.",
+            "Your exit reasoning at the time was:",
+            f"  \"{note.get('exit_reasoning')}\"",
+            "",
+            "To BUY this name again you must clear a HIGHER bar:",
+            "  - the flag's confidence must be >= 4 (a conf-3 re-entry "
+            "will be downgraded to WATCH by the execution layer);",
+            "  - your reasoning must name information that did NOT exist "
+            "or was NOT known at the exit above. A continuation of the "
+            "same sector move or macro backdrop is NOT new information.",
+            "If you cannot do both, the decision is WATCH, not BUY.",
+            "</re_entry_warning>",
+        ]))
+
+    re_entry_section = (
+        "\n\n".join(re_entry_blocks) if re_entry_blocks
+        else "(no recently-closed names among this run's flags)"
+    )
 
     user_content = "\n".join([
         f"Run timestamp (UTC): {datetime.now(timezone.utc).isoformat()}",
@@ -1090,6 +1185,12 @@ def run_portfolio_pass(
         ),
         json.dumps(buy_eligible, indent=2),
         "</new_flags>",
+        "",
+        "<re_entry_warnings>",
+        "Names below were recently closed by this portfolio. Apply the "
+        "re-entry discipline from your instructions:",
+        re_entry_section,
+        "</re_entry_warnings>",
         "",
         "Return one decision per open position and one decision per new flag, "
         "per the JSON schema in your instructions.",

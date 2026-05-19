@@ -247,6 +247,57 @@ EXPLORATORY_TIER = {
 }
 
 # ============================================================
+# Re-entry guard (May 19, 2026)
+#
+# Problem this fixes: the portfolio pass evaluates every discovery
+# flag cold. It has no memory of positions it recently closed. On
+# May 18 the bot re-bought AEIS three days after closing AEIS at
+# -6.48% — and the re-buy thesis was half "ongoing semicap sector
+# pressure", which the *exit* reasoning three days earlier had
+# explicitly identified as non-tradeable sector beta. The system
+# re-bought a name on a thesis it had already falsified, because
+# closed positions had no voice in the next decision.
+#
+# The guard, in two parts:
+#   1. CONTEXT (prompt-side, analyze.run_portfolio_pass): if a
+#      flagged ticker was closed recently, Haiku is shown the prior
+#      exit post-mortem and instructed that re-entry requires
+#      genuinely NEW information — not a restatement of a thesis
+#      already closed out.
+#   2. FLOOR (code-side, main.run_portfolio_for_screen, after the
+#      red-team): any surviving BUY on a recently-closed ticker
+#      whose flag confidence is below RE_ENTRY_MIN_CONFIDENCE is
+#      downgraded to WATCH. The prompt instruction is a backstop;
+#      this floor is the discipline. Mirrors how the red-team and
+#      exploratory-cap downgrades already work.
+#
+# Fires on BOTH losses and wins: re-buying a name just sold for a
+# gain is performance-chasing and deserves the same higher bar.
+# The exit reasoning is surfaced either way so Haiku can frame the
+# two cases differently.
+#
+# "Recently" is horizon-tied: the window is the closed position's
+# own flag_horizon mapped through GRADING_HORIZON_DAYS (days→5,
+# weeks→20, months→60 calendar days), floored at
+# RE_ENTRY_WINDOW_FLOOR_DAYS so a short "days" horizon can't give
+# a 5-day window that misses a day-6 re-buy. A name re-flagged
+# while its prior thesis window is still conceptually live is
+# exactly the suspicious case.
+# ============================================================
+
+# Minimum flag confidence to re-open a recently-closed name. One
+# notch above PAPER_PORTFOLIO_MIN_BUY_CONFIDENCE (3): a fresh name
+# can open at conf 3, a recently-closed name needs conf 4. If the
+# new catalyst can't carry conf 4 on its own, re-entry is WATCH.
+RE_ENTRY_MIN_CONFIDENCE = 4
+
+# Floor for the horizon-tied lookback window, in calendar days.
+# A "days"-horizon close maps to 5 days via GRADING_HORIZON_DAYS;
+# this floor lifts that to 10 so a re-buy a week after exit is
+# still caught. "weeks" (20) and "months" (60) already exceed it.
+RE_ENTRY_WINDOW_FLOOR_DAYS = 10
+
+# ============================================================
 # IBKR Pro Tiered fees (paper-trading model)
 # Numbers match IBKR's published pricing as of 2026.
 # These are screen-agnostic — every screen pays the same broker.

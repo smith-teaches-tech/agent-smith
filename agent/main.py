@@ -559,6 +559,30 @@ def run_portfolio_for_screen(
         )
     print(f"[portfolio] {len(recent_flags)} flags in window")
 
+    # ---- Re-entry guard: detect recently-closed names ---------
+    # For every flagged ticker, check whether this portfolio closed
+    # that same name recently (horizon-tied window). The resulting
+    # notes feed two places:
+    #   1. the prompt (Screen 0 only) — Haiku sees the prior exit
+    #      post-mortem via run_portfolio_pass(re_entry_notes=...);
+    #   2. the apply-time confidence floor below (all screens) —
+    #      a surviving BUY on a recently-closed name at confidence
+    #      < RE_ENTRY_MIN_CONFIDENCE is downgraded to WATCH.
+    # Built here, once, so both consumers see the same data.
+    re_entry_notes: dict[str, dict[str, Any]] = {}
+    for f in recent_flags:
+        tkr = f.get("ticker")
+        if not tkr or tkr in re_entry_notes:
+            continue
+        note = pf.recent_close_for_ticker(state, tkr)
+        if note:
+            re_entry_notes[tkr] = note
+    if re_entry_notes:
+        print(
+            f"[re-entry-guard] {len(re_entry_notes)} flagged name(s) "
+            f"recently closed: {', '.join(sorted(re_entry_notes))}"
+        )
+
     # ---- Trends summary ---------------------------------------
     trends_summary = None
     trends_path = Path(config.OUTPUT_TRENDS)
@@ -604,6 +628,7 @@ def run_portfolio_for_screen(
             portfolio_state=state,
             recent_flags=recent_flags,
             trends_summary=trends_summary,
+            re_entry_notes=re_entry_notes,
         )
 
     if "_parse_error" in decisions:
@@ -706,6 +731,56 @@ def run_portfolio_for_screen(
                 screen_id=screen_id,
                 verdicts=list(red_team_by_ticker.values()),
                 run_summary=decisions.get("run_summary", ""),
+            )
+
+    # ---- Re-entry guard: confidence floor ---------------------
+    # Hard enforcement, mirroring the red-team downgrade above. Any
+    # surviving BUY on a name this portfolio closed recently must
+    # carry flag confidence >= RE_ENTRY_MIN_CONFIDENCE. If it does
+    # not, downgrade to WATCH in place — the prompt instruction is a
+    # backstop, this floor is the discipline. Runs for ALL screens
+    # (re_entry_notes is built screen-agnostically); Screen 0 also
+    # gets the prompt-side context, the others get the floor only.
+    #
+    # Confidence is read from the flag, not the decision: a flag's
+    # confidence is set by discovery and is the same number the
+    # prompt told Haiku about. We do NOT trust a confidence Haiku
+    # might echo back in the decision dict.
+    if re_entry_notes:
+        re_entry_downgrades = 0
+        for d in decisions.get("new_decisions", []):
+            if (d.get("decision") or "").upper() != "BUY":
+                continue
+            tkr = d.get("ticker")
+            note = re_entry_notes.get(tkr)
+            if not note:
+                continue
+            flag = flags_by_ticker.get(tkr) or {}
+            flag_conf = int(flag.get("confidence") or 0)
+            if flag_conf >= config.RE_ENTRY_MIN_CONFIDENCE:
+                continue  # cleared the higher bar — let it through
+            re_entry_downgrades += 1
+            result_word = "loss" if note.get("was_loss") else "gain"
+            d["decision"] = "WATCH"
+            d["tier"] = None  # no longer a BUY
+            d["reasoning"] = (
+                f"Re-entry guard: {tkr} was closed "
+                f"{note.get('days_since_close')}d ago for a {result_word} "
+                f"(realized {note.get('realized_pct')}%). Re-opening a "
+                f"recently-closed name requires flag confidence >= "
+                f"{config.RE_ENTRY_MIN_CONFIDENCE}; this flag is "
+                f"confidence {flag_conf}. Downgraded to WATCH. "
+                f"(Haiku's original BUY reasoning: {d.get('reasoning', '')})"
+            )
+            print(
+                f"[re-entry-guard] {tkr} BUY → WATCH: confidence "
+                f"{flag_conf} < {config.RE_ENTRY_MIN_CONFIDENCE} "
+                f"(closed {note.get('days_since_close')}d ago)"
+            )
+        if re_entry_downgrades:
+            print(
+                f"[re-entry-guard] {re_entry_downgrades} BUY(s) "
+                f"downgraded to WATCH on the confidence floor"
             )
 
     # 1) Apply position decisions (HOLD / ADD / TRIM / EXIT) first so that
