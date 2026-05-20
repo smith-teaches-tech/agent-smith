@@ -1,9 +1,48 @@
 {
-  "generated_at": "2026-05-19T20:36:39.263696+00:00",
+  "generated_at": "2026-05-20T21:06:09.809748+00:00",
   "screen_id": "screen_1",
   "bankroll_start": 10000.0,
-  "cash": 10000.0,
-  "open_positions": [],
+  "cash": 8589.94,
+  "open_positions": [
+    {
+      "ticker": "PLAB",
+      "name": "Photronics, Inc.",
+      "sector": "Technology",
+      "shares": 30,
+      "cost_basis": 46.9869,
+      "cost_total": 1410.06,
+      "current_price": 46.9869,
+      "value": 1409.61,
+      "unrealized_pnl": -0.45,
+      "unrealized_pct": -0.03,
+      "opened_at": "2026-05-20T21:06:09.808846+00:00",
+      "days_held": 0,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 3,
+      "flag_horizon": "days",
+      "thesis": "no mechanism. Catalyst: Gemini 3.5 Flash: Google bets next AI wave on agents, not chatbots. Falsified by: n/a.",
+      "thesis_status": "intact",
+      "latest_reasoning": "Opened position at $46.99, +$0.45 fees.",
+      "next_action": "HOLD",
+      "catalyst": "Gemini 3.5 Flash: Google bets next AI wave on agents, not chatbots",
+      "tier": "conviction",
+      "benchmark_at_open": {
+        "SPY": 735.71,
+        "IWM": 274.91
+      }
+    }
+  ],
   "closed_positions": [],
-  "trade_log": []
+  "trade_log": [
+    {
+      "date": "2026-05-20T21:06:09.808860+00:00",
+      "side": "BUY",
+      "ticker": "PLAB",
+      "shares": 30,
+      "fill_price": 46.9869,
+      "fees": 0.446,
+      "notional": 1409.61,
+      "why": "Opened per flag: OVERDONE conf 3 — Gemini 3.5 Flash: Google bets next AI wave on agents, not chatbots"
+    }
+  ]
 }

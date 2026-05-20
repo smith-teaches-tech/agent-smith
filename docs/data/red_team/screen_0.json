@@ -98,5 +98,15 @@
     "weakest_link": "The thesis assumes Reg FD disclosure on the same day as officer departure signals negative guidance, but the actual exhibit content is unknown and could be routine.",
     "critique": "The bull case rests on a pattern-match (8-K combo + macro stress = guide risk) without verifying the Reg FD exhibit content. The SEC filing URL is provided but the actual disclosure is not quoted—it could easily be benign investor-day reaffirmation or simply a routine regulatory filing unrelated to the officer departure timing. The five_day_change_pct of -8.78% and volume_multiple of 0.84x are consistent with modest, non-panicked selling; this suggests the market has NOT yet repriced on negative guidance, which would be required for the thesis to hold. The officer departure alone is insufficient—many such changes are planned, named successions. The thesis survives only if Reg FD exhibit is actually negative; without that verified, this is exploratory positioning on incomplete information.",
     "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-05-20T21:05:56.219772+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio is mixed: SHAK and BLDR are outperforming (+4.1% and +3.1%), while TXRH and DCO are underwater after 5-7 days. The new flag pool contains four genuine signals (ALK OVERDONE, AEIS OVERDONE, BLDR UNDERDONE re-flag, DCO UNDERDONE re-flag) plus one non-event (KTOS rational). ALK is the only new conviction-grade entry; BLDR's housing-bill catalyst is legitimate but already partially in the position; AEIS must remain WATCH per re-entry discipline (conf 3, no new information vs. exit); DCO likewise fails re-entry bar. I am holding all four positions and adding a small exploratory on ALK to test the airline-overextension thesis.",
+    "ticker": "ALK",
+    "survived": false,
+    "weakest_link": "The bull thesis rests on ALK being a short-cover/momentum fade, but the 1.2x volume multiple contradicts classic overextension mechanics—true short squeezes and momentum exhaustion typically show volume spikes 2-3x+ average, not below baseline.",
+    "critique": "Haiku's own OVERDONE framework requires the move to be 'outsized on average volume'—the exact signature of a crowded unwind. ALK shows 10.05% 1-day move on only 1.2x volume, which is materially lower than the 2-3x volume spikes that typically accompany short-covering frenzies or momentum capitulation. This volume profile suggests institutional participation or genuine sector reallocation, not retail momentum chasing into thin order flow. The five-day move is only 3.35%, which is modest relative to the 1-day spike—inconsistent with the thesis that a headline-driven momentum trap is already in place. If the trade is correctly classified as OVERDONE, the volume evidence should be more emphatic; current volume does not support the mechanical basis for a fade.",
+    "confidence_in_critique": 4
   }
 ]

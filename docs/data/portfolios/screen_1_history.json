@@ -1,0 +1,15 @@
+[
+  {
+    "ts": "2026-05-20T21:06:09.808963+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-05-20T21:06:09.808860+00:00",
+    "side": "BUY",
+    "ticker": "PLAB",
+    "shares": 30,
+    "fill_price": 46.9869,
+    "fees": 0.446,
+    "notional": 1409.61,
+    "why": "Opened per flag: OVERDONE conf 3 — Gemini 3.5 Flash: Google bets next AI wave on agents, not chatbots"
+  }
+]

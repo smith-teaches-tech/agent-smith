@@ -1,0 +1,12 @@
+[
+  {
+    "ts": "2026-05-20T21:06:26.661936+00:00",
+    "screen_id": "screen_2",
+    "run_summary": "Screen 2 has three flags across industrials and SaaS, all earnings within 3–6 trading days. One UNDERDONE flag (MOD) clears the BUY bar; two OVERDONE flags (MDB, ASAN) are structural SKIPs in this long-only book. No open positions to manage.",
+    "ticker": "MOD",
+    "survived": true,
+    "weakest_link": "The bull case assumes the market will re-rate MOD on Data Center Cooling mix at earnings, but the earnings call is only 3 trading days away with no pre-announcement or recent catalyst to signal a surprise on that metric.",
+    "critique": "The thesis hinges on a market repricing of MOD's mix shift once the Data Center Cooling narrative dominates the year-end call. However, the 10-K showing DC Cooling at 25% of sales is already public and filed; the move from 12% to 25% YoY is disclosed, not hidden. If this reframing were going to move the stock, the market has had time since the 10-K filing to digest it. The upcoming earnings call is only 3 days away, and no near-term catalyst (hyperscaler guidance, order book acceleration, RMT deal close timing milestone) is cited as imminent to justify why the market would suddenly reassess on this earnings print rather than on the already-public filings. The RMT spin itself does not close until later, so this earnings print is not the 'last before the spin reframes' — it is simply the last before-RMT-close print, which is a weaker catalyst than the Haiku reasoning implies. Without a specific new disclosure or contract win due at earnings, the bull case relies on re-rating on information already in the market.",
+    "confidence_in_critique": 3
+  }
+]
