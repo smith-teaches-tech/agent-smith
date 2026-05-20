@@ -876,7 +876,16 @@ def run_portfolio_for_screen(
 
         if decision == "BUY":
             tier = d.get("tier")
-            if tier not in ("conviction", "exploratory"):
+            # Screen-aware tier gate. Screens with uses_tiers=True
+            # (Screen 0, Screen 1) require BUYs to carry an explicit
+            # conviction|exploratory tier; emitting a BUY without one
+            # is a schema violation and auto-converts to WATCH. Screens
+            # with uses_tiers=False (Screen 2) deliberately omit tier
+            # in their prompt — every BUY is conviction-sized — and
+            # tier=None passes through to _try_buy, which interprets
+            # None as conviction sizing.
+            uses_tiers = screen.get("uses_tiers", True)
+            if uses_tiers and tier not in ("conviction", "exploratory"):
                 # Schema violation. Convert to WATCH so the flag still
                 # surfaces but no trade fires.
                 print(
@@ -1241,6 +1250,35 @@ def _collect_screen_2_flags(
     return list(by_ticker.values())
 
 
+def _fetch_price_at_flag(ticker: str | None) -> float | None:
+    """
+    Best-effort current-price fetch for a suggestion entry at the
+    moment it's written. Returns None on any failure; the dashboard
+    handles null gracefully (renders an em-dash).
+
+    Uses yfinance's most-recent daily close via .history(period="1d"),
+    same pattern as market.fetch_context_quotes. Single ticker,
+    short request — adds <1s per suggestion entry. With Screen 1/2
+    typically producing 1-3 flags and Screen 0 ~17, total added run
+    time is bounded and small.
+
+    Failure modes that fall through to None: network error, ticker
+    delisted/unknown, empty history dataframe (pre-market with no
+    prior close cached), any unexpected exception. Never raises.
+    """
+    if not ticker:
+        return None
+    try:
+        import yfinance as yf
+        hist = yf.Ticker(ticker).history(period="1d", interval="1d")
+        if len(hist) < 1:
+            return None
+        return round(float(hist.iloc[-1]["Close"]), 4)
+    except Exception as e:
+        print(f"[suggestions] price fetch failed for {ticker}: {e}")
+        return None
+
+
 def _build_suggestion_entry(
     flag: dict[str, Any],
     decision: str,
@@ -1257,6 +1295,12 @@ def _build_suggestion_entry(
     Only present on entries that originated as BUY decisions — Haiku-
     originated WATCH/SKIP rows never see the red-team and have
     red_team=None.
+
+    price_at_flag: fetched live from yfinance at suggestion-write
+    time. This is the reference price the dashboard uses to compute
+    since_pct on subsequent runs. Falls through to None on any fetch
+    failure — the dashboard renders that gracefully. (Phase 1.6 item
+    in roadmap.md — formerly hardcoded null at this site.)
     """
     return {
         "ticker": flag.get("ticker"),
@@ -1291,9 +1335,11 @@ def _build_suggestion_entry(
         # Red-team verdict (None for entries that never went through the
         # red-team — e.g. Haiku-originated WATCH/SKIP, or ineligible flags).
         "red_team": red_team,
-        # Price/verdict fields are filled in on subsequent runs by the
-        # suggestions-refresh step (not built yet — MVP leaves them null).
-        "price_at_flag": None,
+        # Reference price stamped at suggestion-write time. None on
+        # fetch failure (network/ticker issues); dashboard handles
+        # gracefully. current_price/since_pct/verdict are filled in by
+        # a future suggestions-refresh step (not built yet).
+        "price_at_flag": _fetch_price_at_flag(flag.get("ticker")),
         "current_price": None,
         "since_pct": None,
         "verdict": "pending",

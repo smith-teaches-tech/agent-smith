@@ -409,6 +409,10 @@ SCREENS: list[dict] = [
         "min_buy_confidence": PAPER_PORTFOLIO_MIN_BUY_CONFIDENCE,
         "decision_window_days": PAPER_PORTFOLIO_DECISION_WINDOW_DAYS,
         "claude_model": CLAUDE_PORTFOLIO_MODEL,
+        # Screen 0 uses the two-tier conviction/exploratory model. The
+        # portfolio prompt requires tier on every BUY; main.py's
+        # tier-gate enforces this.
+        "uses_tiers": True,
     },
 
         {
@@ -446,6 +450,10 @@ SCREENS: list[dict] = [
         # Portfolio-pass model: Haiku 4.5 (matches Screen 0 convention).
         # Discovery model is Opus, hardcoded in ai_sympathy.py.
         "claude_model": CLAUDE_PORTFOLIO_MODEL,
+        # Screen 1 uses the two-tier conviction/exploratory model
+        # (added May 20, 2026 — the original prompt didn't require
+        # tier, which caused valid BUYs to auto-convert to WATCH).
+        "uses_tiers": True,
     },
 
     {
@@ -483,6 +491,13 @@ SCREENS: list[dict] = [
         # Portfolio-pass model: Haiku 4.5 (matches the other screens).
         # Discovery model is Opus, hardcoded in screen_2.py.
         "claude_model": CLAUDE_PORTFOLIO_MODEL,
+        # Screen 2 deliberately does NOT use the two-tier model.
+        # Every pre-earnings BUY is conviction-sized — the screen's
+        # edge is a careful filings read, not opportunistic small
+        # tests. The portfolio prompt instructs Haiku to omit `tier`;
+        # main.py's tier-gate treats tier=None as conviction sizing
+        # when uses_tiers is False.
+        "uses_tiers": False,
     },
 ]
 

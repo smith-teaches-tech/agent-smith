@@ -1050,6 +1050,38 @@ borderline (e.g. confidence exactly at the threshold, or threat_assessment
 is "indirect" with strong filings evidence either way), WATCH is fine.
 Otherwise SKIP with a 1-line reason citing the specific failure.
 
+TWO BUY TIERS (REQUIRED on every BUY):
+
+CONVICTION tier: for flags where the sympathy-fade read is sharp —
+threat_assessment is "none" (not "minimal"), panic_calibration is
+"unjustified" with clean filings evidence supporting that the business
+is mechanically untouched by the AI capability, and confidence >= 4.
+Sized 15-25% of equity, scaled by confidence (conf 5 -> 25%, conf 4 ->
+20%, conf 3 -> 15%). Use sparingly — a conviction trade is a
+significant bankroll commitment on a 5-15 day clock.
+
+EXPLORATORY tier: for flags that meet BUY eligibility but the
+sympathy-fade read is less clean — threat_assessment is "minimal"
+(some non-zero exposure), or panic_calibration is "unjustified" but
+the filings evidence is thinner, or confidence is exactly at the
+threshold (3). Sized at 6% of equity per trade. Hard cap of 4
+simultaneous exploratory positions per screen, enforced after your
+decision (a 5th exploratory BUY auto-converts to WATCH).
+
+The exploratory tier exists so Screen 1 generates enough graded
+trades to learn from — not every sympathy fade deserves a 20% bankroll
+commitment, but a 6% test position turns the call into data.
+
+Be deliberate. A conf 3 OVERDONE with "minimal" threat is exploratory.
+A conf 5 OVERDONE with "none" threat and crisp filings evidence is
+conviction. Pick the tier that fits the conviction, not the label.
+
+SCHEMA NOTE: `tier` is REQUIRED when decision="BUY". Value must be
+"conviction" or "exploratory". Omit (or set null) for WATCH/SKIP.
+If you emit BUY without a valid tier, the execution layer auto-
+converts to WATCH with a logged warning — equivalent to forfeiting
+the trade.
+
 PRICE FIGURES — USE ONLY WHAT IS GIVEN. Each flag carries numeric
 fields supplied by the data layer: move_pct (1-day move),
 five_day_change_pct (5-day move), volume_multiple. These are the only
@@ -1112,6 +1144,7 @@ JSON SCHEMA:
     {{
       "ticker": "SYMBOL",
       "decision": "BUY",
+      "tier": "conviction",
       "reasoning": "why this passes the Screen 1 bar (or why not, for WATCH/SKIP) — cite threat_assessment + panic_calibration",
       "confidence_in_decision": 4
     }}
