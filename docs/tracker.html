@@ -164,6 +164,7 @@ footer { padding: 2rem; color: var(--fg-dim); font-family: 'JetBrains Mono', mon
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="agent/smith">
 <meta name="theme-color" content="#0a0a0a">
@@ -251,7 +252,7 @@ footer { padding: 2rem; color: var(--fg-dim); font-family: 'JetBrains Mono', mon
 // billing or auth-protected data, so a leaked key costs nothing —
 // rotate at finnhub.io/dashboard if abused. Limit: 60 calls/min.
 // REPLACE THIS WITH YOUR ACTUAL KEY before pushing.
-const FINNHUB_API_KEY = "d87k7rpr01qmhakg5epgd87k7rpr01qmhakg5eq0";
+const FINNHUB_API_KEY = "d87kajhr01qmhakg5oe0d87kajhr01qmhakg5oeg";
 
 // Refresh cadence. 15s during open market = ~4 calls/min/ticker.
 // With ~25 tickers max, that's ~100 calls/min worst case — still
@@ -415,17 +416,28 @@ async function loadPortfolios() {
 // On error or quota hit, c=0 is returned by Finnhub — we treat any
 // zero/null current price as a soft failure and keep the previous value.
 async function fetchQuote(ticker) {
-  if (FINNHUB_API_KEY === 'd6h6rcpr01qnjncnilvgd6h6rcpr01qnjncnim00') {
+  if (FINNHUB_API_KEY === 'd87kajhr01qmhakg5oe0d87kajhr01qmhakg5oeg') {
     return null; // not configured yet — fail silently to no-quote display
   }
   try {
     const url = `https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(ticker)}&token=${FINNHUB_API_KEY}`;
     const res = await fetch(url);
-    if (!res.ok) return null;
+    if (!res.ok) {
+      console.warn(`[tracker] fetch ${ticker} HTTP ${res.status}`);
+      return null;
+    }
     const data = await res.json();
-    if (!data || !data.c) return null; // Finnhub returns c:0 on error
+    if (!data) {
+      console.warn(`[tracker] fetch ${ticker} returned no body`);
+      return null;
+    }
+    if (!data.c || data.c === 0) {
+      console.warn(`[tracker] fetch ${ticker} returned c=${data.c} (likely rate-limited or unsupported ticker)`);
+      return null;
+    }
     return data;
   } catch (e) {
+    console.warn(`[tracker] fetch ${ticker} threw:`, e.message);
     return null;
   }
 }
@@ -434,13 +446,19 @@ async function refreshQuotes(tickers) {
   if (!tickers.length) return;
   // Dedup — same ticker can appear in multiple tabs/lists
   const unique = [...new Set(tickers)];
-  const results = await Promise.all(unique.map(t => fetchQuote(t)));
+  // Sequential with a small gap to avoid Finnhub burst rate-limiting.
+  // Free tier allows 60 calls/min, but firing 15+ in parallel can trigger
+  // soft-block where some calls return c:0 with status 200. 80ms gap means
+  // ~12 calls/second — well-paced for the API while still feeling instant.
   for (let i = 0; i < unique.length; i++) {
     const t = unique[i];
-    const q = results[i];
+    const q = await fetchQuote(t);
     if (q) {
       PREV_PRICES[t] = QUOTES[t]?.c;
       QUOTES[t] = q;
+    }
+    if (i < unique.length - 1) {
+      await new Promise(r => setTimeout(r, 80));
     }
   }
 }
