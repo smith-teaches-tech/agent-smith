@@ -252,7 +252,7 @@ footer { padding: 2rem; color: var(--fg-dim); font-family: 'JetBrains Mono', mon
 // billing or auth-protected data, so a leaked key costs nothing —
 // rotate at finnhub.io/dashboard if abused. Limit: 60 calls/min.
 // REPLACE THIS WITH YOUR ACTUAL KEY before pushing.
-const FINNHUB_API_KEY = "d87kajhr01qmhakg5oe0d87kajhr01qmhakg5oeg";
+const FINNHUB_API_KEY = "YOUR_FINNHUB_KEY";
 
 // Refresh cadence. 15s during open market = ~4 calls/min/ticker.
 // With ~25 tickers max, that's ~100 calls/min worst case — still
@@ -479,11 +479,22 @@ function buildAgentRows() {
     const cur = q?.c;
     const chg = q?.d;
     const pct = q?.dp;
+    // Live unrealized P&L vs the bot's actual entry price (cost_basis).
+    // Computed client-side from the Finnhub current price, NOT from
+    // portfolio.unrealized_pct — that field is only refreshed when
+    // portfolio.py runs (twice a day). The whole point of this column
+    // is intraday liveness.
+    const entry = p.cost_basis;
+    const vsEntryPct = (cur != null && entry != null && entry > 0)
+      ? ((cur - entry) / entry) * 100
+      : null;
     const flash = flashClass(p.ticker, cur);
     return `
       <tr class="${flash}">
         <td class="ticker">${tickerCell(p.ticker)}</td>
         <td class="label hide-mobile">${escapeHTML(p.name || '')}</td>
+        <td class="num hide-mobile">${fmtPrice(entry)}</td>
+        <td class="num ${signClass(vsEntryPct)}">${fmtPct(vsEntryPct)}</td>
         <td class="num">${fmtPrice(cur)}</td>
         <td class="num ${signClass(chg)}">${fmtChg(chg)}</td>
         <td class="num ${signClass(pct)}">${fmtPct(pct)}</td>
@@ -493,12 +504,14 @@ function buildAgentRows() {
   }).join('');
   const thead = `
     <tr>
-      <th style="width:10%;">ticker</th>
-      <th class="hide-mobile" style="width:20%;">name</th>
-      <th class="num" style="width:10%;">price</th>
-      <th class="num" style="width:10%;">chg</th>
-      <th class="num" style="width:10%;">chg %</th>
-      <th class="num hide-mobile" style="width:8%;">shares</th>
+      <th style="width:9%;">ticker</th>
+      <th class="hide-mobile" style="width:16%;">name</th>
+      <th class="num hide-mobile" style="width:9%;">bot bought</th>
+      <th class="num" style="width:10%;">vs entry</th>
+      <th class="num" style="width:9%;">price</th>
+      <th class="num" style="width:9%;">chg</th>
+      <th class="num" style="width:9%;">chg %</th>
+      <th class="num hide-mobile" style="width:7%;">shares</th>
       <th class="hide-mobile">thesis</th>
     </tr>`;
   return { tickers, html: rows, thead };
