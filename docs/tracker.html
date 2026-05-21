@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>agent/smith — tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===================================================================
+ * Tracker page — live price terminal.
+ *
+ * Three tabs:
+ *   1. agent-smith   — open positions across screens 0/1/2 (screen toggle)
+ *   2. big movers    — indices + reference names from tracker_config.json
+ *   3. personal      — your tickers from tracker_config.json (price only,
+ *                      no P&L by design)
+ *
+ * Live prices from Finnhub free tier. The API key is hardcoded below;
+ * Finnhub free has no billing attached and no auth-protected data, so
+ * a leaked key costs nothing — just rotate it. Limit: 60 calls/min.
+ * Auto-refresh: 15s during US market hours, paused otherwise. With
+ * ~15-25 tickers per refresh this is well under quota.
+ * =================================================================== */
+:root[data-theme="dark"] {
+  --bg: #0e0e0c;
+  --bg-elev: #17171410;
+  --bg-row: #1a1a17;
+  --bg-row-hover: #22221e;
+  --bg-row-expanded: #1e1e1a;
+  --fg: #e9e6dc;
+  --fg-muted: #8a8778;
+  --fg-dim: #5c5a50;
+  --rule: #2a2923;
+  --rule-strong: #3a3930;
+  --accent: #d4a24c;
+  --pos: #7fb069;
+  --neg: #d77a66;
+  --info: #6b9ec7;
+  --warn: #c9a14d;
+  --neutral: #8a8778;
+}
+:root[data-theme="light"] {
+  --bg: #f8f5ec;
+  --bg-elev: #ffffff;
+  --bg-row: #ffffff;
+  --bg-row-hover: #f0ece0;
+  --bg-row-expanded: #faf7ee;
+  --fg: #1a1a17;
+  --fg-muted: #6b6a5e;
+  --fg-dim: #a8a69a;
+  --rule: #d8d4c4;
+  --rule-strong: #b8b4a4;
+  --accent: #a56f1f;
+  --pos: #3d6b29;
+  --neg: #9c3a28;
+  --info: #2e5f87;
+  --warn: #8a6a1d;
+  --neutral: #6b6a5e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--fg); font-family: 'Inter', system-ui, sans-serif; font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+body { min-height: 100vh; padding: 0 0 4rem; }
+.mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-feature-settings: "tnum" 1, "zero" 1; }
+.serif { font-family: 'Fraunces', Georgia, serif; }
+
+/* ============ HEADER ============ */
+header { padding: 1.5rem 2rem 0; border-bottom: 1px solid var(--rule); }
+.masthead { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 1rem; }
+.brand { display: flex; align-items: baseline; gap: 0.75rem; }
+.brand-name { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 500; font-style: italic; letter-spacing: -0.02em; }
+.brand-slash { color: var(--fg-dim); font-weight: 400; }
+.brand-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.1em; padding-bottom: 0.2rem; }
+.controls { display: flex; gap: 1rem; align-items: center; }
+.last-run { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-dim); display: flex; align-items: center; gap: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.theme-toggle { background: transparent; border: 1px solid var(--rule-strong); color: var(--fg-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.35rem 0.7rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.15s, border-color 0.15s; }
+.theme-toggle:hover { color: var(--fg); border-color: var(--fg-muted); }
+
+/* ============ NAV ============ */
+nav { display: flex; gap: 0; border-top: 1px solid var(--rule); padding: 0 2rem; }
+nav a { color: var(--fg-muted); text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.9rem 1.2rem; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s, border-color 0.15s; }
+nav a:hover { color: var(--fg); }
+nav a.active { color: var(--fg); border-bottom-color: var(--accent); }
+
+/* pulse: green when market open + auto-refresh active, dim when paused */
+.pulse { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--pos); animation: pulse 2s infinite; }
+.pulse.paused { background: var(--fg-dim); animation: none; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* ============ MAIN ============ */
+main { padding: 1.5rem 2rem 0; max-width: 1400px; }
+
+/* Tabs row — primary nav for this page (agent-smith / big movers / personal). */
+.tab-row { display: flex; gap: 0; border-bottom: 1px solid var(--rule-strong); margin-bottom: 1.25rem; }
+.tab { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; padding: 0.7rem 1.1rem; background: transparent; border: none; border-bottom: 2px solid transparent; margin-bottom: -1px; color: var(--fg-muted); cursor: pointer; text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.15s, border-color 0.15s; display: flex; align-items: center; gap: 0.5rem; }
+.tab:hover { color: var(--fg); }
+.tab.active { color: var(--fg); border-bottom-color: var(--accent); }
+.tab-count { font-size: 0.7rem; color: var(--fg-dim); }
+.tab.active .tab-count { color: var(--fg-muted); }
+
+/* Sub-toolbar (only present on the Agent Smith tab — screen toggle). */
+.toolbar { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; padding-bottom: 0.75rem; min-height: 2.5rem; }
+.toolbar-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-right: 0.25rem; }
+.chip { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.3rem 0.6rem; border: 1px solid var(--rule-strong); background: transparent; color: var(--fg-muted); cursor: pointer; text-transform: uppercase; letter-spacing: 0.06em; transition: all 0.15s; }
+.chip:hover { color: var(--fg); border-color: var(--fg-muted); }
+.chip.active { color: var(--bg); background: var(--fg); border-color: var(--fg); }
+
+/* Market status pill (open / closed / pre / after-hours). */
+.market-status { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.08em; display: flex; align-items: center; gap: 0.4rem; }
+.market-status.open { color: var(--pos); }
+.market-status.closed { color: var(--fg-dim); }
+.market-status.extended { color: var(--warn); }
+.dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+/* ============ TABLE ============ */
+.grid-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.grid-table thead { border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); }
+.grid-table th { text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 500; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; padding: 0.55rem 0.75rem; white-space: nowrap; }
+.grid-table th.num { text-align: right; }
+.grid-table tbody tr { border-bottom: 1px solid var(--rule); transition: background 0.1s; }
+.grid-table tbody tr:hover { background: var(--bg-row-hover); }
+.grid-table td { padding: 0.65rem 0.75rem; vertical-align: middle; }
+.grid-table td.num { text-align: right; font-family: 'JetBrains Mono', monospace; font-feature-settings: "tnum" 1, "zero" 1; }
+.grid-table td.ticker { font-family: 'JetBrains Mono', monospace; font-weight: 600; letter-spacing: 0.02em; }
+/* Ticker link styling — subtle underline, hover lifts to accent. Opens in new tab. */
+.grid-table td.ticker a { color: inherit; text-decoration: none; border-bottom: 1px dotted var(--fg-dim); transition: color 0.15s, border-color 0.15s; }
+.grid-table td.ticker a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.grid-table td.ticker a:visited { color: inherit; }
+.grid-table td.label { color: var(--fg-muted); font-size: 0.8rem; }
+.grid-table td.note { color: var(--fg-dim); font-size: 0.75rem; font-style: italic; }
+.pos { color: var(--pos); }
+.neg { color: var(--neg); }
+.flat { color: var(--fg-muted); }
+
+/* Brief flash when a price tick changes — visual confirmation refresh fired. */
+.tick-flash-up { animation: flashUp 0.6s ease-out; }
+.tick-flash-down { animation: flashDown 0.6s ease-out; }
+@keyframes flashUp   { 0% { background: color-mix(in srgb, var(--pos) 30%, transparent); } 100% { background: transparent; } }
+@keyframes flashDown { 0% { background: color-mix(in srgb, var(--neg) 30%, transparent); } 100% { background: transparent; } }
+
+/* ============ EMPTY + LOADING + ERROR ============ */
+.loading, .empty, .error-banner { text-align: center; padding: 3rem 1rem; color: var(--fg-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+.empty { color: var(--fg-dim); }
+.error-banner { color: var(--neg); border: 1px solid color-mix(in srgb, var(--neg) 40%, transparent); background: color-mix(in srgb, var(--neg) 8%, transparent); margin-bottom: 1rem; padding: 0.7rem 1rem; text-align: left; }
+
+/* ============ FOOTER ============ */
+footer { padding: 2rem; color: var(--fg-dim); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; max-width: 1400px; text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.7; }
+
+/* ============ MOBILE ============ */
+@media (max-width: 720px) {
+  header, main, footer { padding-left: 1rem; padding-right: 1rem; }
+  nav { padding: 0 1rem; overflow-x: auto; }
+  nav a { padding: 0.9rem 0.75rem; font-size: 0.7rem; }
+  .brand-tag { display: none; }
+  .tab { padding: 0.6rem 0.7rem; font-size: 0.7rem; }
+  .hide-mobile { display: none; }
+  .grid-table { font-size: 0.8rem; }
+  .grid-table td, .grid-table th { padding: 0.5rem 0.4rem; }
+  .market-status { width: 100%; margin-left: 0; justify-content: flex-end; }
+}
+</style>
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="agent/smith">
+<meta name="theme-color" content="#0a0a0a">
+
+</head>
+<body>
+
+<header>
+  <div class="masthead">
+    <div class="brand">
+      <span class="brand-name">agent<span class="brand-slash">/</span>smith</span>
+      <span class="brand-tag">tracker · live quotes</span>
+    </div>
+    <div class="controls">
+      <span class="last-run"><span class="pulse" id="refresh-pulse"></span><span id="last-update">loading…</span></span>
+      <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">◐ light</button>
+    </div>
+  </div>
+  <nav>
+    <a href="index.html">current</a>
+    <a href="trends.html">trends</a>
+    <a href="portfolio.html">portfolio</a>
+    <a href="suggestions.html">watching</a>
+    <a href="tracker.html" class="active">tracker</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ============ TABS ============ -->
+  <div class="tab-row" role="tablist">
+    <button class="tab active" data-tab="agent" role="tab">
+      agent smith <span class="tab-count" id="count-agent">—</span>
+    </button>
+    <button class="tab" data-tab="movers" role="tab">
+      big movers <span class="tab-count" id="count-movers">—</span>
+    </button>
+    <button class="tab" data-tab="personal" role="tab">
+      personal <span class="tab-count" id="count-personal">—</span>
+    </button>
+  </div>
+
+  <!-- ============ SUB-TOOLBAR (screen toggle, agent-smith tab only) ============ -->
+  <div class="toolbar" id="agent-toolbar">
+    <span class="toolbar-label">screen</span>
+    <button class="chip active" data-screen="screen_0">0 · mispricing</button>
+    <button class="chip" data-screen="screen_1">1 · AI sympathy</button>
+    <button class="chip" data-screen="screen_2">2 · pre-earnings</button>
+    <span class="market-status" id="market-status">
+      <span class="dot"></span><span id="market-status-text">checking…</span>
+    </span>
+  </div>
+
+  <!-- empty toolbar for the other tabs so the market-status sits in the same place -->
+  <div class="toolbar" id="other-toolbar" style="display:none;">
+    <span class="market-status" id="market-status-other">
+      <span class="dot"></span><span id="market-status-text-other">checking…</span>
+    </span>
+  </div>
+
+  <!-- ============ ERROR BANNER ============ -->
+  <div class="error-banner" id="error-banner" style="display:none;"></div>
+
+  <!-- ============ TABLE ============ -->
+  <table class="grid-table" id="main-table">
+    <thead id="thead-host"></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <div class="loading" id="loading">loading quotes…</div>
+  <div class="empty" id="empty" style="display:none;"></div>
+
+</main>
+
+<footer>
+  <p>live quotes via finnhub · 15s refresh during us market hours · paused outside market hours</p>
+  <p>tracker page · price-only display · agent-smith is a paper-trading research project, not investment advice</p>
+</footer>
+
+<script>
+// ====================================================================
+// CONFIGURATION
+// ====================================================================
+// Finnhub free tier API key. Hardcoded by design: free tier has no
+// billing or auth-protected data, so a leaked key costs nothing —
+// rotate at finnhub.io/dashboard if abused. Limit: 60 calls/min.
+// REPLACE THIS WITH YOUR ACTUAL KEY before pushing.
+const FINNHUB_API_KEY = "YOUR_FINNHUB_KEY";
+
+// Refresh cadence. 15s during open market = ~4 calls/min/ticker.
+// With ~25 tickers max, that's ~100 calls/min worst case — still
+// well under the 60/min limit because we only refresh the ACTIVE TAB.
+const REFRESH_INTERVAL_MS = 15_000;
+
+// Per-screen labels (match portfolio.html for consistency).
+const SCREEN_LABELS = {
+  screen_0: 'general mispricing',
+  screen_1: 'AI-event sympathy fade',
+  screen_2: 'pre-earnings filings read',
+};
+
+// ====================================================================
+// STATE
+// ====================================================================
+let CONFIG = null;            // tracker_config.json contents
+let PORTFOLIOS = {};          // screen_id -> portfolio.json contents
+let QUOTES = {};              // ticker -> { c, d, dp, h, l, o, pc, t } (Finnhub fields)
+let PREV_PRICES = {};         // ticker -> previous c, for tick-flash animation
+let activeTab = 'agent';      // 'agent' | 'movers' | 'personal'
+let activeScreen = 'screen_0';
+let refreshTimer = null;
+let marketOpen = false;
+
+// ====================================================================
+// FORMATTERS
+// ====================================================================
+const fmtPrice = v => v == null || isNaN(v) ? '—' : '$' + Number(v).toFixed(2);
+const fmtChg = v => v == null || isNaN(v) ? '—' : (v >= 0 ? '+' : '') + Number(v).toFixed(2);
+const fmtPct = v => v == null || isNaN(v) ? '—' : (v >= 0 ? '+' : '') + Number(v).toFixed(2) + '%';
+const fmtTime = d => {
+  const hh = String(d.getUTCHours()).padStart(2, '0');
+  const mn = String(d.getUTCMinutes()).padStart(2, '0');
+  return `${hh}:${mn} utc`;
+};
+const signClass = v => v == null || isNaN(v) ? 'flat' : (v > 0 ? 'pos' : (v < 0 ? 'neg' : 'flat'));
+
+// ====================================================================
+// TICKER LINK — opens Google Finance in a new tab.
+//
+// We use the bare-ticker URL `google.com/finance/quote/${TICKER}` and
+// accept Google's own redirect for ambiguous cases. For SP400+SP600
+// universe (our target), this resolves cleanly ~95% of the time.
+// The other ~5% (dual listings, ADRs, recent ticker changes) land on
+// a Google "did you mean" page — annoying but not broken.
+//
+// If 404 rate ever feels too high in practice, swap this single line
+// to use Google Search instead, which never 404s:
+//   return `https://www.google.com/search?q=${encodeURIComponent(ticker)}+stock`;
+// ====================================================================
+function tickerLink(ticker) {
+  return `https://www.google.com/finance/quote/${encodeURIComponent(ticker)}`;
+}
+
+function tickerCell(ticker) {
+  const safe = escapeHTML(ticker);
+  return `<a href="${tickerLink(ticker)}" target="_blank" rel="noopener noreferrer">${safe}</a>`;
+}
+
+// ====================================================================
+// THEME (matches the rest of the site)
+// ====================================================================
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('theme', t);
+  document.getElementById('theme-btn').textContent = t === 'dark' ? '◐ light' : '◑ dark';
+}
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  applyTheme(cur === 'dark' ? 'light' : 'dark');
+}
+applyTheme(localStorage.getItem('theme') || 'dark');
+
+// ====================================================================
+// MARKET HOURS — pause auto-refresh when closed.
+// US equities: regular session 14:30–21:00 UTC, Mon–Fri.
+// Pre-market 09:00–14:30 UTC; after-hours 21:00–01:00 UTC. We treat
+// these as "extended" — quotes still update but the page knows to
+// label them differently.
+// Holidays not honoured here; Finnhub will simply return stale c/pc
+// on a holiday and the page reads "open" but unchanging. Acceptable
+// for v1.
+// ====================================================================
+function getMarketState() {
+  const now = new Date();
+  const utcDay = now.getUTCDay();      // 0=Sun, 6=Sat
+  const utcHour = now.getUTCHours();
+  const utcMin = now.getUTCMinutes();
+  const tMin = utcHour * 60 + utcMin;
+  if (utcDay === 0 || utcDay === 6) return 'closed';
+  if (tMin >= 14*60+30 && tMin < 21*60) return 'open';
+  if (tMin >= 9*60 && tMin < 14*60+30) return 'pre';
+  if (tMin >= 21*60 || tMin < 1*60) return 'after';
+  return 'closed';
+}
+
+function renderMarketStatus() {
+  const state = getMarketState();
+  marketOpen = (state === 'open');
+  const labels = { open: 'market open', closed: 'market closed', pre: 'pre-market', after: 'after-hours' };
+  const cls = { open: 'open', closed: 'closed', pre: 'extended', after: 'extended' };
+  ['market-status', 'market-status-other'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.className = 'market-status ' + cls[state];
+    el.querySelector('span:last-child').textContent = labels[state];
+  });
+  // Pulse indicator: green animated when refreshing, dim static when paused
+  const pulse = document.getElementById('refresh-pulse');
+  if (pulse) pulse.classList.toggle('paused', !marketOpen);
+}
+
+// ====================================================================
+// DATA LOADERS
+// ====================================================================
+
+// Fetch tracker_config.json. Fatal if missing — the personal + big_movers
+// tabs have nothing to show without it.
+async function loadConfig() {
+  try {
+    const res = await fetch('data/tracker_config.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('config fetch failed');
+    CONFIG = await res.json();
+    if (!Array.isArray(CONFIG.personal)) CONFIG.personal = [];
+    if (!Array.isArray(CONFIG.big_movers)) CONFIG.big_movers = [];
+  } catch (e) {
+    showError(`Could not load data/tracker_config.json — personal and big-mover tabs will be empty. (${e.message})`);
+    CONFIG = { personal: [], big_movers: [] };
+  }
+}
+
+// Fetch all three screen portfolios in parallel. Soft-failing: a missing
+// portfolio file is treated as "no positions" for that screen, not as
+// a hard error (Screen 1 may still be dormant per ARCHITECTURE.md).
+async function loadPortfolios() {
+  const screens = ['screen_0', 'screen_1', 'screen_2'];
+  const results = await Promise.allSettled(
+    screens.map(s => fetch(`data/portfolios/${s}.json`, { cache: 'no-store' }))
+  );
+  for (let i = 0; i < screens.length; i++) {
+    const r = results[i];
+    if (r.status === 'fulfilled' && r.value.ok) {
+      try {
+        PORTFOLIOS[screens[i]] = await r.value.json();
+      } catch (e) {
+        PORTFOLIOS[screens[i]] = { open_positions: [] };
+      }
+    } else {
+      PORTFOLIOS[screens[i]] = { open_positions: [] };
+    }
+  }
+}
+
+// ====================================================================
+// FINNHUB QUOTE FETCH
+// ====================================================================
+// One call per ticker. Finnhub allows browser-direct (CORS open).
+// Response: { c: current, d: change, dp: change_pct, h: high, l: low,
+//             o: open, pc: prev_close, t: timestamp }
+// On error or quota hit, c=0 is returned by Finnhub — we treat any
+// zero/null current price as a soft failure and keep the previous value.
+async function fetchQuote(ticker) {
+  if (FINNHUB_API_KEY === 'YOUR_FINNHUB_KEY') {
+    return null; // not configured yet — fail silently to no-quote display
+  }
+  try {
+    const url = `https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(ticker)}&token=${FINNHUB_API_KEY}`;
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!data || !data.c) return null; // Finnhub returns c:0 on error
+    return data;
+  } catch (e) {
+    return null;
+  }
+}
+
+async function refreshQuotes(tickers) {
+  if (!tickers.length) return;
+  // Dedup — same ticker can appear in multiple tabs/lists
+  const unique = [...new Set(tickers)];
+  const results = await Promise.all(unique.map(t => fetchQuote(t)));
+  for (let i = 0; i < unique.length; i++) {
+    const t = unique[i];
+    const q = results[i];
+    if (q) {
+      PREV_PRICES[t] = QUOTES[t]?.c;
+      QUOTES[t] = q;
+    }
+  }
+}
+
+// ====================================================================
+// ROW BUILDERS — one per tab. Each tab has its own column set.
+// ====================================================================
+
+function buildAgentRows() {
+  const portfolio = PORTFOLIOS[activeScreen] || { open_positions: [] };
+  const positions = Array.isArray(portfolio.open_positions) ? portfolio.open_positions : [];
+  if (!positions.length) {
+    return { tickers: [], html: '', empty: `No open positions in ${SCREEN_LABELS[activeScreen]}.` };
+  }
+  const tickers = positions.map(p => p.ticker);
+  const rows = positions.map(p => {
+    const q = QUOTES[p.ticker];
+    const cur = q?.c;
+    const chg = q?.d;
+    const pct = q?.dp;
+    const flash = flashClass(p.ticker, cur);
+    return `
+      <tr class="${flash}">
+        <td class="ticker">${tickerCell(p.ticker)}</td>
+        <td class="label hide-mobile">${escapeHTML(p.name || '')}</td>
+        <td class="num">${fmtPrice(cur)}</td>
+        <td class="num ${signClass(chg)}">${fmtChg(chg)}</td>
+        <td class="num ${signClass(pct)}">${fmtPct(pct)}</td>
+        <td class="num hide-mobile">${p.shares ?? '—'}</td>
+        <td class="note hide-mobile">${escapeHTML(truncate(p.thesis || '', 80))}</td>
+      </tr>`;
+  }).join('');
+  const thead = `
+    <tr>
+      <th style="width:10%;">ticker</th>
+      <th class="hide-mobile" style="width:20%;">name</th>
+      <th class="num" style="width:10%;">price</th>
+      <th class="num" style="width:10%;">chg</th>
+      <th class="num" style="width:10%;">chg %</th>
+      <th class="num hide-mobile" style="width:8%;">shares</th>
+      <th class="hide-mobile">thesis</th>
+    </tr>`;
+  return { tickers, html: rows, thead };
+}
+
+function buildMoversRows() {
+  const movers = CONFIG?.big_movers || [];
+  if (!movers.length) {
+    return { tickers: [], html: '', empty: 'No big-movers configured. Edit data/tracker_config.json.' };
+  }
+  const tickers = movers.map(m => m.ticker);
+  const rows = movers.map(m => {
+    const q = QUOTES[m.ticker];
+    const cur = q?.c;
+    const chg = q?.d;
+    const pct = q?.dp;
+    const open = q?.o;
+    const high = q?.h;
+    const low = q?.l;
+    const flash = flashClass(m.ticker, cur);
+    return `
+      <tr class="${flash}">
+        <td class="ticker">${tickerCell(m.ticker)}</td>
+        <td class="label">${escapeHTML(m.label || '')}</td>
+        <td class="num">${fmtPrice(cur)}</td>
+        <td class="num ${signClass(chg)}">${fmtChg(chg)}</td>
+        <td class="num ${signClass(pct)}">${fmtPct(pct)}</td>
+        <td class="num hide-mobile">${fmtPrice(open)}</td>
+        <td class="num hide-mobile">${fmtPrice(high)}</td>
+        <td class="num hide-mobile">${fmtPrice(low)}</td>
+      </tr>`;
+  }).join('');
+  const thead = `
+    <tr>
+      <th style="width:10%;">ticker</th>
+      <th style="width:25%;">label</th>
+      <th class="num" style="width:11%;">price</th>
+      <th class="num" style="width:11%;">chg</th>
+      <th class="num" style="width:11%;">chg %</th>
+      <th class="num hide-mobile" style="width:10%;">open</th>
+      <th class="num hide-mobile" style="width:10%;">high</th>
+      <th class="num hide-mobile" style="width:10%;">low</th>
+    </tr>`;
+  return { tickers, html: rows, thead };
+}
+
+function buildPersonalRows() {
+  const personal = CONFIG?.personal || [];
+  if (!personal.length) {
+    return { tickers: [], html: '', empty: 'No personal tickers configured. Edit data/tracker_config.json to add some.' };
+  }
+  const tickers = personal.map(p => p.ticker);
+  const rows = personal.map(p => {
+    const q = QUOTES[p.ticker];
+    const cur = q?.c;
+    const chg = q?.d;
+    const pct = q?.dp;
+    const prevClose = q?.pc;
+    const flash = flashClass(p.ticker, cur);
+    return `
+      <tr class="${flash}">
+        <td class="ticker">${tickerCell(p.ticker)}</td>
+        <td class="label">${escapeHTML(p.label || '')}</td>
+        <td class="num">${fmtPrice(cur)}</td>
+        <td class="num ${signClass(chg)}">${fmtChg(chg)}</td>
+        <td class="num ${signClass(pct)}">${fmtPct(pct)}</td>
+        <td class="num hide-mobile">${fmtPrice(prevClose)}</td>
+      </tr>`;
+  }).join('');
+  const thead = `
+    <tr>
+      <th style="width:12%;">ticker</th>
+      <th style="width:35%;">label</th>
+      <th class="num" style="width:13%;">price</th>
+      <th class="num" style="width:13%;">chg</th>
+      <th class="num" style="width:13%;">chg %</th>
+      <th class="num hide-mobile" style="width:14%;">prev close</th>
+    </tr>`;
+  return { tickers, html: rows, thead };
+}
+
+function flashClass(ticker, currentPrice) {
+  const prev = PREV_PRICES[ticker];
+  if (prev == null || currentPrice == null || prev === currentPrice) return '';
+  return currentPrice > prev ? 'tick-flash-up' : 'tick-flash-down';
+}
+
+// ====================================================================
+// RENDER
+// ====================================================================
+
+function updateCounts() {
+  const agentCount = (PORTFOLIOS[activeScreen]?.open_positions || []).length;
+  document.getElementById('count-agent').textContent = agentCount;
+  document.getElementById('count-movers').textContent = (CONFIG?.big_movers || []).length;
+  document.getElementById('count-personal').textContent = (CONFIG?.personal || []).length;
+}
+
+function render() {
+  let built;
+  if (activeTab === 'agent')        built = buildAgentRows();
+  else if (activeTab === 'movers')  built = buildMoversRows();
+  else                              built = buildPersonalRows();
+
+  const tbody = document.getElementById('tbody');
+  const thead = document.getElementById('thead-host');
+  const empty = document.getElementById('empty');
+  const loading = document.getElementById('loading');
+  const table = document.getElementById('main-table');
+
+  loading.style.display = 'none';
+
+  if (!built.tickers.length) {
+    table.style.display = 'none';
+    empty.style.display = 'block';
+    empty.textContent = built.empty || 'Nothing to show.';
+  } else {
+    table.style.display = 'table';
+    empty.style.display = 'none';
+    thead.innerHTML = built.thead;
+    tbody.innerHTML = built.html;
+  }
+
+  // Show/hide the agent screen toggle vs the other-tab toolbar.
+  document.getElementById('agent-toolbar').style.display = (activeTab === 'agent') ? 'flex' : 'none';
+  document.getElementById('other-toolbar').style.display = (activeTab === 'agent') ? 'none' : 'flex';
+
+  updateCounts();
+  document.getElementById('last-update').textContent =
+    'updated · ' + fmtTime(new Date());
+  renderMarketStatus();
+}
+
+// Tickers currently visible — used to scope the next refresh call.
+function activeTickers() {
+  if (activeTab === 'agent') {
+    return (PORTFOLIOS[activeScreen]?.open_positions || []).map(p => p.ticker);
+  }
+  if (activeTab === 'movers') {
+    return (CONFIG?.big_movers || []).map(m => m.ticker);
+  }
+  return (CONFIG?.personal || []).map(p => p.ticker);
+}
+
+// ====================================================================
+// REFRESH LOOP — single source of truth for scheduling.
+// Always renders. Fetches quotes only when (a) market open OR (b) it's
+// the first render after a tab switch (so the user sees *something*
+// when they navigate over after-hours).
+// ====================================================================
+let firstRenderDone = false;
+
+async function refreshLoop({ forceFetch = false } = {}) {
+  const tickers = activeTickers();
+  const state = getMarketState();
+  const shouldFetch = forceFetch || state === 'open' || state === 'pre' || state === 'after' || !firstRenderDone;
+  if (shouldFetch && tickers.length) {
+    await refreshQuotes(tickers);
+  }
+  firstRenderDone = true;
+  render();
+}
+
+function scheduleRefresh() {
+  if (refreshTimer) clearInterval(refreshTimer);
+  refreshTimer = setInterval(() => {
+    // Only auto-refresh when market is open or in extended hours.
+    const state = getMarketState();
+    if (state === 'open' || state === 'pre' || state === 'after') {
+      refreshLoop();
+    } else {
+      // Closed: still re-render to keep the clock + market-status fresh,
+      // but skip the API call.
+      render();
+    }
+  }, REFRESH_INTERVAL_MS);
+}
+
+// ====================================================================
+// TAB + SCREEN WIRING
+// ====================================================================
+
+document.querySelectorAll('.tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeTab = btn.dataset.tab;
+    // Force a fetch on tab switch — user expects fresh data when they navigate
+    refreshLoop({ forceFetch: true });
+  });
+});
+
+document.querySelectorAll('.chip[data-screen]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.chip[data-screen]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeScreen = btn.dataset.screen;
+    refreshLoop({ forceFetch: true });
+  });
+});
+
+// ====================================================================
+// UTILITIES
+// ====================================================================
+function escapeHTML(s) {
+  if (s == null) return '';
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+function truncate(s, n) {
+  if (!s) return '';
+  return s.length <= n ? s : s.slice(0, n - 1) + '…';
+}
+function showError(msg) {
+  const el = document.getElementById('error-banner');
+  el.style.display = 'block';
+  el.textContent = msg;
+}
+
+// ====================================================================
+// BOOT
+// ====================================================================
+(async function init() {
+  await Promise.all([loadConfig(), loadPortfolios()]);
+  await refreshLoop({ forceFetch: true });
+  scheduleRefresh();
+  // Re-check market status every minute (so the open/closed pill flips
+  // at the bell even between refresh ticks).
+  setInterval(renderMarketStatus, 60_000);
+})();
+</script>
+
+</body>
+</html>
