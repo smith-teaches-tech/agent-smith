@@ -416,7 +416,7 @@ async function loadPortfolios() {
 // On error or quota hit, c=0 is returned by Finnhub — we treat any
 // zero/null current price as a soft failure and keep the previous value.
 async function fetchQuote(ticker) {
-  if (FINNHUB_API_KEY === 'd87kajhr01qmhakg5oe0d87kajhr01qmhakg5oeg') {
+  if (FINNHUB_API_KEY === 'YOUR_FINNHUB_KEY') {
     return null; // not configured yet — fail silently to no-quote display
   }
   try {
