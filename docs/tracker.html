@@ -293,18 +293,18 @@ const signClass = v => v == null || isNaN(v) ? 'flat' : (v > 0 ? 'pos' : (v < 0 
 // ====================================================================
 // TICKER LINK — opens Google Finance in a new tab.
 //
-// We use the bare-ticker URL `google.com/finance/quote/${TICKER}` and
-// accept Google's own redirect for ambiguous cases. For SP400+SP600
-// universe (our target), this resolves cleanly ~95% of the time.
-// The other ~5% (dual listings, ADRs, recent ticker changes) land on
-// a Google "did you mean" page — annoying but not broken.
+// We use Google Search (not Google Finance) because the new Google
+// Finance beta requires `AAPL:NASDAQ` exchange suffixes and 404s on
+// bare tickers. Google Search always resolves and shows the same
+// chart (with 1D/5D/1M/6M/YTD/1Y/5Y/Max toggles) at the top of the
+// results page. Functionally equivalent for "glance at the trend."
 //
-// If 404 rate ever feels too high in practice, swap this single line
-// to use Google Search instead, which never 404s:
-//   return `https://www.google.com/search?q=${encodeURIComponent(ticker)}+stock`;
+// If you ever want to flip back to direct Google Finance URLs (e.g.
+// after adding exchange suffixes to your config), use:
+//   return `https://www.google.com/finance/quote/${encodeURIComponent(ticker)}:NASDAQ`;
 // ====================================================================
 function tickerLink(ticker) {
-  return `https://www.google.com/finance/quote/${encodeURIComponent(ticker)}`;
+  return `https://www.google.com/search?q=${encodeURIComponent(ticker)}+stock`;
 }
 
 function tickerCell(ticker) {

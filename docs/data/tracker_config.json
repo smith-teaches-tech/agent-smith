@@ -1,9 +1,18 @@
 {
   "_README": "Edit this file in VS Code, commit, push. New tickers appear in tracker.html on next page load. Personal entries display ticker + optional label only (no P&L). Big-movers entries display ticker + label.",
   "personal": [
-    { "ticker": "AAPL", "label": "Apple — core" },
-    { "ticker": "MSFT", "label": "Microsoft — core" },
-    { "ticker": "NVDA", "label": "NVIDIA — watching" }
+    { "ticker": "TSM",  "label": "Taiwan Semi" },
+    { "ticker": "NOW",  "label": "ServiceNow" },
+    { "ticker": "MSCI", "label": "MSCI" },
+    { "ticker": "COST", "label": "Costco" },
+    { "ticker": "KO",   "label": "Coca-Cola (div — tax drag)" },
+    { "ticker": "PG",   "label": "Procter & Gamble" },
+    { "ticker": "CAT",  "label": "Caterpillar" },
+    { "ticker": "ASML", "label": "ASML" },
+    { "ticker": "NFLX", "label": "Netflix" },
+    { "ticker": "MU",   "label": "Micron — turnaround watch" },
+    { "ticker": "INTC", "label": "Intel — turnaround watch" },
+    { "ticker": "ADBE", "label": "Adobe" }
   ],
   "big_movers": [
     { "ticker": "SPY",  "label": "S&P 500" },
