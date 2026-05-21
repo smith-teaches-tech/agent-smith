@@ -11,5 +11,18 @@
     "fees": 0.446,
     "notional": 1409.61,
     "why": "Opened per flag: OVERDONE conf 3 — Gemini 3.5 Flash: Google bets next AI wave on agents, not chatbots"
+  },
+  {
+    "ts": "2026-05-21T20:55:53.755069+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-05-21T20:55:53.754918+00:00",
+    "side": "BUY",
+    "ticker": "BLKB",
+    "shares": 20,
+    "fill_price": 30.5605,
+    "fees": 0.414,
+    "notional": 611.21,
+    "why": "Opened per flag: OVERDONE conf 3 — Google pitches AI agent ecosystem to consumers at I/O"
   }
 ]

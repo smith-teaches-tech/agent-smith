@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T21:06:27.566955+00:00",
+  "generated_at": "2026-05-21T20:56:03.937606+00:00",
   "screen_id": "screen_2",
   "bankroll_start": 10000.0,
   "cash": 8738.22,
@@ -11,10 +11,10 @@
       "shares": 5,
       "cost_basis": 252.282,
       "cost_total": 1261.78,
-      "current_price": 252.282,
-      "value": 1261.41,
-      "unrealized_pnl": -0.37,
-      "unrealized_pct": -0.03,
+      "current_price": 250.11,
+      "value": 1250.55,
+      "unrealized_pnl": -11.23,
+      "unrealized_pct": -0.89,
       "opened_at": "2026-05-20T21:06:27.289882+00:00",
       "days_held": 0,
       "flag_classification": "UNDERDONE",
@@ -22,14 +22,15 @@
       "flag_horizon": "days",
       "thesis": "no mechanism. Catalyst: Q4 FY26 earnings 2026-05-26. Falsified by: n/a.",
       "thesis_status": "intact",
-      "latest_reasoning": "Opened position at $252.28, +$0.37 fees.",
+      "latest_reasoning": "Earnings catalyst Q4 FY26 on 2026-05-26 (5 calendar days out, ~3 trading days). Position established day 0 of the holding window. Thesis intact: filings show Data Center Cooling segment growing to 25% of sales with strong AI/HPC demand, RMT spin pending removes Performance Technologies drag, mix rerating story is still live and unpriced. Print has not occurred. Hold through T+1.",
       "next_action": "HOLD",
       "catalyst": "Q4 FY26 earnings 2026-05-26",
       "tier": "conviction",
       "benchmark_at_open": {
         "SPY": 735.71,
         "IWM": 274.91
-      }
+      },
+      "price_stale": false
     }
   ],
   "closed_positions": [],

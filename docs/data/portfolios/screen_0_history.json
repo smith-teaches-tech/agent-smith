@@ -126,5 +126,18 @@
     "fees": 0.3788,
     "notional": 621.62,
     "why": "Opened per flag: UNDERDONE conf 3 — Multi-item 8-K (5.02 officer change + 7.01 Reg FD) coinciding with 30-yr yield spike and mortgage rate surge"
+  },
+  {
+    "ts": "2026-05-21T20:55:36.921680+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-05-21T20:55:36.921487+00:00",
+    "side": "BUY",
+    "ticker": "DECK",
+    "shares": 6,
+    "fill_price": 98.4483,
+    "fees": 0.3692,
+    "notional": 590.69,
+    "why": "Opened per flag: UNDERDONE conf 3 — Q4/FY earnings release filed via 8-K item 2.02"
   }
 ]

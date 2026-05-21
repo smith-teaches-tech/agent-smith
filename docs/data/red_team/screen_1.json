@@ -18,5 +18,15 @@
     "weakest_link": "The thesis assumes the -11.95% five-day decline is pure thematic contagion, but offers no evidence that the selloff mechanism is actually *backwards* rather than forward-looking repricing of PLAB's cyclical exposure to AI capex timing.",
     "critique": "The bull case rests on a mechanically clean story—agentic AI → more silicon design → more photomasks—and cites filing language explicitly noting AI-accelerator proliferation increases design activity. However, the five-day move of -11.95% is material and the volume multiple of 0.88 suggests routine rather than panic selling. The claim that this decline is 'thematic tech contagion with no business-model overlap' is stated but not proven; a sophisticated selloff could reflect genuine concern that AI capex *timing* and *intensity* from foundries is less certain than the bull case assumes, or that PLAB's customer concentration risk (top-2 at 29% of revenue) becomes material if capex cycles shorten. The catalyst (Gemini 3.5 Flash agentic announcement) is a *software* event, not a *hardware deployment* event, and there is no evidence in the flag that this specific announcement has historically driven photomask demand within weeks rather than quarters.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-05-21T20:55:53.453213+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 has three OVERDONE flags (BLKB, DUOL, PLAB) all confidence-3 with unjustified panic, plus one open PLAB position at days_held=0 showing early recovery. BLKB and DUOL warrant exploratory entries; PLAB position holds pending full sympathy-fade window.",
+    "ticker": "BLKB",
+    "survived": true,
+    "weakest_link": "The 'sympathy fade' thesis assumes mean reversion within days, but if institutional holders are genuinely reassessing SaaS vertical-moat durability post-Google I/O, the move may not be overdone and could persist or deepen.",
+    "critique": "The bull case rests on three pillars: (1) the -4.64% single-day move on 0.86x volume is panic-driven and unjustified; (2) the vertical moat (donor history, tax-exempt accounting, 3-year contracts, ~40% renewal in 2026) is not threatened by consumer-facing web-task agents; (3) the entry window is open because sentiment will fade. However, the bull reasoning conflates 'the specific AI threat is indirect' with 'the move is overdone.' A sub-average volume day can also signal algorithmic deleveraging or fund redemptions ahead of a longer repricing, not just a bounce candidate. More critically, the 10-K itself warns that 'market perception of AI strategy can drive stock volatility independent of fundamentals' — this is the Haiku instance's own caveat that the bear case (sentiment-driven multiple compression in the SaaS vertical) is real and self-fulfilling. The five-day -5.09% move is modest in absolute terms but consistent with rolling revaluation, not panic. The catalyst window 'days' is also very tight; if the fade does not occur within a week, the thesis flips to 'I was wrong on timing,' which is a silent killer in exploratory sizing.",
+    "confidence_in_critique": 2
   }
 ]

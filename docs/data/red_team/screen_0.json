@@ -108,5 +108,15 @@
     "weakest_link": "The bull thesis rests on ALK being a short-cover/momentum fade, but the 1.2x volume multiple contradicts classic overextension mechanics—true short squeezes and momentum exhaustion typically show volume spikes 2-3x+ average, not below baseline.",
     "critique": "Haiku's own OVERDONE framework requires the move to be 'outsized on average volume'—the exact signature of a crowded unwind. ALK shows 10.05% 1-day move on only 1.2x volume, which is materially lower than the 2-3x volume spikes that typically accompany short-covering frenzies or momentum capitulation. This volume profile suggests institutional participation or genuine sector reallocation, not retail momentum chasing into thin order flow. The five-day move is only 3.35%, which is modest relative to the 1-day spike—inconsistent with the thesis that a headline-driven momentum trap is already in place. If the trade is correctly classified as OVERDONE, the volume evidence should be more emphatic; current volume does not support the mechanical basis for a fade.",
     "confidence_in_critique": 4
+  },
+  {
+    "ts": "2026-05-21T20:55:36.584727+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio has 4 open positions, 2 in green (SHAK +3.06%, BLDR +6.87%), 2 underwater (TXRH -3.1%, DCO -4.14%). Six new flags arrived; three warrant action. AEIS re-entry rejected (confidence 3, no new info beyond prior exit 8-K). BLDR appears in both holdings and new flags—reassess as existing position. DECK and BLDR entries are the only new convictions warranting exploratory buys; ALK is a fade candidate (OVERDONE sector momentum); DCO/AEIS to monitor; KTOS is rational beta, skip.",
+    "ticker": "DECK",
+    "survived": true,
+    "weakest_link": "The bull case assumes the 8.06% five-day move represents incomplete repricing, but that cumulative move already incorporates today's 4.46% pop, making it unclear how much upside remains before the catch-up cycle exhausts.",
+    "critique": "The flag's core argument rests on analyst revisions and short-covering driving multi-day follow-through in a beaten-down name. However, the five-day cumulative move of 8.06% is modest only relative to historical DECK swings, not relative to the immediacy of the catalyst—an earnings 8-K on May 21 would likely drive front-loaded repricing on day one, especially if the beat was material enough to warrant 4.46% in a single session. The thesis does not specify what the 8-K actually revealed (guidance maintained or raised, HOKA growth trajectory, margin details), only that a 'clean print' is assumed. Without confirming evidence from the SEC filing (which the flag cites but does not quote), the claim that sentiment remains 'bearish on UGG/HOKA fatigue' and positioned for multiple expansion is unanchored. If the beat was already priced into the initial 4.46% move and the five-day total of 8.06% reflects full digestion, the follow-through thesis collapses.",
+    "confidence_in_critique": 3
   }
 ]
