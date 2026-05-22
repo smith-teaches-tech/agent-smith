@@ -11,5 +11,18 @@
     "fees": 0.366,
     "notional": 1261.41,
     "why": "Opened per flag: UNDERDONE conf 3 — Q4 FY26 earnings 2026-05-26"
+  },
+  {
+    "ts": "2026-05-22T20:48:24.138475+00:00",
+    "screen_id": "screen_2",
+    "kind": "buy",
+    "date": "2026-05-22T20:48:24.138304+00:00",
+    "side": "BUY",
+    "ticker": "GTLB",
+    "shares": 56,
+    "fill_price": 25.8458,
+    "fees": 0.5292,
+    "notional": 1447.36,
+    "why": "Opened per flag: UNDERDONE conf 3 — Q1 earnings 2026-06-02"
   }
 ]

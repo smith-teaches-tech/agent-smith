@@ -139,5 +139,18 @@
     "fees": 0.3692,
     "notional": 590.69,
     "why": "Opened per flag: UNDERDONE conf 3 — Q4/FY earnings release filed via 8-K item 2.02"
+  },
+  {
+    "ts": "2026-05-22T20:47:53.449702+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-05-22T20:47:53.449509+00:00",
+    "side": "BUY",
+    "ticker": "BLDR",
+    "shares": 8,
+    "fill_price": 73.9839,
+    "fees": 0.3756,
+    "notional": 591.87,
+    "why": "Opened per flag: UNDERDONE conf 3 — House passes housing affordability bill (CNBC: 'win for investors'); 8-K with 5.02 director/officer changes around annual meeting"
   }
 ]

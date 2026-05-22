@@ -8,5 +8,15 @@
     "weakest_link": "The bull case assumes the market will re-rate MOD on Data Center Cooling mix at earnings, but the earnings call is only 3 trading days away with no pre-announcement or recent catalyst to signal a surprise on that metric.",
     "critique": "The thesis hinges on a market repricing of MOD's mix shift once the Data Center Cooling narrative dominates the year-end call. However, the 10-K showing DC Cooling at 25% of sales is already public and filed; the move from 12% to 25% YoY is disclosed, not hidden. If this reframing were going to move the stock, the market has had time since the 10-K filing to digest it. The upcoming earnings call is only 3 days away, and no near-term catalyst (hyperscaler guidance, order book acceleration, RMT deal close timing milestone) is cited as imminent to justify why the market would suddenly reassess on this earnings print rather than on the already-public filings. The RMT spin itself does not close until later, so this earnings print is not the 'last before the spin reframes' — it is simply the last before-RMT-close print, which is a weaker catalyst than the Haiku reasoning implies. Without a specific new disclosure or contract win due at earnings, the bull case relies on re-rating on information already in the market.",
     "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-05-22T20:48:23.855398+00:00",
+    "screen_id": "screen_2",
+    "run_summary": "Screen 2 is holding MOD through its earnings print (T-3, print May 26). Three new flags arrive: GTLB (UNDERDONE, conf-3, T-6) clears the bar cleanly on reaffirmed guide + margin-positive RIF; VSCO (OVERDONE, conf-3) and MDB (OVERDONE, conf-3) are structurally long-only ineligible despite sound pre-earnings reads. MOD position remains intact and is held to the print.",
+    "ticker": "GTLB",
+    "survived": true,
+    "weakest_link": "The thesis assumes the Street has not yet fully modeled the RIF margin benefit, but a T-15 reaffirmation 8-K is a public filing that professional investors have already digested and likely incorporated into consensus estimates.",
+    "critique": "The bull case rests on the idea that the May 11 RIF announcement is a 'fresh, filings-grounded margin tailwind the Street may not yet have fully modeled.' However, 8-K filings are immediately absorbed by sell-side analysts and market participants—there is no information lag between the filing and consensus revision. If the Street was going to model margin accretion from the RIF, it has already done so in the 11 days between the 8-K and earnings. The reaffirmation of FY27 guidance removes downside surprise on revenue, which is valuable, but does not create an upside surprise unless management raises guidance or execution materially beats the stated reaffirmation range. The bull thesis conflates 'derisked' (smaller downside) with 'skewed toward positive surprise' (larger upside), which are not the same.",
+    "confidence_in_critique": 3
   }
 ]
