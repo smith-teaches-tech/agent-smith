@@ -1,31 +1,7 @@
 {
-  "generated_at": "2026-05-22T20:48:04.873694+00:00",
+  "generated_at": "2026-05-25T20:26:49.662241+00:00",
   "screen_id": "screen_1",
   "window_days": 7,
-  "run_summary": "Screen 1 evaluates two fresh flags (BLKB, DUOL) against existing positions. BLKB is already held; DUOL is new. Both flags carry confidence 3 with threat_assessment 'indirect' and mixed panic calibration, warranting careful tier assignment.",
-  "entries": [
-    {
-      "ticker": "DUOL",
-      "name": "Duolingo, Inc.",
-      "sector": "Technology",
-      "flagged_at": "2026-05-22T20:48:04.770419+00:00",
-      "run_file": "latest",
-      "classification": "OVERDONE",
-      "confidence": 3,
-      "horizon_days": 5,
-      "move_pct_at_flag": -6.38,
-      "catalyst": "OpenAI claims it solved an 80-year-old math problem — for real this time",
-      "catalyst_url": "https://techcrunch.com/2026/05/20/openai-claims-it-solved-an-80-year-old-math-problem-for-real-this-time/",
-      "thesis": "DUOL is the reflexive edtech sell on any OpenAI capability headline, but today's trigger is a math-reasoning demo, not a consumer language-learning product. DUOL's moat is the daily-habit dopamine/streak loop and gamification, not instructional content quality — areas a reasoning model breakthrough does not directly attack. The selloff is partial overshoot relative to the actual threat substance.",
-      "what_kills": "Evidence that an OpenAI consumer-facing tutor product is shipping with language-learning features; meaningful DAU decline in the next print; Apple/Google App Store featuring competing AI tutors prominently.",
-      "decision": "WATCH",
-      "reasoning": "Confidence 3 meets min_buy_confidence, classification OVERDONE correct. However, panic_calibration is 'partial' — not 'unjustified'. Filings explicitly name GenAI as competitive risk ('rapid scale at expense of existing brands'), and DUOL's own MAX product integration shows the company is not mechanically untouched. Threat_assessment 'indirect' combined with partial panic calibration makes the sympathy-fade read weaker than conviction or standard exploratory bar. The thesis (math-reasoning model does not attack habit/gamification moat) is plausible, but filings evidence is thinner — DUOL acknowledges GenAI risk in its risk factors. Margin for error tighter than typical Screen 1 setup. WATCH pending either (a) clearer evidence that DUOL's DAU/retention is holding post-catalyst, or (b) a fresh flag with sharper threat_assessment 'none' and panic_calibration 'unjustified'.",
-      "red_team": null,
-      "price_at_flag": 106.61,
-      "current_price": null,
-      "since_pct": null,
-      "verdict": "pending",
-      "verdict_note": null
-    }
-  ]
+  "run_summary": "No new flags this run. Two open positions remain in early holding windows with thesis intact; both are held pending continued sympathy-fade recovery.",
+  "entries": []
 }

@@ -24,5 +24,31 @@
     "fees": 0.5292,
     "notional": 1447.36,
     "why": "Opened per flag: UNDERDONE conf 3 — Q1 earnings 2026-06-02"
+  },
+  {
+    "ts": "2026-05-25T20:27:11.790188+00:00",
+    "screen_id": "screen_2",
+    "kind": "sell",
+    "date": "2026-05-25T20:27:11.789994+00:00",
+    "side": "SELL",
+    "ticker": "MOD",
+    "shares": 5,
+    "fill_price": 262.737,
+    "fees": 0.4034,
+    "notional": 1313.69,
+    "why": "Earnings catalyst (Q4 FY26) is scheduled for 2026-05-26, which is TOMORROW (T+1 is reached on 2026-05-26 post-market or 2026-05-27 open). Position is now 4 days held and the print window has closed. Screen 2 discipline mandates exit regardless of 3.24% unrealized gain. Thesis window is over."
+  },
+  {
+    "ts": "2026-05-25T20:27:12.083429+00:00",
+    "screen_id": "screen_2",
+    "kind": "buy",
+    "date": "2026-05-25T20:27:12.083234+00:00",
+    "side": "BUY",
+    "ticker": "MDB",
+    "shares": 4,
+    "fill_price": 318.368,
+    "fees": 0.3628,
+    "notional": 1273.47,
+    "why": "Opened per flag: UNDERDONE conf 3 — Q1 FY27 earnings 2026-05-28"
   }
 ]
