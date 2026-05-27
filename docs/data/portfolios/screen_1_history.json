@@ -63,5 +63,83 @@
     "fees": 0.1384,
     "notional": 13.52,
     "why": "Opened per flag: OVERDONE conf 4 — Google overhauled Search at I/O 2026 with AI agents replacing blue links"
+  },
+  {
+    "ts": "2026-05-27T21:06:57.087414+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-05-27T21:06:57.087210+00:00",
+    "side": "SELL",
+    "ticker": "NCNO",
+    "shares": 133,
+    "fill_price": 15.0449,
+    "fees": 0.9688,
+    "notional": 2000.97,
+    "why": "NCNO was flagged on day 0, already down 5.02% intraday. The current flag re-surfaces NCNO with identical Google Search trigger and notes threat_assessment='minimal' (not 'none'), and the filings evidence shows generic AI/ML competitive risk language rather than crisp evidence of no search-agent pathway into regulated banking workflows. The flag itself acknowledges 'sympathy drop is thematic SaaS-is-doomed reflex' — which means the panic may not be unjustified, just premature. More critically: day-0 entry + immediate 5% drawdown on a short-window thesis signals poor entry timing. Exit to preserve capital and reduce sector concentration (currently 4 tech positions, 3 of which are day-0 or underwater)."
+  },
+  {
+    "ts": "2026-05-27T21:06:57.293973+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-05-27T21:06:57.293752+00:00",
+    "side": "SELL",
+    "ticker": "VRRM",
+    "shares": 1,
+    "fill_price": 5.5045,
+    "fees": 0.0586,
+    "notional": 5.5,
+    "why": "VRRM is in catastrophic drawdown: -71.82% after day 0 on the Google Search I/O trigger. The current flag re-surfaces VRRM with threat_assessment='none' and strong filings evidence (municipal contracts, camera hardware, court-admissible evidentiary chains have zero search-overhaul exposure). However, the 10-Q already flags a critical real risk: 'loss of one of the three large Commercial Services customers currently in renewal.' This is NOT sympathy-fade territory; this is idiosyncratic deterioration on a real business risk. The -71% move suggests the market has priced in customer loss or regulatory bans (Ontario speed-enforcement ban is real). Holding a position this destroyed on a 5-15 day clock violates the discipline — the sympathy thesis is drowned out by fundamental risk. Exit immediately."
+  },
+  {
+    "ts": "2026-05-27T21:06:57.603504+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-05-27T21:06:57.603296+00:00",
+    "side": "BUY",
+    "ticker": "DOCN",
+    "shares": 4.0009,
+    "fill_price": 158.7286,
+    "fees": 0.3628,
+    "notional": 635.06,
+    "why": "Opened per flag: OVERDONE conf 4 — Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links"
+  },
+  {
+    "ts": "2026-05-27T21:06:57.740753+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-05-27T21:06:57.740543+00:00",
+    "side": "BUY",
+    "ticker": "TENB",
+    "shares": 24.6131,
+    "fill_price": 25.3653,
+    "fees": 0.4288,
+    "notional": 624.32,
+    "why": "Opened per flag: OVERDONE conf 4 — Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links"
+  },
+  {
+    "ts": "2026-05-27T21:06:57.874666+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-05-27T21:06:57.874458+00:00",
+    "side": "BUY",
+    "ticker": "QLYS",
+    "shares": 6.1204,
+    "fill_price": 100.2201,
+    "fees": 0.3696,
+    "notional": 613.39,
+    "why": "Opened per flag: OVERDONE conf 4 — Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links"
+  },
+  {
+    "ts": "2026-05-27T21:06:58.329394+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-05-27T21:06:58.329178+00:00",
+    "side": "BUY",
+    "ticker": "AEIS",
+    "shares": 1.8327,
+    "fill_price": 339.4591,
+    "fees": 0.3559,
+    "notional": 622.13,
+    "why": "Opened per flag: OVERDONE conf 3 — Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links"
   }
 ]

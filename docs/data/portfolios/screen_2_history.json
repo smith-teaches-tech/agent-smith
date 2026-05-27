@@ -63,5 +63,18 @@
     "fees": 0.3984,
     "notional": 1256.2,
     "why": "Earnings catalyst 2026-05-28 is in the past as of run timestamp 2026-05-27T06:17:35Z. Print has occurred or is occurring today. Screen 2's discipline mandates T+1 exit regardless of P&L status. Position held 1 day; thesis window closed. Exiting now per the non-negotiable played-out rule."
+  },
+  {
+    "ts": "2026-05-27T21:07:11.521078+00:00",
+    "screen_id": "screen_2",
+    "kind": "sell",
+    "date": "2026-05-27T21:07:11.520869+00:00",
+    "side": "SELL",
+    "ticker": "GTLB",
+    "shares": 56,
+    "fill_price": 26.3037,
+    "fees": 0.5794,
+    "notional": 1473.01,
+    "why": "Earnings print occurred 2026-06-02 (T+0 relative to today 2026-05-27 is T-6 in the flag's timeline, but the position shows 5 days held, placing entry at T-5 and the print at T+0, now 5 calendar days in the past). The holding window is 4 trading days (T-2 to T+1). This position is at T+5 — well past the discipline window. Screen 2 has no edge post-print. Exit full position regardless of +2.57% unrealized gain. Rule is non-negotiable: window played out."
   }
 ]

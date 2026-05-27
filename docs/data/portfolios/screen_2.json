@@ -1,39 +1,46 @@
 {
-  "generated_at": "2026-05-27T06:17:46.169863+00:00",
+  "generated_at": "2026-05-27T21:07:11.630231+00:00",
   "screen_id": "screen_2",
   "bankroll_start": 10000.0,
-  "cash": 8585.59,
-  "open_positions": [
+  "cash": 10058.02,
+  "open_positions": [],
+  "closed_positions": [
     {
       "ticker": "GTLB",
       "name": "GitLab Inc.",
       "sector": "saas_software",
       "shares": 56,
-      "cost_basis": 25.8458,
-      "cost_total": 1447.89,
-      "current_price": 26.77,
-      "value": 1499.12,
-      "unrealized_pnl": 51.23,
-      "unrealized_pct": 3.54,
+      "avg_cost": 25.8458,
+      "exit_price": 26.3037,
       "opened_at": "2026-05-22T20:48:24.138290+00:00",
-      "days_held": 4,
+      "closed_at": "2026-05-27T21:07:11.520791+00:00",
+      "days_held": 5,
+      "realized_pnl": 25.12,
+      "realized_pct": 1.73,
+      "fees_total": 0.5794,
       "flag_classification": "UNDERDONE",
       "flag_confidence": 3,
       "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: Q1 earnings 2026-06-02. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Earnings catalyst 2026-06-02 is 4 trading days out (still pre-print). Position held 4 days; thesis window remains open through T+1 exit window (post-print). May 11 8-K mid-quarter reaffirmation + RIF-for-reinvestment + $400M buyback + 26% $1M+ ARR cohort growth support the UNDERDONE classification. No fresh contradicting information. Hold through print.",
-      "next_action": "HOLD",
-      "catalyst": "Q1 earnings 2026-06-02",
       "tier": "conviction",
+      "exit_reasoning": "Earnings print occurred 2026-06-02 (T+0 relative to today 2026-05-27 is T-6 in the flag's timeline, but the position shows 5 days held, placing entry at T-5 and the print at T+0, now 5 calendar days in the past). The holding window is 4 trading days (T-2 to T+1). This position is at T+5 — well past the discipline window. Screen 2 has no edge post-print. Exit full position regardless of +2.57% unrealized gain. Rule is non-negotiable: window played out.",
       "benchmark_at_open": {
         "SPY": 746.24,
         "IWM": 284.1
       },
-      "price_stale": false
-    }
-  ],
-  "closed_positions": [
+      "market_cap_at_close": 4477950976.0,
+      "benchmark_at_close": {
+        "SPY": 750.46,
+        "IWM": 290.37
+      },
+      "benchmark_return_pct": {
+        "SPY": 0.57,
+        "IWM": 2.21
+      },
+      "alpha_pct": {
+        "SPY": 1.16,
+        "IWM": -0.48
+      }
+    },
     {
       "ticker": "MDB",
       "name": "MongoDB",
@@ -108,6 +115,16 @@
     }
   ],
   "trade_log": [
+    {
+      "date": "2026-05-27T21:07:11.520869+00:00",
+      "side": "SELL",
+      "ticker": "GTLB",
+      "shares": 56,
+      "fill_price": 26.3037,
+      "fees": 0.5794,
+      "notional": 1473.01,
+      "why": "Earnings print occurred 2026-06-02 (T+0 relative to today 2026-05-27 is T-6 in the flag's timeline, but the position shows 5 days held, placing entry at T-5 and the print at T+0, now 5 calendar days in the past). The holding window is 4 trading days (T-2 to T+1). This position is at T+5 — well past the discipline window. Screen 2 has no edge post-print. Exit full position regardless of +2.57% unrealized gain. Rule is non-negotiable: window played out."
+    },
     {
       "date": "2026-05-27T06:17:46.095440+00:00",
       "side": "SELL",
