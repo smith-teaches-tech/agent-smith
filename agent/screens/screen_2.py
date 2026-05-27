@@ -68,6 +68,7 @@ from anthropic import Anthropic
 
 from .. import config, edgar, earnings_calendar
 from ..analyze import _stream_message, _parse_json_response, NO_CLAUDE_MODE
+from . import screen_2_cache
 
 
 # ============================================================
@@ -471,6 +472,19 @@ def _stub_no_discovery(reason: str) -> dict[str, Any]:
     }
 
 
+def _is_discovery_row(row: dict[str, Any]) -> bool:
+    """
+    True if the cached row was a directional discovery, False if it was
+    a "skipped" row.
+
+    Used by the cache-splice logic in run_screen_2_discovery to put each
+    cached row back into the correct bucket. The distinguishing field is
+    `classification` — discoveries carry OVERDONE / UNDERDONE / RATIONAL
+    / UNCLEAR; skipped rows carry only `ticker` + `reason`.
+    """
+    return bool(row.get("classification"))
+
+
 # ============================================================
 # Public API: discovery
 # ============================================================
@@ -552,8 +566,54 @@ def run_screen_2_discovery(
     print(f"[screen_2] fetching filings for {len(triggered)} candidate(s)...")
     enriched = _attach_filings(triggered)
 
-    # 4. Build prompt
-    user_content = _build_screen_2_discovery_user_content(enriched, universe)
+    # 3a. Partition into (live, cached) based on the filings bundle.
+    #
+    # The cache is keyed on a hash of the filings IDENTITY (filing
+    # dates and accession-equivalent flags), not the filing TEXT. A
+    # ticker stays cached as long as its filings don't change — which
+    # is the only condition under which the model's output should
+    # rationally differ. See screen_2_cache for the full design notes.
+    live, cached = screen_2_cache.partition_enriched(enriched)
+    if cached:
+        print(
+            f"[screen_2] cache hits: {len(cached)} "
+            f"({', '.join(r.get('ticker', '?') for r in cached)})"
+        )
+    if live:
+        print(
+            f"[screen_2] cache misses (live read): {len(live)} "
+            f"({', '.join(c.get('ticker', '?') for c in live)})"
+        )
+
+    # 3b. If EVERY ticker is cached, skip the model call entirely.
+    #
+    # Pass-level fields (run_summary, no_signals_note) are reconstructed
+    # from the cached rows; they reflect slate composition, not any
+    # single ticker, so they're cheap to regenerate locally.
+    if not live:
+        discoveries = [r for r in cached if _is_discovery_row(r)]
+        skipped = [r for r in cached if not _is_discovery_row(r)]
+        return {
+            "run_summary": (
+                f"All {len(cached)} candidate(s) served from cache "
+                f"(filings unchanged since last read). No model call."
+            ),
+            "discoveries": discoveries,
+            "skipped": skipped,
+            "no_signals_note": None,
+            "_status": "ok",
+            "_candidate_count": len(enriched),
+            "_triggered_tickers": [t["ticker"] for t in triggered],
+            "_as_of": today.isoformat(),
+            "_cache_summary": {
+                "hits": len(cached),
+                "misses": 0,
+                "model_called": False,
+            },
+        }
+
+    # 4. Build prompt — ONLY for the uncached subset.
+    user_content = _build_screen_2_discovery_user_content(live, universe)
 
     # 5. Call Opus (or stub in no-claude mode)
     if NO_CLAUDE_MODE:
@@ -580,6 +640,35 @@ def run_screen_2_discovery(
         print(f"[screen_2] Opus call failed: {e}")
         return _stub_no_discovery(f"discovery pass failed: {e}")
 
+    # 5a. Cache the fresh model rows for next time.
+    #
+    # Both `discoveries` and `skipped` are valid per-ticker outputs
+    # — both would be reproduced on identical filings, so both are
+    # worth caching. Cache failures are logged but never abort.
+    try:
+        n_cached = screen_2_cache.store_from_response(live, parsed)
+        if n_cached:
+            print(f"[screen_2] wrote {n_cached} row(s) to cache")
+    except Exception as e:
+        print(f"[screen_2] cache store failed (non-fatal): {e}")
+
+    # 5b. Splice cached rows back into the response.
+    #
+    # The cached rows have the same shape as a fresh discoveries[]
+    # entry, with one added `_cache_meta` block. Downstream consumers
+    # (history files, grading, dashboard) treat them identically to
+    # fresh rows; the `_cache_meta` block is metadata only.
+    if cached:
+        merged_discoveries = list(parsed.get("discoveries") or [])
+        merged_skipped = list(parsed.get("skipped") or [])
+        for row in cached:
+            if _is_discovery_row(row):
+                merged_discoveries.append(row)
+            else:
+                merged_skipped.append(row)
+        parsed["discoveries"] = merged_discoveries
+        parsed["skipped"] = merged_skipped
+
     # Stamp pass-level fields the dashboard / grading might want
     parsed.setdefault("run_summary", "")
     parsed.setdefault("discoveries", [])
@@ -588,11 +677,17 @@ def run_screen_2_discovery(
     parsed["_candidate_count"] = len(enriched)
     parsed["_triggered_tickers"] = [t["ticker"] for t in triggered]
     parsed["_as_of"] = today.isoformat()
+    parsed["_cache_summary"] = {
+        "hits": len(cached),
+        "misses": len(live),
+        "model_called": True,
+    }
 
     print(
         f"[screen_2] discovery complete: "
         f"{len(parsed.get('discoveries') or [])} discoveries, "
-        f"{len(parsed.get('skipped') or [])} skipped"
+        f"{len(parsed.get('skipped') or [])} skipped "
+        f"(cache hits: {len(cached)}, live: {len(live)})"
     )
     return parsed
 

@@ -530,29 +530,104 @@ def _find_earnings_exhibit_doc(index_data: dict) -> Optional[str]:
     Given an accession index.json, return the filename of the earnings
     press release exhibit, or None.
 
-    Preference order:
-      1. document `type` is exactly "EX-99.1"  (the canonical earnings PR)
-      2. document `type` starts with "EX-99"   (EX-99.2 etc. — fallback)
-    SEC's `type` tagging is mostly reliable but not universal; when no
-    EX-99* type is present the caller falls back to the 8-K primary doc.
+    DETECTION STRATEGY (order matters):
+      1. FILENAME match for EX-99.1 — the press release. Patterns
+         seen in the wild: 'ex991*', 'ex99-1*', 'ex99_1*', 'ex-99-1*',
+         'exhibit99-1*', sometimes prefixed by a filer code like
+         'tm2025xxx-ex991'. We accept any filename whose normalized
+         form contains the token "ex991" or "ex99-1" etc.
+      2. FILENAME match for EX-99.x — any other 99-series exhibit
+         (typically supplementary slides; not ideal but better than
+         the 8-K cover sheet).
+      3. TYPE-FIELD match — kept as a fallback for the rare filer
+         whose accession index DOES carry a real Type tag. As of
+         observation (May 2026), SEC's directory JSON endpoint
+         returns `type: "text.gif"` for all documents — the type
+         column is icon-render metadata, not document classification.
+         The TYPE branch will essentially never fire for current
+         filings, but is retained so any future SEC restoration of
+         meaningful types is still honored.
+
+    EXCLUSIONS:
+      - Anything ending in image extensions (.jpg/.png/.gif) — slide
+        decks embed many of these and they'd otherwise match an
+        'ex992*' filename pattern.
+      - The XBRL sidecars (`*.xsd`, `*_lab.xml`, `*_pre.xml`,
+        `*_htm.xml`, `MetaLinks.json`, `R*.htm`) — these are not the
+        press release even when they share a basename prefix.
+      - The 8-K primary document itself (e.g. `cien-20250605.htm`) —
+        excluded because if we wanted that, we wouldn't have called
+        this function. Recognized by NOT matching the ex99* pattern.
     """
     items = (index_data.get("directory", {}) or {}).get("item", [])
     if not items:
         return None
 
-    ex_99_1: Optional[str] = None
-    ex_99_any: Optional[str] = None
+    ex_99_1_by_name: Optional[str] = None
+    ex_99_any_by_name: Optional[str] = None
+    ex_99_1_by_type: Optional[str] = None
+    ex_99_any_by_type: Optional[str] = None
+
     for entry in items:
-        doc_type = (entry.get("type") or "").upper().strip()
         name = entry.get("name") or ""
         if not name:
             continue
-        if doc_type == "EX-99.1":
-            ex_99_1 = name
-        elif doc_type.startswith("EX-99") and ex_99_any is None:
-            ex_99_any = name
 
-    return ex_99_1 or ex_99_any
+        # Skip non-document sidecars we will never want.
+        lower = name.lower()
+        if lower.endswith((".jpg", ".jpeg", ".png", ".gif", ".xsd",
+                           ".zip", ".js", ".css")):
+            continue
+        if lower in ("metalinks.json", "filingsummary.xml"):
+            continue
+        # XBRL labels / presentation / instance: names like
+        # 'cien-20250605_lab.xml', '_pre.xml', '_htm.xml'.
+        if lower.endswith(("_lab.xml", "_pre.xml", "_htm.xml",
+                           "_def.xml", "_cal.xml")):
+            continue
+        # SEC viewer summary fragments (R1.htm, R2.htm, ...).
+        if re.match(r"^r\d+\.htm$", lower):
+            continue
+
+        # Normalized token for filename detection: strip separators
+        # so "ex99-1", "ex99_1", "ex99.1", "ex991" all read as "ex991".
+        # "ex-99-1" -> "ex991" after removing '-', '_', '.'.
+        compact = re.sub(r"[-_.]", "", lower)
+
+        # Filename match for EX-99.1: must contain "ex991". The
+        # surrounding context can be anything (prefix codes are fine).
+        # We deliberately don't accept "ex99" without a trailing "1"
+        # here — that's the EX-99-any bucket.
+        if "ex991" in compact:
+            if ex_99_1_by_name is None:
+                ex_99_1_by_name = name
+        elif re.search(r"ex99[2-9]", compact):
+            # Any other 99-series exhibit (99.2, 99.3, etc.)
+            if ex_99_any_by_name is None:
+                ex_99_any_by_name = name
+
+        # Type-field match — fallback for any filer/era that DOES
+        # carry meaningful Type tags. Skipped for the icon-name
+        # placeholder we've observed in current SEC responses.
+        doc_type = (entry.get("type") or "").upper().strip()
+        if doc_type and doc_type != "TEXT.GIF":
+            if doc_type == "EX-99.1":
+                if ex_99_1_by_type is None:
+                    ex_99_1_by_type = name
+            elif doc_type.startswith("EX-99"):
+                if ex_99_any_by_type is None:
+                    ex_99_any_by_type = name
+
+    # Preference: filename EX-99.1 > type EX-99.1 > filename EX-99.x
+    # > type EX-99.x. The filename signal is more reliable than the
+    # type tag as of current SEC behavior, but a meaningful type tag
+    # for a 99.1 still outranks a filename match for 99.2.
+    return (
+        ex_99_1_by_name
+        or ex_99_1_by_type
+        or ex_99_any_by_name
+        or ex_99_any_by_type
+    )
 
 
 def _extract_section(
