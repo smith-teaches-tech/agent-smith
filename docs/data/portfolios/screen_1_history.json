@@ -24,5 +24,44 @@
     "fees": 0.414,
     "notional": 611.21,
     "why": "Opened per flag: OVERDONE conf 3 — Google pitches AI agent ecosystem to consumers at I/O"
+  },
+  {
+    "ts": "2026-05-27T06:17:34.720473+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-05-27T06:17:34.720303+00:00",
+    "side": "SELL",
+    "ticker": "BLKB",
+    "shares": 10,
+    "fill_price": 29.1808,
+    "fees": 0.3918,
+    "notional": 291.81,
+    "why": "5 days held; -2.91% unrealized loss and stock trading below cost basis despite the Google I/O catalyst being old news by now. The thesis (cloud-based SaaS untouched by AI agents) is mechanically sound, but the sympathy fade is not materializing as expected — price has not recovered. Trim 50% to cut tail risk and lock dry powder; reassess BLKB's thesis strength vs. broader SaaS momentum before day 10."
+  },
+  {
+    "ts": "2026-05-27T06:17:34.955577+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-05-27T06:17:34.955353+00:00",
+    "side": "BUY",
+    "ticker": "NCNO",
+    "shares": 133,
+    "fill_price": 15.986,
+    "fees": 0.8911,
+    "notional": 2126.14,
+    "why": "Opened per flag: OVERDONE conf 4 — Google overhauled Search at I/O 2026 with AI agents replacing blue links"
+  },
+  {
+    "ts": "2026-05-27T06:17:35.129013+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-05-27T06:17:35.128822+00:00",
+    "side": "BUY",
+    "ticker": "VRRM",
+    "shares": 1,
+    "fill_price": 13.5235,
+    "fees": 0.1384,
+    "notional": 13.52,
+    "why": "Opened per flag: OVERDONE conf 4 — Google overhauled Search at I/O 2026 with AI agents replacing blue links"
   }
 ]

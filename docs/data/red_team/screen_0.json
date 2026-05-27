@@ -128,5 +128,15 @@
     "weakest_link": "The bull thesis rests on underdiffusion of a policy catalyst that requires Senate passage—a two-step legislative gate with historically low closure rates—yet sizes the position at 6% exploratory conviction as if the first-step passage guarantees material upside.",
     "critique": "The housing bill passed the House but faces Senate confirmation, a non-trivial legislative hurdle with no stated timeline or signal of Senate support in the flag. The thesis frames this as an 'underdone' opportunity because funds haven't absorbed it, but that absence of fund buying may reflect correct pricing of Senate risk rather than a diffusion mispricing. More concretely: BLDR is down 1.51% over five days despite the stated 'win-for-investors' framing and 7.29% single-day pop, suggesting either the market is skeptical of Senate passage or the move has already played out on day-one momentum. Sizing at 6% exploratory for a two-legged legislative catalyst (House done, Senate TBD) with no stated Senate probability or timeline introduces tail risk that the momentum unwinds when Senate inaction becomes clear.",
     "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-05-27T06:17:07.969933+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio is up modestly across six holdings; all theses intact. BLDR appears twice (two separate buys at different times); consolidation logic deferred to execution layer. New flags present a mixed picture: ONTO is a RATIONAL conf-3 M&A signature worth a small exploratory test given the named 8-K catalyst; ALK and PLAB are textbook pre-event/sector-tailwind fades (OVERDONE conf-3) that meet SKIP criteria because the risk/reward is asymmetric against them without new confirmed information; BLDR re-appears as UNDERDONE conf-3 with a named policy catalyst (housing bill), but I already hold it twice and the sector-rotation trade is captured—adding a third position would violate prudent concentration and adds no new signal.",
+    "ticker": "ONTO",
+    "survived": true,
+    "weakest_link": "The 8-K signature thesis assumes a specific bundle of items (1.01 + 2.03 + 3.02) reliably predicts M&A, but the filing may contain routine refinancing or unrelated corporate housekeeping that superficially matches the pattern.",
+    "critique": "The bull case rests on pattern recognition—that a specific 8-K item bundle is a high-probability M&A marker—but does not verify the actual content of the 5/21 filing or check whether this pattern has genuine predictive power versus coincidence. The volume is below average (0.89x) and the move is purely sector-driven (SMH +4.5%), which means the market has not yet priced in the catalyst story itself; this could indicate the bundle is indeed non-event noise. The 6% position is sized as an exploratory test of the signal, which is appropriate for confidence-3, but the thesis conflates 'the items were filed together' with 'this is acquisition financing' without intermediate evidence.",
+    "confidence_in_critique": 2
   }
 ]

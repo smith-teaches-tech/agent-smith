@@ -50,5 +50,18 @@
     "fees": 0.3628,
     "notional": 1273.47,
     "why": "Opened per flag: UNDERDONE conf 3 — Q1 FY27 earnings 2026-05-28"
+  },
+  {
+    "ts": "2026-05-27T06:17:46.095674+00:00",
+    "screen_id": "screen_2",
+    "kind": "sell",
+    "date": "2026-05-27T06:17:46.095440+00:00",
+    "side": "SELL",
+    "ticker": "MDB",
+    "shares": 4,
+    "fill_price": 314.0506,
+    "fees": 0.3984,
+    "notional": 1256.2,
+    "why": "Earnings catalyst 2026-05-28 is in the past as of run timestamp 2026-05-27T06:17:35Z. Print has occurred or is occurring today. Screen 2's discipline mandates T+1 exit regardless of P&L status. Position held 1 day; thesis window closed. Exiting now per the non-negotiable played-out rule."
   }
 ]

@@ -1,7 +1,60 @@
 {
-  "generated_at": "2026-05-25T20:26:49.662241+00:00",
+  "generated_at": "2026-05-27T06:17:35.166586+00:00",
   "screen_id": "screen_1",
   "window_days": 7,
-  "run_summary": "No new flags this run. Two open positions remain in early holding windows with thesis intact; both are held pending continued sympathy-fade recovery.",
-  "entries": []
+  "run_summary": "Screen 1 sees three high-confidence sympathy-fade setups (NCNO, PAYC, VRRM) with minimal-to-zero threat from Google's search-agent pivot; two open positions (PLAB, BLKB) remain thesis-intact with strong price recovery underway. EVH fails the screen's core call — classified UNCLEAR with only conf 2, and the filings evidence points to idiosyncratic fundamental stress, not unjustified panic.",
+  "entries": [
+    {
+      "ticker": "PAYC",
+      "name": "Paycom Software, Inc.",
+      "sector": "Technology",
+      "flagged_at": "2026-05-27T06:17:34.997681+00:00",
+      "run_file": "latest",
+      "classification": "OVERDONE",
+      "confidence": 4,
+      "horizon_days": 5,
+      "move_pct_at_flag": -3.35,
+      "catalyst": "Google overhauled Search at I/O 2026 with AI agents replacing blue links",
+      "catalyst_url": "https://techcrunch.com/2026/05/26/duckduckgo-installs-are-up-30-as-users-reject-being-force-fed-googles-ai-search/",
+      "thesis": "Paycom is the system of record for employee compensation — payroll tax filing, W-2 generation, ACH funds movement. A Google search-agent product does not interact with payroll tax compliance or fund-flow plumbing. The sympathy drop is pure HCM/SaaS reflex on an unrelated trigger.",
+      "what_kills": "A competitor demonstrating an LLM-agent that handles multi-state payroll tax filing end-to-end; large client losses cited as AI-displacement; embedded-payroll competitors taking share at an accelerating rate (this risk IS in the 10-K and warrants monitoring)",
+      "decision": "NO_CASH",
+      "reasoning": "Confidence 4, threat_assessment='minimal', panic_calibration='unjustified'. Core business is payroll tax compliance, ACH processing, and Vault Visa payroll-card — bank-of-record regulatory functions that require direct financial-institution integrations and licensing. Google search-agent redesign does not interact with multi-state payroll tax filing or fund-movement plumbing. 10-K discusses AI/ML as internal tool and generic competitive risk, not search-substitution risk. 5-day move is -4.31% (mild), volume at 0.65x (low institutional follow-through on the fade), suggesting retail panic room remains. Conviction tier: minimal-threat (not none, but filings evidence is very clean on mechanistic separation).",
+      "red_team": {
+        "ticker": "PAYC",
+        "survived": true,
+        "weakest_link": "The thesis assumes tax-compliance plumbing is unsusceptible to AI displacement, but does not account for whether large competitors (like ADP, Zenefits, or embedded HR platforms) could use LLM agents to encroach on Paycom's core payroll-filing workflows faster than historical competition.",
+        "critique": "The Google search-agent threat is indeed mechanistically separated from payroll-tax workflows, and volume at 0.65x suggests weak institutional follow-through on the panic. However, the 10-K flags 'intensifying competition from larger, better-resourced competitors' and Paycom's own vulnerability to bundle-based displacement (HR platforms adding payroll rather than payroll platforms adding HR). The real risk is not Google Search but whether this sympathy event accelerates customer churn to all-in-one competitors, which the bull case does not directly address.",
+        "confidence_in_critique": 2
+      },
+      "price_at_flag": 132.82,
+      "current_price": null,
+      "since_pct": null,
+      "verdict": "pending",
+      "verdict_note": null
+    },
+    {
+      "ticker": "EVH",
+      "name": "Evolent Health, Inc",
+      "sector": "Healthcare",
+      "flagged_at": "2026-05-27T06:17:35.129261+00:00",
+      "run_file": "latest",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "horizon_days": 5,
+      "move_pct_at_flag": -3.04,
+      "catalyst": "Google overhauled Search at I/O 2026 with AI agents replacing blue links",
+      "catalyst_url": "https://techcrunch.com/2026/05/26/duckduckgo-installs-are-up-30-as-users-reject-being-force-fed-googles-ai-search/",
+      "thesis": "Evolent has zero search-overhaul exposure, so the AI-trigger sympathy story is unjustified on the trigger. BUT the stock has been weak for fundamental reasons (oncology cost overruns, Medicare/Medicaid policy headwinds, $3.83 price tape suggests distressed), and today's move could easily be continued idiosyncratic selling unrelated to the trigger. Calling this an 'unjustified panic buy' on a $3.83 stock with real ongoing risk-corridor problems is not the trade this screen is built for.",
+      "what_kills": "n/a",
+      "decision": "SKIP",
+      "reasoning": "Classification is UNCLEAR (not OVERDONE), confidence is 2 (below screen's min_buy_confidence=3). Filings evidence points to idiosyncratic fundamental stress (oncology cost overruns, Medicaid/Medicare policy headwinds, 25.7% customer concentration in Molina, active risk-corridor exposure) — the Google search catalyst is a secondary noise layer, not the driver of today's weakness. This is not a sympathy-fade setup; it's a distressed-fundamental name catching collateral SaaS-sector selling. Screen 1 is not built to catch real impairment stories dressed up in panic-reflex language.",
+      "red_team": null,
+      "price_at_flag": 3.83,
+      "current_price": null,
+      "since_pct": null,
+      "verdict": "pending",
+      "verdict_note": null
+    }
+  ]
 }

@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-25T20:27:12.199739+00:00",
+  "generated_at": "2026-05-27T06:17:46.169863+00:00",
   "screen_id": "screen_2",
   "bankroll_start": 10000.0,
-  "cash": 7329.79,
+  "cash": 8585.59,
   "open_positions": [
     {
       "ticker": "GTLB",
@@ -11,18 +11,18 @@
       "shares": 56,
       "cost_basis": 25.8458,
       "cost_total": 1447.89,
-      "current_price": 26.73,
-      "value": 1496.88,
-      "unrealized_pnl": 48.99,
-      "unrealized_pct": 3.38,
+      "current_price": 26.77,
+      "value": 1499.12,
+      "unrealized_pnl": 51.23,
+      "unrealized_pct": 3.54,
       "opened_at": "2026-05-22T20:48:24.138290+00:00",
-      "days_held": 2,
+      "days_held": 4,
       "flag_classification": "UNDERDONE",
       "flag_confidence": 3,
       "flag_horizon": "days",
       "thesis": "no mechanism. Catalyst: Q1 earnings 2026-06-02. Falsified by: n/a.",
       "thesis_status": "intact",
-      "latest_reasoning": "Earnings catalyst (Q1 FY27) scheduled for 2026-06-02, which is 8 calendar days / ~6 trading days out. Days held is 2, well within the 4-day holding window. The position's original UNDERDONE thesis (entry pre-flag read) is still intact; no fresh breaking information has surfaced. However, NOTE: a NEW flag on GTLB arrived today (2026-05-25) with classification OVERDONE and confidence 3. That flag is a SKIP (see new_decisions). The NEW OVERDONE flag does NOT retroactively break the existing UNDERDONE position's thesis (they are separate flag passes; the original entry thesis was UNDERDONE). HOLD the open position through its earnings window, but be aware of the contradictory OVERDONE flag for learning purposes post-print.",
+      "latest_reasoning": "Earnings catalyst 2026-06-02 is 4 trading days out (still pre-print). Position held 4 days; thesis window remains open through T+1 exit window (post-print). May 11 8-K mid-quarter reaffirmation + RIF-for-reinvestment + $400M buyback + 26% $1M+ ARR cohort growth support the UNDERDONE classification. No fresh contradicting information. Hold through print.",
       "next_action": "HOLD",
       "catalyst": "Q1 earnings 2026-06-02",
       "tier": "conviction",
@@ -31,36 +31,45 @@
         "IWM": 284.1
       },
       "price_stale": false
-    },
+    }
+  ],
+  "closed_positions": [
     {
       "ticker": "MDB",
       "name": "MongoDB",
       "sector": "saas_software",
       "shares": 4,
-      "cost_basis": 318.368,
-      "cost_total": 1273.83,
-      "current_price": 318.368,
-      "value": 1273.47,
-      "unrealized_pnl": -0.36,
-      "unrealized_pct": -0.03,
+      "avg_cost": 318.368,
+      "exit_price": 314.0506,
       "opened_at": "2026-05-25T20:27:12.083219+00:00",
-      "days_held": 0,
+      "closed_at": "2026-05-27T06:17:46.095409+00:00",
+      "days_held": 1,
+      "realized_pnl": -17.63,
+      "realized_pct": -1.38,
+      "fees_total": 0.3984,
       "flag_classification": "UNDERDONE",
       "flag_confidence": 3,
       "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: Q1 FY27 earnings 2026-05-28. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Opened position at $318.37, +$0.36 fees.",
-      "next_action": "HOLD",
-      "catalyst": "Q1 FY27 earnings 2026-05-28",
       "tier": "conviction",
+      "exit_reasoning": "Earnings catalyst 2026-05-28 is in the past as of run timestamp 2026-05-27T06:17:35Z. Print has occurred or is occurring today. Screen 2's discipline mandates T+1 exit regardless of P&L status. Position held 1 day; thesis window closed. Exiting now per the non-negotiable played-out rule.",
       "benchmark_at_open": {
         "SPY": 746.24,
         "IWM": 284.1
+      },
+      "market_cap_at_close": 24741656576.0,
+      "benchmark_at_close": {
+        "SPY": 750.59,
+        "IWM": 290.51
+      },
+      "benchmark_return_pct": {
+        "SPY": 0.58,
+        "IWM": 2.26
+      },
+      "alpha_pct": {
+        "SPY": -1.96,
+        "IWM": -3.64
       }
-    }
-  ],
-  "closed_positions": [
+    },
     {
       "ticker": "MOD",
       "name": "Modine Manufacturing",
@@ -99,6 +108,16 @@
     }
   ],
   "trade_log": [
+    {
+      "date": "2026-05-27T06:17:46.095440+00:00",
+      "side": "SELL",
+      "ticker": "MDB",
+      "shares": 4,
+      "fill_price": 314.0506,
+      "fees": 0.3984,
+      "notional": 1256.2,
+      "why": "Earnings catalyst 2026-05-28 is in the past as of run timestamp 2026-05-27T06:17:35Z. Print has occurred or is occurring today. Screen 2's discipline mandates T+1 exit regardless of P&L status. Position held 1 day; thesis window closed. Exiting now per the non-negotiable played-out rule."
+    },
     {
       "date": "2026-05-25T20:27:12.083234+00:00",
       "side": "BUY",
