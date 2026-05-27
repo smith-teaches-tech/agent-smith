@@ -69,6 +69,7 @@ select.sort-select { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem
 .conf-dots .off { color: var(--fg-dim); }
 /* Decision pills */
 .decision-pill { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; padding: 0.2rem 0.55rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; border: 1px solid; line-height: 1.3; }
+.decision-BUY { color: var(--pos); border-color: var(--pos); font-weight: 600; }
 .decision-WATCH { color: var(--info); border-color: var(--info); }
 .decision-SKIP { color: var(--fg-muted); border-color: var(--rule-strong); }
 .decision-TOO_LATE { color: var(--warn); border-color: var(--warn); }
@@ -149,7 +150,7 @@ footer p { margin-bottom: 0.3rem; }
   <div class="masthead">
     <div class="brand">
       <span class="brand-name">agent<span class="brand-slash">/</span>smith</span>
-      <span class="brand-tag">watching · not bought</span>
+      <span class="brand-tag">decisions · today's run</span>
     </div>
     <div class="controls">
       <span class="last-run"><span class="pulse"></span><span id="last-update">loading…</span></span>
@@ -175,7 +176,7 @@ footer p { margin-bottom: 0.3rem; }
 
 <main>
   <p class="page-intro">
-    Flags the bot looked at but chose <strong>not to buy</strong> — either waiting for a better entry (<strong>watch</strong>), declining on quality grounds (<strong>skip</strong>), or locked out by cash/sector/position limits. Some watch entries carry a <strong>red-team</strong> badge: a BUY decision that a second pass argued down to a WATCH, with the bear case on file. Each entry includes the bot's reasoning and what's happened to the name since. Verdict flips to <strong>missed</strong> if the name hit its expected move, <strong>right to skip</strong> if it didn't.
+    Every flag the bot saw on the most recent run, with the decision made: <strong>bought</strong> (BUY fired — also visible on the portfolio page), <strong>watch</strong> (waiting for a better entry), <strong>skip</strong> (declined on quality), or <strong>cash-locked</strong> (would have bought but a guardrail blocked it). Some entries carry a <strong>red-team</strong> badge: a BUY decision that a second pass critiqued, with the bear case on file. Verdict flips to <strong>missed</strong> if the name hit its expected move without us, <strong>right to skip</strong> if it didn't.
   </p>
 
   <div class="kpi-strip">
@@ -190,6 +191,7 @@ footer p { margin-bottom: 0.3rem; }
   <div class="toolbar">
     <span class="toolbar-label">show</span>
     <button class="chip active" data-filter="all">all</button>
+    <button class="chip" data-filter="BUY">bought</button>
     <button class="chip" data-filter="WATCH">watching</button>
     <button class="chip" data-filter="SKIP">skipped</button>
     <button class="chip" data-filter="NO_CASH">cash-locked</button>
@@ -413,8 +415,14 @@ async function load() {
   }
 
   // Filter held positions out of entries before any downstream rendering.
+  // Exception: today's BUY rows are kept even though their ticker is now in
+  // the portfolio — these are the audit row showing what fired this run.
+  // Without this exception, every successful BUY would render as a phantom
+  // (it'd appear briefly, then vanish the moment the position file caught up).
   if (heldTickers.size > 0 && Array.isArray(DATA.entries)) {
-    DATA.entries = DATA.entries.filter(e => !heldTickers.has(e.ticker));
+    DATA.entries = DATA.entries.filter(e =>
+      e.decision === 'BUY' || !heldTickers.has(e.ticker)
+    );
   }
 
   document.getElementById('loading').style.display = 'none';

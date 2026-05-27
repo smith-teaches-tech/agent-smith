@@ -141,7 +141,7 @@ def append_history(event: dict[str, Any], screen_id: str | None = None) -> None:
 # ============================================================
 
 def compute_fees(
-    shares: int,
+    shares: float,
     price: float,
     side: str,  # "BUY" or "SELL"
 ) -> float:
@@ -261,7 +261,7 @@ def check_buy_allowed(
     ticker: str,
     sector: str | None,
     price: float,
-    shares: int,
+    shares: float,
 ) -> tuple[bool, str]:
     """
     Enforce position/sector/cash limits BEFORE executing a paper buy.
@@ -448,7 +448,7 @@ def execute_buy(
     ticker: str,
     name: str,
     sector: str | None,
-    shares: int,
+    shares: float,
     flag_classification: str,
     flag_confidence: int,
     flag_horizon: str,
@@ -542,7 +542,7 @@ def execute_sell(
     state: dict[str, Any],
     *,
     ticker: str,
-    shares: int | None = None,  # None = sell all
+    shares: float | None = None,  # None = sell all
     exit_reasoning: str = "",
     screen_id: str | None = None,
 ) -> tuple[bool, str, dict[str, Any] | None]:
@@ -712,10 +712,17 @@ def size_position(
     sector: str | None,
     confidence: int,
     target_pct_override: float | None = None,
-) -> int:
+) -> float:
     """
     Pick a share count for a new buy that respects ALL guardrails
     and scales with confidence (or a caller-supplied override).
+
+    Returns a FRACTIONAL share count (4-decimal precision). Michael's
+    real broker (IBKR) supports fractional shares, and dollar-target
+    sizing is the right invariant: a $300 stock and a $30 stock should
+    get the same notional, not 10× different positions. Pre-L1 used
+    math.floor and produced the $13 VRRM trade — fee-eaten because
+    1 share was the residual after NCNO ate the cash.
 
     Confidence multipliers on the base allocation:
       conf 5 → 25% of equity (hits position cap)
@@ -764,8 +771,8 @@ def size_position(
     budget = cash_headroom / (1 + config.PAPER_SLIPPAGE_PCT + 0.005)
     target_notional = min(target_notional, budget)
 
-    shares = math.floor(target_notional / apply_slippage(price, "BUY"))
-    return max(0, shares)
+    shares = round(target_notional / apply_slippage(price, "BUY"), 4)
+    return max(0.0, shares)
 
 
 # ============================================================

@@ -123,6 +123,17 @@ select.sort-select { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem
 .trade-side { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; padding: 0.15rem 0.45rem; border: 1px solid; }
 .trade-BUY { color: var(--pos); border-color: var(--pos); }
 .trade-SELL { color: var(--neg); border-color: var(--neg); }
+.state-pill { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; padding: 0.2rem 0.55rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; border: 1px solid; line-height: 1.3; }
+.state-open { color: var(--info); border-color: var(--info); }
+.state-closed { color: var(--fg-muted); border-color: var(--rule-strong); }
+.state-roundtrip-open { color: var(--info); border-color: var(--info); font-weight: 600; }
+.state-roundtrip-closed { color: var(--fg-muted); border-color: var(--rule-strong); font-style: italic; }
+.rollup-detail-log { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; }
+.rollup-detail-log th { color: var(--fg-dim); font-weight: 500; padding: 0.3rem 0.6rem; text-align: left; }
+.rollup-detail-log th.num { text-align: right; }
+.rollup-detail-log td { padding: 0.3rem 0.6rem; }
+.rollup-detail-log td.num { text-align: right; }
+.rollup-detail-log .why { color: var(--fg-muted); font-size: 0.7rem; }
 .chev { color: var(--fg-dim); font-family: 'JetBrains Mono', monospace; transition: transform 0.2s; display: inline-block; }
 tr.expanded .chev { transform: rotate(90deg); color: var(--accent); }
 /* DETAIL */
@@ -289,22 +300,33 @@ footer p { margin-bottom: 0.3rem; }
   </table>
   <div class="empty" id="closed-empty" style="display:none;">No closed positions yet.</div>
 
-  <div class="section-heading">Trade log <span class="section-count" id="log-count"></span></div>
+  <div class="section-heading">By ticker <span class="section-count" id="rollup-count"></span></div>
+  <div class="toolbar">
+    <span class="toolbar-label">sort</span>
+    <select class="sort-select" id="sort-rollup">
+      <option value="last-desc">last activity ↓</option>
+      <option value="pnl-desc">total p&l ↓</option>
+      <option value="pnl-asc">total p&l ↑</option>
+      <option value="ticker">ticker a–z</option>
+    </select>
+  </div>
   <table class="grid-table">
     <thead>
       <tr>
-        <th style="width: 13%;">date</th>
-        <th style="width: 10%;">side</th>
-        <th style="width: 10%;">ticker</th>
-        <th class="num" style="width: 8%;">shares</th>
-        <th class="num" style="width: 10%;">fill</th>
-        <th class="num hide-mobile" style="width: 10%;">fees</th>
-        <th class="num" style="width: 12%;">notional</th>
-        <th>why</th>
+        <th style="width: 14%;">ticker</th>
+        <th style="width: 12%;">state</th>
+        <th class="hide-mobile" style="width: 12%;">activity</th>
+        <th class="num" style="width: 11%;">cost basis</th>
+        <th class="num" style="width: 11%;">realized</th>
+        <th class="num" style="width: 11%;">unrealized</th>
+        <th class="num" style="width: 11%;">total p&l</th>
+        <th class="hide-mobile">last action</th>
+        <th style="width: 20px;"></th>
       </tr>
     </thead>
-    <tbody id="log-tbody"></tbody>
+    <tbody id="rollup-tbody"></tbody>
   </table>
+  <div class="empty" id="rollup-empty" style="display:none;">No trades yet.</div>
 
 </main>
 
@@ -443,6 +465,14 @@ const SAMPLE_RED_TEAM = [
 const fmtUSD = v => v == null ? '—' : (v < 0 ? '-' : '') + '$' + Math.abs(v).toFixed(2);
 const fmtUSD0 = v => v == null ? '—' : (v < 0 ? '-' : '') + '$' + Math.round(Math.abs(v)).toLocaleString();
 const fmtPct = v => v == null ? '—' : (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
+// Fractional shares (L1): show whole-share counts as integers,
+// fractional as 4 decimals trimmed of trailing zeros so "13" stays
+// "13" but "13.4567" doesn't become "13.4570". null/undefined -> em-dash.
+const fmtShares = v => {
+  if (v == null) return '—';
+  if (Number.isInteger(v)) return String(v);
+  return parseFloat(v.toFixed(4)).toString();
+};
 const fmtPct2 = v => v == null ? '—' : (v >= 0 ? '+' : '') + v.toFixed(2) + '%';
 const fmtDate = iso => { if (!iso) return '—'; const d = new Date(iso); const mm = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'][d.getUTCMonth()]; return d.getUTCDate() + ' ' + mm; };
 const fmtDateTime = iso => { if (!iso) return '—'; const d = new Date(iso); const mm = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'][d.getUTCMonth()]; return `${d.getUTCDate()} ${mm} · ${String(d.getUTCHours()).padStart(2,'0')}:${String(d.getUTCMinutes()).padStart(2,'0')} utc`; };
@@ -451,6 +481,7 @@ const signClass = v => v == null ? '' : (v > 0 ? 'pos' : (v < 0 ? 'neg' : ''));
 let P = null;
 let RT = null;  // Red-team log (array of verdicts); falls back to SAMPLE_RED_TEAM on miss.
 let posFilter = 'all', posSort = 'pnl-desc';
+let rollupSort = 'last-desc';
 const RT_WINDOW_DAYS = 14;  // Read-side time window for the dashboard strip.
 // Which screen's portfolio is currently displayed. Switched via the
 // segmented control in the header. Every fetch path below keys off
@@ -494,7 +525,7 @@ async function load() {
   renderRedTeam();
   renderOpen();
   renderClosed();
-  renderLog();
+  renderRollup();
 }
 
 // Clean empty-state portfolio for a screen with no state file yet.
@@ -525,6 +556,7 @@ async function switchScreen(screenId) {
   });
   // Reset per-screen view state so filters/sorts don't leak across screens.
   posFilter = 'all'; posSort = 'pnl-desc';
+  rollupSort = 'last-desc';
   document.querySelectorAll('.chip[data-filter-pos]').forEach(x =>
     x.classList.toggle('active', x.dataset.filterPos === 'all'));
   const sortSel = document.getElementById('sort-pos');
@@ -667,7 +699,7 @@ function renderOpen() {
     return `
       <tr class="data-row" data-t="${p.ticker}" onclick="toggleRow('pos-${p.ticker}')">
         <td><div class="ticker">${p.ticker}${tierBadge}</div><div class="company">${p.name}</div></td>
-        <td class="num">${p.shares}</td>
+        <td class="num">${fmtShares(p.shares)}</td>
         <td class="num price">$${p.cost_basis.toFixed(2)}</td>
         <td class="num price">$${p.current_price.toFixed(2)}</td>
         <td class="num price">${fmtUSD(p.value)}</td>
@@ -781,19 +813,141 @@ function renderClosed() {
     </td></tr>`;
   }).join('');
 }
-function renderLog() {
-  const tbody = document.getElementById('log-tbody');
-  document.getElementById('log-count').textContent = `${P.trade_log.length}`;
-  tbody.innerHTML = P.trade_log.map(t => `<tr style="border-bottom: 1px solid var(--rule);">
-    <td style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--fg-muted);">${fmtDateTime(t.date)}</td>
-    <td><span class="trade-side trade-${t.side}">${t.side}</span></td>
-    <td><span class="ticker">${t.ticker}</span></td>
-    <td class="num">${t.shares}</td>
-    <td class="num price">$${t.fill_price.toFixed(2)}</td>
-    <td class="num hide-mobile price" style="color:var(--fg-muted);">$${t.fees.toFixed(2)}</td>
-    <td class="num price">${fmtUSD(t.notional)}</td>
-    <td style="font-size:0.72rem;color:var(--fg-muted);">${t.why}</td>
-  </tr>`).join('');
+function renderRollup() {
+  // Build per-ticker aggregates from trade_log + open_positions + closed_positions.
+  // Closed positions carry realized_pnl + opened_at/closed_at; open positions carry
+  // unrealized_pnl + cost_total; trade_log is the chronological per-trade record
+  // and is used to show the expand-row detail.
+  const tbody = document.getElementById('rollup-tbody');
+  const empty = document.getElementById('rollup-empty');
+
+  // Index by ticker
+  const tickers = new Map();
+  function get(t) {
+    if (!tickers.has(t)) tickers.set(t, {
+      ticker: t, name: '', sector: '',
+      buys: 0, sells: 0,
+      realized: 0, unrealized: 0,
+      open_cost: 0,     // currently invested
+      closed_cost: 0,   // historical cost of fully-closed cycles
+      open: false, ever_closed: false,
+      last_action: '',
+      trades: []
+    });
+    return tickers.get(t);
+  }
+  (P.trade_log || []).forEach(tr => {
+    const r = get(tr.ticker);
+    if (tr.side === 'BUY') r.buys += 1; else if (tr.side === 'SELL') r.sells += 1;
+    if ((tr.date || '') > r.last_action) r.last_action = tr.date || '';
+    r.trades.push(tr);
+  });
+  (P.open_positions || []).forEach(p => {
+    const r = get(p.ticker);
+    r.name = r.name || p.name || '';
+    r.sector = r.sector || p.sector || '';
+    r.unrealized += (p.unrealized_pnl || 0);
+    r.open_cost += (p.cost_total || 0);
+    r.open = true;
+  });
+  (P.closed_positions || []).forEach(c => {
+    const r = get(c.ticker);
+    r.name = r.name || c.name || '';
+    r.sector = r.sector || c.sector || '';
+    r.realized += (c.realized_pnl || 0);
+    r.closed_cost += (c.avg_cost * c.shares);
+    r.ever_closed = true;
+    if ((c.closed_at || '') > r.last_action) r.last_action = c.closed_at || '';
+  });
+
+  let rows = [...tickers.values()];
+  document.getElementById('rollup-count').textContent = `${rows.length}`;
+  if (rows.length === 0) {
+    tbody.innerHTML = ''; empty.style.display = 'block'; return;
+  }
+  empty.style.display = 'none';
+
+  // Sort
+  switch (rollupSort) {
+    case 'last-desc':
+      rows.sort((a,b) => (b.last_action || '').localeCompare(a.last_action || ''));
+      break;
+    case 'pnl-desc':
+      rows.sort((a,b) => (b.realized + b.unrealized) - (a.realized + a.unrealized));
+      break;
+    case 'pnl-asc':
+      rows.sort((a,b) => (a.realized + a.unrealized) - (b.realized + b.unrealized));
+      break;
+    case 'ticker':
+      rows.sort((a,b) => a.ticker.localeCompare(b.ticker));
+      break;
+  }
+
+  tbody.innerHTML = rows.map(r => {
+    // State pill: 4 cases.
+    //  open & !ever_closed       → "open"
+    //  open & ever_closed        → "round-trip · open"  (re-entered after closing)
+    //  !open & ever_closed       → "closed"
+    //  !open & !ever_closed      → can happen if trade_log has rows but no closed/open
+    //                              record found (data anomaly); render as "—"
+    let stateCls, stateLabel;
+    if (r.open && r.ever_closed) { stateCls = 'state-roundtrip-open'; stateLabel = 'round-trip · open'; }
+    else if (r.open)             { stateCls = 'state-open';            stateLabel = 'open'; }
+    else if (r.ever_closed)      { stateCls = 'state-closed';          stateLabel = 'closed'; }
+    else                         { stateCls = 'state-closed';          stateLabel = '—'; }
+
+    const totalPnl = r.realized + r.unrealized;
+    const totalCls = signClass(totalPnl);
+    const realCls  = signClass(r.realized);
+    const unrCls   = signClass(r.unrealized);
+    // Cost basis displayed: currently-invested for open rows, historical for closed.
+    // For round-trip-open, show open_cost (the currently-deployed dollars); the
+    // realized column already captures the historical cycles.
+    const costShown = r.open ? r.open_cost : r.closed_cost;
+
+    // Expand-row: chronological per-ticker trade list (this IS the old flat log,
+    // filtered to one ticker). Plus realized P&L summary if there are closed cycles.
+    const tradesSorted = [...r.trades].sort((a,b) => (a.date || '').localeCompare(b.date || ''));
+    const tradesRows = tradesSorted.map(t => `
+      <tr>
+        <td style="color:var(--fg-muted);">${fmtDateTime(t.date)}</td>
+        <td><span class="trade-side trade-${t.side}">${t.side}</span></td>
+        <td class="num">${fmtShares(t.shares)}</td>
+        <td class="num">$${(t.fill_price || 0).toFixed(2)}</td>
+        <td class="num">${fmtUSD(t.notional)}</td>
+        <td class="why">${t.why || ''}</td>
+      </tr>`).join('');
+
+    return `<tr class="data-row" onclick="toggleRow('rollup-${r.ticker}')">
+      <td><div class="ticker">${r.ticker}</div>${r.name ? `<div class="company">${r.name}</div>` : ''}</td>
+      <td><span class="state-pill ${stateCls}">${stateLabel}</span></td>
+      <td class="hide-mobile" style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--fg-muted);">${r.buys}b · ${r.sells}s</td>
+      <td class="num price">${fmtUSD0(costShown)}</td>
+      <td class="num"><span class="pnl-cell ${realCls}">${r.realized === 0 && !r.ever_closed ? '—' : fmtUSD(r.realized)}</span></td>
+      <td class="num"><span class="pnl-cell ${unrCls}">${r.open ? fmtUSD(r.unrealized) : '—'}</span></td>
+      <td class="num"><span class="pnl-cell ${totalCls}">${fmtUSD(totalPnl)}</span></td>
+      <td class="hide-mobile" style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--fg-muted);">${r.last_action ? fmtDateTime(r.last_action) : '—'}</td>
+      <td><span class="chev">▸</span></td>
+    </tr>
+    <tr class="detail-row" id="detail-rollup-${r.ticker}" style="display:none;"><td colspan="9">
+      <div class="detail-inner">
+        <div style="grid-column: 1 / -1;">
+          <div class="detail-label">trades (${tradesSorted.length})</div>
+          <table class="rollup-detail-log" style="width:100%;">
+            <thead>
+              <tr>
+                <th>date</th><th>side</th>
+                <th class="num">shares</th><th class="num">fill</th>
+                <th class="num">notional</th>
+                <th>why</th>
+              </tr>
+            </thead>
+            <tbody>${tradesRows}</tbody>
+          </table>
+        </div>
+      </div>
+    </td></tr>`;
+  }).join('');
 }
 function toggleRow(id) {
   const r = document.querySelector(`tr.data-row[onclick*="${id}"]`);
@@ -818,6 +972,7 @@ document.querySelectorAll('.chip[data-filter-pos]').forEach(c => c.addEventListe
   c.classList.add('active'); posFilter = c.dataset.filterPos; renderOpen();
 }));
 document.getElementById('sort-pos').addEventListener('change', e => { posSort = e.target.value; renderOpen(); });
+document.getElementById('sort-rollup').addEventListener('change', e => { rollupSort = e.target.value; renderRollup(); });
 document.querySelectorAll('#screen-seg button').forEach(b =>
   b.addEventListener('click', () => switchScreen(b.dataset.screen)));
 load();

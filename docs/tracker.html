@@ -284,6 +284,13 @@ let marketOpen = false;
 const fmtPrice = v => v == null || isNaN(v) ? '—' : '$' + Number(v).toFixed(2);
 const fmtChg = v => v == null || isNaN(v) ? '—' : (v >= 0 ? '+' : '') + Number(v).toFixed(2);
 const fmtPct = v => v == null || isNaN(v) ? '—' : (v >= 0 ? '+' : '') + Number(v).toFixed(2) + '%';
+// Fractional shares (L1): integers stay integers, fractional trim
+// trailing zeros after 4 decimals.
+const fmtShares = v => {
+  if (v == null || isNaN(v)) return '—';
+  if (Number.isInteger(v)) return String(v);
+  return parseFloat(Number(v).toFixed(4)).toString();
+};
 const fmtTime = d => {
   const hh = String(d.getUTCHours()).padStart(2, '0');
   const mn = String(d.getUTCMinutes()).padStart(2, '0');
@@ -498,7 +505,7 @@ function buildAgentRows() {
         <td class="num">${fmtPrice(cur)}</td>
         <td class="num ${signClass(chg)}">${fmtChg(chg)}</td>
         <td class="num ${signClass(pct)}">${fmtPct(pct)}</td>
-        <td class="num hide-mobile">${p.shares ?? '—'}</td>
+        <td class="num hide-mobile">${fmtShares(p.shares)}</td>
         <td class="note hide-mobile">${escapeHTML(truncate(p.thesis || '', 80))}</td>
       </tr>`;
   }).join('');

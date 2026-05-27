@@ -868,7 +868,9 @@ def run_portfolio_for_screen(
             if ok: trade_summary["buys"] += 1
             else: trade_summary["blocked"] += 1
         elif action in ("TRIM", "EXIT"):
-            shares = int(d.get("shares_to_sell") or 0) if action == "TRIM" else None
+            # L1 — shares_to_sell is float (fractional shares supported).
+            # Haiku may emit decimals on TRIMs of fractional positions.
+            shares = float(d.get("shares_to_sell") or 0) if action == "TRIM" else None
             ok, msg, _ = pf.execute_sell(
                 state,
                 ticker=tkr,
@@ -900,7 +902,57 @@ def run_portfolio_for_screen(
             if p.get("tier") == "exploratory"
         )
 
-    for d in decisions.get("new_decisions", []):
+    # B3 — Sort new_decisions so BUYs are processed in flag-confidence
+    # desc order, with conviction tier ahead of exploratory at the same
+    # confidence level. WATCH/SKIP fall to the end (they don't compete
+    # for cash). This matters when Haiku emits multiple BUYs in one run:
+    # _try_buy mutates state["cash"] in place, so whichever BUY runs
+    # first claims its full sizing and later BUYs fight for residuals.
+    # Pre-B3 behaviour: declaration order from the model — arbitrary.
+    # Post-B3 behaviour: highest-confidence BUYs always win the cash race.
+    #
+    # The confidence we sort on is the *flag's* confidence (the screen's
+    # OVERDONE/UNDERDONE conviction from discovery), not Haiku's
+    # `confidence_in_decision` (Haiku's "I'm sure this is a BUY"
+    # confidence). The flag's confidence drives sizing already, so it's
+    # the right field for ordering the cash race too.
+    #
+    # Concrete case this fixes (May 27): Haiku emitted three conf-4
+    # OVERDONE BUYs (NCNO/PAYC/VRRM) on the Google Search trigger. NCNO
+    # was first in the list, ate 21% of equity; VRRM got the residual
+    # ($13 = 1 share); PAYC was NO_CASHed. All three were conf-4, all
+    # three were conviction-tier, so under B3 they'd still be processed
+    # in Haiku's original order (stable sort preserves declaration order
+    # on ties). The fix lands cleanly when mixed confidence levels show
+    # up in one run.
+    #
+    # Note: this does NOT solve the cumulative-budget problem. If three
+    # conf-4 BUYs each want 20% of equity, two fire (40%) and the third
+    # NO_CASHes. That's an architectural decision (basket-aware sizing,
+    # L3 in the session plan) and out of scope here.
+    _TIER_PRIORITY = {"conviction": 0, "exploratory": 1}
+    def _decision_sort_key(d: dict) -> tuple:
+        is_buy = (d.get("decision") or "").upper() == "BUY"
+        # WATCH/SKIP fall to the end (key[0] = 1 > 0)
+        if not is_buy:
+            return (1, 0, 0)
+        # Pull confidence from the FLAG, not from Haiku's decision.
+        # The flag carries the discovery-pass confidence which drives
+        # sizing; Haiku's confidence_in_decision is "am I sure this is
+        # a BUY" which is a different number.
+        flag = flags_by_ticker.get(d.get("ticker")) or {}
+        conf = int(flag.get("confidence") or 0)
+        tier_rank = _TIER_PRIORITY.get(d.get("tier"), 2)
+        # key[0] = 0 (BUYs come first), then -conf (higher conf first),
+        # then tier_rank (conviction before exploratory).
+        return (0, -conf, tier_rank)
+
+    new_decisions_sorted = sorted(
+        decisions.get("new_decisions", []),
+        key=_decision_sort_key,
+    )
+
+    for d in new_decisions_sorted:
         tkr = d.get("ticker")
         decision = (d.get("decision") or "SKIP").upper()
         reasoning = d.get("reasoning", "")
@@ -971,6 +1023,19 @@ def run_portfolio_for_screen(
             )
             if ok:
                 trade_summary["buys"] += 1
+                # Surface the BUY on the watching page too. Without this row,
+                # successful BUYs vanished from the audit trail because the
+                # watching page filters out held tickers — fine for held-position
+                # *re-flags*, but the same-run BUY had no chance to render before
+                # being filtered. The dashboard skips the held-ticker filter on
+                # entries with decision == "BUY", so today's fresh BUY is always
+                # visible on today's watching page even though the same ticker
+                # is now on the portfolio page.
+                suggestion_entries.append(
+                    _build_suggestion_entry(
+                        flag, "BUY", reasoning, red_team=rt_verdict,
+                    )
+                )
             else:
                 # Blocked by a guardrail — log it as NO_CASH suggestion
                 trade_summary["blocked"] += 1
@@ -1329,8 +1394,8 @@ def _build_suggestion_entry(
 
     red_team (optional): the red-team verdict for this flag, if one
     exists. Carried through to the dashboard so the UI can render a
-    badge ("KILLED BY RED-TEAM" or "SURVIVED RED-TEAM") on the WATCH/
-    NO_CASH row. Shape matches analyze.run_red_team_pass output:
+    badge ("KILLED BY RED-TEAM" or "SURVIVED RED-TEAM") on the BUY/
+    WATCH/NO_CASH row. Shape matches analyze.run_red_team_pass output:
     {survived, weakest_link, critique, confidence_in_critique}.
     Only present on entries that originated as BUY decisions — Haiku-
     originated WATCH/SKIP rows never see the red-team and have
