@@ -997,7 +997,16 @@ def run_portfolio_for_screen(
                 continue
 
             if tier == "exploratory":
-                cap = config.EXPLORATORY_TIER["max_simultaneous"]
+                # L2 — Per-screen exploratory cap. Falls back to the
+                # global EXPLORATORY_TIER["max_simultaneous"] if a
+                # screen doesn't override (preserves pre-L2 behaviour
+                # for any screen registered without the field).
+                # Screen 0: 4. Screen 1: 6 (basket-friendly for
+                # AI-trigger sweeps). Screen 2: tier model not used.
+                cap = screen.get(
+                    "exploratory_cap",
+                    config.EXPLORATORY_TIER["max_simultaneous"],
+                )
                 if _open_exploratory_count() >= cap:
                     print(
                         f"[portfolio] exploratory cap reached ({cap} open); "

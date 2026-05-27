@@ -413,6 +413,10 @@ SCREENS: list[dict] = [
         # portfolio prompt requires tier on every BUY; main.py's
         # tier-gate enforces this.
         "uses_tiers": True,
+        # Exploratory tier cap. Screen 0 flags ~daily on price-mover
+        # signal, so 4 simultaneous is the right cap — keeps total
+        # exploratory exposure to 24% of bankroll. (L2, May 27)
+        "exploratory_cap": 4,
     },
 
         {
@@ -454,6 +458,13 @@ SCREENS: list[dict] = [
         # (added May 20, 2026 — the original prompt didn't require
         # tier, which caused valid BUYs to auto-convert to WATCH).
         "uses_tiers": True,
+        # Exploratory tier cap. Screen 1 only fires on AI-lab trigger
+        # days, and when it fires it tends to produce a basket of 3-6
+        # same-trigger candidates (e.g. May 27 Google Search event:
+        # NCNO + PAYC + VRRM all flagged together). A cap of 4 starves
+        # the basket; 6 lets Screen 1 size the whole trigger sweep
+        # while still bounding total exposure to 36% of bankroll. (L2)
+        "exploratory_cap": 6,
     },
 
     {

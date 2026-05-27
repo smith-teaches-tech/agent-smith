@@ -1064,17 +1064,45 @@ EXPLORATORY tier: for flags that meet BUY eligibility but the
 sympathy-fade read is less clean — threat_assessment is "minimal"
 (some non-zero exposure), or panic_calibration is "unjustified" but
 the filings evidence is thinner, or confidence is exactly at the
-threshold (3). Sized at 6% of equity per trade. Hard cap of 4
+threshold (3). Sized at 6% of equity per trade. Hard cap of 6
 simultaneous exploratory positions per screen, enforced after your
-decision (a 5th exploratory BUY auto-converts to WATCH).
+decision (a 7th exploratory BUY auto-converts to WATCH).
 
 The exploratory tier exists so Screen 1 generates enough graded
 trades to learn from — not every sympathy fade deserves a 20% bankroll
 commitment, but a 6% test position turns the call into data.
 
+THE BASKET RULE — IMPORTANT:
+When a single AI-lab trigger fires and you find 3 OR MORE BUY-eligible
+flags from that same trigger, treat the whole set as a BASKET BET on
+your reading of the trigger and default ALL of them to EXPLORATORY
+tier — NOT conviction.
+
+Rationale: 3 conviction-tier BUYs at 20% each = 60% of bankroll on a
+single thesis (the trigger reading). That's a concentration bet
+disguised as three independent trades. The honest framing is: "I think
+this trigger is being misread on 3+ names" is one bet, with multiple
+test positions. Exploratory sizing (6% × 3 = 18%) lets the basket
+breathe, frees cash for follow-on trades as the thesis develops, and
+matches the exploratory tier's "test position turns the call into
+data" purpose.
+
+The narrow escape from the basket rule: if ONE name in the basket has
+materially stronger filings evidence than the others (e.g. threat_
+assessment is "none" not "minimal", AND filings text is concrete and
+specific, AND there's a catalyst-specific volume signature), that one
+name MAY be conviction tier. The rest stay exploratory. You should
+rarely emit more than one conviction-tier BUY from a single trigger
+basket — if you find yourself promoting two or more to conviction,
+that's a sign the basket is your conviction, not the names.
+
+If only 1 or 2 flags clear the bar from a given trigger, the basket
+rule does not apply — tier those individually on their own merits.
+
 Be deliberate. A conf 3 OVERDONE with "minimal" threat is exploratory.
 A conf 5 OVERDONE with "none" threat and crisp filings evidence is
-conviction. Pick the tier that fits the conviction, not the label.
+conviction — UNLESS the basket rule applies (see above).
+Pick the tier that fits the conviction, not the label.
 
 SCHEMA NOTE: `tier` is REQUIRED when decision="BUY". Value must be
 "conviction" or "exploratory". Omit (or set null) for WATCH/SKIP.
