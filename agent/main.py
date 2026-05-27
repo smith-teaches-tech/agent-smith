@@ -38,6 +38,36 @@ from . import config, market, news, truth, analyze, grading, catalysts
 from . import portfolio as pf
 
 
+def _safe_pass(fn, *args, **kwargs) -> dict[str, Any]:
+    """Call a Claude pass function, converting exhausted-retry API errors
+    into the same `_parse_error` shape `_parse_json_response` uses.
+
+    This lets `run_us` treat API outages and JSON parse failures uniformly
+    through `analyze.is_parse_error` — so adding 529-overloaded recovery
+    needs no new branches in the existing RECOVERED/FAILED machinery.
+
+    Only catches exceptions the retry wrapper inside `_stream_message`
+    has already exhausted retries on (transient 5xx, 429, connection
+    blips). Permanent errors (400/401/403/404) and unrelated bugs
+    raise from `_stream_message` without being retried and propagate
+    here, where we still want them to crash loudly.
+    """
+    from anthropic import APIStatusError, APIConnectionError, APITimeoutError
+    try:
+        return fn(*args, **kwargs)
+    except (APIStatusError, APIConnectionError, APITimeoutError) as e:
+        if not analyze._is_retryable_api_error(e):
+            # Non-transient API error (auth / bad request / model typo) —
+            # don't mask it; the retry wrapper let it through for a reason.
+            raise
+        print(
+            f"[us] API error after all retries on {fn.__name__}: "
+            f"{type(e).__name__}: {e}",
+            file=sys.stderr,
+        )
+        return analyze.api_error_to_parsed(e)
+
+
 def _ensure_output_dirs() -> None:
     Path(config.OUTPUT_HISTORY_DIR).mkdir(parents=True, exist_ok=True)
     Path("docs/data").mkdir(parents=True, exist_ok=True)
@@ -115,7 +145,8 @@ def run_us(tickers_override: list[str] | None = None) -> dict[str, Any]:
     print(f"[us] {len(ai_news_items)} AI news items")
 
     print("[us] running discovery analysis (Claude)...")
-    discovery = analyze.run_discovery_pass(
+    discovery = _safe_pass(
+        analyze.run_discovery_pass,
         market_context=context_quotes,
         movers=movers,
         news=tagged_news,
@@ -123,7 +154,8 @@ def run_us(tickers_override: list[str] | None = None) -> dict[str, Any]:
     )
 
     print("[us] running AI impact analysis (Claude)...")
-    ai_analysis = analyze.run_ai_pass(
+    ai_analysis = _safe_pass(
+        analyze.run_ai_pass,
         ai_news=ai_news_items,
         related_movers=movers,
     )
@@ -144,7 +176,8 @@ def run_us(tickers_override: list[str] | None = None) -> dict[str, Any]:
         original_excerpt = discovery.get("_raw_response", "")[:500]
         print(f"[us] WARNING: discovery pass returned unparseable JSON: {original_err}", file=sys.stderr)
         print(f"[us] retrying discovery with {len(half_movers)} candidates (was {len(movers)})...")
-        retry = analyze.run_discovery_pass(
+        retry = _safe_pass(
+            analyze.run_discovery_pass,
             market_context=context_quotes,
             movers=half_movers,
             news=tagged_news,
@@ -177,7 +210,8 @@ def run_us(tickers_override: list[str] | None = None) -> dict[str, Any]:
         original_excerpt = ai_analysis.get("_raw_response", "")[:500]
         print(f"[us] WARNING: ai_analysis pass returned unparseable JSON: {original_err}", file=sys.stderr)
         print(f"[us] retrying ai_analysis with {len(half_movers)} related_movers (was {len(movers)})...")
-        retry = analyze.run_ai_pass(
+        retry = _safe_pass(
+            analyze.run_ai_pass,
             ai_news=ai_news_items,
             related_movers=half_movers,
         )
@@ -283,11 +317,17 @@ def run_us(tickers_override: list[str] | None = None) -> dict[str, Any]:
         import traceback
         traceback.print_exc()
 
+    # Pass failures (parse error or exhausted-retry API outage) used to raise
+    # RuntimeError here, which red-X'd the Actions run. The dashboard already
+    # renders FAILED via the status block on every page, so the failure is
+    # visible without needing the email. Just log loudly and return.
     failed_passes = [name for name in ("discovery", "ai_analysis") if status[name] == "FAILED"]
     if failed_passes:
-        raise RuntimeError(
-            f"us run completed but {len(failed_passes)} pass(es) failed after retry: "
-            f"{', '.join(failed_passes)}. JSON written with status block; see WARNINGs above."
+        print(
+            f"[us] run completed but {len(failed_passes)} pass(es) failed after retry: "
+            f"{', '.join(failed_passes)}. JSON written with status block; "
+            f"dashboard banner will surface.",
+            file=sys.stderr,
         )
     return output
 

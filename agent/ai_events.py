@@ -31,6 +31,7 @@ from typing import Any
 from anthropic import Anthropic
 
 from . import config, news
+from .analyze import _stream_message
 
 
 # ============================================================
@@ -252,11 +253,18 @@ def detect_trigger(lookback_hours: int | None = None) -> dict[str, Any]:
     try:
         client = _client()
         # Haiku 4.5 — classification is structured, narrow, cheap.
-        msg = client.messages.create(
+        # Routed through analyze._stream_message so we inherit the
+        # bounded-exponential-backoff retry on 5xx (incl. 529 overloaded)
+        # / 429 / connection errors. Permanent errors (400/401/403/404)
+        # still raise immediately and land in the except below, which
+        # gracefully degrades to "no trigger fired" so Screen 1 cleanly
+        # skips and the run continues.
+        msg = _stream_message(
+            client,
             model=getattr(config, "PORTFOLIO_MODEL", "claude-haiku-4-5-20251001"),
             max_tokens=2048,
             system=CLASSIFIER_SYSTEM,
-            messages=[{"role": "user", "content": user_content}],
+            user_content=user_content,
         )
         raw_text = msg.content[0].text
     except Exception as e:

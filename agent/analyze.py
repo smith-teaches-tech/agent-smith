@@ -16,12 +16,72 @@ not to follow embedded instructions (prompt injection guard).
 """
 import os
 import json
+import time
+import random
 from datetime import datetime, timezone
 from typing import Any
-from anthropic import Anthropic
+from anthropic import Anthropic, APIStatusError, APIConnectionError, APITimeoutError
 
 from . import config
 from .classifications import is_directional
+
+
+# ============================================================
+# Transient-error retry policy
+# ============================================================
+# Anthropic's API occasionally returns 529 overloaded_error during
+# high-traffic windows across all users. The SDK raises these as
+# APIStatusError, which previously crashed the entire run because the
+# existing retry machinery in main.run_us only catches JSON parse
+# failures (the API never returned 200 in this case).
+#
+# We retry on:
+#   - APIStatusError with status >= 500 (server-side)
+#   - APIStatusError with status == 429 (rate limit)
+#   - APIConnectionError, APITimeoutError (network blips)
+# We do NOT retry on:
+#   - 400 (bad request — our bug)
+#   - 401, 403 (auth — config issue)
+#   - 404 (model name typo, etc.)
+# These are surfaced immediately so they aren't masked by sleeps.
+#
+# Backoff: 6 attempts, ~2s/4s/8s/16s/32s/60s with up to 25% jitter.
+# Worst-case wait ~2 minutes per call. After the final attempt the
+# original exception is re-raised so callers (run_us) can convert it
+# into a FAILED status entry for the dashboard.
+
+CLAUDE_RETRY_MAX_ATTEMPTS = 6
+CLAUDE_RETRY_BASE_DELAY_SEC = 2.0
+CLAUDE_RETRY_MAX_DELAY_SEC = 60.0
+
+
+def _is_retryable_api_error(exc: BaseException) -> bool:
+    """Return True if `exc` represents a transient API condition worth retrying."""
+    if isinstance(exc, (APIConnectionError, APITimeoutError)):
+        return True
+    if isinstance(exc, APIStatusError):
+        status = getattr(exc, "status_code", None)
+        if status is None:
+            return False
+        # 5xx (server) and 429 (rate limit) are transient. 529 overloaded
+        # is the case that crashed last night's runs and falls under 5xx.
+        return status >= 500 or status == 429
+    return False
+
+
+def _backoff_delay(attempt: int) -> float:
+    """Exponential backoff capped at CLAUDE_RETRY_MAX_DELAY_SEC, with jitter.
+
+    attempt is 1-indexed: 1 -> ~2s, 2 -> ~4s, 3 -> ~8s, 4 -> ~16s,
+    5 -> ~32s, 6 -> capped at 60s. Jitter is +/-25% of the base delay
+    to avoid synchronized retries from concurrent jobs.
+    """
+    base = min(
+        CLAUDE_RETRY_BASE_DELAY_SEC * (2 ** (attempt - 1)),
+        CLAUDE_RETRY_MAX_DELAY_SEC,
+    )
+    jitter = base * 0.25 * (2 * random.random() - 1)  # uniform in [-25%, +25%]
+    return max(0.0, base + jitter)
 
 
 # ============================================================
@@ -82,14 +142,44 @@ def _stream_message(
     avoids the SDK's ~10-minute non-streaming HTTP gate that trips when
     max_tokens is raised above ~16k. See:
       https://platform.claude.com/docs/en/build-with-claude/streaming
+
+    Transient API errors (5xx including 529 overloaded, 429 rate limit,
+    connection/timeout) are retried with bounded exponential backoff (see
+    CLAUDE_RETRY_* constants and _is_retryable_api_error). Permanent errors
+    (400/401/403/404) raise immediately so config / code bugs aren't masked
+    by sleeps. If every retry is exhausted, the final exception is re-raised
+    and callers convert it into a FAILED status entry for the dashboard.
     """
-    with client.messages.stream(
-        model=model,
-        max_tokens=max_tokens,
-        system=system,
-        messages=[{"role": "user", "content": user_content}],
-    ) as stream:
-        return stream.get_final_message()
+    last_exc: BaseException | None = None
+    for attempt in range(1, CLAUDE_RETRY_MAX_ATTEMPTS + 1):
+        try:
+            with client.messages.stream(
+                model=model,
+                max_tokens=max_tokens,
+                system=system,
+                messages=[{"role": "user", "content": user_content}],
+            ) as stream:
+                return stream.get_final_message()
+        except Exception as e:
+            if not _is_retryable_api_error(e):
+                raise
+            last_exc = e
+            if attempt >= CLAUDE_RETRY_MAX_ATTEMPTS:
+                # Out of retries — bubble up the last error for the caller
+                # to convert into a FAILED status entry.
+                break
+            delay = _backoff_delay(attempt)
+            status = getattr(e, "status_code", None)
+            label = f"HTTP {status}" if status is not None else type(e).__name__
+            print(
+                f"[claude] transient API error ({label}) on attempt "
+                f"{attempt}/{CLAUDE_RETRY_MAX_ATTEMPTS}; sleeping {delay:.1f}s "
+                f"before retry"
+            )
+            time.sleep(delay)
+    # All attempts failed — re-raise the last error.
+    assert last_exc is not None
+    raise last_exc
     
 # ============================================================
 # Common system instructions used by all passes
@@ -657,6 +747,30 @@ def is_parse_error(parsed: dict[str, Any]) -> bool:
     sentinel is owned in one place.
     """
     return isinstance(parsed, dict) and "_parse_error" in parsed
+
+
+def api_error_to_parsed(exc: BaseException) -> dict[str, Any]:
+    """Convert an exhausted-retry API exception into the same shape
+    `_parse_json_response` uses for parse failures.
+
+    Lets `main.run_us` treat API outages and JSON-parse failures with one
+    code path (the existing `is_parse_error` retry / FAILED-status machinery),
+    instead of growing a parallel exception-handling track.
+
+    The `_api_error: True` marker plus a `_status_code` field (when present)
+    lets downstream code distinguish API outages from genuine parse failures
+    if it ever needs to — for now both surface as `status: FAILED` with the
+    same banner.
+    """
+    status = getattr(exc, "status_code", None)
+    detail = str(exc)[:500]
+    label = f"HTTP {status}" if status is not None else type(exc).__name__
+    return {
+        "_parse_error": f"api_error: {label}: {detail}",
+        "_raw_response": "",
+        "_api_error": True,
+        "_status_code": status,
+    }
 
 
 # ============================================================
