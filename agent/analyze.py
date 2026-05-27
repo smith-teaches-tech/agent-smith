@@ -55,17 +55,60 @@ CLAUDE_RETRY_BASE_DELAY_SEC = 2.0
 CLAUDE_RETRY_MAX_DELAY_SEC = 60.0
 
 
+_RETRYABLE_ERROR_TYPES = frozenset({
+    # Anthropic error.type values that mean "transient — try again later".
+    # The streaming SDK has a quirk where mid-stream errors get a plain
+    # APIStatusError with status_code=200 (the original HTTP success code,
+    # not the underlying error code). In that case status_code is useless
+    # and we have to look at the body's error.type field to decide retry.
+    "overloaded_error",
+    "api_error",        # generic 500-class internal error
+    "timeout_error",    # 504
+    "rate_limit_error", # 429
+})
+
+
+def _extract_error_type(exc: BaseException) -> str | None:
+    """Pull the Anthropic error.type string from an exception body if present.
+
+    The SDK attaches the parsed error body to APIStatusError as `body`.
+    Shape we expect: `{"type": "error", "error": {"type": "...", "message": "..."}}`.
+    Returns None if the body isn't a dict in that shape.
+    """
+    body = getattr(exc, "body", None)
+    if not isinstance(body, dict):
+        return None
+    err = body.get("error")
+    if isinstance(err, dict):
+        t = err.get("type")
+        return t if isinstance(t, str) else None
+    return None
+
+
 def _is_retryable_api_error(exc: BaseException) -> bool:
-    """Return True if `exc` represents a transient API condition worth retrying."""
+    """Return True if `exc` represents a transient API condition worth retrying.
+
+    Three sources of retry-worthiness, in priority order:
+      1. Connection / timeout exceptions — always transient.
+      2. APIStatusError with HTTP 5xx or 429 — server pressure / rate limit.
+      3. APIStatusError where status_code looks unhelpful (None, 200) but
+         the body carries a known-transient error.type. This catches the
+         streaming-SDK quirk where mid-stream 529 errors arrive as a plain
+         APIStatusError with status_code=200 (the HTTP code from when the
+         stream opened, not from the error event that arrived mid-stream).
+    """
     if isinstance(exc, (APIConnectionError, APITimeoutError)):
         return True
     if isinstance(exc, APIStatusError):
         status = getattr(exc, "status_code", None)
-        if status is None:
-            return False
-        # 5xx (server) and 429 (rate limit) are transient. 529 overloaded
-        # is the case that crashed last night's runs and falls under 5xx.
-        return status >= 500 or status == 429
+        # Path A: status code is informative (real HTTP error).
+        if isinstance(status, int) and (status >= 500 or status == 429):
+            return True
+        # Path B: status code is unhelpful — fall back to body inspection.
+        # Streaming mid-stream errors land here with status_code == 200.
+        err_type = _extract_error_type(exc)
+        if err_type in _RETRYABLE_ERROR_TYPES:
+            return True
     return False
 
 
@@ -170,7 +213,19 @@ def _stream_message(
                 break
             delay = _backoff_delay(attempt)
             status = getattr(e, "status_code", None)
-            label = f"HTTP {status}" if status is not None else type(e).__name__
+            err_type = _extract_error_type(e)
+            # When status_code is informative, prefer it; otherwise show the
+            # error.type from the body. This makes mid-stream overloaded
+            # errors (status_code=200 but error.type=overloaded_error) read
+            # clearly in logs instead of misleadingly as "HTTP 200".
+            if isinstance(status, int) and (status >= 500 or status == 429):
+                label = f"HTTP {status}"
+                if err_type:
+                    label += f" {err_type}"
+            elif err_type:
+                label = err_type
+            else:
+                label = type(e).__name__
             print(
                 f"[claude] transient API error ({label}) on attempt "
                 f"{attempt}/{CLAUDE_RETRY_MAX_ATTEMPTS}; sleeping {delay:.1f}s "
@@ -757,19 +812,32 @@ def api_error_to_parsed(exc: BaseException) -> dict[str, Any]:
     code path (the existing `is_parse_error` retry / FAILED-status machinery),
     instead of growing a parallel exception-handling track.
 
-    The `_api_error: True` marker plus a `_status_code` field (when present)
-    lets downstream code distinguish API outages from genuine parse failures
+    The `_api_error: True` marker plus `_status_code` and `_error_type` fields
+    let downstream code distinguish API outages from genuine parse failures
     if it ever needs to — for now both surface as `status: FAILED` with the
-    same banner.
+    same banner. We capture `_error_type` separately so the streaming-SDK
+    quirk (status_code=200 for mid-stream overloaded errors) doesn't lose
+    information.
     """
     status = getattr(exc, "status_code", None)
+    err_type = _extract_error_type(exc)
     detail = str(exc)[:500]
-    label = f"HTTP {status}" if status is not None else type(exc).__name__
+    if isinstance(status, int) and (status >= 500 or status == 429):
+        label = f"HTTP {status}"
+        if err_type:
+            label += f" {err_type}"
+    elif err_type:
+        label = err_type
+    elif status is not None:
+        label = f"HTTP {status}"
+    else:
+        label = type(exc).__name__
     return {
         "_parse_error": f"api_error: {label}: {detail}",
         "_raw_response": "",
         "_api_error": True,
         "_status_code": status,
+        "_error_type": err_type,
     }
 
 
