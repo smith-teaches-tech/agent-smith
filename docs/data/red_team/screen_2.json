@@ -28,5 +28,15 @@
     "weakest_link": "The bull case assumes the Q3 10-Q's 'slower than historical' Atlas language being absent from the FY26 10-K risk refresh is a derisking tell, but this inference is indirect and could equally reflect incomplete disclosure refresh cycles rather than actual operational improvement.",
     "critique": "The filings evidence cited (Atlas 73% of revenue, net loss compression, 121% Q4 NRR) is concrete and corroborates the thesis mechanically. However, the key derisking inference—that non-escalation of Q3's Atlas slowdown language into the FY26 10-K risk section signals stabilization—is circumstantial. 10-K risk factors often lag actual operational recoveries or reflect disclosure inertia rather than material improvement. The bull case has zero price-based evidence (move_pct, five_day_change_pct, volume_multiple are all null), so momentum or crowding cannot be assessed; the setup is data-sparse on the margin-of-safety axis. A new CEO's first print does create conservative framing optionality, but Desai took the role mid-FY26 and has already guided once; the 'first full quarter' structural bias is weaker than if this were truly his debut earnings call.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-05-28T21:12:20.018964+00:00",
+    "screen_id": "screen_2",
+    "run_summary": "One UNDERDONE flag (GTLB) at confidence 3, earnings 4 trading days out. Mid-quarter guidance reaffirmation + RIF-for-reinvestment + $400M buyback + visible enterprise cohort acceleration in filings posture a constructive setup. Confidence bar met; passes all BUY gates.",
+    "ticker": "GTLB",
+    "survived": true,
+    "weakest_link": "The thesis conflates a defensive guidance reaffirmation (standard practice before earnings) with affirmative confidence, and assumes management would not risk reaffirming if tracking below plan — but reaffirmation itself is a floor-setting move that protects against a miss, not proof of upside.",
+    "critique": "Guidance reaffirmation 3 weeks before print is routine risk management, not a de-risking signal of strength. Management reaffirms *precisely* when there is uncertainty, to anchor expectations; it is not a tell of confidence. The RIF framed as 'reinvestment-driven' is also a standard narrative, and Haiku's own what_kills criterion flags that the call commentary could easily reframe it defensively, which would invalidate the bull thesis setup entirely. The May 11 Reg FD is dated, and no price/volume data is provided (move_pct, five_day_change_pct, volume_multiple are all null), so we have no market signal of how the filing was received or whether it moved the needle. Without that market read, the thesis rests purely on filing interpretation with no anchor to actual investor behavior.",
+    "confidence_in_critique": 3
   }
 ]

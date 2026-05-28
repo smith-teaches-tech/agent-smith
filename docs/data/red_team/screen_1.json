@@ -118,5 +118,95 @@
     "weakest_link": "PAYC's threat_assessment='minimal' and the filings' framing of AI/ML as a generic competitive risk—not a search-substitution threat—creates conceptual overlap with the broader HCM/SaaS sector fears, making the 'this is pure contagion' thesis less airtight than for cybersecurity or IaaS names.",
     "critique": "PAYC's core business—payroll tax compliance and fund movement—is orthogonal to Google Search, and that is correct. However, threat_assessment='minimal' signals that the filings themselves acknowledge real AI competitive headwinds in HCM/SaaS broadly (e.g., LLM-driven HR analytics, automated compensation planning). The sell-off of -3.35% one-day and -4.31% five-day may reflect rational de-risking of HCM/SaaS margin assumptions on AI productivity gains, not mere search-redesign contagion. Unlike DOCN (IaaS has zero search exposure) or TENB (AI is a demand tailwind), PAYC's bull case rests on arguing the panic is unjustified despite the filings themselves naming AI as a competitive concern.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-05-28T21:12:09.213072+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a major basket of 9 BUY-eligible flags (7 conf-4, 2 conf-3) from two distinct triggers (Anthropic Opus 4.8 agent release + Google I/O Search overhaul). Per the basket rule, all but one qualify for exploratory tier; AEIS alone gets conviction treatment due to explicit 10-K AI tailwind language. Open portfolio is underwater on older sympathy positions (PLAB, BLKB) and requires disciplined hold/trim/exit decisions as the 15-day window approaches.",
+    "ticker": "ONTO",
+    "survived": true,
+    "weakest_link": "The thesis assumes no material sympathy-fade reversal risk despite a 0.8x volume move, which is weak evidence that the trade is crowded enough to have already priced in the panic.",
+    "critique": "The bull case correctly identifies that Anthropic's Opus release has no mechanical bearing on semiconductor metrology demand. However, the move is classified as 'shallow sympathy' (-3.03% on 1-day, -1.64% on 5-day, 0.8x volume), which actually suggests the panic is already fading and most of the repositioning may be complete. If the sympathy fade is already 80% done, the upside to a full reversal is limited, and the risk/reward tilts toward consolidation rather than a strong snap-back. The filings argument is sound, but the entry timing assumes the move still has room to run.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-05-28T21:12:09.213072+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a major basket of 9 BUY-eligible flags (7 conf-4, 2 conf-3) from two distinct triggers (Anthropic Opus 4.8 agent release + Google I/O Search overhaul). Per the basket rule, all but one qualify for exploratory tier; AEIS alone gets conviction treatment due to explicit 10-K AI tailwind language. Open portfolio is underwater on older sympathy positions (PLAB, BLKB) and requires disciplined hold/trim/exit decisions as the 15-day window approaches.",
+    "ticker": "AEIS",
+    "survived": true,
+    "weakest_link": "The five-day move is already +1.32% (reversing the single-day -3.43% drop), suggesting the market may have already repriced the panic while the bull case is still building conviction on it.",
+    "critique": "The 10-K language on AI-driven data center demand is concrete and the mechanical thesis is sound. However, the 5-day chart shows the stock is already +1.32%, meaning the sympathy fade has already begun to reverse. A conviction-tier call built on a reversal trade that is mid-reversal introduces timing risk: the strong move up may already have captured the edge, and holding at a higher entry price with conviction is riskier than the bull reasoning acknowledges. The filings are bullish, but the price action suggests the opportunity window is narrowing.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-05-28T21:12:09.213072+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a major basket of 9 BUY-eligible flags (7 conf-4, 2 conf-3) from two distinct triggers (Anthropic Opus 4.8 agent release + Google I/O Search overhaul). Per the basket rule, all but one qualify for exploratory tier; AEIS alone gets conviction treatment due to explicit 10-K AI tailwind language. Open portfolio is underwater on older sympathy positions (PLAB, BLKB) and requires disciplined hold/trim/exit decisions as the 15-day window approaches.",
+    "ticker": "DOCN",
+    "survived": true,
+    "weakest_link": "The 0.56x volume on a -6.41% 1-day move is extremely shallow and may reflect an illiquid or pre-market session skew rather than a real panic, making the 'reversal trade' premise questionable.",
+    "critique": "The bull case that DOCN has no search dependency is correct, and the filings support AI/ML as a product line. However, the -6.41% 1-day move occurred on only 0.56x average volume—this is an unusually light session for a panic. On very low volume, a move can be exaggerated or driven by a single algorithmic rebalance rather than genuine repricing. If the move is not backed by real selling pressure, the reversal case weakens. The thesis is sound, but the entry is built on a move that may not have genuine conviction behind it.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-05-28T21:12:09.213072+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a major basket of 9 BUY-eligible flags (7 conf-4, 2 conf-3) from two distinct triggers (Anthropic Opus 4.8 agent release + Google I/O Search overhaul). Per the basket rule, all but one qualify for exploratory tier; AEIS alone gets conviction treatment due to explicit 10-K AI tailwind language. Open portfolio is underwater on older sympathy positions (PLAB, BLKB) and requires disciplined hold/trim/exit decisions as the 15-day window approaches.",
+    "ticker": "TENB",
+    "survived": true,
+    "weakest_link": "The 0.53x volume on a -5.31% move is exceptionally shallow, raising questions about whether this is a real panic or a low-volume artifact.",
+    "critique": "The thesis that AI-enhanced threats increase demand for Tenable's product is mechanically sound and supported by filings. However, the move occurred on only 0.53x volume, which is among the lightest of the basket. On such light volume, the move may be a technical artifact or a single-block trade rather than genuine panic selling. If the sell-off lacks real conviction, the reversal assumption weakens, and the 'unjustified panic' narrative becomes harder to sustain. The business case is intact, but the entry setup may be overstated.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-05-28T21:12:09.213072+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a major basket of 9 BUY-eligible flags (7 conf-4, 2 conf-3) from two distinct triggers (Anthropic Opus 4.8 agent release + Google I/O Search overhaul). Per the basket rule, all but one qualify for exploratory tier; AEIS alone gets conviction treatment due to explicit 10-K AI tailwind language. Open portfolio is underwater on older sympathy positions (PLAB, BLKB) and requires disciplined hold/trim/exit decisions as the 15-day window approaches.",
+    "ticker": "QLYS",
+    "survived": true,
+    "weakest_link": "The 0.63x volume on a -3.9% move suggests limited selling conviction, making the 'unjustified panic' claim harder to defend if the move is simply a low-volume artifact.",
+    "critique": "The bull thesis on regulatory moat and AI as demand driver is reasonable. However, the -3.9% move occurred on only 0.63x volume, which is thin for a real panic. On light volume, the move may reflect index rebalancing or a single seller rather than a broad repricing. If the selling pressure is not genuine, the panic narrative weakens and the bounce case becomes speculative. The business fundamentals are sound, but the entry is premised on a move that lacks real conviction.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-05-28T21:12:09.213072+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a major basket of 9 BUY-eligible flags (7 conf-4, 2 conf-3) from two distinct triggers (Anthropic Opus 4.8 agent release + Google I/O Search overhaul). Per the basket rule, all but one qualify for exploratory tier; AEIS alone gets conviction treatment due to explicit 10-K AI tailwind language. Open portfolio is underwater on older sympathy positions (PLAB, BLKB) and requires disciplined hold/trim/exit decisions as the 15-day window approaches.",
+    "ticker": "WK",
+    "survived": true,
+    "weakest_link": "The 5-day move is -4.39% (deeper than the 1-day -3.69%), which contradicts the 'shallow sympathy' claim and suggests the selling has momentum rather than being a reversing panic.",
+    "critique": "The regulatory moat and XBRL audit-trail thesis is sound. However, the 5-day move of -4.39% is DEEPER than the 1-day move of -3.69%, which is the opposite pattern of a shallow sympathy fade that is reversing. This pattern suggests the selling has momentum and may not be a near-term reversal candidate. If the longer-period move is steeper than the shorter, it implies the stock is losing support over a multi-day window, not bouncing back. The business case is intact, but the timing assumption is contradicted by the price action.",
+    "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-05-28T21:12:09.213072+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a major basket of 9 BUY-eligible flags (7 conf-4, 2 conf-3) from two distinct triggers (Anthropic Opus 4.8 agent release + Google I/O Search overhaul). Per the basket rule, all but one qualify for exploratory tier; AEIS alone gets conviction treatment due to explicit 10-K AI tailwind language. Open portfolio is underwater on older sympathy positions (PLAB, BLKB) and requires disciplined hold/trim/exit decisions as the 15-day window approaches.",
+    "ticker": "NCNO",
+    "survived": true,
+    "weakest_link": "The 5-day move is already +0.79% (reversing the -5.23% 1-day drop), but on 1.36x volume—elevated volume during a reversal can signal distribution rather than capitulation, weakening the snap-back case.",
+    "critique": "The regulatory moat argument is valid: multi-year OCC/FDIC contracts on Salesforce are not displaced by a consumer search redesign. However, the stock has already bounced +0.79% over 5 days and did so on 1.36x volume—elevated volume during a reversal can indicate distribution or profit-taking rather than capitulation by panicked sellers. If strong hands are selling into the bounce on high volume, the reversal may stall, and the conviction case is premature. The thesis is sound, but the entry is mid-reversal on potentially concerning price-action divergence.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-05-28T21:12:09.213072+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a major basket of 9 BUY-eligible flags (7 conf-4, 2 conf-3) from two distinct triggers (Anthropic Opus 4.8 agent release + Google I/O Search overhaul). Per the basket rule, all but one qualify for exploratory tier; AEIS alone gets conviction treatment due to explicit 10-K AI tailwind language. Open portfolio is underwater on older sympathy positions (PLAB, BLKB) and requires disciplined hold/trim/exit decisions as the 15-day window approaches.",
+    "ticker": "PAYC",
+    "survived": true,
+    "weakest_link": "The 5-day move is -4.31% (deeper than 1-day -3.35%), suggesting sustained selling momentum rather than a shallow, reversing panic as the thesis claims.",
+    "critique": "The system-of-record moat (payroll tax, ACH, W-2) is mechanically sound and not threatened by Google Search redesign. However, the 5-day decline of -4.31% exceeds the 1-day drop of -3.35%, indicating selling momentum over the window, not reversal. This is the opposite of a 'shallow sympathy' setup. If the longer-period move is steeper, the stock may be losing support on broader concerns unrelated to the Anthropic/Google catalyst, or conviction in the sympathy narrative is deeper than the bull case acknowledges. The business thesis is intact, but the price action contradicts the reversal assumption.",
+    "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-05-28T21:12:09.213072+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a major basket of 9 BUY-eligible flags (7 conf-4, 2 conf-3) from two distinct triggers (Anthropic Opus 4.8 agent release + Google I/O Search overhaul). Per the basket rule, all but one qualify for exploratory tier; AEIS alone gets conviction treatment due to explicit 10-K AI tailwind language. Open portfolio is underwater on older sympathy positions (PLAB, BLKB) and requires disciplined hold/trim/exit decisions as the 15-day window approaches.",
+    "ticker": "VRRM",
+    "survived": true,
+    "weakest_link": "The 5-day move is -2.17%, only fractionally lighter than the 1-day move of -3.04%, suggesting either no reversal has begun or the sympathy drop was very shallow to start; either way, the upside room may be limited.",
+    "critique": "The thesis that municipal contracts and statutory camera networks are insulated from Google Search redesign is sound. However, the 5-day move (-2.17%) is almost as deep as the 1-day move (-3.04%), which means the stock is not yet reversing; it is consolidating at the low. If the sympathy event happened days ago and the stock is not bouncing, it may be because the move was shallow to begin with or because there is additional Verra-specific weakness masking the reversal. The 1.42x volume is elevated but consistent with sympathy, not capitulation. The entry timing assumes a bounce that has not yet started.",
+    "confidence_in_critique": 2
   }
 ]

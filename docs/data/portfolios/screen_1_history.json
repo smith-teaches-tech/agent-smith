@@ -141,5 +141,31 @@
     "fees": 0.3559,
     "notional": 622.13,
     "why": "Opened per flag: OVERDONE conf 3 — Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links"
+  },
+  {
+    "ts": "2026-05-28T21:12:09.567321+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-05-28T21:12:09.567079+00:00",
+    "side": "SELL",
+    "ticker": "PLAB",
+    "shares": 30,
+    "fill_price": 36.7682,
+    "fees": 0.4816,
+    "notional": 1103.05,
+    "why": "PLAB has declined -36.42% (1-day) and -31.73% (5-day) on 8.38x volume — magnitude far exceeds sympathy-fade thesis. Flag confidence dropped to 2, flagged thesis explicitly states 'Cannot confidently classify as pure sympathy-fade without confirming no negative catalyst.' Days held = 8; if catalyst is company-specific (earnings, guidance, customer loss), sympathy thesis is invalidated. EXIT per Screen 1 discipline: broken thesis overrides holding window."
+  },
+  {
+    "ts": "2026-05-28T21:12:10.111788+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-05-28T21:12:10.111515+00:00",
+    "side": "BUY",
+    "ticker": "ONTO",
+    "shares": 2.1971,
+    "fill_price": 266.4362,
+    "fees": 0.357,
+    "notional": 585.39,
+    "why": "Opened per flag: OVERDONE conf 4 — Anthropic releases Opus 4.8 with new 'dynamic workflow' tool"
   }
 ]
