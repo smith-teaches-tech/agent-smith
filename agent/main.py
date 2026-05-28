@@ -682,6 +682,48 @@ def run_portfolio_for_screen(
         )
         return decisions
 
+    # ---- §12 guard: decision schema parity -----------------------
+    # The _parse_error check above catches JSON that did not parse. It
+    # does NOT catch JSON that parsed cleanly but is the wrong SHAPE — a
+    # screen whose prompt drifts to different key names (e.g. `action`
+    # instead of `new_decisions`), or a key present but holding null/a
+    # dict. In that case every `.get("new_decisions", [])` /
+    # `.get("position_decisions", [])` below returns [], the apply loops
+    # iterate over nothing, and the run silently HOLDs everything with no
+    # error. For an unattended cron that is the worst failure: no crash,
+    # no trades, looks healthy.
+    #
+    # Handling mirrors the _parse_error branch above, NOT a bare raise.
+    # Rationale: a raise here is caught by run_portfolio()'s per-screen
+    # try/except (blast radius is correctly one screen) but is then
+    # swallowed by main()'s portfolio try/except and the run still exits
+    # 0 — so the only signal would be a traceback in logs nobody reads.
+    # The codebase's documented convention for surfacing unattended
+    # failures is the dashboard status block, not a red Actions run (see
+    # run_us, ~line 320). So we write a suggestions file WITH the error
+    # in its status block — the dashboard banner surfaces it the same way
+    # discovery/AI parse failures surface — and return without touching
+    # the apply block. No trades execute, no state mutates; a transient
+    # cause self-heals on the next run, a genuine drift stays visibly
+    # broken (correct) until fixed. Check isinstance(list) not bare `in`
+    # so a key present but null/dict is still caught.
+    _malformed = [
+        _k for _k in ("position_decisions", "new_decisions")
+        if not isinstance(decisions.get(_k), list)
+    ]
+    if _malformed:
+        _msg = (
+            f"malformed decision schema: missing/non-list key(s) {_malformed}; "
+            f"got keys {sorted(decisions.keys())} (ARCHITECTURE.md seam §12)"
+        )
+        print(f"[portfolio] ERROR: screen '{screen_id}' returned {_msg}", file=sys.stderr)
+        _write_suggestions(
+            entries=[],
+            error=_msg,
+            screen_id=screen_id,
+        )
+        return {"_schema_error": _msg, "screen_id": screen_id}
+
     # ---- Apply decisions --------------------------------------
     trade_summary = {"buys": 0, "sells": 0, "blocked": 0, "watched": 0, "skipped": 0}
     suggestion_entries: list[dict[str, Any]] = []
@@ -726,6 +768,40 @@ def run_portfolio_for_screen(
             )
         else:
             verdicts = rt_result.get("red_team_decisions") or []
+
+            # ---- §14 guard: red-team verdict schema drift ---------
+            # The kill test below keys on `v.get("survived") is False`.
+            # If a prompt revision renames the field (e.g. `killed: true`
+            # instead of `survived: false`), every record reads as
+            # survived → the red-team silently rubber-stamps ALL BUYs
+            # (the "killed always 0" failure, seam §14).
+            #
+            # We must NOT raise here. Seam §9 mandates the red-team fails
+            # OPEN: it is a QUALITY layer, not a SAFETY layer, and a
+            # broken critic must never paralyse trades (safety lives in
+            # _try_buy's guardrails). So: warn LOUD, then proceed with
+            # fail-open semantics unchanged.
+            #
+            # Alarm only on the SYSTEMIC case — verdicts came back but the
+            # whole batch lacks a boolean `survived`. A single verdict
+            # missing the field is a legit per-ticker omission the
+            # mutation loop already treats as "survived"; don't cry wolf
+            # on that.
+            if verdicts:
+                _typed = sum(
+                    1 for _v in verdicts
+                    if isinstance(_v.get("survived"), bool)
+                )
+                if _typed == 0:
+                    print(
+                        f"[red-team] WARN: {len(verdicts)} verdict(s) returned "
+                        f"but NONE carry a boolean `survived` field. Likely "
+                        f"red-team schema drift (renamed field?). Sample keys: "
+                        f"{sorted(verdicts[0].keys())}. All BUYs pass through "
+                        f"UNCHANGED per fail-open design — but the red-team is "
+                        f"NOT functioning. See ARCHITECTURE.md seam §14."
+                    )
+
             for v in verdicts:
                 vt = v.get("ticker")
                 if vt:
