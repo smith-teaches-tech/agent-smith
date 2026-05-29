@@ -1,0 +1,18 @@
+[
+  {
+    "run_ts": "2026-05-29T21:09:32.747515+00:00",
+    "screen_id": "screen_0",
+    "ticker": "TXRH",
+    "thesis_status": "intact",
+    "next_action": "HOLD",
+    "unrealized_pct": -1.71,
+    "current_price": 180.62,
+    "days_held": 16,
+    "flag_horizon": "weeks",
+    "flag_classification": "LIKELY RATIONAL",
+    "flag_confidence": 4,
+    "tier": "exploratory",
+    "decision_confidence": 4,
+    "price_stale": false
+  }
+]

@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-28T21:11:15.682624+00:00",
+  "generated_at": "2026-05-29T21:09:35.150180+00:00",
   "bankroll_start": 10000.0,
-  "cash": 5269.81,
+  "cash": 8671.56,
   "open_positions": [
     {
       "ticker": "TXRH",
@@ -10,157 +10,253 @@
       "shares": 3,
       "cost_basis": 183.6334,
       "cost_total": 551.26,
-      "current_price": 180.35,
-      "value": 541.05,
-      "unrealized_pnl": -10.21,
-      "unrealized_pct": -1.85,
+      "current_price": 180.62,
+      "value": 541.86,
+      "unrealized_pnl": -9.4,
+      "unrealized_pct": -1.71,
       "opened_at": "2026-05-13T20:48:17.967044+00:00",
-      "days_held": 15,
+      "days_held": 16,
       "flag_classification": "LIKELY RATIONAL",
       "flag_confidence": 4,
       "flag_horizon": "weeks",
       "thesis": "no mechanism. Catalyst: Q1 2026 earnings + likely capital return announcement. Falsified by: n/a.",
       "thesis_status": "intact",
-      "latest_reasoning": "Catalyst (Q1 earnings + capital return) still ahead; -1.85% drawdown is normal for a 15-day hold into an earnings event. Thesis is rational (confidence 4), no news flow has changed the capital return calculus or earnings profile. Days-held window (15) is still consistent with weeks-horizon flag.",
+      "latest_reasoning": "Original thesis—Q1 earnings (5/28) plus likely capital return announcement—remains unplayed. Stock is -1.71% from entry over 16 days; modest drawdown is noise relative to catalyst duration (weeks horizon). No earnings-related 8-K or capital announcement has been disclosed yet. Volume and price action are quiet, consistent with pre-catalyst consolidation. No disconfirming news; thesis framework intact.",
       "next_action": "HOLD",
       "catalyst": "Q1 2026 earnings + likely capital return announcement",
       "tier": "exploratory",
       "price_stale": false
     },
     {
-      "ticker": "DCO",
-      "name": "Ducommun Incorporated",
+      "ticker": "BBY",
+      "name": "Best Buy Co., Inc.",
+      "sector": "Consumer Cyclical",
+      "shares": 8.0402,
+      "cost_basis": 74.074,
+      "cost_total": 595.95,
+      "current_price": 74.074,
+      "value": 595.57,
+      "unrealized_pnl": -0.38,
+      "unrealized_pct": -0.06,
+      "opened_at": "2026-05-29T21:09:33.172338+00:00",
+      "days_held": 0,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 3,
+      "flag_horizon": "days",
+      "thesis": "no mechanism. Catalyst: Q1 earnings 8-K filed 5/28, continuation through 5/29. Falsified by: n/a.",
+      "thesis_status": "intact",
+      "latest_reasoning": "Opened position at $74.07, +$0.38 fees.",
+      "next_action": "HOLD",
+      "catalyst": "Q1 earnings 8-K filed 5/28, continuation through 5/29",
+      "tier": "exploratory",
+      "benchmark_at_open": {
+        "SPY": 755.9,
+        "IWM": 291.38
+      }
+    },
+    {
+      "ticker": "AVAV",
+      "name": "AeroVironment, Inc.",
       "sector": "Industrials",
-      "shares": 4,
-      "cost_basis": 149.0089,
-      "cost_total": 596.4,
-      "current_price": 152.24,
-      "value": 608.96,
-      "unrealized_pnl": 12.56,
-      "unrealized_pct": 2.11,
-      "opened_at": "2026-05-15T20:19:06.988031+00:00",
-      "days_held": 13,
+      "shares": 3.0241,
+      "cost_basis": 213.7135,
+      "cost_total": 646.65,
+      "current_price": 213.7135,
+      "value": 646.29,
+      "unrealized_pnl": -0.36,
+      "unrealized_pct": -0.06,
+      "opened_at": "2026-05-29T21:09:33.559136+00:00",
+      "days_held": 0,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 3,
+      "flag_horizon": "weeks",
+      "thesis": "no mechanism. Catalyst: Iran missile launch headlines and sector-wide defense bid (ITA +2.2%). Falsified by: n/a.",
+      "thesis_status": "intact",
+      "latest_reasoning": "Opened position at $213.71, +$0.36 fees.",
+      "next_action": "HOLD",
+      "catalyst": "Iran missile launch headlines and sector-wide defense bid (ITA +2.2%)",
+      "tier": "exploratory",
+      "benchmark_at_open": {
+        "SPY": 755.9,
+        "IWM": 291.38
+      }
+    }
+  ],
+  "closed_positions": [
+    {
+      "ticker": "DECK",
+      "name": "Deckers Outdoor Corporation",
+      "sector": "Consumer Cyclical",
+      "shares": 6,
+      "avg_cost": 98.4483,
+      "exit_price": 114.6752,
+      "opened_at": "2026-05-21T20:55:36.921473+00:00",
+      "closed_at": "2026-05-29T21:09:01.903194+00:00",
+      "days_held": 8,
+      "realized_pnl": 96.99,
+      "realized_pct": 16.41,
+      "fees_total": 0.3893,
       "flag_classification": "UNDERDONE",
       "flag_confidence": 3,
       "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: Defense sector pullback after positive earnings reaction faded. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Position is +2.11% in 13 days; catalyst was 'defense sector pullback after positive earnings reaction faded,' which describes a mean-reversion play. DCO has held gains; no fresh weakness in the defense space (ITA is up today on Iran headlines). Thesis still valid, hold through horizon window.",
-      "next_action": "HOLD",
-      "catalyst": "Defense sector pullback after positive earnings reaction faded",
       "tier": "exploratory",
-      "price_stale": false
-    },
-    {
-      "ticker": "SHAK",
-      "name": "Shake Shack, Inc.",
-      "sector": "Consumer Cyclical",
-      "shares": 33,
-      "cost_basis": 60.9509,
-      "cost_total": 2011.84,
-      "current_price": 62.13,
-      "value": 2050.29,
-      "unrealized_pnl": 38.45,
-      "unrealized_pct": 1.91,
-      "opened_at": "2026-05-15T20:19:07.126038+00:00",
-      "days_held": 13,
-      "flag_classification": "LIKELY RATIONAL",
-      "flag_confidence": 4,
-      "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: Earnings + officer departure announced 5/7. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Position +1.91% in 13 days; catalyst was earnings + officer departure (announced 5/7). No new news flow; modest gain is consistent with a rational earnings reaction that is neither overdone nor still unfolding. Hold for horizon window.",
-      "next_action": "HOLD",
-      "catalyst": "Earnings + officer departure announced 5/7",
-      "tier": "conviction",
-      "price_stale": false
+      "exit_reasoning": "Horizon exit -- held 8d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent.",
+      "benchmark_at_open": {
+        "SPY": 738.64,
+        "IWM": 278.66
+      },
+      "market_cap_at_close": 15811597312.0,
+      "benchmark_at_close": {
+        "SPY": 756.48,
+        "IWM": 290.43
+      },
+      "benchmark_return_pct": {
+        "SPY": 2.42,
+        "IWM": 4.22
+      },
+      "alpha_pct": {
+        "SPY": 13.99,
+        "IWM": 12.19
+      }
     },
     {
       "ticker": "BLDR",
       "name": "Builders FirstSource, Inc.",
       "sector": "Industrials",
       "shares": 9,
-      "cost_basis": 69.069,
-      "cost_total": 622.0,
-      "current_price": 76.72,
-      "value": 690.48,
-      "unrealized_pnl": 68.48,
-      "unrealized_pct": 11.01,
+      "avg_cost": 69.069,
+      "exit_price": 76.3835,
       "opened_at": "2026-05-19T20:36:31.891917+00:00",
-      "days_held": 9,
+      "closed_at": "2026-05-29T21:09:01.434817+00:00",
+      "days_held": 10,
+      "realized_pnl": 65.45,
+      "realized_pct": 10.52,
+      "fees_total": 0.4433,
       "flag_classification": "UNDERDONE",
       "flag_confidence": 3,
       "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: Multi-item 8-K (5.02 officer change + 7.01 Reg FD) coinciding with 30-yr yield spike and mortgage rate surge. Falsified by: n/a.",
-      "thesis_status": "weakening",
-      "latest_reasoning": "Second BLDR entry (8 shares, 73.98 cost, +3.63%) on housing affordability bill 8-K dated ~5/21 (6 days ago). Same name as first entry but different catalyst date. Today's new flag calls BLDR OVERDONE on momentum extension into deteriorating mortgage backdrop. Thesis weakening for same reason as first entry: housing demand headwind now contradicts original bill-positive thesis. Both entries should be consolidated under single HOLD thesis; neither merits ADD even though positions are profitable. Do not increase BLDR exposure.",
-      "next_action": "HOLD",
-      "catalyst": "Multi-item 8-K (5.02 officer change + 7.01 Reg FD) coinciding with 30-yr yield spike and mortgage rate surge",
       "tier": "exploratory",
+      "exit_reasoning": "Horizon exit -- held 10d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent.",
       "benchmark_at_open": {
         "SPY": 734.78,
         "IWM": 273.805
       },
-      "price_stale": false
-    },
-    {
-      "ticker": "DECK",
-      "name": "Deckers Outdoor Corporation",
-      "sector": "Consumer Cyclical",
-      "shares": 6,
-      "cost_basis": 98.4483,
-      "cost_total": 591.06,
-      "current_price": 114.31,
-      "value": 685.86,
-      "unrealized_pnl": 94.8,
-      "unrealized_pct": 16.04,
-      "opened_at": "2026-05-21T20:55:36.921473+00:00",
-      "days_held": 7,
-      "flag_classification": "UNDERDONE",
-      "flag_confidence": 3,
-      "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: Q4/FY earnings release filed via 8-K item 2.02. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Position +16.04% in 7 days on Q4/FY earnings release; horizon was 'days' and thesis is a clean earnings reaction (confidence 3). No fresh news; well into profit. Hold for remaining horizon window.",
-      "next_action": "HOLD",
-      "catalyst": "Q4/FY earnings release filed via 8-K item 2.02",
-      "tier": "exploratory",
-      "benchmark_at_open": {
-        "SPY": 738.64,
-        "IWM": 278.66
+      "market_cap_at_close": 8202515968.0,
+      "benchmark_at_close": {
+        "SPY": 756.48,
+        "IWM": 290.43
       },
-      "price_stale": false
+      "benchmark_return_pct": {
+        "SPY": 2.95,
+        "IWM": 6.07
+      },
+      "alpha_pct": {
+        "SPY": 7.57,
+        "IWM": 4.45
+      }
     },
     {
       "ticker": "BLDR",
       "name": "Builders FirstSource",
       "sector": "Industrials",
       "shares": 8,
-      "cost_basis": 73.9839,
-      "cost_total": 592.25,
-      "current_price": 76.72,
-      "value": 613.76,
-      "unrealized_pnl": 21.51,
-      "unrealized_pct": 3.63,
+      "avg_cost": 73.9839,
+      "exit_price": 76.3835,
       "opened_at": "2026-05-22T20:47:53.449496+00:00",
-      "days_held": 6,
+      "closed_at": "2026-05-29T21:09:01.434849+00:00",
+      "days_held": 7,
+      "realized_pnl": 18.82,
+      "realized_pct": 3.18,
+      "fees_total": 0.4433,
       "flag_classification": "UNDERDONE",
       "flag_confidence": 3,
       "flag_horizon": "weeks",
-      "thesis": "no mechanism. Catalyst: House passes housing affordability bill (CNBC: 'win for investors'); 8-K with 5.02 director/officer changes around annual meeting. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Opened position at $73.98, +$0.38 fees.",
-      "next_action": "HOLD",
-      "catalyst": "House passes housing affordability bill (CNBC: 'win for investors'); 8-K with 5.02 director/officer changes around annual meeting",
       "tier": "exploratory",
+      "exit_reasoning": "Horizon exit -- held 10d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent.",
       "benchmark_at_open": {
         "SPY": 746.24,
         "IWM": 284.1
       },
-      "price_stale": false
-    }
-  ],
-  "closed_positions": [
+      "market_cap_at_close": 8202515968.0,
+      "benchmark_at_close": {
+        "SPY": 756.48,
+        "IWM": 290.43
+      },
+      "benchmark_return_pct": {
+        "SPY": 1.37,
+        "IWM": 2.23
+      },
+      "alpha_pct": {
+        "SPY": 1.81,
+        "IWM": 0.95
+      }
+    },
+    {
+      "ticker": "SHAK",
+      "name": "Shake Shack, Inc.",
+      "sector": "Consumer Cyclical",
+      "shares": 33,
+      "avg_cost": 60.9509,
+      "exit_price": 62.1878,
+      "opened_at": "2026-05-15T20:19:07.126038+00:00",
+      "closed_at": "2026-05-29T21:09:00.973066+00:00",
+      "days_held": 14,
+      "realized_pnl": 40.36,
+      "realized_pct": 2.01,
+      "fees_total": 0.5181,
+      "flag_classification": "LIKELY RATIONAL",
+      "flag_confidence": 4,
+      "flag_horizon": "days",
+      "tier": "conviction",
+      "exit_reasoning": "Horizon exit -- held 14d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent.",
+      "benchmark_at_open": null,
+      "market_cap_at_close": 2751279360.0,
+      "benchmark_at_close": {
+        "SPY": 756.48,
+        "IWM": 290.43
+      },
+      "benchmark_return_pct": {
+        "SPY": null,
+        "IWM": null
+      },
+      "alpha_pct": {
+        "SPY": null,
+        "IWM": null
+      }
+    },
+    {
+      "ticker": "DCO",
+      "name": "Ducommun Incorporated",
+      "sector": "Industrials",
+      "shares": 4,
+      "avg_cost": 149.0089,
+      "exit_price": 151.828,
+      "opened_at": "2026-05-15T20:19:06.988031+00:00",
+      "closed_at": "2026-05-29T21:09:00.459032+00:00",
+      "days_held": 14,
+      "realized_pnl": 10.91,
+      "realized_pct": 1.83,
+      "fees_total": 0.3803,
+      "flag_classification": "UNDERDONE",
+      "flag_confidence": 3,
+      "flag_horizon": "days",
+      "tier": "exploratory",
+      "exit_reasoning": "Horizon exit -- held 14d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent.",
+      "benchmark_at_open": null,
+      "market_cap_at_close": 2296323840.0,
+      "benchmark_at_close": {
+        "SPY": 756.48,
+        "IWM": 290.43
+      },
+      "benchmark_return_pct": {
+        "SPY": null,
+        "IWM": null
+      },
+      "alpha_pct": {
+        "SPY": null,
+        "IWM": null
+      }
+    },
     {
       "ticker": "AEIS",
       "name": "Advanced Energy Industries",
@@ -234,6 +330,66 @@
     }
   ],
   "trade_log": [
+    {
+      "date": "2026-05-29T21:09:33.559149+00:00",
+      "side": "BUY",
+      "ticker": "AVAV",
+      "shares": 3.0241,
+      "fill_price": 213.7135,
+      "fees": 0.3597,
+      "notional": 646.29,
+      "why": "Opened per flag: OVERDONE conf 3 — Iran missile launch headlines and sector-wide defense bid (ITA +2.2%)"
+    },
+    {
+      "date": "2026-05-29T21:09:33.172352+00:00",
+      "side": "BUY",
+      "ticker": "BBY",
+      "shares": 8.0402,
+      "fill_price": 74.074,
+      "fees": 0.3757,
+      "notional": 595.57,
+      "why": "Opened per flag: OVERDONE conf 3 — Q1 earnings 8-K filed 5/28, continuation through 5/29"
+    },
+    {
+      "date": "2026-05-29T21:09:01.903235+00:00",
+      "side": "SELL",
+      "ticker": "DECK",
+      "shares": 6,
+      "fill_price": 114.6752,
+      "fees": 0.3893,
+      "notional": 688.05,
+      "why": "Horizon exit -- held 8d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+    },
+    {
+      "date": "2026-05-29T21:09:01.434863+00:00",
+      "side": "SELL",
+      "ticker": "BLDR",
+      "shares": 17,
+      "fill_price": 76.3835,
+      "fees": 0.4433,
+      "notional": 1298.52,
+      "why": "Horizon exit -- held 10d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+    },
+    {
+      "date": "2026-05-29T21:09:00.973092+00:00",
+      "side": "SELL",
+      "ticker": "SHAK",
+      "shares": 33,
+      "fill_price": 62.1878,
+      "fees": 0.5181,
+      "notional": 2052.2,
+      "why": "Horizon exit -- held 14d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+    },
+    {
+      "date": "2026-05-29T21:09:00.459054+00:00",
+      "side": "SELL",
+      "ticker": "DCO",
+      "shares": 4,
+      "fill_price": 151.828,
+      "fees": 0.3803,
+      "notional": 607.31,
+      "why": "Horizon exit -- held 14d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+    },
     {
       "date": "2026-05-22T20:47:53.449509+00:00",
       "side": "BUY",

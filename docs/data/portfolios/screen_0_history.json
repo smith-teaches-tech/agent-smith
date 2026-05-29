@@ -152,5 +152,83 @@
     "fees": 0.3756,
     "notional": 591.87,
     "why": "Opened per flag: UNDERDONE conf 3 — House passes housing affordability bill (CNBC: 'win for investors'); 8-K with 5.02 director/officer changes around annual meeting"
+  },
+  {
+    "ts": "2026-05-29T21:09:00.459265+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-05-29T21:09:00.459054+00:00",
+    "side": "SELL",
+    "ticker": "DCO",
+    "shares": 4,
+    "fill_price": 151.828,
+    "fees": 0.3803,
+    "notional": 607.31,
+    "why": "Horizon exit -- held 14d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-05-29T21:09:00.973349+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-05-29T21:09:00.973092+00:00",
+    "side": "SELL",
+    "ticker": "SHAK",
+    "shares": 33,
+    "fill_price": 62.1878,
+    "fees": 0.5181,
+    "notional": 2052.2,
+    "why": "Horizon exit -- held 14d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-05-29T21:09:01.435092+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-05-29T21:09:01.434863+00:00",
+    "side": "SELL",
+    "ticker": "BLDR",
+    "shares": 17,
+    "fill_price": 76.3835,
+    "fees": 0.4433,
+    "notional": 1298.52,
+    "why": "Horizon exit -- held 10d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-05-29T21:09:01.903490+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-05-29T21:09:01.903235+00:00",
+    "side": "SELL",
+    "ticker": "DECK",
+    "shares": 6,
+    "fill_price": 114.6752,
+    "fees": 0.3893,
+    "notional": 688.05,
+    "why": "Horizon exit -- held 8d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-05-29T21:09:33.172576+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-05-29T21:09:33.172352+00:00",
+    "side": "BUY",
+    "ticker": "BBY",
+    "shares": 8.0402,
+    "fill_price": 74.074,
+    "fees": 0.3757,
+    "notional": 595.57,
+    "why": "Opened per flag: OVERDONE conf 3 — Q1 earnings 8-K filed 5/28, continuation through 5/29"
+  },
+  {
+    "ts": "2026-05-29T21:09:33.559372+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-05-29T21:09:33.559149+00:00",
+    "side": "BUY",
+    "ticker": "AVAV",
+    "shares": 3.0241,
+    "fill_price": 213.7135,
+    "fees": 0.3597,
+    "notional": 646.29,
+    "why": "Opened per flag: OVERDONE conf 3 — Iran missile launch headlines and sector-wide defense bid (ITA +2.2%)"
   }
 ]

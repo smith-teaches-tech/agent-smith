@@ -167,5 +167,31 @@
     "fees": 0.357,
     "notional": 585.39,
     "why": "Opened per flag: OVERDONE conf 4 — Anthropic releases Opus 4.8 with new 'dynamic workflow' tool"
+  },
+  {
+    "ts": "2026-05-29T21:09:36.438978+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-05-29T21:09:36.438684+00:00",
+    "side": "SELL",
+    "ticker": "BLKB",
+    "shares": 10,
+    "fill_price": 30.5894,
+    "fees": 0.3922,
+    "notional": 305.89,
+    "why": "Horizon exit -- held 8d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-05-29T21:10:14.499362+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-05-29T21:10:14.499144+00:00",
+    "side": "BUY",
+    "ticker": "WK",
+    "shares": 11.5223,
+    "fill_price": 47.3173,
+    "fees": 0.3869,
+    "notional": 545.2,
+    "why": "Opened per flag: OVERDONE conf 4 — Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links"
   }
 ]

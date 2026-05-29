@@ -38,5 +38,15 @@
     "weakest_link": "The thesis conflates a defensive guidance reaffirmation (standard practice before earnings) with affirmative confidence, and assumes management would not risk reaffirming if tracking below plan — but reaffirmation itself is a floor-setting move that protects against a miss, not proof of upside.",
     "critique": "Guidance reaffirmation 3 weeks before print is routine risk management, not a de-risking signal of strength. Management reaffirms *precisely* when there is uncertainty, to anchor expectations; it is not a tell of confidence. The RIF framed as 'reinvestment-driven' is also a standard narrative, and Haiku's own what_kills criterion flags that the call commentary could easily reframe it defensively, which would invalidate the bull thesis setup entirely. The May 11 Reg FD is dated, and no price/volume data is provided (move_pct, five_day_change_pct, volume_multiple are all null), so we have no market signal of how the filing was received or whether it moved the needle. Without that market read, the thesis rests purely on filing interpretation with no anchor to actual investor behavior.",
     "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-05-29T21:10:27.397873+00:00",
+    "screen_id": "screen_2",
+    "run_summary": "One UNDERDONE flag at confidence 3 (GTLB) clears all gates cleanly: earnings in 4 trading days, no prior position, thesis grounded in specific filings mechanics (mid-quarter Reg FD reaffirmation + RIF + buyback + cash flow inflection + enterprise ARR growth). Screen 2's conf-3 UNDERDONE track record is 50% (1 hit, 1 miss in a 2-call sample), below the 57% overall average but not disqualifying. The flag's pedagogical depth is strong — specific filing reads, named what-confirms and what-kills, learning thesis. BUY.",
+    "ticker": "GTLB",
+    "survived": true,
+    "weakest_link": "The thesis assumes management's mid-quarter Reg FD reaffirmation is a de-risking signal of confidence, but reaffirmations three weeks pre-print are routine housekeeping that do not necessarily imply beats or raises.",
+    "critique": "The core tell—that management would not reaffirm guidance unless tracking at or above plan—is unsupported. Reg FD reaffirmations three weeks before earnings are standard practice and carry minimal information content; they often serve compliance and risk-mitigation purposes rather than signaling hidden strength. The RIF announcement alongside reaffirmation could equally signal management is bracing for margin pressure or growth deceleration and is pre-spinning the narrative defensively. The 10-K shows improvement in OCF margin swing and $1M+ ARR cohort growth, but those are past-tense metrics from FY26; forward guidance maintenance on May 11 does not confirm those trends persist into Q1 FY27. NDR already fell from 123% to 118% year-over-year, showing deceleration momentum that a reaffirmation does not resolve.",
+    "confidence_in_critique": 3
   }
 ]
