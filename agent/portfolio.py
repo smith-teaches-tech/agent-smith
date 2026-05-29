@@ -136,6 +136,53 @@ def append_history(event: dict[str, Any], screen_id: str | None = None) -> None:
     path.write_text(json.dumps(history, indent=2, ensure_ascii=False))
 
 
+def append_thesis_log(
+    rows: list[dict[str, Any]],
+    screen_id: str | None = None,
+) -> None:
+    """
+    Append a batch of per-position thesis-status reads to a screen's
+    append-only thesis journal: one call per portfolio pass, one row per
+    open position evaluated that run.
+
+    Pure observation. It records what the decision pass *thought* about
+    each held position (thesis_status, next_action, and the position's
+    marks at that moment), whether or not a trade fired. HOLD reads are
+    the point: everywhere else they're discarded -- the live position
+    keeps only its latest thesis_status, overwritten next run -- so
+    without this log the trajectory of a "weakening but held" position
+    is unrecoverable.
+
+    The journal exists to answer one question later, on real data: does
+    a "weakening" read actually precede drawdown, or is it noise? Until
+    that's measured, no exit rule should act on the label. This is the
+    evidence-gathering step, not a behavior change.
+
+    All rows from one pass share an exact run_ts so they join cleanly on
+    read. Earlier rows are never rewritten.
+    """
+    if not rows:
+        return
+    sid = screen_id or config.DEFAULT_SCREEN_ID
+    _ensure_dirs(sid)
+    path = Path(config.screen_paths(sid)["thesis_log"])
+
+    log: list[dict[str, Any]] = []
+    if path.exists():
+        try:
+            log = json.loads(path.read_text())
+            if not isinstance(log, list):
+                log = []
+        except (json.JSONDecodeError, OSError):
+            log = []
+
+    run_ts = datetime.now(timezone.utc).isoformat()
+    for r in rows:
+        log.append({"run_ts": run_ts, "screen_id": sid, **r})
+
+    path.write_text(json.dumps(log, indent=2, ensure_ascii=False))
+
+
 # ============================================================
 # Fee model — IBKR Pro Tiered
 # ============================================================
@@ -700,35 +747,6 @@ def execute_sell(
     append_history({"kind": "sell", **trade}, screen_id=sid)
     return True, "ok", trade
 
-# ============================================================
-# Code-enforced exits — stop-loss + horizon expiry
-#
-# Screen 0 / Screen 1 discipline, mirroring Screen 2's T+1 hard
-# exit. Runs AFTER mark_to_market and BEFORE the Haiku portfolio
-# pass, so the decision pass never sees a position the rules have
-# already condemned. The Haiku prompt's EXIT instruction is the
-# backstop; this code is the discipline.
-#
-# Two thesis-independent triggers, evaluated per open position:
-#   1. STOP-LOSS  — unrealized_pct <= -config.STOP_LOSS_PCT.
-#                   Pure risk control. A stopped loser is still a
-#                   clean graded miss, so this barely perturbs the
-#                   grading loop. (The PLAB failure: rode a loser
-#                   with nothing forcing it out.)
-#   2. HORIZON    — days_held >= GRADING_HORIZON_DAYS[flag_horizon].
-#                   The grade already fires at the horizon; holding
-#                   past it is unmonitored drift, not a live test.
-#                   Forcing the close realizes the paper P&L at the
-#                   horizon instead of letting a winner round-trip.
-#                   (The SHAK failure: held ~9d past a 5d horizon,
-#                   gave back most of the gain, "thesis intact".)
-#
-# Stop takes precedence over horizon. Neither fires -> leave the
-# position for Haiku.
-#
-# NOT wired to Screen 2 — its T+1 print exit is its own horizon
-# discipline; running both would double-handle the same position.
-# ============================================================
 
 def force_exit_stop_and_horizon(
     state: dict[str, Any],
@@ -742,19 +760,32 @@ def force_exit_stop_and_horizon(
     execute_sell (next-open fill, same as every other exit). Returns a
     summary dict for the run log.
 
+    Two thesis-independent triggers, evaluated per open position:
+      1. STOP-LOSS -- unrealized_pct <= -config.STOP_LOSS_PCT. Pure risk
+         control; a stopped loser is still a clean graded miss.
+      2. HORIZON   -- days_held >= GRADING_HORIZON_DAYS[flag_horizon].
+         The grade already fires at the horizon; holding past it is
+         unmonitored drift, so the close realizes the paper P&L at the
+         horizon instead of letting a winner round-trip.
+    Stop takes precedence over horizon. Neither fires -> leave the
+    position for the Haiku pass.
+
     Robustness notes:
-      - `days_held` is recomputed from `opened_at` here rather than read
-        off the position, because mark_to_market skips its days_held
-        update on a stale-price run. Time-based exits must not depend on
-        whether the last price fetch succeeded.
+      - days_held is recomputed from opened_at here rather than read off
+        the position, because mark_to_market skips its days_held update
+        on a stale-price run. Time-based exits must not depend on whether
+        the last price fetch succeeded.
       - A stop is only evaluated when the mark is fresh (price_stale is
         falsy and unrealized_pct is known). A stale mark defers the stop
-        to the next run; the horizon trigger still applies, since it is
-        time-based and execute_sell fetches its own fresh fill anyway.
-      - An unknown / unparseable flag_horizon is NOT force-exited on
-        time — there is no basis to act. It is logged and left for the
-        Haiku pass, mirroring Screen 2's handling of an unparseable
-        catalyst. The stop still applies to such a position.
+        to the next run; the horizon trigger still applies (time-based,
+        and execute_sell fetches its own fresh fill anyway).
+      - An unknown / unparseable flag_horizon is NOT force-exited on time
+        -- there is no basis to act. It is logged and left for the Haiku
+        pass, mirroring Screen 2's handling of an unparseable catalyst.
+        The stop still applies to such a position.
+
+    Not wired to Screen 2 -- its T+1 print exit is its own horizon
+    discipline; running both would double-handle the same position.
     """
     sid = screen_id or state.get("screen_id") or config.DEFAULT_SCREEN_ID
     now = now or datetime.now(timezone.utc)
@@ -768,13 +799,13 @@ def force_exit_stop_and_horizon(
         "details": [],
     }
 
-    # Snapshot first — execute_sell mutates state["open_positions"].
+    # Snapshot first -- execute_sell mutates state["open_positions"].
     open_snapshot = list(state.get("open_positions", []))
 
     for pos in open_snapshot:
         ticker = pos.get("ticker")
 
-        # --- Recompute days_held from opened_at (don't trust the field) ---
+        # Recompute days_held from opened_at (don't trust the field).
         days_held = pos.get("days_held")
         opened_raw = pos.get("opened_at")
         if opened_raw:
@@ -790,7 +821,7 @@ def force_exit_stop_and_horizon(
         horizon = (pos.get("flag_horizon") or "").lower().strip()
         horizon_days = config.GRADING_HORIZON_DAYS.get(horizon)  # None if unknown
 
-        # --- Decide the trigger. Stop wins over horizon. ---
+        # Decide the trigger. Stop wins over horizon.
         trigger: str | None = None
         if (not stale) and (up is not None) and up <= -config.STOP_LOSS_PCT:
             trigger = "stop"
@@ -798,15 +829,13 @@ def force_exit_stop_and_horizon(
             trigger = "horizon"
 
         if trigger is None:
-            # Nothing fires. Surface the two "couldn't evaluate" cases so
-            # they're visible rather than silent.
             if horizon_days is None:
                 summary["skipped"] += 1
                 summary["details"].append({
                     "ticker": ticker,
                     "trigger": "unknown_horizon",
                     "reason": f"flag_horizon {pos.get('flag_horizon')!r} not in "
-                              f"GRADING_HORIZON_DAYS — horizon exit cannot fire; "
+                              f"GRADING_HORIZON_DAYS -- horizon exit cannot fire; "
                               f"left for Haiku. Stop still applies once price is fresh.",
                     "unrealized_pct": up,
                     "days_held": days_held,
@@ -814,7 +843,7 @@ def force_exit_stop_and_horizon(
                 })
                 print(
                     f"[{sid}] WARN: {ticker} has unknown flag_horizon "
-                    f"{pos.get('flag_horizon')!r} — code horizon exit cannot fire; "
+                    f"{pos.get('flag_horizon')!r} -- code horizon exit cannot fire; "
                     f"relying on the Haiku prompt's EXIT instruction."
                 )
             elif stale:
@@ -822,7 +851,7 @@ def force_exit_stop_and_horizon(
                 summary["details"].append({
                     "ticker": ticker,
                     "trigger": "stale_price",
-                    "reason": "mark is stale — stop-loss deferred to next run; "
+                    "reason": "mark is stale -- stop-loss deferred to next run; "
                               "horizon not yet reached.",
                     "unrealized_pct": up,
                     "days_held": days_held,
@@ -830,16 +859,15 @@ def force_exit_stop_and_horizon(
                 })
             continue
 
-        # --- Fire the exit. ---
         if trigger == "stop":
             reasoning = (
-                f"Stop-loss — unrealized {up:.1f}% breached the "
-                f"−{config.STOP_LOSS_PCT:.0f}% floor. Code-enforced, "
+                f"Stop-loss -- unrealized {up:.1f}% breached the "
+                f"-{config.STOP_LOSS_PCT:.0f}% floor. Code-enforced, "
                 f"thesis-independent."
             )
         else:  # horizon
             reasoning = (
-                f"Horizon exit — held {days_held}d ≥ {horizon_days}d "
+                f"Horizon exit -- held {days_held}d >= {horizon_days}d "
                 f"({horizon}) grading horizon; prediction window closed. "
                 f"Code-enforced, P&L-independent."
             )
@@ -865,8 +893,6 @@ def force_exit_stop_and_horizon(
             })
             print(f"[{sid}] code-exit {ticker}: {reasoning}")
         else:
-            # Typically "no next-open price yet; deferring" — leave the
-            # position open; the sweep re-evaluates it next run.
             summary["exit_failed"] += 1
             summary["details"].append({
                 "ticker": ticker,

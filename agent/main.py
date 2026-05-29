@@ -574,7 +574,7 @@ def run_portfolio_for_screen(
                 f"[portfolio] post-T+1-exit: equity=${pf.total_equity(state):.2f} "
                 f"cash=${state['cash']:.2f} open={len(state['open_positions'])}"
             )
-            
+
     # ---- Screen 0 / Screen 1: stop-loss + horizon hard exits -----
     # Code-enforced exit discipline, run in the same post-MTM /
     # pre-decision slot as Screen 2's T+1 exit above. Two
@@ -582,14 +582,11 @@ def run_portfolio_for_screen(
     # catastrophe floor, and a grading-horizon expiry (days_held >=
     # GRADING_HORIZON_DAYS[flag_horizon]). The Haiku prompt's EXIT
     # instruction is the backstop; this is the discipline. Screen 2 is
-    # excluded — its T+1 print exit is already its holding-window rule,
+    # excluded -- its T+1 print exit is already its holding-window rule,
     # so running both would double-handle the same position.
     if screen_id in ("screen_0", "screen_1"):
         code_exits = pf.force_exit_stop_and_horizon(state, screen_id=screen_id)
         if code_exits["exited"] or code_exits["exit_failed"]:
-            # Positions changed (or a close was attempted) — persist now
-            # so the closes are on disk even if a later step in this pass
-            # fails, exactly as the Screen 2 sweep does.
             pf.save_state(state, screen_id=screen_id)
             print(
                 f"[portfolio] post-code-exit: "
@@ -925,6 +922,9 @@ def run_portfolio_for_screen(
 
     # 1) Apply position decisions (HOLD / ADD / TRIM / EXIT) first so that
     #    freed-up cash is available for any new BUYs.
+    # Collect one thesis-status row per evaluated position for the
+    # append-only journal (written after the loop).
+    thesis_rows = []
     for d in decisions.get("position_decisions", []):
         tkr = d.get("ticker")
         action = (d.get("next_action") or "HOLD").upper()
@@ -933,12 +933,30 @@ def run_portfolio_for_screen(
 
         # Update the in-memory position with Claude's latest read,
         # whether or not it triggers a trade.
+        matched = None
         for p in state["open_positions"]:
             if p["ticker"] == tkr:
                 p["thesis_status"] = thesis_status
                 p["next_action"] = action
                 p["latest_reasoning"] = reasoning
+                matched = p
                 break
+
+        if matched is not None:
+            thesis_rows.append({
+                "ticker": tkr,
+                "thesis_status": thesis_status,
+                "next_action": action,
+                "unrealized_pct": matched.get("unrealized_pct"),
+                "current_price": matched.get("current_price"),
+                "days_held": matched.get("days_held"),
+                "flag_horizon": matched.get("flag_horizon"),
+                "flag_classification": matched.get("flag_classification"),
+                "flag_confidence": matched.get("flag_confidence"),
+                "tier": matched.get("tier", "conviction"),
+                "decision_confidence": d.get("confidence_in_decision"),
+                "price_stale": bool(matched.get("price_stale")),
+            })
 
         if action == "HOLD":
             continue
@@ -983,6 +1001,13 @@ def run_portfolio_for_screen(
                 print(f"[portfolio] {action} {tkr}: {msg}")
             else:
                 print(f"[portfolio] {action} {tkr} FAILED: {msg}")
+
+    # Persist this run's per-position thesis reads to the append-only
+    # journal. Captures every HOLD/weakening read that's otherwise
+    # overwritten on the live position next run. Feeds the future
+    # "does weakening precede drawdown?" calibration; nothing acts on it
+    # yet.
+    pf.append_thesis_log(thesis_rows, screen_id=screen_id)
 
     # 2) Apply new-name decisions.
     #

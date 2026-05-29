@@ -202,6 +202,15 @@ PAPER_PORTFOLIO_BANKROLL = 10_000.0        # Starting cash in USD
 PAPER_PORTFOLIO_MAX_POSITION_PCT = 0.25    # No single name > 25% of total bankroll
 PAPER_PORTFOLIO_MAX_SECTOR_PCT = 0.40      # No single sector > 40% of total bankroll
 PAPER_PORTFOLIO_MIN_CASH_PCT = 0.10        # Always keep at least 10% in cash
+
+# Catastrophe stop-loss floor for the code-enforced exit sweep
+# (portfolio.force_exit_stop_and_horizon). POSITIVE number meaning a
+# NEGATIVE return: 15.0 -> force-close any position whose unrealized
+# return is <= -15%. A wide *catastrophe* floor, not a trading stop --
+# wide enough that normal mid-cap vol over a 5-20d horizon doesn't
+# whipsaw a position out, tight enough to stop a slow bleeder from being
+# ridden all the way down. Global across screens; can be lifted into the
+# per-screen SCREENS dicts later if a screen needs its own.
 STOP_LOSS_PCT = 15.0       # Force-exit at -15% unrealized
 
 # Minimum confidence on a new discovery for Claude to consider a BUY.
@@ -556,6 +565,7 @@ def screen_paths(screen_id: str) -> dict[str, str]:
     return {
         "portfolio": f"{PORTFOLIOS_DIR}/{screen_id}.json",
         "history": f"{PORTFOLIOS_DIR}/{screen_id}_history.json",
+        "thesis_log": f"{PORTFOLIOS_DIR}/{screen_id}_thesis_log.json",
         "suggestions": f"docs/data/{screen_id}_suggestions.json",
     }
 
