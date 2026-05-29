@@ -202,6 +202,7 @@ PAPER_PORTFOLIO_BANKROLL = 10_000.0        # Starting cash in USD
 PAPER_PORTFOLIO_MAX_POSITION_PCT = 0.25    # No single name > 25% of total bankroll
 PAPER_PORTFOLIO_MAX_SECTOR_PCT = 0.40      # No single sector > 40% of total bankroll
 PAPER_PORTFOLIO_MIN_CASH_PCT = 0.10        # Always keep at least 10% in cash
+STOP_LOSS_PCT = 15.0       # Force-exit at -15% unrealized
 
 # Minimum confidence on a new discovery for Claude to consider a BUY.
 # Lower confidence flags can still be WATCHed but never opened.

@@ -574,6 +574,30 @@ def run_portfolio_for_screen(
                 f"[portfolio] post-T+1-exit: equity=${pf.total_equity(state):.2f} "
                 f"cash=${state['cash']:.2f} open={len(state['open_positions'])}"
             )
+            
+    # ---- Screen 0 / Screen 1: stop-loss + horizon hard exits -----
+    # Code-enforced exit discipline, run in the same post-MTM /
+    # pre-decision slot as Screen 2's T+1 exit above. Two
+    # thesis-independent triggers per open position: a -STOP_LOSS_PCT
+    # catastrophe floor, and a grading-horizon expiry (days_held >=
+    # GRADING_HORIZON_DAYS[flag_horizon]). The Haiku prompt's EXIT
+    # instruction is the backstop; this is the discipline. Screen 2 is
+    # excluded — its T+1 print exit is already its holding-window rule,
+    # so running both would double-handle the same position.
+    if screen_id in ("screen_0", "screen_1"):
+        code_exits = pf.force_exit_stop_and_horizon(state, screen_id=screen_id)
+        if code_exits["exited"] or code_exits["exit_failed"]:
+            # Positions changed (or a close was attempted) — persist now
+            # so the closes are on disk even if a later step in this pass
+            # fails, exactly as the Screen 2 sweep does.
+            pf.save_state(state, screen_id=screen_id)
+            print(
+                f"[portfolio] post-code-exit: "
+                f"{code_exits['by_stop']} stop, {code_exits['by_horizon']} horizon, "
+                f"{code_exits['exit_failed']} deferred, {code_exits['skipped']} skipped; "
+                f"equity=${pf.total_equity(state):.2f} cash=${state['cash']:.2f} "
+                f"open={len(state['open_positions'])}"
+            )
 
     # ---- Gather recent flags ----------------------------------
     # Screen 0 reads from us_output + history/us_*.json.
