@@ -1,121 +1,9 @@
 {
-  "generated_at": "2026-05-29T21:10:15.861035+00:00",
+  "generated_at": "2026-06-01T22:02:28.189337+00:00",
   "screen_id": "screen_1",
   "bankroll_start": 10000.0,
-  "cash": 5914.8,
+  "cash": 8506.63,
   "open_positions": [
-    {
-      "ticker": "DOCN",
-      "name": "DigitalOcean Holdings, Inc.",
-      "sector": "Technology",
-      "shares": 4.0009,
-      "cost_basis": 158.7286,
-      "cost_total": 635.42,
-      "current_price": 155.95,
-      "value": 623.94,
-      "unrealized_pnl": -11.48,
-      "unrealized_pct": -1.81,
-      "opened_at": "2026-05-27T21:06:57.603281+00:00",
-      "days_held": 2,
-      "flag_classification": "OVERDONE",
-      "flag_confidence": 4,
-      "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Days held: 2 of 15. Entry thesis (Google Search redesign has no overlap with dev-focused IaaS/PaaS discovery) remains sound. Unrealized loss -1.81% is within noise; filings evidence is crisp (zero SEO/search dependency in 10-K). Early recovery signal (5-day move +0.27%) supports thesis. No fresh negative catalyst. Hold for sympathy fade completion.",
-      "next_action": "HOLD",
-      "catalyst": "Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links",
-      "tier": "exploratory",
-      "benchmark_at_open": {
-        "SPY": 750.88,
-        "IWM": 291.16
-      },
-      "price_stale": false
-    },
-    {
-      "ticker": "TENB",
-      "name": "Tenable Holdings, Inc.",
-      "sector": "Technology",
-      "shares": 24.6131,
-      "cost_basis": 25.3653,
-      "cost_total": 624.75,
-      "current_price": 28.23,
-      "value": 694.83,
-      "unrealized_pnl": 70.08,
-      "unrealized_pct": 11.22,
-      "opened_at": "2026-05-27T21:06:57.740530+00:00",
-      "days_held": 2,
-      "flag_classification": "OVERDONE",
-      "flag_confidence": 4,
-      "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Days held: 2 of 15. Thesis intact: filings explicitly state AI-enhanced threats INCREASE vuln-mgmt demand. Unrealized gain +11.22% reflects early institutional recognition. Volume normal (0.53x), no fresh negative signal. Sympathy fade may be fading already; hold to capture full repricing window.",
-      "next_action": "HOLD",
-      "catalyst": "Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links",
-      "tier": "exploratory",
-      "benchmark_at_open": {
-        "SPY": 750.88,
-        "IWM": 291.16
-      },
-      "price_stale": false
-    },
-    {
-      "ticker": "QLYS",
-      "name": "Qualys, Inc.",
-      "sector": "Technology",
-      "shares": 6.1204,
-      "cost_basis": 100.2201,
-      "cost_total": 613.76,
-      "current_price": 109.29,
-      "value": 668.9,
-      "unrealized_pnl": 55.14,
-      "unrealized_pct": 8.98,
-      "opened_at": "2026-05-27T21:06:57.874443+00:00",
-      "days_held": 2,
-      "flag_classification": "OVERDONE",
-      "flag_confidence": 4,
-      "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Days held: 2 of 15. Filings frame AI/ML as threat driver, not substitute for compliance scanning. Unrealized gain +8.98% shows early recovery. 5-day move -1.77% is modest; thesis (Google Search overhaul orthogonal to PCI/HIPAA audit moat) stands. Hold to completion of sympathy-fade window.",
-      "next_action": "HOLD",
-      "catalyst": "Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links",
-      "tier": "exploratory",
-      "benchmark_at_open": {
-        "SPY": 750.88,
-        "IWM": 291.16
-      },
-      "price_stale": false
-    },
-    {
-      "ticker": "AEIS",
-      "name": "Advanced Energy Industries, Inc",
-      "sector": "Industrials",
-      "shares": 1.8327,
-      "cost_basis": 339.4591,
-      "cost_total": 622.49,
-      "current_price": 302.18,
-      "value": 553.81,
-      "unrealized_pnl": -68.68,
-      "unrealized_pct": -11.03,
-      "opened_at": "2026-05-27T21:06:58.329164+00:00",
-      "days_held": 2,
-      "flag_classification": "OVERDONE",
-      "flag_confidence": 3,
-      "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Days held: 2 of 15. Filings explicitly identify AI infrastructure as demand TAILWIND for data center power delivery. Unrealized loss -11.03% is vs. today's panic, but 5-day move shows +1.32% recovery underway. Anthropic agent tool increases inference compute, not decreases it. Thesis mechanically sound; hold.",
-      "next_action": "HOLD",
-      "catalyst": "Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links",
-      "tier": "exploratory",
-      "benchmark_at_open": {
-        "SPY": 750.88,
-        "IWM": 291.16
-      },
-      "price_stale": false
-    },
     {
       "ticker": "ONTO",
       "name": "Onto Innovation Inc.",
@@ -123,18 +11,18 @@
       "shares": 2.1971,
       "cost_basis": 266.4362,
       "cost_total": 585.75,
-      "current_price": 258.24,
-      "value": 567.38,
-      "unrealized_pnl": -18.37,
-      "unrealized_pct": -3.14,
+      "current_price": 255.71,
+      "value": 561.82,
+      "unrealized_pnl": -23.93,
+      "unrealized_pct": -4.09,
       "opened_at": "2026-05-28T21:12:10.111498+00:00",
-      "days_held": 0,
+      "days_held": 4,
       "flag_classification": "OVERDONE",
       "flag_confidence": 4,
       "flag_horizon": "days",
       "thesis": "no mechanism. Catalyst: Anthropic releases Opus 4.8 with new 'dynamic workflow' tool. Falsified by: n/a.",
       "thesis_status": "intact",
-      "latest_reasoning": "Days held: 0 (just entered). Thesis: Anthropic agent orchestration has zero overlap with process-control metrology for advanced nodes. Unrealized loss -3.14% on entry is entry-day noise. Volume 0.8x is light, suggesting institutional accumulation not panic selling. Semicon capex inflection (the real threat) not visible in market data. Hold to gather 5-15 day thesis development.",
+      "latest_reasoning": "Days held: 4 of 15 max. Unrealized P&L: -4.09%. Thesis (Anthropic Opus 4.8 'dynamic workflow' tool has no mechanism to impair semicon equipment demand) remains uncontradicted. No fresh negative news on ONTO or its end markets. Sympathy fade still in progress; consolidation at -4% is consistent with panic unwind phase.",
       "next_action": "HOLD",
       "catalyst": "Anthropic releases Opus 4.8 with new 'dynamic workflow' tool",
       "tier": "exploratory",
@@ -151,28 +39,173 @@
       "shares": 11.5223,
       "cost_basis": 47.3173,
       "cost_total": 545.59,
-      "current_price": 47.3173,
-      "value": 545.2,
-      "unrealized_pnl": -0.39,
-      "unrealized_pct": -0.07,
+      "current_price": 52.83,
+      "value": 608.72,
+      "unrealized_pnl": 63.13,
+      "unrealized_pct": 11.57,
       "opened_at": "2026-05-29T21:10:14.499131+00:00",
-      "days_held": 0,
+      "days_held": 3,
       "flag_classification": "OVERDONE",
       "flag_confidence": 4,
       "flag_horizon": "days",
       "thesis": "no mechanism. Catalyst: Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links. Falsified by: n/a.",
       "thesis_status": "intact",
-      "latest_reasoning": "Opened position at $47.32, +$0.39 fees.",
+      "latest_reasoning": "Days held: 3 of 15 max. Unrealized P&L: +11.57%. Thesis (Google I/O Search integration of AI-generated answers does not mechanically impact compliance/governance software) holds. Position has recovered sharply, but this is consistent with institutional repricing already in motion — no invalidation signal. Thesis window remains open; hold for further upside as market completes the read.",
       "next_action": "HOLD",
       "catalyst": "Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links",
       "tier": "exploratory",
       "benchmark_at_open": {
         "SPY": 755.9,
         "IWM": 291.38
-      }
+      },
+      "price_stale": false
     }
   ],
   "closed_positions": [
+    {
+      "ticker": "AEIS",
+      "name": "Advanced Energy Industries, Inc",
+      "sector": "Industrials",
+      "shares": 1.8327,
+      "avg_cost": 339.4591,
+      "exit_price": 297.652,
+      "opened_at": "2026-05-27T21:06:58.329164+00:00",
+      "closed_at": "2026-06-01T22:02:23.296802+00:00",
+      "days_held": 5,
+      "realized_pnl": -76.98,
+      "realized_pct": -12.37,
+      "fees_total": 0.3713,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 3,
+      "flag_horizon": "days",
+      "tier": "exploratory",
+      "exit_reasoning": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent.",
+      "benchmark_at_open": {
+        "SPY": 750.88,
+        "IWM": 291.16
+      },
+      "market_cap_at_close": 11789139968.0,
+      "benchmark_at_close": {
+        "SPY": 758.54,
+        "IWM": 288.98
+      },
+      "benchmark_return_pct": {
+        "SPY": 1.02,
+        "IWM": -0.75
+      },
+      "alpha_pct": {
+        "SPY": -13.39,
+        "IWM": -11.62
+      }
+    },
+    {
+      "ticker": "QLYS",
+      "name": "Qualys, Inc.",
+      "sector": "Technology",
+      "shares": 6.1204,
+      "avg_cost": 100.2201,
+      "exit_price": 112.1777,
+      "opened_at": "2026-05-27T21:06:57.874443+00:00",
+      "closed_at": "2026-06-01T22:02:22.970555+00:00",
+      "days_held": 5,
+      "realized_pnl": 72.81,
+      "realized_pct": 11.86,
+      "fees_total": 0.3897,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 4,
+      "flag_horizon": "days",
+      "tier": "exploratory",
+      "exit_reasoning": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent.",
+      "benchmark_at_open": {
+        "SPY": 750.88,
+        "IWM": 291.16
+      },
+      "market_cap_at_close": 4015443200.0,
+      "benchmark_at_close": {
+        "SPY": 758.54,
+        "IWM": 288.98
+      },
+      "benchmark_return_pct": {
+        "SPY": 1.02,
+        "IWM": -0.75
+      },
+      "alpha_pct": {
+        "SPY": 10.84,
+        "IWM": 12.61
+      }
+    },
+    {
+      "ticker": "TENB",
+      "name": "Tenable Holdings, Inc.",
+      "sector": "Technology",
+      "shares": 24.6131,
+      "avg_cost": 25.3653,
+      "exit_price": 29.001,
+      "opened_at": "2026-05-27T21:06:57.740530+00:00",
+      "closed_at": "2026-06-01T22:02:22.651751+00:00",
+      "days_held": 5,
+      "realized_pnl": 89.05,
+      "realized_pct": 14.25,
+      "fees_total": 0.4527,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 4,
+      "flag_horizon": "days",
+      "tier": "exploratory",
+      "exit_reasoning": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent.",
+      "benchmark_at_open": {
+        "SPY": 750.88,
+        "IWM": 291.16
+      },
+      "market_cap_at_close": 3233174272.0,
+      "benchmark_at_close": {
+        "SPY": 758.54,
+        "IWM": 288.98
+      },
+      "benchmark_return_pct": {
+        "SPY": 1.02,
+        "IWM": -0.75
+      },
+      "alpha_pct": {
+        "SPY": 13.23,
+        "IWM": 15.0
+      }
+    },
+    {
+      "ticker": "DOCN",
+      "name": "DigitalOcean Holdings, Inc.",
+      "sector": "Technology",
+      "shares": 4.0009,
+      "avg_cost": 158.7286,
+      "exit_price": 161.848,
+      "opened_at": "2026-05-27T21:06:57.603281+00:00",
+      "closed_at": "2026-06-01T22:02:22.218229+00:00",
+      "days_held": 5,
+      "realized_pnl": 12.12,
+      "realized_pct": 1.91,
+      "fees_total": 0.3815,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 4,
+      "flag_horizon": "days",
+      "tier": "exploratory",
+      "exit_reasoning": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent.",
+      "benchmark_at_open": {
+        "SPY": 750.88,
+        "IWM": 291.16
+      },
+      "market_cap_at_close": 18101966848.0,
+      "benchmark_at_close": {
+        "SPY": 758.54,
+        "IWM": 288.98
+      },
+      "benchmark_return_pct": {
+        "SPY": 1.02,
+        "IWM": -0.75
+      },
+      "alpha_pct": {
+        "SPY": 0.89,
+        "IWM": 2.66
+      }
+    },
     {
       "ticker": "BLKB",
       "name": "Blackbaud, Inc.",
@@ -355,6 +388,46 @@
     }
   ],
   "trade_log": [
+    {
+      "date": "2026-06-01T22:02:23.296827+00:00",
+      "side": "SELL",
+      "ticker": "AEIS",
+      "shares": 1.8327,
+      "fill_price": 297.652,
+      "fees": 0.3713,
+      "notional": 545.51,
+      "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+    },
+    {
+      "date": "2026-06-01T22:02:22.970579+00:00",
+      "side": "SELL",
+      "ticker": "QLYS",
+      "shares": 6.1204,
+      "fill_price": 112.1777,
+      "fees": 0.3897,
+      "notional": 686.57,
+      "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+    },
+    {
+      "date": "2026-06-01T22:02:22.651780+00:00",
+      "side": "SELL",
+      "ticker": "TENB",
+      "shares": 24.6131,
+      "fill_price": 29.001,
+      "fees": 0.4527,
+      "notional": 713.8,
+      "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+    },
+    {
+      "date": "2026-06-01T22:02:22.218262+00:00",
+      "side": "SELL",
+      "ticker": "DOCN",
+      "shares": 4.0009,
+      "fill_price": 161.848,
+      "fees": 0.3815,
+      "notional": 647.54,
+      "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+    },
     {
       "date": "2026-05-29T21:10:14.499144+00:00",
       "side": "BUY",

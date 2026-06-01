@@ -48,5 +48,15 @@
     "weakest_link": "The thesis assumes management's mid-quarter Reg FD reaffirmation is a de-risking signal of confidence, but reaffirmations three weeks pre-print are routine housekeeping that do not necessarily imply beats or raises.",
     "critique": "The core tell—that management would not reaffirm guidance unless tracking at or above plan—is unsupported. Reg FD reaffirmations three weeks before earnings are standard practice and carry minimal information content; they often serve compliance and risk-mitigation purposes rather than signaling hidden strength. The RIF announcement alongside reaffirmation could equally signal management is bracing for margin pressure or growth deceleration and is pre-spinning the narrative defensively. The 10-K shows improvement in OCF margin swing and $1M+ ARR cohort growth, but those are past-tense metrics from FY26; forward guidance maintenance on May 11 does not confirm those trends persist into Q1 FY27. NDR already fell from 123% to 118% year-over-year, showing deceleration momentum that a reaffirmation does not resolve.",
     "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-06-01T22:02:39.976786+00:00",
+    "screen_id": "screen_2",
+    "run_summary": "One UNDERDONE flag (GTLB) clears Screen 2's gates cleanly: classification + confidence + earnings date intact + no conflicts. The May 11 mid-quarter reaffirmation is a deliberate management signal with supporting structural evidence (RIF-for-reinvestment, $400M buyback, FY26 cash flow inflection, $1M+ ARR cohort acceleration). BUY.",
+    "ticker": "GTLB",
+    "survived": true,
+    "weakest_link": "The RIF announcement framing as 'reinvestment-driven' rather than defensive is assumed rather than proven from the 8-K text itself, and management messaging on the call (24 hours away) could easily reframe this as cost-cutting.",
+    "critique": "The bull case hinges on interpreting the May 11 8-K reaffirmation + RIF combination as a confident de-risking move, but this reading is inferential. A management team could reaffirm guidance while announcing a RIF for wholly defensive reasons (margin defense, not growth reinvestment) — the 8-K filing language itself is not quoted in the thesis, so the tone and framing are unknown. The 118% NDR floor is also fragile: the flag lists NDR below 118% as a kill condition, but FY26 was already at that threshold (per the reasoning, down from 123%), meaning the company may already be in the warning zone for churn acceleration. The buyback ($400M authorized) is not actual capital deployment and could be theater. Without seeing the 8-K prose, the confidence in management intent is speculative.",
+    "confidence_in_critique": 3
   }
 ]

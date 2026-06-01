@@ -193,5 +193,57 @@
     "fees": 0.3869,
     "notional": 545.2,
     "why": "Opened per flag: OVERDONE conf 4 — Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links"
+  },
+  {
+    "ts": "2026-06-01T22:02:22.218483+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-06-01T22:02:22.218262+00:00",
+    "side": "SELL",
+    "ticker": "DOCN",
+    "shares": 4.0009,
+    "fill_price": 161.848,
+    "fees": 0.3815,
+    "notional": 647.54,
+    "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-06-01T22:02:22.652030+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-06-01T22:02:22.651780+00:00",
+    "side": "SELL",
+    "ticker": "TENB",
+    "shares": 24.6131,
+    "fill_price": 29.001,
+    "fees": 0.4527,
+    "notional": 713.8,
+    "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-06-01T22:02:22.970819+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-06-01T22:02:22.970579+00:00",
+    "side": "SELL",
+    "ticker": "QLYS",
+    "shares": 6.1204,
+    "fill_price": 112.1777,
+    "fees": 0.3897,
+    "notional": 686.57,
+    "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-06-01T22:02:23.297097+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-06-01T22:02:23.296827+00:00",
+    "side": "SELL",
+    "ticker": "AEIS",
+    "shares": 1.8327,
+    "fill_price": 297.652,
+    "fees": 0.3713,
+    "notional": 545.51,
+    "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
   }
 ]

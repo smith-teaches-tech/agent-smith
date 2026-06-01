@@ -78,5 +78,37 @@
     "tier": "exploratory",
     "decision_confidence": 4,
     "price_stale": false
+  },
+  {
+    "run_ts": "2026-06-01T22:02:28.188588+00:00",
+    "screen_id": "screen_1",
+    "ticker": "ONTO",
+    "thesis_status": "intact",
+    "next_action": "HOLD",
+    "unrealized_pct": -4.09,
+    "current_price": 255.71,
+    "days_held": 4,
+    "flag_horizon": "days",
+    "flag_classification": "OVERDONE",
+    "flag_confidence": 4,
+    "tier": "exploratory",
+    "decision_confidence": 4,
+    "price_stale": false
+  },
+  {
+    "run_ts": "2026-06-01T22:02:28.188588+00:00",
+    "screen_id": "screen_1",
+    "ticker": "WK",
+    "thesis_status": "intact",
+    "next_action": "HOLD",
+    "unrealized_pct": 11.57,
+    "current_price": 52.83,
+    "days_held": 3,
+    "flag_horizon": "days",
+    "flag_classification": "OVERDONE",
+    "flag_confidence": 4,
+    "tier": "exploratory",
+    "decision_confidence": 4,
+    "price_stale": false
   }
 ]

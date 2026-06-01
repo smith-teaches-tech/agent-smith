@@ -1,88 +1,170 @@
 {
-  "generated_at": "2026-05-29T21:09:35.150180+00:00",
+  "generated_at": "2026-06-01T22:02:21.396632+00:00",
   "bankroll_start": 10000.0,
-  "cash": 8671.56,
+  "cash": 9536.26,
   "open_positions": [
-    {
-      "ticker": "TXRH",
-      "name": "Texas Roadhouse, Inc.",
-      "sector": "Consumer Cyclical",
-      "shares": 3,
-      "cost_basis": 183.6334,
-      "cost_total": 551.26,
-      "current_price": 180.62,
-      "value": 541.86,
-      "unrealized_pnl": -9.4,
-      "unrealized_pct": -1.71,
-      "opened_at": "2026-05-13T20:48:17.967044+00:00",
-      "days_held": 16,
-      "flag_classification": "LIKELY RATIONAL",
-      "flag_confidence": 4,
-      "flag_horizon": "weeks",
-      "thesis": "no mechanism. Catalyst: Q1 2026 earnings + likely capital return announcement. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Original thesis—Q1 earnings (5/28) plus likely capital return announcement—remains unplayed. Stock is -1.71% from entry over 16 days; modest drawdown is noise relative to catalyst duration (weeks horizon). No earnings-related 8-K or capital announcement has been disclosed yet. Volume and price action are quiet, consistent with pre-catalyst consolidation. No disconfirming news; thesis framework intact.",
-      "next_action": "HOLD",
-      "catalyst": "Q1 2026 earnings + likely capital return announcement",
-      "tier": "exploratory",
-      "price_stale": false
-    },
     {
       "ticker": "BBY",
       "name": "Best Buy Co., Inc.",
       "sector": "Consumer Cyclical",
-      "shares": 8.0402,
+      "shares": 4.000000000000001,
       "cost_basis": 74.074,
-      "cost_total": 595.95,
-      "current_price": 74.074,
-      "value": 595.57,
-      "unrealized_pnl": -0.38,
-      "unrealized_pct": -0.06,
+      "cost_total": 296.49,
+      "current_price": 74.98,
+      "value": 299.92,
+      "unrealized_pnl": 3.43,
+      "unrealized_pct": 1.16,
       "opened_at": "2026-05-29T21:09:33.172338+00:00",
-      "days_held": 0,
+      "days_held": 3,
       "flag_classification": "OVERDONE",
       "flag_confidence": 3,
       "flag_horizon": "days",
       "thesis": "no mechanism. Catalyst: Q1 earnings 8-K filed 5/28, continuation through 5/29. Falsified by: n/a.",
       "thesis_status": "intact",
-      "latest_reasoning": "Opened position at $74.07, +$0.38 fees.",
-      "next_action": "HOLD",
+      "latest_reasoning": "Thesis at entry was OVERDONE fade (conf 3, days horizon). The new flag today re-confirms OVERDONE conf 3 with identical catalyst framing. Five-day move is now 27.47% (vs. move_pct 4.29 today), and volume_multiple is 2.24—classic positioning/squeeze signature overlaying a genuine beat. The fact that XLY is negative TODAY while BBY rips an additional 4.29% is the tell: retailer with tariff exposure, weak CE demand, and a modestly-raised guide is running hard into a soft sector tape. This is a higher-probability fade now that the multi-day extension is on record. TRIM 50% of position (4 shares) to lock in +1.16% realized and establish a smaller test position for the fade retrace, which historical patterns suggest should come within 5–10 trading days.",
+      "next_action": "TRIM",
       "catalyst": "Q1 earnings 8-K filed 5/28, continuation through 5/29",
       "tier": "exploratory",
       "benchmark_at_open": {
         "SPY": 755.9,
         "IWM": 291.38
-      }
+      },
+      "price_stale": false
     },
+    {
+      "ticker": "MANH",
+      "name": "Manhattan Associates, Inc.",
+      "sector": "Technology",
+      "shares": 3.8804,
+      "cost_basis": 153.113,
+      "cost_total": 594.5,
+      "current_price": 153.113,
+      "value": 594.14,
+      "unrealized_pnl": -0.36,
+      "unrealized_pct": -0.06,
+      "opened_at": "2026-06-01T22:02:20.116859+00:00",
+      "days_held": 0,
+      "flag_classification": "UNDERDONE",
+      "flag_confidence": 3,
+      "flag_horizon": "days",
+      "thesis": "no mechanism. Catalyst: 8-K filed 2026-06-01 with Items 2.05 (restructuring) and 7.01 (Reg FD disclosure). Falsified by: n/a.",
+      "thesis_status": "intact",
+      "latest_reasoning": "Opened position at $153.11, +$0.36 fees.",
+      "next_action": "HOLD",
+      "catalyst": "8-K filed 2026-06-01 with Items 2.05 (restructuring) and 7.01 (Reg FD disclosure)",
+      "tier": "exploratory",
+      "benchmark_at_open": {
+        "SPY": 755.36,
+        "IWM": 288.37
+      }
+    }
+  ],
+  "closed_positions": [
     {
       "ticker": "AVAV",
       "name": "AeroVironment, Inc.",
       "sector": "Industrials",
       "shares": 3.0241,
-      "cost_basis": 213.7135,
-      "cost_total": 646.65,
-      "current_price": 213.7135,
-      "value": 646.29,
-      "unrealized_pnl": -0.36,
-      "unrealized_pct": -0.06,
+      "avg_cost": 213.7135,
+      "exit_price": 202.4773,
       "opened_at": "2026-05-29T21:09:33.559136+00:00",
-      "days_held": 0,
+      "closed_at": "2026-06-01T22:02:19.747430+00:00",
+      "days_held": 3,
+      "realized_pnl": -34.34,
+      "realized_pct": -5.31,
+      "fees_total": 0.3772,
       "flag_classification": "OVERDONE",
       "flag_confidence": 3,
       "flag_horizon": "weeks",
-      "thesis": "no mechanism. Catalyst: Iran missile launch headlines and sector-wide defense bid (ITA +2.2%). Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Opened position at $213.71, +$0.36 fees.",
-      "next_action": "HOLD",
-      "catalyst": "Iran missile launch headlines and sector-wide defense bid (ITA +2.2%)",
       "tier": "exploratory",
+      "exit_reasoning": "Entry thesis was OVERDONE (conf 3, weeks horizon) on Iran missile headline + defense sector bid. Position is -4.56% unrealized after 3 days. New flag today re-confirms OVERDONE conf 3 with identical catalyst, but now the five-day move is 30.83% on 3.28x volume, with no company-specific 8-K or contract award. The thesis has NOT evolved—it's the same geopolitical headline bid. If the setup was OVERDONE three days ago at a 10-15% run, it is definitively OVERDONE now at 30%+ on no new catalyst. Historical precedent in defense mid-caps is a 30-50% retrace within two weeks absent a contract award. Thesis is broken because the move has overextended past the point where geopolitical upside can justify hold. EXIT fully and avoid the retrace.",
       "benchmark_at_open": {
         "SPY": 755.9,
         "IWM": 291.38
+      },
+      "market_cap_at_close": 10327989248.0,
+      "benchmark_at_close": {
+        "SPY": 758.54,
+        "IWM": 288.98
+      },
+      "benchmark_return_pct": {
+        "SPY": 0.35,
+        "IWM": -0.82
+      },
+      "alpha_pct": {
+        "SPY": -5.66,
+        "IWM": -4.49
       }
-    }
-  ],
-  "closed_positions": [
+    },
+    {
+      "ticker": "BBY",
+      "name": "Best Buy Co., Inc.",
+      "sector": "Consumer Cyclical",
+      "shares": 0.0,
+      "avg_cost": 74.074,
+      "exit_price": 76.4834,
+      "opened_at": "2026-05-29T21:09:33.172338+00:00",
+      "closed_at": "2026-06-01T22:02:19.500098+00:00",
+      "days_held": 3,
+      "realized_pnl": 9.54,
+      "realized_pct": 3.19,
+      "fees_total": 0.3722,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 3,
+      "flag_horizon": "days",
+      "tier": "exploratory",
+      "exit_reasoning": "Thesis at entry was OVERDONE fade (conf 3, days horizon). The new flag today re-confirms OVERDONE conf 3 with identical catalyst framing. Five-day move is now 27.47% (vs. move_pct 4.29 today), and volume_multiple is 2.24—classic positioning/squeeze signature overlaying a genuine beat. The fact that XLY is negative TODAY while BBY rips an additional 4.29% is the tell: retailer with tariff exposure, weak CE demand, and a modestly-raised guide is running hard into a soft sector tape. This is a higher-probability fade now that the multi-day extension is on record. TRIM 50% of position (4 shares) to lock in +1.16% realized and establish a smaller test position for the fade retrace, which historical patterns suggest should come within 5–10 trading days. (partial)",
+      "benchmark_at_open": {
+        "SPY": 755.9,
+        "IWM": 291.38
+      },
+      "market_cap_at_close": 15797925888.0,
+      "benchmark_at_close": {
+        "SPY": 758.54,
+        "IWM": 288.98
+      },
+      "benchmark_return_pct": {
+        "SPY": 0.35,
+        "IWM": -0.82
+      },
+      "alpha_pct": {
+        "SPY": 2.84,
+        "IWM": 4.01
+      }
+    },
+    {
+      "ticker": "TXRH",
+      "name": "Texas Roadhouse, Inc.",
+      "sector": "Consumer Cyclical",
+      "shares": 3,
+      "avg_cost": 183.6334,
+      "exit_price": 179.6702,
+      "opened_at": "2026-05-13T20:48:17.967044+00:00",
+      "closed_at": "2026-06-01T22:02:19.132460+00:00",
+      "days_held": 19,
+      "realized_pnl": -12.25,
+      "realized_pct": -2.22,
+      "fees_total": 0.3751,
+      "flag_classification": "LIKELY RATIONAL",
+      "flag_confidence": 4,
+      "flag_horizon": "weeks",
+      "tier": "exploratory",
+      "exit_reasoning": "Held 19 days on thesis of Q1 earnings + capital return announcement. Earnings have now fully printed (implied by portfolio cost basis and 19-day horizon matching late May timing), and the stock is -4.55% unrealized on no new catalyst disclosed. Capital-return announcement is no longer a concrete catalyst—it's an expectation. The structural setup (Texas Roadhouse consumer discretionary exposure, near-peak valuation entry) is now laden with execution risk if the company underwhelms on buyback size or FCF growth guidance. No fresh news supports holding through dilution. EXIT now and redeploy to higher-conviction setups.",
+      "benchmark_at_open": null,
+      "market_cap_at_close": 11528974336.0,
+      "benchmark_at_close": {
+        "SPY": 758.54,
+        "IWM": 288.98
+      },
+      "benchmark_return_pct": {
+        "SPY": null,
+        "IWM": null
+      },
+      "alpha_pct": {
+        "SPY": null,
+        "IWM": null
+      }
+    },
     {
       "ticker": "DECK",
       "name": "Deckers Outdoor Corporation",
@@ -330,6 +412,46 @@
     }
   ],
   "trade_log": [
+    {
+      "date": "2026-06-01T22:02:20.116873+00:00",
+      "side": "BUY",
+      "ticker": "MANH",
+      "shares": 3.8804,
+      "fill_price": 153.113,
+      "fees": 0.3624,
+      "notional": 594.14,
+      "why": "Opened per flag: UNDERDONE conf 3 — 8-K filed 2026-06-01 with Items 2.05 (restructuring) and 7.01 (Reg FD disclosure)"
+    },
+    {
+      "date": "2026-06-01T22:02:19.747454+00:00",
+      "side": "SELL",
+      "ticker": "AVAV",
+      "shares": 3.0241,
+      "fill_price": 202.4773,
+      "fees": 0.3772,
+      "notional": 612.31,
+      "why": "Entry thesis was OVERDONE (conf 3, weeks horizon) on Iran missile headline + defense sector bid. Position is -4.56% unrealized after 3 days. New flag today re-confirms OVERDONE conf 3 with identical catalyst, but now the five-day move is 30.83% on 3.28x volume, with no company-specific 8-K or contract award. The thesis has NOT evolved—it's the same geopolitical headline bid. If the setup was OVERDONE three days ago at a 10-15% run, it is definitively OVERDONE now at 30%+ on no new catalyst. Historical precedent in defense mid-caps is a 30-50% retrace within two weeks absent a contract award. Thesis is broken because the move has overextended past the point where geopolitical upside can justify hold. EXIT fully and avoid the retrace."
+    },
+    {
+      "date": "2026-06-01T22:02:19.500124+00:00",
+      "side": "SELL",
+      "ticker": "BBY",
+      "shares": 4.0402,
+      "fill_price": 76.4834,
+      "fees": 0.3722,
+      "notional": 309.01,
+      "why": "Thesis at entry was OVERDONE fade (conf 3, days horizon). The new flag today re-confirms OVERDONE conf 3 with identical catalyst framing. Five-day move is now 27.47% (vs. move_pct 4.29 today), and volume_multiple is 2.24—classic positioning/squeeze signature overlaying a genuine beat. The fact that XLY is negative TODAY while BBY rips an additional 4.29% is the tell: retailer with tariff exposure, weak CE demand, and a modestly-raised guide is running hard into a soft sector tape. This is a higher-probability fade now that the multi-day extension is on record. TRIM 50% of position (4 shares) to lock in +1.16% realized and establish a smaller test position for the fade retrace, which historical patterns suggest should come within 5–10 trading days."
+    },
+    {
+      "date": "2026-06-01T22:02:19.132484+00:00",
+      "side": "SELL",
+      "ticker": "TXRH",
+      "shares": 3,
+      "fill_price": 179.6702,
+      "fees": 0.3751,
+      "notional": 539.01,
+      "why": "Held 19 days on thesis of Q1 earnings + capital return announcement. Earnings have now fully printed (implied by portfolio cost basis and 19-day horizon matching late May timing), and the stock is -4.55% unrealized on no new catalyst disclosed. Capital-return announcement is no longer a concrete catalyst—it's an expectation. The structural setup (Texas Roadhouse consumer discretionary exposure, near-peak valuation entry) is now laden with execution risk if the company underwhelms on buyback size or FCF growth guidance. No fresh news supports holding through dilution. EXIT now and redeploy to higher-conviction setups."
+    },
     {
       "date": "2026-05-29T21:09:33.559149+00:00",
       "side": "BUY",

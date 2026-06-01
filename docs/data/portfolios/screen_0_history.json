@@ -230,5 +230,57 @@
     "fees": 0.3597,
     "notional": 646.29,
     "why": "Opened per flag: OVERDONE conf 3 — Iran missile launch headlines and sector-wide defense bid (ITA +2.2%)"
+  },
+  {
+    "ts": "2026-06-01T22:02:19.132728+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-06-01T22:02:19.132484+00:00",
+    "side": "SELL",
+    "ticker": "TXRH",
+    "shares": 3,
+    "fill_price": 179.6702,
+    "fees": 0.3751,
+    "notional": 539.01,
+    "why": "Held 19 days on thesis of Q1 earnings + capital return announcement. Earnings have now fully printed (implied by portfolio cost basis and 19-day horizon matching late May timing), and the stock is -4.55% unrealized on no new catalyst disclosed. Capital-return announcement is no longer a concrete catalyst—it's an expectation. The structural setup (Texas Roadhouse consumer discretionary exposure, near-peak valuation entry) is now laden with execution risk if the company underwhelms on buyback size or FCF growth guidance. No fresh news supports holding through dilution. EXIT now and redeploy to higher-conviction setups."
+  },
+  {
+    "ts": "2026-06-01T22:02:19.500392+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-06-01T22:02:19.500124+00:00",
+    "side": "SELL",
+    "ticker": "BBY",
+    "shares": 4.0402,
+    "fill_price": 76.4834,
+    "fees": 0.3722,
+    "notional": 309.01,
+    "why": "Thesis at entry was OVERDONE fade (conf 3, days horizon). The new flag today re-confirms OVERDONE conf 3 with identical catalyst framing. Five-day move is now 27.47% (vs. move_pct 4.29 today), and volume_multiple is 2.24—classic positioning/squeeze signature overlaying a genuine beat. The fact that XLY is negative TODAY while BBY rips an additional 4.29% is the tell: retailer with tariff exposure, weak CE demand, and a modestly-raised guide is running hard into a soft sector tape. This is a higher-probability fade now that the multi-day extension is on record. TRIM 50% of position (4 shares) to lock in +1.16% realized and establish a smaller test position for the fade retrace, which historical patterns suggest should come within 5–10 trading days."
+  },
+  {
+    "ts": "2026-06-01T22:02:19.747679+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-06-01T22:02:19.747454+00:00",
+    "side": "SELL",
+    "ticker": "AVAV",
+    "shares": 3.0241,
+    "fill_price": 202.4773,
+    "fees": 0.3772,
+    "notional": 612.31,
+    "why": "Entry thesis was OVERDONE (conf 3, weeks horizon) on Iran missile headline + defense sector bid. Position is -4.56% unrealized after 3 days. New flag today re-confirms OVERDONE conf 3 with identical catalyst, but now the five-day move is 30.83% on 3.28x volume, with no company-specific 8-K or contract award. The thesis has NOT evolved—it's the same geopolitical headline bid. If the setup was OVERDONE three days ago at a 10-15% run, it is definitively OVERDONE now at 30%+ on no new catalyst. Historical precedent in defense mid-caps is a 30-50% retrace within two weeks absent a contract award. Thesis is broken because the move has overextended past the point where geopolitical upside can justify hold. EXIT fully and avoid the retrace."
+  },
+  {
+    "ts": "2026-06-01T22:02:20.117130+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-06-01T22:02:20.116873+00:00",
+    "side": "BUY",
+    "ticker": "MANH",
+    "shares": 3.8804,
+    "fill_price": 153.113,
+    "fees": 0.3624,
+    "notional": 594.14,
+    "why": "Opened per flag: UNDERDONE conf 3 — 8-K filed 2026-06-01 with Items 2.05 (restructuring) and 7.01 (Reg FD disclosure)"
   }
 ]
