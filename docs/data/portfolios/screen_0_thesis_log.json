@@ -62,5 +62,37 @@
     "tier": "exploratory",
     "decision_confidence": 4,
     "price_stale": false
+  },
+  {
+    "run_ts": "2026-06-02T21:52:16.110432+00:00",
+    "screen_id": "screen_0",
+    "ticker": "BBY",
+    "thesis_status": "played-out",
+    "next_action": "TRIM",
+    "unrealized_pct": -1.81,
+    "current_price": 72.78,
+    "days_held": 4,
+    "flag_horizon": "days",
+    "flag_classification": "OVERDONE",
+    "flag_confidence": 3,
+    "tier": "exploratory",
+    "decision_confidence": 4,
+    "price_stale": false
+  },
+  {
+    "run_ts": "2026-06-02T21:52:16.110432+00:00",
+    "screen_id": "screen_0",
+    "ticker": "MANH",
+    "thesis_status": "intact",
+    "next_action": "HOLD",
+    "unrealized_pct": 1.2,
+    "current_price": 155.04,
+    "days_held": 0,
+    "flag_horizon": "days",
+    "flag_classification": "UNDERDONE",
+    "flag_confidence": 3,
+    "tier": "exploratory",
+    "decision_confidence": 3,
+    "price_stale": false
   }
 ]

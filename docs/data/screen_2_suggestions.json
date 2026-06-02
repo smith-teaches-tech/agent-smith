@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-06-01T22:02:40.111435+00:00",
+  "generated_at": "2026-06-02T21:52:56.400484+00:00",
   "screen_id": "screen_2",
   "window_days": 7,
-  "run_summary": "One UNDERDONE flag (GTLB) clears Screen 2's gates cleanly: classification + confidence + earnings date intact + no conflicts. The May 11 mid-quarter reaffirmation is a deliberate management signal with supporting structural evidence (RIF-for-reinvestment, $400M buyback, FY26 cash flow inflection, $1M+ ARR cohort acceleration). BUY.",
+  "run_summary": "One UNDERDONE flag at confidence 3 with earnings TODAY (2026-06-02). The flag is stale — the print has already occurred as of the run timestamp. SKIP per discipline.",
   "entries": [
     {
       "ticker": "GTLB",
       "name": "GitLab",
       "sector": "saas_software",
-      "flagged_at": "2026-06-01T22:02:39.977229+00:00",
+      "flagged_at": "2026-06-02T21:52:56.289580+00:00",
       "run_file": "latest",
       "classification": "UNDERDONE",
       "confidence": 3,
@@ -18,16 +18,10 @@
       "catalyst_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001653482",
       "thesis": "The May 11 pre-announcement is a deliberate de-risking move by management — they would not have reaffirmed guidance and announced a RIF (typically a negative-perception event) 3 weeks before print unless Q1 was tracking at or above plan. Combined with the buyback authorization and the FY26 cash flow inflection (-8% to +24% OCF margin) plus 26% growth in $1M+ ARR cohort, the filings posture is meaningfully more constructive than a stock that has had multiple CFO transitions (Robins out Sept 2025, Shen interim, Ross arriving Jan 2026) and a securities class action overhang would typically suggest.",
       "what_kills": "NDR drops further below 118% reported in FY26 (already down from 123% prior year); large enterprise deals slip; Duo Agent Platform (GA Jan 2026) shows weak early monetization data; RIF framed defensively rather than reinvestment-driven on the call.",
-      "decision": "WATCH",
-      "reasoning": "Re-entry guard: GTLB was closed 5d ago for a gain (realized 1.73%). Re-opening a recently-closed name requires flag confidence >= 4; this flag is confidence 3. Downgraded to WATCH. (Haiku's original BUY reasoning: Classification UNDERDONE (confidence 3, meets min_buy_confidence floor). Earnings date 2026-06-02 is tomorrow (trading_days_out = 4 per flag, timestamp shows 2026-06-01) — print has not yet occurred, thesis window is open. Filings evidence is specific and actionable: May 11 8-K mid-quarter reaffirmation of guidance + RIF announcement 3 weeks pre-print is a deliberate management de-risking move (rare pattern suggesting internal confidence). Supporting evidence: FY26 $100K+ ARR cohort grew 26% YoY, $1M+ ARR up 26% to 155, operating cash flow margin swung from -8% to +24%, $400M buyback authorized. No prior holdings conflict. Sector SaaS software has headroom under 40% max. Cash position ($10,058) supports position sizing well above 10% minimum. Thesis is concrete: management would not have reaffirmed and announced a RIF 3 weeks pre-print unless Q1 was tracking at or above plan. What confirms: revenue/NDR at guidance midpoint or above, $100K+ ARR cohort sequential growth, margin benefit, FY27 guide maintained or raised. What kills: NDR below 118%, large deal slip, weak Duo Platform monetization, defensive RIF framing. Track record note: UNDERDONE flags hit 67% (n=6, vs 56% overall and 50% on conf3), so this classification-confidence pair has above-average edge.)",
-      "red_team": {
-        "ticker": "GTLB",
-        "survived": true,
-        "weakest_link": "The RIF announcement framing as 'reinvestment-driven' rather than defensive is assumed rather than proven from the 8-K text itself, and management messaging on the call (24 hours away) could easily reframe this as cost-cutting.",
-        "critique": "The bull case hinges on interpreting the May 11 8-K reaffirmation + RIF combination as a confident de-risking move, but this reading is inferential. A management team could reaffirm guidance while announcing a RIF for wholly defensive reasons (margin defense, not growth reinvestment) — the 8-K filing language itself is not quoted in the thesis, so the tone and framing are unknown. The 118% NDR floor is also fragile: the flag lists NDR below 118% as a kill condition, but FY26 was already at that threshold (per the reasoning, down from 123%), meaning the company may already be in the warning zone for churn acceleration. The buyback ($400M authorized) is not actual capital deployment and could be theater. Without seeing the 8-K prose, the confidence in management intent is speculative.",
-        "confidence_in_critique": 3
-      },
-      "price_at_flag": 33.79,
+      "decision": "SKIP",
+      "reasoning": "Earnings print already passed — flag is stale. The earnings_date is 2026-06-02 and the run timestamp is 2026-06-02T21:52:50 UTC, meaning the market has closed on earnings day and the print has occurred. Screen 2's edge is entirely pre-print; a flag timed to an event that has already resolved cannot be acted upon. This is independent of the quality of the pre-print read.",
+      "red_team": null,
+      "price_at_flag": 31.82,
       "current_price": null,
       "since_pct": null,
       "verdict": "pending",

@@ -1,37 +1,9 @@
 {
-  "generated_at": "2026-06-01T22:02:28.189337+00:00",
+  "generated_at": "2026-06-02T21:52:50.478365+00:00",
   "screen_id": "screen_1",
   "bankroll_start": 10000.0,
-  "cash": 8506.63,
+  "cash": 6696.5,
   "open_positions": [
-    {
-      "ticker": "ONTO",
-      "name": "Onto Innovation Inc.",
-      "sector": "Technology",
-      "shares": 2.1971,
-      "cost_basis": 266.4362,
-      "cost_total": 585.75,
-      "current_price": 255.71,
-      "value": 561.82,
-      "unrealized_pnl": -23.93,
-      "unrealized_pct": -4.09,
-      "opened_at": "2026-05-28T21:12:10.111498+00:00",
-      "days_held": 4,
-      "flag_classification": "OVERDONE",
-      "flag_confidence": 4,
-      "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: Anthropic releases Opus 4.8 with new 'dynamic workflow' tool. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Days held: 4 of 15 max. Unrealized P&L: -4.09%. Thesis (Anthropic Opus 4.8 'dynamic workflow' tool has no mechanism to impair semicon equipment demand) remains uncontradicted. No fresh negative news on ONTO or its end markets. Sympathy fade still in progress; consolidation at -4% is consistent with panic unwind phase.",
-      "next_action": "HOLD",
-      "catalyst": "Anthropic releases Opus 4.8 with new 'dynamic workflow' tool",
-      "tier": "exploratory",
-      "benchmark_at_open": {
-        "SPY": 750.25,
-        "IWM": 289.64
-      },
-      "price_stale": false
-    },
     {
       "ticker": "WK",
       "name": "Workiva Inc.",
@@ -39,18 +11,18 @@
       "shares": 11.5223,
       "cost_basis": 47.3173,
       "cost_total": 545.59,
-      "current_price": 52.83,
-      "value": 608.72,
-      "unrealized_pnl": 63.13,
-      "unrealized_pct": 11.57,
+      "current_price": 51.94,
+      "value": 598.47,
+      "unrealized_pnl": 52.88,
+      "unrealized_pct": 9.69,
       "opened_at": "2026-05-29T21:10:14.499131+00:00",
-      "days_held": 3,
+      "days_held": 4,
       "flag_classification": "OVERDONE",
       "flag_confidence": 4,
       "flag_horizon": "days",
       "thesis": "no mechanism. Catalyst: Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links. Falsified by: n/a.",
       "thesis_status": "intact",
-      "latest_reasoning": "Days held: 3 of 15 max. Unrealized P&L: +11.57%. Thesis (Google I/O Search integration of AI-generated answers does not mechanically impact compliance/governance software) holds. Position has recovered sharply, but this is consistent with institutional repricing already in motion — no invalidation signal. Thesis window remains open; hold for further upside as market completes the read.",
+      "latest_reasoning": "Days held: 4 of 15 max. Unrealized P&L +9.69% signals sympathy recovery already underway. No concurrent negative catalyst on Workiva post-flag. Google I/O trigger thesis (AI-generated search answers don't displace document management workflows) remains valid. Hold through the window.",
       "next_action": "HOLD",
       "catalyst": "Google I/O 2026: AI-generated answers now front and center in Search, replacing traditional blue links",
       "tier": "exploratory",
@@ -59,9 +31,153 @@
         "IWM": 291.38
       },
       "price_stale": false
+    },
+    {
+      "ticker": "TYL",
+      "name": "Tyler Technologies, Inc.",
+      "sector": "Technology",
+      "shares": 1.8508,
+      "cost_basis": 322.0117,
+      "cost_total": 596.34,
+      "current_price": 322.0117,
+      "value": 595.98,
+      "unrealized_pnl": -0.36,
+      "unrealized_pct": -0.06,
+      "opened_at": "2026-06-02T21:52:48.916428+00:00",
+      "days_held": 0,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 5,
+      "flag_horizon": "days",
+      "thesis": "no mechanism. Catalyst: OpenAI launches new Codex tools for white-collar work. Falsified by: n/a.",
+      "thesis_status": "intact",
+      "latest_reasoning": "Opened position at $322.01, +$0.36 fees.",
+      "next_action": "HOLD",
+      "catalyst": "OpenAI launches new Codex tools for white-collar work",
+      "tier": "exploratory",
+      "benchmark_at_open": {
+        "SPY": 757.03,
+        "IWM": 288.46
+      }
+    },
+    {
+      "ticker": "BLKB",
+      "name": "Blackbaud, Inc.",
+      "sector": "Technology",
+      "shares": 19.0825,
+      "cost_basis": 32.2622,
+      "cost_total": 616.05,
+      "current_price": 32.2622,
+      "value": 615.64,
+      "unrealized_pnl": -0.41,
+      "unrealized_pct": -0.07,
+      "opened_at": "2026-06-02T21:52:49.312162+00:00",
+      "days_held": 0,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 4,
+      "flag_horizon": "days",
+      "thesis": "no mechanism. Catalyst: OpenAI launches new Codex tools for white-collar work. Falsified by: n/a.",
+      "thesis_status": "intact",
+      "latest_reasoning": "Opened position at $32.26, +$0.41 fees.",
+      "next_action": "HOLD",
+      "catalyst": "OpenAI launches new Codex tools for white-collar work",
+      "tier": "exploratory",
+      "benchmark_at_open": {
+        "SPY": 757.03,
+        "IWM": 288.46
+      }
+    },
+    {
+      "ticker": "MANH",
+      "name": "Manhattan Associates, Inc.",
+      "sector": "Technology",
+      "shares": 3.7427,
+      "cost_basis": 157.6575,
+      "cost_total": 590.42,
+      "current_price": 157.6575,
+      "value": 590.06,
+      "unrealized_pnl": -0.36,
+      "unrealized_pct": -0.06,
+      "opened_at": "2026-06-02T21:52:49.686050+00:00",
+      "days_held": 0,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 4,
+      "flag_horizon": "days",
+      "thesis": "no mechanism. Catalyst: OpenAI launches new Codex tools for white-collar work. Falsified by: n/a.",
+      "thesis_status": "intact",
+      "latest_reasoning": "Opened position at $157.66, +$0.36 fees.",
+      "next_action": "HOLD",
+      "catalyst": "OpenAI launches new Codex tools for white-collar work",
+      "tier": "exploratory",
+      "benchmark_at_open": {
+        "SPY": 757.03,
+        "IWM": 288.46
+      }
+    },
+    {
+      "ticker": "PCTY",
+      "name": "Paylocity Holding Corporation",
+      "sector": "Technology",
+      "shares": 4.9241,
+      "cost_basis": 118.5084,
+      "cost_total": 583.92,
+      "current_price": 118.5084,
+      "value": 583.55,
+      "unrealized_pnl": -0.37,
+      "unrealized_pct": -0.06,
+      "opened_at": "2026-06-02T21:52:50.130986+00:00",
+      "days_held": 0,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 4,
+      "flag_horizon": "days",
+      "thesis": "no mechanism. Catalyst: OpenAI launches new Codex tools for white-collar work. Falsified by: n/a.",
+      "thesis_status": "intact",
+      "latest_reasoning": "Opened position at $118.51, +$0.37 fees.",
+      "next_action": "HOLD",
+      "catalyst": "OpenAI launches new Codex tools for white-collar work",
+      "tier": "exploratory",
+      "benchmark_at_open": {
+        "SPY": 757.03,
+        "IWM": 288.46
+      }
     }
   ],
   "closed_positions": [
+    {
+      "ticker": "ONTO",
+      "name": "Onto Innovation Inc.",
+      "sector": "Technology",
+      "shares": 2.1971,
+      "avg_cost": 266.4362,
+      "exit_price": 262.6071,
+      "opened_at": "2026-05-28T21:12:10.111498+00:00",
+      "closed_at": "2026-06-02T21:52:18.721617+00:00",
+      "days_held": 5,
+      "realized_pnl": -8.78,
+      "realized_pct": -1.5,
+      "fees_total": 0.3734,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 4,
+      "flag_horizon": "days",
+      "tier": "exploratory",
+      "exit_reasoning": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent.",
+      "benchmark_at_open": {
+        "SPY": 750.25,
+        "IWM": 289.64
+      },
+      "market_cap_at_close": 13829705728.0,
+      "benchmark_at_close": {
+        "SPY": 759.57,
+        "IWM": 291.66
+      },
+      "benchmark_return_pct": {
+        "SPY": 1.24,
+        "IWM": 0.7
+      },
+      "alpha_pct": {
+        "SPY": -2.74,
+        "IWM": -2.2
+      }
+    },
     {
       "ticker": "AEIS",
       "name": "Advanced Energy Industries, Inc",
@@ -388,6 +504,56 @@
     }
   ],
   "trade_log": [
+    {
+      "date": "2026-06-02T21:52:50.130998+00:00",
+      "side": "BUY",
+      "ticker": "PCTY",
+      "shares": 4.9241,
+      "fill_price": 118.5084,
+      "fees": 0.3658,
+      "notional": 583.55,
+      "why": "Opened per flag: OVERDONE conf 4 — OpenAI launches new Codex tools for white-collar work"
+    },
+    {
+      "date": "2026-06-02T21:52:49.686061+00:00",
+      "side": "BUY",
+      "ticker": "MANH",
+      "shares": 3.7427,
+      "fill_price": 157.6575,
+      "fees": 0.362,
+      "notional": 590.06,
+      "why": "Opened per flag: OVERDONE conf 4 — OpenAI launches new Codex tools for white-collar work"
+    },
+    {
+      "date": "2026-06-02T21:52:49.312174+00:00",
+      "side": "BUY",
+      "ticker": "BLKB",
+      "shares": 19.0825,
+      "fill_price": 32.2622,
+      "fees": 0.4111,
+      "notional": 615.64,
+      "why": "Opened per flag: OVERDONE conf 4 — OpenAI launches new Codex tools for white-collar work"
+    },
+    {
+      "date": "2026-06-02T21:52:48.916454+00:00",
+      "side": "BUY",
+      "ticker": "TYL",
+      "shares": 1.8508,
+      "fill_price": 322.0117,
+      "fees": 0.3559,
+      "notional": 595.98,
+      "why": "Opened per flag: OVERDONE conf 5 — OpenAI launches new Codex tools for white-collar work"
+    },
+    {
+      "date": "2026-06-02T21:52:18.721639+00:00",
+      "side": "SELL",
+      "ticker": "ONTO",
+      "shares": 2.1971,
+      "fill_price": 262.6071,
+      "fees": 0.3734,
+      "notional": 576.97,
+      "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+    },
     {
       "date": "2026-06-01T22:02:23.296827+00:00",
       "side": "SELL",

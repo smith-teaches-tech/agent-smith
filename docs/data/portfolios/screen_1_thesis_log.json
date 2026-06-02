@@ -110,5 +110,21 @@
     "tier": "exploratory",
     "decision_confidence": 4,
     "price_stale": false
+  },
+  {
+    "run_ts": "2026-06-02T21:52:48.416393+00:00",
+    "screen_id": "screen_1",
+    "ticker": "WK",
+    "thesis_status": "intact",
+    "next_action": "HOLD",
+    "unrealized_pct": 9.69,
+    "current_price": 51.94,
+    "days_held": 4,
+    "flag_horizon": "days",
+    "flag_classification": "OVERDONE",
+    "flag_confidence": 4,
+    "tier": "exploratory",
+    "decision_confidence": 4,
+    "price_stale": false
   }
 ]

@@ -245,5 +245,70 @@
     "fees": 0.3713,
     "notional": 545.51,
     "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-06-02T21:52:18.721860+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-06-02T21:52:18.721639+00:00",
+    "side": "SELL",
+    "ticker": "ONTO",
+    "shares": 2.1971,
+    "fill_price": 262.6071,
+    "fees": 0.3734,
+    "notional": 576.97,
+    "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-06-02T21:52:48.916669+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-06-02T21:52:48.916454+00:00",
+    "side": "BUY",
+    "ticker": "TYL",
+    "shares": 1.8508,
+    "fill_price": 322.0117,
+    "fees": 0.3559,
+    "notional": 595.98,
+    "why": "Opened per flag: OVERDONE conf 5 — OpenAI launches new Codex tools for white-collar work"
+  },
+  {
+    "ts": "2026-06-02T21:52:49.312380+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-06-02T21:52:49.312174+00:00",
+    "side": "BUY",
+    "ticker": "BLKB",
+    "shares": 19.0825,
+    "fill_price": 32.2622,
+    "fees": 0.4111,
+    "notional": 615.64,
+    "why": "Opened per flag: OVERDONE conf 4 — OpenAI launches new Codex tools for white-collar work"
+  },
+  {
+    "ts": "2026-06-02T21:52:49.686273+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-06-02T21:52:49.686061+00:00",
+    "side": "BUY",
+    "ticker": "MANH",
+    "shares": 3.7427,
+    "fill_price": 157.6575,
+    "fees": 0.362,
+    "notional": 590.06,
+    "why": "Opened per flag: OVERDONE conf 4 — OpenAI launches new Codex tools for white-collar work"
+  },
+  {
+    "ts": "2026-06-02T21:52:50.131214+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-06-02T21:52:50.130998+00:00",
+    "side": "BUY",
+    "ticker": "PCTY",
+    "shares": 4.9241,
+    "fill_price": 118.5084,
+    "fees": 0.3658,
+    "notional": 583.55,
+    "why": "Opened per flag: OVERDONE conf 4 — OpenAI launches new Codex tools for white-collar work"
   }
 ]
