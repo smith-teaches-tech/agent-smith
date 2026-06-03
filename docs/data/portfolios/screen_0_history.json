@@ -295,5 +295,18 @@
     "fees": 0.3717,
     "notional": 297.82,
     "why": "Original thesis was OVERDONE conf-3 fade (days horizon); position entered at cost 74.074, current 72.78 (unrealized -1.81% after 4 days). New flag today re-surfaces identical OVERDONE catalyst (Q1 earnings 8-K 5/28, continuation narrative) at conf 3, but five-day move has now extended to +27.47% on 2.24x volume while XLY sits negative—classic squeeze/positioning overlay on genuine beat. Exit reasoning from 0 days ago explicitly called for a fade retrace within 5-10 days. Trimming all 4 shares locks in the +3.19% realized gain already achieved and de-risks the remaining beta to what remains a structurally weak discretionary setup (tariff exposure, CE demand pressure). Holding zero BBY aligns with the higher-conviction fade thesis already in motion."
+  },
+  {
+    "ts": "2026-06-03T21:51:30.618750+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-06-03T21:51:30.618508+00:00",
+    "side": "SELL",
+    "ticker": "BBY",
+    "shares": 8.881784197001252e-16,
+    "fill_price": 72.7072,
+    "fees": 0.0,
+    "notional": 0.0,
+    "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
   }
 ]

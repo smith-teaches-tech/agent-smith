@@ -310,5 +310,18 @@
     "fees": 0.3658,
     "notional": 583.55,
     "why": "Opened per flag: OVERDONE conf 4 — OpenAI launches new Codex tools for white-collar work"
+  },
+  {
+    "ts": "2026-06-03T21:52:11.075273+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-06-03T21:52:11.075010+00:00",
+    "side": "SELL",
+    "ticker": "WK",
+    "shares": 11.5223,
+    "fill_price": 50.5694,
+    "fees": 0.405,
+    "notional": 582.68,
+    "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
   }
 ]
