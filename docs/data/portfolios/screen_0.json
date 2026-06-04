@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-03T21:52:10.040332+00:00",
+  "generated_at": "2026-06-04T20:58:53.951628+00:00",
   "bankroll_start": 10000.0,
-  "cash": 9833.71,
+  "cash": 9257.96,
   "open_positions": [
     {
       "ticker": "MANH",
@@ -10,18 +10,18 @@
       "shares": 3.8804,
       "cost_basis": 153.113,
       "cost_total": 594.5,
-      "current_price": 151.2,
-      "value": 586.72,
-      "unrealized_pnl": -7.78,
-      "unrealized_pct": -1.31,
+      "current_price": 150.58,
+      "value": 584.31,
+      "unrealized_pnl": -10.19,
+      "unrealized_pct": -1.71,
       "opened_at": "2026-06-01T22:02:20.116859+00:00",
-      "days_held": 1,
+      "days_held": 2,
       "flag_classification": "UNDERDONE",
       "flag_confidence": 3,
       "flag_horizon": "days",
       "thesis": "no mechanism. Catalyst: 8-K filed 2026-06-01 with Items 2.05 (restructuring) and 7.01 (Reg FD disclosure). Falsified by: n/a.",
       "thesis_status": "intact",
-      "latest_reasoning": "Position entered 1 day ago on UNDERDONE conf 3 (restructuring + Reg FD catalyst). Stock has extended +7.38% today on 1.33x volume, now +16.21% over five days, moving in the predicted direction with strong participation. The thesis rests on management signaling cost discipline and proactive restructuring in a supply-chain SaaS name where peers have been pressured—the 7.01 Reg FD disclosure is likely containing reaffirmed guidance or margin uplift framing, consistent with the positive tape. No conflicting 8-K or guidance cut has surfaced. Horizon is days; position is 1.25% of bankroll, well within limits. Hold for further confirmation or target-level exit.",
+      "latest_reasoning": "Entry thesis was UNDERDONE (conf 3, days horizon) on restructuring 8-K with Reg FD disclosure signaling cost discipline in SaaS. Position is now +7.38% on the day and +16.21% over five days on above-average volume (1.33x), which strongly suggests the market is confirming the positive read—that management is proactively reallocating headcount toward AI/cloud products with margin uplift, rather than responding to weakening fundamentals. The multi-day rally without intervening bad news is the classic confirmation pattern for standalone Item 2.05 filings in software. Catalyst horizon (days) has not elapsed, and thesis-strengthening technicals (gap-up, sustained volume) argue for holding through next sell-side updates or any guidance reaffirmation on the conference call. No reason to exit.",
       "next_action": "HOLD",
       "catalyst": "8-K filed 2026-06-01 with Items 2.05 (restructuring) and 7.01 (Reg FD disclosure)",
       "tier": "exploratory",
@@ -30,6 +30,33 @@
         "IWM": 288.37
       },
       "price_stale": false
+    },
+    {
+      "ticker": "CRSP",
+      "name": "CRISPR Therapeutics AG",
+      "sector": "Healthcare",
+      "shares": 10.965,
+      "cost_basis": 52.4724,
+      "cost_total": 575.75,
+      "current_price": 52.4724,
+      "value": 575.36,
+      "unrealized_pnl": -0.39,
+      "unrealized_pct": -0.07,
+      "opened_at": "2026-06-04T20:58:52.057612+00:00",
+      "days_held": 0,
+      "flag_classification": "UNDERDONE",
+      "flag_confidence": 3,
+      "flag_horizon": "days",
+      "thesis": "no mechanism. Catalyst: Sector-wide gene-editing rally + same-day 8-K with governance items (likely annual meeting). Falsified by: n/a.",
+      "thesis_status": "intact",
+      "latest_reasoning": "Opened position at $52.47, +$0.39 fees.",
+      "next_action": "HOLD",
+      "catalyst": "Sector-wide gene-editing rally + same-day 8-K with governance items (likely annual meeting)",
+      "tier": "exploratory",
+      "benchmark_at_open": {
+        "SPY": 752.1,
+        "IWM": 287.56
+      }
     }
   ],
   "closed_positions": [
@@ -457,6 +484,16 @@
     }
   ],
   "trade_log": [
+    {
+      "date": "2026-06-04T20:58:52.057624+00:00",
+      "side": "BUY",
+      "ticker": "CRSP",
+      "shares": 10.965,
+      "fill_price": 52.4724,
+      "fees": 0.3851,
+      "notional": 575.36,
+      "why": "Opened per flag: UNDERDONE conf 3 — Sector-wide gene-editing rally + same-day 8-K with governance items (likely annual meeting)"
+    },
     {
       "date": "2026-06-03T21:51:30.618508+00:00",
       "side": "SELL",

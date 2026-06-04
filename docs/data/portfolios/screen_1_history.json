@@ -323,5 +323,31 @@
     "fees": 0.405,
     "notional": 582.68,
     "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-06-04T20:59:36.289999+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-06-04T20:59:36.289741+00:00",
+    "side": "BUY",
+    "ticker": "BLKB",
+    "shares": 20.0901,
+    "fill_price": 29.3593,
+    "fees": 0.4143,
+    "notional": 589.83,
+    "why": "Opened per flag: OVERDONE conf 4 — Meta's AI agent for WhatsApp Business is now available globally"
+  },
+  {
+    "ts": "2026-06-04T20:59:36.733763+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-06-04T20:59:36.733524+00:00",
+    "side": "BUY",
+    "ticker": "VRNS",
+    "shares": 17.1409,
+    "fill_price": 33.8038,
+    "fees": 0.4049,
+    "notional": 579.43,
+    "why": "Opened per flag: OVERDONE conf 4 — Meta's AI agent for WhatsApp Business is now available globally"
   }
 ]

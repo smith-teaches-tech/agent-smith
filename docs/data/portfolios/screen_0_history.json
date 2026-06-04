@@ -308,5 +308,18 @@
     "fees": 0.0,
     "notional": 0.0,
     "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-06-04T20:58:52.057855+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-06-04T20:58:52.057624+00:00",
+    "side": "BUY",
+    "ticker": "CRSP",
+    "shares": 10.965,
+    "fill_price": 52.4724,
+    "fees": 0.3851,
+    "notional": 575.36,
+    "why": "Opened per flag: UNDERDONE conf 3 — Sector-wide gene-editing rally + same-day 8-K with governance items (likely annual meeting)"
   }
 ]
