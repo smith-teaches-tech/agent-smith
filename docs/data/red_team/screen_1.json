@@ -378,5 +378,75 @@
     "weakest_link": "The thesis correctly identifies that OpenAI's Codex verticals do not target supply-chain execution, but the five-day recovery (+11.0%) already prices in significant relief from a position held from yesterday, introducing question of whether a fresh entry chases exhausted momentum.",
     "critique": "Haiku's reasoning is sound: WMS is embedded in physical operations and switching cost is real. However, the five-day +11.0% recovery with 1.24x volume_multiple suggests the stock has already rebounded sharply—entering into an exploratory position after this rebound risks buying after the panic-reversal, not at the dislocation. The flag notes MANH was already held from yesterday's Codex trigger, so this is a dedup skip, not a fresh entry decision. The decision reasoning is thin (null confidence field), making it hard to assess conviction behind a potential add.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-05T20:51:16.650209+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a major basket-rule decision: 9 flags from the Meta WhatsApp agent trigger (5 already held + 4 new), all OVERDONE with confidence 3-4, threat_assessment ranging from 'none' to 'minimal', panic_calibration 'unjustified'. Plus 1 flag (MANH) from the OpenAI Codex trigger also already held. Basket rule applies — all Meta-trigger flags default to exploratory tier; evaluate position exits on day-2 underwater names given thesis integrity remains intact.",
+    "ticker": "BLKB",
+    "survived": true,
+    "weakest_link": "The thesis relies on nonprofit donor-management workflows being structurally immune to AI-agent disruption, but the claim lacks evidence that Meta's agent cannot eventually be adapted or that customers won't experiment with cheaper alternatives.",
+    "critique": "The bull case argues that 20-year donor histories and 3-year subscription terms create lock-in, but neither fact prevents churn if nonprofits decide to pilot WhatsApp-based engagement as a supplement or partial replacement. The thesis names 'zero overlap' with retail/SMB customer-service workflows, yet nonprofits do engage donors via messaging and could theoretically use WhatsApp agents for initial donor triage. The 5-day move is -6.42%, suggesting the market is repricing but not panicking; the move is modest enough that a genuine structural threat would likely show sharper repricing.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-05T20:51:16.650209+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a major basket-rule decision: 9 flags from the Meta WhatsApp agent trigger (5 already held + 4 new), all OVERDONE with confidence 3-4, threat_assessment ranging from 'none' to 'minimal', panic_calibration 'unjustified'. Plus 1 flag (MANH) from the OpenAI Codex trigger also already held. Basket rule applies — all Meta-trigger flags default to exploratory tier; evaluate position exits on day-2 underwater names given thesis integrity remains intact.",
+    "ticker": "VRNS",
+    "survived": true,
+    "weakest_link": "The bull case asserts that AI deployments increase data-governance demand, but provides no quantified evidence that enterprise adoption curves are accelerating or that AllTrue.ai's capability is differentiated enough to drive incremental revenue.",
+    "critique": "The thesis claims AI-driven applications expand demand for data security, but this is stated as a principle rather than demonstrated by booking trends or customer feedback. AllTrue.ai is cited as a concrete capability add, but the acquisition's revenue contribution or customer-acquisition impact is not specified. Notably, the 5-day move is +10.81%—the stock has already rebounded sharply from the initial sympathy fade, suggesting the market has already repriced the 'overblown threat' narrative. A third entry from the same Meta trigger may be riding existing recovery momentum rather than discovering fresh alpha.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-05T20:51:16.650209+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a major basket-rule decision: 9 flags from the Meta WhatsApp agent trigger (5 already held + 4 new), all OVERDONE with confidence 3-4, threat_assessment ranging from 'none' to 'minimal', panic_calibration 'unjustified'. Plus 1 flag (MANH) from the OpenAI Codex trigger also already held. Basket rule applies — all Meta-trigger flags default to exploratory tier; evaluate position exits on day-2 underwater names given thesis integrity remains intact.",
+    "ticker": "OSPN",
+    "survived": true,
+    "weakest_link": "The thesis that banking regulation makes OneSpan's e-signature and authentication workflows immune to disruption is sound, but the bull case does not address whether enterprise IT budgets are shifting away from specialized auth vendors toward horizontal AI platforms, independent of the Meta catalyst.",
+    "critique": "The bull case correctly identifies that PSD2/eIDAS/FIDO standards are regulatory moats, but it does not acknowledge that banks' broader digitalization strategies—driven by competitive pressure and AI tooling hype—could lead them to reduce vendor complexity by consolidating auth into broader platforms. The 5-day move is +6.49%, indicating the stock has already recovered sharply from the sympathy fade; the thesis may be correct but the move is already priced. The confidence_in_decision is 4 despite this being a 'fresh name,' which suggests conviction exceeds what the trigger event alone warrants.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-05T20:51:16.650209+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a major basket-rule decision: 9 flags from the Meta WhatsApp agent trigger (5 already held + 4 new), all OVERDONE with confidence 3-4, threat_assessment ranging from 'none' to 'minimal', panic_calibration 'unjustified'. Plus 1 flag (MANH) from the OpenAI Codex trigger also already held. Basket rule applies — all Meta-trigger flags default to exploratory tier; evaluate position exits on day-2 underwater names given thesis integrity remains intact.",
+    "ticker": "EVH",
+    "survived": true,
+    "weakest_link": "The thesis correctly notes that EVH's capitated specialty-care risk is orthogonal to messaging agents, but does not acknowledge that EVH's real operational risks (oncology cost trends, customer concentration with Molina/Centene, care-utilization headwinds) are material and unrelated to the Meta trigger, so the sympathy-fade logic does not defend the position.",
+    "critique": "The bull case explicitly cites real risks ('utilization deterioration has been a real headwind') but argues the Meta trigger is not one of them. This is logically sound, but it does not follow that EVH is therefore a good buy. The stock sold off -4.55% on no company-specific news; if the drop is pure sympathy (as the thesis claims), the rebound should be swift. The 5-day move is +1.61%, suggesting minimal recovery despite the 'unjustified panic' framing. The bull case is saying 'the trigger is irrelevant to EVH's fundamentals,' which is true but does not constitute a contrarian buy case—it only defends against the panic narrative. The confidence_in_decision is 3 (lower than pure 'threat_assessment=none' names), signaling the conviction is already hedged.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-05T20:51:16.650209+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a major basket-rule decision: 9 flags from the Meta WhatsApp agent trigger (5 already held + 4 new), all OVERDONE with confidence 3-4, threat_assessment ranging from 'none' to 'minimal', panic_calibration 'unjustified'. Plus 1 flag (MANH) from the OpenAI Codex trigger also already held. Basket rule applies — all Meta-trigger flags default to exploratory tier; evaluate position exits on day-2 underwater names given thesis integrity remains intact.",
+    "ticker": "NCNO",
+    "survived": true,
+    "weakest_link": "The thesis asserts that bank loan origination governed by OCC/FDIC rules is orthogonal to Meta's customer-service agent, which is correct, but does not address whether nCino is already losing share to internal bank-build or horizontal Salesforce-native solutions, independent of the Meta trigger.",
+    "critique": "The bull case correctly notes that the Meta WhatsApp agent does not address KYC/AML/fair-lending workflows, but filings acknowledge 'broad AI competition,' which suggests nCino faces structural headwinds beyond the Meta catalyst. The 5-day move is +4.54%, showing modest recovery from the sympathy fade. The confidence_in_decision is 3 (reflecting 'minimal' threat_assessment), which is appropriate hedge language. The thesis is defending against a false panic but does not affirmatively establish that nCino's core business is accelerating.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-05T20:51:16.650209+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a major basket-rule decision: 9 flags from the Meta WhatsApp agent trigger (5 already held + 4 new), all OVERDONE with confidence 3-4, threat_assessment ranging from 'none' to 'minimal', panic_calibration 'unjustified'. Plus 1 flag (MANH) from the OpenAI Codex trigger also already held. Basket rule applies — all Meta-trigger flags default to exploratory tier; evaluate position exits on day-2 underwater names given thesis integrity remains intact.",
+    "ticker": "PAYC",
+    "survived": true,
+    "weakest_link": "The thesis that regulated money-movement and tax-filing are immune to AI disruption is structurally sound, but the bull case does not address whether PAYC's real competitive risks (Beti adoption, sales execution) are being masked by the sympathy-fade narrative, allowing deteriorating fundamentals to hide.",
+    "critique": "The bull case explicitly acknowledges 'PAYC has its own real challenges (Beti adoption, sales execution) but they are unrelated to messaging-platform agents.' This is a candid admission that the stock is being bought not because fundamentals are improving but because a false panic is creating a temporary misprice. The 5-day move is +4.17% and volume_multiple is 0.7 (below average), suggesting weak conviction in the recovery even as the thesis frames it as irrational selling. If Beti adoption and sales execution are real headwinds, the sympathy fade may be doing price discovery work rather than creating an unjustified gap.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-05T20:51:16.650209+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a major basket-rule decision: 9 flags from the Meta WhatsApp agent trigger (5 already held + 4 new), all OVERDONE with confidence 3-4, threat_assessment ranging from 'none' to 'minimal', panic_calibration 'unjustified'. Plus 1 flag (MANH) from the OpenAI Codex trigger also already held. Basket rule applies — all Meta-trigger flags default to exploratory tier; evaluate position exits on day-2 underwater names given thesis integrity remains intact.",
+    "ticker": "WK",
+    "survived": true,
+    "weakest_link": "The thesis that auditor-attested regulatory workflows are immune to AI disruption is sound, but does not address whether non-SEC solutions (cited as >70% of new bookings) face genuine margin pressure or customer budget reallocation toward general-purpose AI tools.",
+    "critique": "The bull case is logically tight: AI can draft but cannot audit-attest, and the XBRL/compliance moat is real. However, the stock's 5-day move is +4.9% with volume_multiple of 0.89 (below average), indicating soft recovery without strong conviction. The thesis relies on non-SEC solutions growing at >70% of new bookings, but does not cite growth rates or retention metrics for those solutions specifically. The claim that 'Big-4 auditors endorsing a horizontal AI-only workflow is highly unlikely' is reasonable but not evidence-based. The framework is solid but the contrarian thesis is resting on regulatory stickiness rather than demonstrated competitive momentum.",
+    "confidence_in_critique": 2
   }
 ]
