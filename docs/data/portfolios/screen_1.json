@@ -1,149 +1,9 @@
 {
-  "generated_at": "2026-06-05T20:51:17.017610+00:00",
+  "generated_at": "2026-06-08T21:14:41.939907+00:00",
   "screen_id": "screen_1",
   "bankroll_start": 10000.0,
-  "cash": 6108.7,
+  "cash": 8294.31,
   "open_positions": [
-    {
-      "ticker": "TYL",
-      "name": "Tyler Technologies, Inc.",
-      "sector": "Technology",
-      "shares": 1.8508,
-      "cost_basis": 322.0117,
-      "cost_total": 596.34,
-      "current_price": 312.07,
-      "value": 577.58,
-      "unrealized_pnl": -18.76,
-      "unrealized_pct": -3.15,
-      "opened_at": "2026-06-02T21:52:48.916428+00:00",
-      "days_held": 2,
-      "flag_classification": "OVERDONE",
-      "flag_confidence": 5,
-      "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: OpenAI launches new Codex tools for white-collar work. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "days_held=2, unrealized_pnl=-3.15%. Threat_assessment='none', panic_calibration='unjustified' — government procurement moat vs. consumer AI agent is structurally sound. Five-day move is near-flat (0.4%), confirming sympathy fade is shallow. Holding window allows 13 more days for institutional repricing.",
-      "next_action": "HOLD",
-      "catalyst": "OpenAI launches new Codex tools for white-collar work",
-      "tier": "exploratory",
-      "benchmark_at_open": {
-        "SPY": 757.03,
-        "IWM": 288.46
-      },
-      "price_stale": false
-    },
-    {
-      "ticker": "BLKB",
-      "name": "Blackbaud, Inc.",
-      "sector": "Technology",
-      "shares": 19.0825,
-      "cost_basis": 32.2622,
-      "cost_total": 616.05,
-      "current_price": 28.31,
-      "value": 540.23,
-      "unrealized_pnl": -75.82,
-      "unrealized_pct": -12.31,
-      "opened_at": "2026-06-02T21:52:49.312162+00:00",
-      "days_held": 2,
-      "flag_classification": "OVERDONE",
-      "flag_confidence": 4,
-      "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: OpenAI launches new Codex tools for white-collar work. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Two BLKB positions held: one at days_held=2 (cost 32.26, current 28.31, -12.31%), one at days_held=0 (cost 29.36, current 28.31, -3.64%). Threat_assessment='none', panic_calibration='unjustified' — nonprofit donor management and 40% 2026 renewals are not displaced by WhatsApp customer-service agents. Five-day move is -6.42%, indicating sympathy fade is still in early phase. Consolidate thesis conviction across both positions; hold for institutional repricing over next 5-10 trading days.",
-      "next_action": "HOLD",
-      "catalyst": "OpenAI launches new Codex tools for white-collar work",
-      "tier": "exploratory",
-      "benchmark_at_open": {
-        "SPY": 757.03,
-        "IWM": 288.46
-      },
-      "price_stale": false
-    },
-    {
-      "ticker": "MANH",
-      "name": "Manhattan Associates, Inc.",
-      "sector": "Technology",
-      "shares": 3.7427,
-      "cost_basis": 157.6575,
-      "cost_total": 590.42,
-      "current_price": 147.64,
-      "value": 552.57,
-      "unrealized_pnl": -37.85,
-      "unrealized_pct": -6.41,
-      "opened_at": "2026-06-02T21:52:49.686050+00:00",
-      "days_held": 2,
-      "flag_classification": "OVERDONE",
-      "flag_confidence": 4,
-      "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: OpenAI launches new Codex tools for white-collar work. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "days_held=2, unrealized_pnl=-6.41%. From OpenAI Codex trigger, not Meta WhatsApp. Threat_assessment='minimal' but filings show MANH is actively monetizing AI in WMS products; five-day move +11.0% suggests market already partially repriced this name or sympathy-fade conviction is lower. Core thesis (Codex verticals do not intersect WMS) remains sound. Enterprise switching costs on physical warehouse operations are high. Hold for 5-10 more days; monitor for any customer pilot disclosures.",
-      "next_action": "HOLD",
-      "catalyst": "OpenAI launches new Codex tools for white-collar work",
-      "tier": "exploratory",
-      "benchmark_at_open": {
-        "SPY": 757.03,
-        "IWM": 288.46
-      },
-      "price_stale": false
-    },
-    {
-      "ticker": "PCTY",
-      "name": "Paylocity Holding Corporation",
-      "sector": "Technology",
-      "shares": 4.9241,
-      "cost_basis": 118.5084,
-      "cost_total": 583.92,
-      "current_price": 113.46,
-      "value": 558.69,
-      "unrealized_pnl": -25.23,
-      "unrealized_pct": -4.32,
-      "opened_at": "2026-06-02T21:52:50.130986+00:00",
-      "days_held": 2,
-      "flag_classification": "OVERDONE",
-      "flag_confidence": 4,
-      "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: OpenAI launches new Codex tools for white-collar work. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "days_held=2, unrealized_pnl=-4.32%. Threat_assessment='minimal', panic_calibration='unjustified' — payroll is ACH/tax-compliance money movement, not addressable by WhatsApp customer-service agents. Five-day move +3.57% suggests partial repricing already. Holding window allows 13 more days; thesis integrity intact.",
-      "next_action": "HOLD",
-      "catalyst": "OpenAI launches new Codex tools for white-collar work",
-      "tier": "exploratory",
-      "benchmark_at_open": {
-        "SPY": 757.03,
-        "IWM": 288.46
-      },
-      "price_stale": false
-    },
-    {
-      "ticker": "BLKB",
-      "name": "Blackbaud, Inc.",
-      "sector": "Technology",
-      "shares": 20.0901,
-      "cost_basis": 29.3593,
-      "cost_total": 590.24,
-      "current_price": 28.31,
-      "value": 568.75,
-      "unrealized_pnl": -21.49,
-      "unrealized_pct": -3.64,
-      "opened_at": "2026-06-04T20:59:36.289728+00:00",
-      "days_held": 0,
-      "flag_classification": "OVERDONE",
-      "flag_confidence": 4,
-      "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: Meta's AI agent for WhatsApp Business is now available globally. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Opened position at $29.36, +$0.41 fees.",
-      "next_action": "HOLD",
-      "catalyst": "Meta's AI agent for WhatsApp Business is now available globally",
-      "tier": "exploratory",
-      "benchmark_at_open": {
-        "SPY": 752.1,
-        "IWM": 287.56
-      },
-      "price_stale": false
-    },
     {
       "ticker": "VRNS",
       "name": "Varonis Systems, Inc.",
@@ -151,18 +11,18 @@
       "shares": 17.1409,
       "cost_basis": 33.8038,
       "cost_total": 579.83,
-      "current_price": 32.69,
-      "value": 560.34,
-      "unrealized_pnl": -19.49,
-      "unrealized_pct": -3.36,
+      "current_price": 33.04,
+      "value": 566.34,
+      "unrealized_pnl": -13.49,
+      "unrealized_pct": -2.33,
       "opened_at": "2026-06-04T20:59:36.733511+00:00",
-      "days_held": 0,
+      "days_held": 4,
       "flag_classification": "OVERDONE",
       "flag_confidence": 4,
       "flag_horizon": "days",
       "thesis": "no mechanism. Catalyst: Meta's AI agent for WhatsApp Business is now available globally. Falsified by: n/a.",
       "thesis_status": "intact",
-      "latest_reasoning": "days_held=0, unrealized_pnl=-3.36%. Threat_assessment='none', panic_calibration='unjustified' — Varonis is a beneficiary of AI deployments (data governance moat), not a victim. Five-day move +10.81% is positive, suggesting thesis repricing may already be underway or this flag was the turn point. WhatsApp agent has zero data-security displacement mechanism. Hold for sympathy-fade window.",
+      "latest_reasoning": "Day 4 of 5-15 day window. Unrealized -2.33% with no fresh adverse news since Meta WhatsApp AI agent entry point. Sympathy-fade thesis (Meta AI announcement has no mechanism to impair Varonis' data security product) remains structurally sound. Price action is normal noise for a 17-share micro position. Hold discipline.",
       "next_action": "HOLD",
       "catalyst": "Meta's AI agent for WhatsApp Business is now available globally",
       "tier": "exploratory",
@@ -171,9 +31,216 @@
         "IWM": 287.56
       },
       "price_stale": false
+    },
+    {
+      "ticker": "LRN",
+      "name": "Stride, Inc.",
+      "sector": "Consumer Defensive",
+      "shares": 5.8539,
+      "cost_basis": 100.08,
+      "cost_total": 586.23,
+      "current_price": 100.08,
+      "value": 585.86,
+      "unrealized_pnl": -0.37,
+      "unrealized_pct": -0.06,
+      "opened_at": "2026-06-08T21:14:41.563102+00:00",
+      "days_held": 0,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 4,
+      "flag_horizon": "days",
+      "thesis": "no mechanism. Catalyst: Apple's long-awaited AI Siri overhaul is finally here, with new Image Playground, Photos AI editing, and Shortcuts AI workflow builder. Falsified by: n/a.",
+      "thesis_status": "intact",
+      "latest_reasoning": "Opened position at $100.08, +$0.37 fees.",
+      "next_action": "HOLD",
+      "catalyst": "Apple's long-awaited AI Siri overhaul is finally here, with new Image Playground, Photos AI editing, and Shortcuts AI workflow builder",
+      "tier": "exploratory",
+      "benchmark_at_open": {
+        "SPY": 743.36,
+        "IWM": 285.51
+      }
     }
   ],
   "closed_positions": [
+    {
+      "ticker": "PCTY",
+      "name": "Paylocity Holding Corporation",
+      "sector": "Technology",
+      "shares": 4.9241,
+      "avg_cost": 118.5084,
+      "exit_price": 111.5583,
+      "opened_at": "2026-06-02T21:52:50.130986+00:00",
+      "closed_at": "2026-06-08T21:14:23.178266+00:00",
+      "days_held": 5,
+      "realized_pnl": -34.6,
+      "realized_pct": -5.92,
+      "fees_total": 0.3818,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 4,
+      "flag_horizon": "days",
+      "tier": "exploratory",
+      "exit_reasoning": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent.",
+      "benchmark_at_open": {
+        "SPY": 757.03,
+        "IWM": 288.46
+      },
+      "market_cap_at_close": 6000682496.0,
+      "benchmark_at_close": {
+        "SPY": 739.22,
+        "IWM": 284.11
+      },
+      "benchmark_return_pct": {
+        "SPY": -2.35,
+        "IWM": -1.51
+      },
+      "alpha_pct": {
+        "SPY": -3.57,
+        "IWM": -4.41
+      }
+    },
+    {
+      "ticker": "MANH",
+      "name": "Manhattan Associates, Inc.",
+      "sector": "Technology",
+      "shares": 3.7427,
+      "avg_cost": 157.6575,
+      "exit_price": 145.5443,
+      "opened_at": "2026-06-02T21:52:49.686050+00:00",
+      "closed_at": "2026-06-08T21:14:22.764138+00:00",
+      "days_held": 5,
+      "realized_pnl": -45.69,
+      "realized_pct": -7.74,
+      "fees_total": 0.3777,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 4,
+      "flag_horizon": "days",
+      "tier": "exploratory",
+      "exit_reasoning": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent.",
+      "benchmark_at_open": {
+        "SPY": 757.03,
+        "IWM": 288.46
+      },
+      "market_cap_at_close": 8690097152.0,
+      "benchmark_at_close": {
+        "SPY": 739.22,
+        "IWM": 284.11
+      },
+      "benchmark_return_pct": {
+        "SPY": -2.35,
+        "IWM": -1.51
+      },
+      "alpha_pct": {
+        "SPY": -5.39,
+        "IWM": -6.23
+      }
+    },
+    {
+      "ticker": "BLKB",
+      "name": "Blackbaud, Inc.",
+      "sector": "Technology",
+      "shares": 19.0825,
+      "avg_cost": 32.2622,
+      "exit_price": 28.3666,
+      "opened_at": "2026-06-02T21:52:49.312162+00:00",
+      "closed_at": "2026-06-08T21:14:22.508261+00:00",
+      "days_held": 5,
+      "realized_pnl": -74.74,
+      "realized_pct": -12.13,
+      "fees_total": 0.5127,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 4,
+      "flag_horizon": "days",
+      "tier": "exploratory",
+      "exit_reasoning": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent.",
+      "benchmark_at_open": {
+        "SPY": 757.03,
+        "IWM": 288.46
+      },
+      "market_cap_at_close": 1270482048.0,
+      "benchmark_at_close": {
+        "SPY": 739.22,
+        "IWM": 284.11
+      },
+      "benchmark_return_pct": {
+        "SPY": -2.35,
+        "IWM": -1.51
+      },
+      "alpha_pct": {
+        "SPY": -9.78,
+        "IWM": -10.62
+      }
+    },
+    {
+      "ticker": "BLKB",
+      "name": "Blackbaud, Inc.",
+      "sector": "Technology",
+      "shares": 20.0901,
+      "avg_cost": 29.3593,
+      "exit_price": 28.3666,
+      "opened_at": "2026-06-04T20:59:36.289728+00:00",
+      "closed_at": "2026-06-08T21:14:22.508294+00:00",
+      "days_held": 4,
+      "realized_pnl": -20.35,
+      "realized_pct": -3.45,
+      "fees_total": 0.5127,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 4,
+      "flag_horizon": "days",
+      "tier": "exploratory",
+      "exit_reasoning": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent.",
+      "benchmark_at_open": {
+        "SPY": 752.1,
+        "IWM": 287.56
+      },
+      "market_cap_at_close": 1270482048.0,
+      "benchmark_at_close": {
+        "SPY": 739.22,
+        "IWM": 284.11
+      },
+      "benchmark_return_pct": {
+        "SPY": -1.71,
+        "IWM": -1.2
+      },
+      "alpha_pct": {
+        "SPY": -1.74,
+        "IWM": -2.25
+      }
+    },
+    {
+      "ticker": "TYL",
+      "name": "Tyler Technologies, Inc.",
+      "sector": "Technology",
+      "shares": 1.8508,
+      "avg_cost": 322.0117,
+      "exit_price": 307.0227,
+      "opened_at": "2026-06-02T21:52:48.916428+00:00",
+      "closed_at": "2026-06-08T21:14:22.281879+00:00",
+      "days_held": 5,
+      "realized_pnl": -28.1,
+      "realized_pct": -4.71,
+      "fees_total": 0.372,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 5,
+      "flag_horizon": "days",
+      "tier": "exploratory",
+      "exit_reasoning": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent.",
+      "benchmark_at_open": {
+        "SPY": 757.03,
+        "IWM": 288.46
+      },
+      "market_cap_at_close": 12497266688.0,
+      "benchmark_at_close": {
+        "SPY": 739.22,
+        "IWM": 284.11
+      },
+      "benchmark_return_pct": {
+        "SPY": -2.35,
+        "IWM": -1.51
+      },
+      "alpha_pct": {
+        "SPY": -2.36,
+        "IWM": -3.2
+      }
+    },
     {
       "ticker": "WK",
       "name": "Workiva Inc.",
@@ -572,6 +639,56 @@
     }
   ],
   "trade_log": [
+    {
+      "date": "2026-06-08T21:14:41.563118+00:00",
+      "side": "BUY",
+      "ticker": "LRN",
+      "shares": 5.8539,
+      "fill_price": 100.08,
+      "fees": 0.3687,
+      "notional": 585.86,
+      "why": "Opened per flag: OVERDONE conf 4 — Apple's long-awaited AI Siri overhaul is finally here, with new Image Playground, Photos AI editing, and Shortcuts AI workflow builder"
+    },
+    {
+      "date": "2026-06-08T21:14:23.178290+00:00",
+      "side": "SELL",
+      "ticker": "PCTY",
+      "shares": 4.9241,
+      "fill_price": 111.5583,
+      "fees": 0.3818,
+      "notional": 549.32,
+      "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+    },
+    {
+      "date": "2026-06-08T21:14:22.764162+00:00",
+      "side": "SELL",
+      "ticker": "MANH",
+      "shares": 3.7427,
+      "fill_price": 145.5443,
+      "fees": 0.3777,
+      "notional": 544.73,
+      "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+    },
+    {
+      "date": "2026-06-08T21:14:22.508310+00:00",
+      "side": "SELL",
+      "ticker": "BLKB",
+      "shares": 39.1726,
+      "fill_price": 28.3666,
+      "fees": 0.5127,
+      "notional": 1111.19,
+      "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+    },
+    {
+      "date": "2026-06-08T21:14:22.281909+00:00",
+      "side": "SELL",
+      "ticker": "TYL",
+      "shares": 1.8508,
+      "fill_price": 307.0227,
+      "fees": 0.372,
+      "notional": 568.24,
+      "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+    },
     {
       "date": "2026-06-04T20:59:36.733524+00:00",
       "side": "BUY",

@@ -448,5 +448,15 @@
     "weakest_link": "The thesis that auditor-attested regulatory workflows are immune to AI disruption is sound, but does not address whether non-SEC solutions (cited as >70% of new bookings) face genuine margin pressure or customer budget reallocation toward general-purpose AI tools.",
     "critique": "The bull case is logically tight: AI can draft but cannot audit-attest, and the XBRL/compliance moat is real. However, the stock's 5-day move is +4.9% with volume_multiple of 0.89 (below average), indicating soft recovery without strong conviction. The thesis relies on non-SEC solutions growing at >70% of new bookings, but does not cite growth rates or retention metrics for those solutions specifically. The claim that 'Big-4 auditors endorsing a horizontal AI-only workflow is highly unlikely' is reasonable but not evidence-based. The framework is solid but the contrarian thesis is resting on regulatory stickiness rather than demonstrated competitive momentum.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-08T21:14:41.305619+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 flags three Apple WWDC sympathy candidates (HCAT, LRN, VRRM) alongside one open VRNS position. All three new flags meet technical BUY eligibility (OVERDONE, confidence >= 3, unjustified panic, minimal/none threat), but their quality diverges: LRN has the cleanest filings isolation (state funding moat untouched by consumer AI), while HCAT and VRRM carry concurrent company-specific overhangs (restructuring churn, contract renewal risk) that muddy the sympathy-fade read. VRNS holds at day 4 with intact thesis.",
+    "ticker": "LRN",
+    "survived": true,
+    "weakest_link": "The thesis relies on a structural moat (state funding + accreditation) that Apple cannot disrupt, but it does not account for the possibility that state education budgets could shift funding allocation away from virtual schools toward AI-augmented traditional schools if those alternatives become cheaper or more effective.",
+    "critique": "The bull case correctly identifies that Apple's AI announcements do not directly enable a family to enroll in an accredited charter or obtain a state diploma. However, the critique underestimates a slower, more insidious threat: state legislatures and governors who perceive virtual schools as expensive, isolation-prone, or inferior to AI-augmented in-person alternatives may gradually defund or cap virtual charter expansion. The five-day move of +0.24% (flat) and today's -3.28% drop on modest volume (0.65x) suggests this is pure reflex panic with no evidence of fundamental deterioration in enrollment or funding flows — which supports the bull thesis. The real risk is not WWDC sympathy bleed but political headwinds over years, which are not visible in today's price action and would require specific filings or news evidence to elevate.",
+    "confidence_in_critique": 2
   }
 ]

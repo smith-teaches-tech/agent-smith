@@ -1,66 +1,81 @@
 {
-  "generated_at": "2026-06-05T20:50:31.047706+00:00",
+  "generated_at": "2026-06-08T21:14:21.847154+00:00",
   "bankroll_start": 10000.0,
-  "cash": 9257.96,
-  "open_positions": [
-    {
-      "ticker": "MANH",
-      "name": "Manhattan Associates, Inc.",
-      "sector": "Technology",
-      "shares": 3.8804,
-      "cost_basis": 153.113,
-      "cost_total": 594.5,
-      "current_price": 147.64,
-      "value": 572.9,
-      "unrealized_pnl": -21.6,
-      "unrealized_pct": -3.63,
-      "opened_at": "2026-06-01T22:02:20.116859+00:00",
-      "days_held": 3,
-      "flag_classification": "UNDERDONE",
-      "flag_confidence": 3,
-      "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: 8-K filed 2026-06-01 with Items 2.05 (restructuring) and 7.01 (Reg FD disclosure). Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Entered UNDERDONE conf 3 on restructuring 8-K (2.05 + 7.01) filed 2026-06-01. Stock has now rallied +7.38% today and +16.21% over 5 days, consistent with the thesis that a standalone restructuring filing (not paired with earnings miss) signals proactive cost discipline and is read bullishly by SaaS investors. The 7.01 Reg FD disclosure likely contained guidance reaffirmation or framing that justified the gap up. Unrealized P&L is now flat to slightly positive on a 3-day hold. Catalyst is fresh and thesis remains intact — the rally is the expected grading of a correct read. Volume spike (1.33x) validates participation. No news since entry that would materially change the setup. Hold through the week to see if follow-through thesis (analyst upgrades, further SaaS sector relative strength) materializes.",
-      "next_action": "HOLD",
-      "catalyst": "8-K filed 2026-06-01 with Items 2.05 (restructuring) and 7.01 (Reg FD disclosure)",
-      "tier": "exploratory",
-      "benchmark_at_open": {
-        "SPY": 755.36,
-        "IWM": 288.37
-      },
-      "price_stale": false
-    },
+  "cash": 10399.34,
+  "open_positions": [],
+  "closed_positions": [
     {
       "ticker": "CRSP",
       "name": "CRISPR Therapeutics AG",
       "sector": "Healthcare",
       "shares": 10.965,
-      "cost_basis": 52.4724,
-      "cost_total": 575.75,
-      "current_price": 51.84,
-      "value": 568.43,
-      "unrealized_pnl": -7.32,
-      "unrealized_pct": -1.27,
+      "avg_cost": 52.4724,
+      "exit_price": 52.6573,
       "opened_at": "2026-06-04T20:58:52.057612+00:00",
-      "days_held": 0,
+      "closed_at": "2026-06-08T21:14:20.836194+00:00",
+      "days_held": 4,
+      "realized_pnl": 1.64,
+      "realized_pct": 0.28,
+      "fees_total": 0.403,
       "flag_classification": "UNDERDONE",
       "flag_confidence": 3,
       "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: Sector-wide gene-editing rally + same-day 8-K with governance items (likely annual meeting). Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Entered UNDERDONE conf 3 on 2026-06-04 same-day 8-K with 5.02 (officer/director), 5.03 (charter), 5.07 (shareholder vote) — read as annual meeting boilerplate, not material negative, despite XBI -3.6% sector selloff. Position is flat on 0 days held (same-day entry), unrealized P&L -1.27%. The new flag now re-classifies the same 8-K as OVERDONE conf 3, based on reading the items as routine board elections (5.02) and not executive departures. This is actually confirmatory of the original UNDERDONE thesis: the market oversold on risk-off tape and meeting-results boilerplate. Since the new flag's analysis explicitly validates the buy thesis (5.02 is routine election, not departure), hold the position. Horizon is days; if 8-K exhibits confirm director-only elections with no pipeline news, the fade thesis is high-conviction.",
-      "next_action": "HOLD",
-      "catalyst": "Sector-wide gene-editing rally + same-day 8-K with governance items (likely annual meeting)",
       "tier": "exploratory",
+      "exit_reasoning": "Original thesis was UNDERDONE (sector rally + routine governance 8-K). New flag re-classifies same name as OVERDONE on the basis of the -8.97% single-day move during XBI risk-off (-3.6%), arguing the magnitude is 3x beta for a clinical-stage name. The re-flag creates a direct thesis conflict: if the 8-K items are truly annual-meeting boilerplate (5.02 board election, 5.03 charter amendments, 5.07 vote results), the original UNDERDONE thesis still applies and the new downgrade is noise. But if the items contain an unplanned executive departure or dilutive authorization, the original thesis was wrong and re-flagging is justified. After 4 days at -1.73%, no new catalyst has emerged to resolve this ambiguity. The re-flag at OVERDONE conf 3 explicitly argues the move is excessive — that is the opposite of my entry thesis. Rather than hold into horizon hoping the governance items turn out benign, I should exit and let the flag data arbitrate: if CRSP bounces hard tomorrow on confirmation that 5.02 is routine election results, I can re-enter at better levels. Current position is small (1.1% of equity) but the thesis conflict is material. Exit now, preserve capital, re-evaluate on next catalyst clarity.",
       "benchmark_at_open": {
         "SPY": 752.1,
         "IWM": 287.56
       },
-      "price_stale": false
-    }
-  ],
-  "closed_positions": [
+      "market_cap_at_close": 5081780736.0,
+      "benchmark_at_close": {
+        "SPY": 739.22,
+        "IWM": 284.11
+      },
+      "benchmark_return_pct": {
+        "SPY": -1.71,
+        "IWM": -1.2
+      },
+      "alpha_pct": {
+        "SPY": 1.99,
+        "IWM": 1.48
+      }
+    },
+    {
+      "ticker": "MANH",
+      "name": "Manhattan Associates, Inc.",
+      "sector": "Technology",
+      "shares": 3.8804,
+      "avg_cost": 153.113,
+      "exit_price": 145.5443,
+      "opened_at": "2026-06-01T22:02:20.116859+00:00",
+      "closed_at": "2026-06-08T21:13:40.742660+00:00",
+      "days_held": 6,
+      "realized_pnl": -29.73,
+      "realized_pct": -5.0,
+      "fees_total": 0.3788,
+      "flag_classification": "UNDERDONE",
+      "flag_confidence": 3,
+      "flag_horizon": "days",
+      "tier": "exploratory",
+      "exit_reasoning": "Horizon exit -- held 6d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent.",
+      "benchmark_at_open": {
+        "SPY": 755.36,
+        "IWM": 288.37
+      },
+      "market_cap_at_close": 8690097152.0,
+      "benchmark_at_close": {
+        "SPY": 739.22,
+        "IWM": 284.11
+      },
+      "benchmark_return_pct": {
+        "SPY": -2.14,
+        "IWM": -1.48
+      },
+      "alpha_pct": {
+        "SPY": -2.86,
+        "IWM": -3.52
+      }
+    },
     {
       "ticker": "BBY",
       "name": "Best Buy Co., Inc.",
@@ -485,6 +500,26 @@
     }
   ],
   "trade_log": [
+    {
+      "date": "2026-06-08T21:14:20.836226+00:00",
+      "side": "SELL",
+      "ticker": "CRSP",
+      "shares": 10.965,
+      "fill_price": 52.6573,
+      "fees": 0.403,
+      "notional": 577.39,
+      "why": "Original thesis was UNDERDONE (sector rally + routine governance 8-K). New flag re-classifies same name as OVERDONE on the basis of the -8.97% single-day move during XBI risk-off (-3.6%), arguing the magnitude is 3x beta for a clinical-stage name. The re-flag creates a direct thesis conflict: if the 8-K items are truly annual-meeting boilerplate (5.02 board election, 5.03 charter amendments, 5.07 vote results), the original UNDERDONE thesis still applies and the new downgrade is noise. But if the items contain an unplanned executive departure or dilutive authorization, the original thesis was wrong and re-flagging is justified. After 4 days at -1.73%, no new catalyst has emerged to resolve this ambiguity. The re-flag at OVERDONE conf 3 explicitly argues the move is excessive — that is the opposite of my entry thesis. Rather than hold into horizon hoping the governance items turn out benign, I should exit and let the flag data arbitrate: if CRSP bounces hard tomorrow on confirmation that 5.02 is routine election results, I can re-enter at better levels. Current position is small (1.1% of equity) but the thesis conflict is material. Exit now, preserve capital, re-evaluate on next catalyst clarity."
+    },
+    {
+      "date": "2026-06-08T21:13:40.742687+00:00",
+      "side": "SELL",
+      "ticker": "MANH",
+      "shares": 3.8804,
+      "fill_price": 145.5443,
+      "fees": 0.3788,
+      "notional": 564.77,
+      "why": "Horizon exit -- held 6d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+    },
     {
       "date": "2026-06-04T20:58:52.057624+00:00",
       "side": "BUY",

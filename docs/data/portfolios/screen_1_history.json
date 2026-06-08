@@ -349,5 +349,70 @@
     "fees": 0.4049,
     "notional": 579.43,
     "why": "Opened per flag: OVERDONE conf 4 — Meta's AI agent for WhatsApp Business is now available globally"
+  },
+  {
+    "ts": "2026-06-08T21:14:22.282190+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-06-08T21:14:22.281909+00:00",
+    "side": "SELL",
+    "ticker": "TYL",
+    "shares": 1.8508,
+    "fill_price": 307.0227,
+    "fees": 0.372,
+    "notional": 568.24,
+    "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-06-08T21:14:22.508613+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-06-08T21:14:22.508310+00:00",
+    "side": "SELL",
+    "ticker": "BLKB",
+    "shares": 39.1726,
+    "fill_price": 28.3666,
+    "fees": 0.5127,
+    "notional": 1111.19,
+    "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-06-08T21:14:22.764448+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-06-08T21:14:22.764162+00:00",
+    "side": "SELL",
+    "ticker": "MANH",
+    "shares": 3.7427,
+    "fill_price": 145.5443,
+    "fees": 0.3777,
+    "notional": 544.73,
+    "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-06-08T21:14:23.178598+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-06-08T21:14:23.178290+00:00",
+    "side": "SELL",
+    "ticker": "PCTY",
+    "shares": 4.9241,
+    "fill_price": 111.5583,
+    "fees": 0.3818,
+    "notional": 549.32,
+    "why": "Horizon exit -- held 5d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-06-08T21:14:41.563412+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-06-08T21:14:41.563118+00:00",
+    "side": "BUY",
+    "ticker": "LRN",
+    "shares": 5.8539,
+    "fill_price": 100.08,
+    "fees": 0.3687,
+    "notional": 585.86,
+    "why": "Opened per flag: OVERDONE conf 4 — Apple's long-awaited AI Siri overhaul is finally here, with new Image Playground, Photos AI editing, and Shortcuts AI workflow builder"
   }
 ]

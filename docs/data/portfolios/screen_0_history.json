@@ -321,5 +321,31 @@
     "fees": 0.3851,
     "notional": 575.36,
     "why": "Opened per flag: UNDERDONE conf 3 — Sector-wide gene-editing rally + same-day 8-K with governance items (likely annual meeting)"
+  },
+  {
+    "ts": "2026-06-08T21:13:40.742977+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-06-08T21:13:40.742687+00:00",
+    "side": "SELL",
+    "ticker": "MANH",
+    "shares": 3.8804,
+    "fill_price": 145.5443,
+    "fees": 0.3788,
+    "notional": 564.77,
+    "why": "Horizon exit -- held 6d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-06-08T21:14:20.836576+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-06-08T21:14:20.836226+00:00",
+    "side": "SELL",
+    "ticker": "CRSP",
+    "shares": 10.965,
+    "fill_price": 52.6573,
+    "fees": 0.403,
+    "notional": 577.39,
+    "why": "Original thesis was UNDERDONE (sector rally + routine governance 8-K). New flag re-classifies same name as OVERDONE on the basis of the -8.97% single-day move during XBI risk-off (-3.6%), arguing the magnitude is 3x beta for a clinical-stage name. The re-flag creates a direct thesis conflict: if the 8-K items are truly annual-meeting boilerplate (5.02 board election, 5.03 charter amendments, 5.07 vote results), the original UNDERDONE thesis still applies and the new downgrade is noise. But if the items contain an unplanned executive departure or dilutive authorization, the original thesis was wrong and re-flagging is justified. After 4 days at -1.73%, no new catalyst has emerged to resolve this ambiguity. The re-flag at OVERDONE conf 3 explicitly argues the move is excessive — that is the opposite of my entry thesis. Rather than hold into horizon hoping the governance items turn out benign, I should exit and let the flag data arbitrate: if CRSP bounces hard tomorrow on confirmation that 5.02 is routine election results, I can re-enter at better levels. Current position is small (1.1% of equity) but the thesis conflict is material. Exit now, preserve capital, re-evaluate on next catalyst clarity."
   }
 ]
