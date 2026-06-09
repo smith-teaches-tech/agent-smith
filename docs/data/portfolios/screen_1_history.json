@@ -414,5 +414,44 @@
     "fees": 0.3687,
     "notional": 585.86,
     "why": "Opened per flag: OVERDONE conf 4 — Apple's long-awaited AI Siri overhaul is finally here, with new Image Playground, Photos AI editing, and Shortcuts AI workflow builder"
+  },
+  {
+    "ts": "2026-06-09T20:59:41.630321+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-06-09T20:59:41.630069+00:00",
+    "side": "SELL",
+    "ticker": "LRN",
+    "shares": 5.8539,
+    "fill_price": 96.5534,
+    "fees": 0.3854,
+    "notional": 565.21,
+    "why": "Day 0 (just entered) and already flatline: five_day_change_pct is +0.24%, flagged with conf 4 sympathy fade thesis (Siri/Image Playground do not displace state-charter K-12 funding contracts). Entry today was speculative; zero price momentum and zero days for thesis to develop. Exit to free capital for higher-conviction entries."
+  },
+  {
+    "ts": "2026-06-09T20:59:41.940105+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-06-09T20:59:41.939865+00:00",
+    "side": "BUY",
+    "ticker": "AMBA",
+    "shares": 8.5839,
+    "fill_price": 69.8097,
+    "fees": 0.3775,
+    "notional": 599.24,
+    "why": "Opened per flag: OVERDONE conf 4 — Anthropic's Claude Fable 5 is a version of Mythos the public can access today"
+  },
+  {
+    "ts": "2026-06-09T20:59:42.182321+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-06-09T20:59:42.182086+00:00",
+    "side": "BUY",
+    "ticker": "TENB",
+    "shares": 21.1452,
+    "fill_price": 27.1471,
+    "fees": 0.4177,
+    "notional": 574.03,
+    "why": "Opened per flag: OVERDONE conf 4 — Anthropic's Claude Fable 5 is a version of Mythos the public can access today"
   }
 ]
