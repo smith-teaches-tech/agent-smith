@@ -382,5 +382,37 @@
     "tier": "exploratory",
     "decision_confidence": 4,
     "price_stale": false
+  },
+  {
+    "run_ts": "2026-06-10T21:29:53.506628+00:00",
+    "screen_id": "screen_1",
+    "ticker": "AMBA",
+    "thesis_status": "intact",
+    "next_action": "HOLD",
+    "unrealized_pct": -10.34,
+    "current_price": 62.63,
+    "days_held": 1,
+    "flag_horizon": "days",
+    "flag_classification": "OVERDONE",
+    "flag_confidence": 4,
+    "tier": "exploratory",
+    "decision_confidence": 4,
+    "price_stale": false
+  },
+  {
+    "run_ts": "2026-06-10T21:29:53.506628+00:00",
+    "screen_id": "screen_1",
+    "ticker": "TENB",
+    "thesis_status": "intact",
+    "next_action": "HOLD",
+    "unrealized_pct": -1.35,
+    "current_price": 26.8,
+    "days_held": 1,
+    "flag_horizon": "days",
+    "flag_classification": "OVERDONE",
+    "flag_confidence": 4,
+    "tier": "exploratory",
+    "decision_confidence": 4,
+    "price_stale": false
   }
 ]

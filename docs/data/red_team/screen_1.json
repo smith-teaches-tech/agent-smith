@@ -478,5 +478,55 @@
     "weakest_link": "The bull case assumes Anthropic's cybersecurity guardrails guarantee no competitive threat to Tenable's business model, but does not address whether rival labs (OpenAI, DeepSeek, others) may ship AI-accelerated exploit tools without the same guardrails, or whether Fable 5's guardrails can be circumvented by end-users.",
     "critique": "The thesis is logically coherent: Fable 5 includes explicit cybersecurity safeguards, and continuous-scan agents are a data-collection layer, not a knowledge product an LLM replaces. However, the bull case narrowly focuses on Anthropic's guardrails while ignoring the broader competitive landscape. Other frontier labs or security-focused startups could release AI tools optimized for offensive exploit discovery without such constraints, creating a parallel competitive threat to Tenable that has nothing to do with Anthropic's safety posture. Additionally, the filings are cited but not quoted, and the '10-Q re: federal designations' reference to supply-chain risk is mentioned as a 'what_kills' factor but not integrated into the bull reasoning — leaving a logical gap about how real that risk is. The five-day move of -13.62% is extended but not extreme, and exploratory sizing is appropriate; the weakness is that the bull case conflates 'Fable 5 has guardrails' with 'Tenable is protected from AI-driven competitive disruption.'",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-10T21:29:53.505414+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 evaluates 7 recent flags from two AI-event catalysts (Anthropic Fable 5 and Apple WWDC). Two positions (AMBA, TENB) entered yesterday remain intact after 1 day; both are held. Of the 7 new flags, a basket of 4 Fable-driven names (OMCL, CGNX, PLAB, HCAT) qualifies for entry, but the basket rule applies — all 4 convert to exploratory tier. AMBA and TENB re-flagged at lower confidence (3 each) and are already held; no new action. LRN and VRRM are exploratory-tier candidates from the Apple catalyst, also entered exploratory. Hard cap on exploratory positions (6 max per screen) means VRRM converts to WATCH to preserve dry powder.",
+    "ticker": "OMCL",
+    "survived": true,
+    "weakest_link": "The thesis assumes a cybersecurity LLM release cannot cascade into healthcare IT procurement cycles, but hospital IT budgets and cyber-compliance purchasing are tightly coupled.",
+    "critique": "While Fable is not a vision model and OMCL's physical dispensing cabinets are hardware-based, the thesis underestimates the downstream procurement signal. Hospitals typically bundle cyber-compliance, vendor BAA standards, and IT infrastructure upgrades in the same budget cycle. A major cybersecurity AI release can trigger IT audits of existing vendor portfolios, including Omnicell's cloud/SaaS dependencies. The 10-K flags 'SaaS-renewal risk' explicitly, which is exactly the vulnerability a cybersecurity LLM announcement touches. The 5-day decline of -8.86% is material enough to suggest the market is pricing a real (if transient) risk beyond pure sympathy.",
+    "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-06-10T21:29:53.505414+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 evaluates 7 recent flags from two AI-event catalysts (Anthropic Fable 5 and Apple WWDC). Two positions (AMBA, TENB) entered yesterday remain intact after 1 day; both are held. Of the 7 new flags, a basket of 4 Fable-driven names (OMCL, CGNX, PLAB, HCAT) qualifies for entry, but the basket rule applies — all 4 convert to exploratory tier. AMBA and TENB re-flagged at lower confidence (3 each) and are already held; no new action. LRN and VRRM are exploratory-tier candidates from the Apple catalyst, also entered exploratory. Hard cap on exploratory positions (6 max per screen) means VRRM converts to WATCH to preserve dry powder.",
+    "ticker": "CGNX",
+    "survived": true,
+    "weakest_link": "The moat (deterministic latency, integrator networks) is real, but the 5-day move of -11.16% already prices substantial repricing, leaving limited upside for an exploratory position.",
+    "critique": "The thesis that Fable is irrelevant to factory-floor vision is correct in isolation, but the 5-day decline of -11.16% is extended relative to typical sympathy fades in this cohort. An exploratory position sizing (6% of equity) on a name already down double-digits over 5 days means the entry is chasing a partially-realized move, reducing the margin of safety. The 10-K's explicit acknowledgment of 'open-source AI vision as future risk' also suggests the market is not pure-thematic on Fable; some selling may be legitimate pre-emptive positioning against a broader AI-vision competitive threat, even if Fable itself is not that threat.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-10T21:29:53.505414+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 evaluates 7 recent flags from two AI-event catalysts (Anthropic Fable 5 and Apple WWDC). Two positions (AMBA, TENB) entered yesterday remain intact after 1 day; both are held. Of the 7 new flags, a basket of 4 Fable-driven names (OMCL, CGNX, PLAB, HCAT) qualifies for entry, but the basket rule applies — all 4 convert to exploratory tier. AMBA and TENB re-flagged at lower confidence (3 each) and are already held; no new action. LRN and VRRM are exploratory-tier candidates from the Apple catalyst, also entered exploratory. Hard cap on exploratory positions (6 max per screen) means VRRM converts to WATCH to preserve dry powder.",
+    "ticker": "PLAB",
+    "survived": true,
+    "weakest_link": "The structural beneficiary thesis (more chips → more masks) is sound, but volume_multiple of 0.59 (below average) combined with a -10.84% 5-day decline suggests conviction sellers are underweighting the AI-capex tailwind the flag claims.",
+    "critique": "If PLAB is truly a mechanical beneficiary of AI chip capex, the light volume on a 5-day -10.84% move is a red flag—it suggests informed sellers are not replenishing the decline. Conviction trades typically see volume spikes on directional moves; subdued volume on a large 5-day decline often presages further weakness. The thesis is logically sound (cyber-model news should not reduce mask demand), but the price action (extended decline on light volume) contradicts the confidence level (4) assigned to the trade. Exploratory tier mitigates this, but the underlying signal is weaker than framed.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-10T21:29:53.505414+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 evaluates 7 recent flags from two AI-event catalysts (Anthropic Fable 5 and Apple WWDC). Two positions (AMBA, TENB) entered yesterday remain intact after 1 day; both are held. Of the 7 new flags, a basket of 4 Fable-driven names (OMCL, CGNX, PLAB, HCAT) qualifies for entry, but the basket rule applies — all 4 convert to exploratory tier. AMBA and TENB re-flagged at lower confidence (3 each) and are already held; no new action. LRN and VRRM are exploratory-tier candidates from the Apple catalyst, also entered exploratory. Hard cap on exploratory positions (6 max per screen) means VRRM converts to WATCH to preserve dry powder.",
+    "ticker": "HCAT",
+    "survived": true,
+    "weakest_link": "The +20.3% five-day recovery directly contradicts the sympathy-fade thesis and suggests the market has already repriced away the AI-event impact, leaving no edge for a late entry.",
+    "critique": "HCAT's five-day move is +20.3%, which means the stock has already recovered sharply from any Fable-related sympathy selloff. A trade entered after a +20% recovery is not a fade opportunity; it is a chase entry. The flag itself acknowledges that 'Project Nexus restructuring and DOS-Ignite migration are real idiosyncratic stressors,' which means the initial -6.43% one-day move may have been driven by company-specific risk rather than sympathy to begin with. If fundamentals (churn, revenue decline per the 10-Q) are the real driver, buying after a +20% bounce is precisely when exploratory convictions tend to fail. The confidence level assigned to this decision (3, threshold) reflects the weakness, but the entry timing after a major recovery is a specific flaw not fully articulated in the reasoning.",
+    "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-06-10T21:29:53.505414+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 evaluates 7 recent flags from two AI-event catalysts (Anthropic Fable 5 and Apple WWDC). Two positions (AMBA, TENB) entered yesterday remain intact after 1 day; both are held. Of the 7 new flags, a basket of 4 Fable-driven names (OMCL, CGNX, PLAB, HCAT) qualifies for entry, but the basket rule applies — all 4 convert to exploratory tier. AMBA and TENB re-flagged at lower confidence (3 each) and are already held; no new action. LRN and VRRM are exploratory-tier candidates from the Apple catalyst, also entered exploratory. Hard cap on exploratory positions (6 max per screen) means VRRM converts to WATCH to preserve dry powder.",
+    "ticker": "LRN",
+    "survived": true,
+    "weakest_link": "The regulatory/accreditation moat is real, but the 5-day move of only +0.24% (essentially flat) combined with the 1-day -3.28% decline suggests the market has already normalized expectations and there is no sympathy-fade opportunity left to capture.",
+    "critique": "LRN's filings support the thesis that state K-12 charter funding is orthogonal to Apple's AI-Siri announcement. However, the five-day price action—a near-flat +0.24%—indicates the market did not treat this as a major sympathy event to begin with. Entering an exploratory position on a name that showed minimal sympathy decline to a major Apple AI announcement means the edge (fade repricing) is already gone. The -3.28% one-day move is modest and could reflect normal noise rather than genuine thematic selling. For a sympathy-fade trade to work, the market needs to have been wrong (oversold on false thematic contagion); LRN's flat 5-day price action suggests the market never believed the contagion in the first place, which eliminates the repricing opportunity.",
+    "confidence_in_critique": 2
   }
 ]

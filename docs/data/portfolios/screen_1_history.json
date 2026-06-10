@@ -453,5 +453,70 @@
     "fees": 0.4177,
     "notional": 574.03,
     "why": "Opened per flag: OVERDONE conf 4 — Anthropic's Claude Fable 5 is a version of Mythos the public can access today"
+  },
+  {
+    "ts": "2026-06-10T21:29:15.860896+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-06-10T21:29:15.860619+00:00",
+    "side": "SELL",
+    "ticker": "VRNS",
+    "shares": 17.1409,
+    "fill_price": 32.1678,
+    "fees": 0.423,
+    "notional": 551.39,
+    "why": "Horizon exit -- held 6d >= 5d (days) grading horizon; prediction window closed. Code-enforced, P&L-independent."
+  },
+  {
+    "ts": "2026-06-10T21:29:53.750324+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-06-10T21:29:53.750059+00:00",
+    "side": "BUY",
+    "ticker": "OMCL",
+    "shares": 14.6637,
+    "fill_price": 40.5905,
+    "fees": 0.3969,
+    "notional": 595.21,
+    "why": "Opened per flag: OVERDONE conf 4 — Anthropic releases Fable model with strict guardrails, drawing cybersecurity researcher pushback"
+  },
+  {
+    "ts": "2026-06-10T21:29:53.973288+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-06-10T21:29:53.973017+00:00",
+    "side": "BUY",
+    "ticker": "CGNX",
+    "shares": 9.5389,
+    "fill_price": 60.2602,
+    "fees": 0.3805,
+    "notional": 574.82,
+    "why": "Opened per flag: OVERDONE conf 4 — Anthropic releases Fable model with strict guardrails, drawing cybersecurity researcher pushback"
+  },
+  {
+    "ts": "2026-06-10T21:29:54.182251+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-06-10T21:29:54.181995+00:00",
+    "side": "BUY",
+    "ticker": "PLAB",
+    "shares": 19.5534,
+    "fill_price": 29.1992,
+    "fees": 0.4126,
+    "notional": 570.94,
+    "why": "Opened per flag: OVERDONE conf 4 — Anthropic releases Fable model with strict guardrails, drawing cybersecurity researcher pushback"
+  },
+  {
+    "ts": "2026-06-10T21:29:54.362691+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-06-10T21:29:54.362416+00:00",
+    "side": "BUY",
+    "ticker": "LRN",
+    "shares": 5.6069,
+    "fill_price": 96.6566,
+    "fees": 0.3679,
+    "notional": 541.94,
+    "why": "Opened per flag: OVERDONE conf 4 — Apple's long-awaited AI Siri overhaul is finally here, with new Image Playground, Photos AI editing, and Shortcuts AI workflow builder"
   }
 ]
