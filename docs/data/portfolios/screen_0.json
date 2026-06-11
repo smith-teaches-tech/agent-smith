@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-10T21:29:15.199779+00:00",
+  "generated_at": "2026-06-11T21:20:32.236579+00:00",
   "bankroll_start": 10000.0,
   "cash": 7660.03,
   "open_positions": [
@@ -10,10 +10,10 @@
       "shares": 11.5465,
       "cost_basis": 180.1299,
       "cost_total": 2080.26,
-      "current_price": 180.1299,
-      "value": 2079.87,
-      "unrealized_pnl": -0.39,
-      "unrealized_pct": -0.02,
+      "current_price": 179.95,
+      "value": 2077.79,
+      "unrealized_pnl": -2.47,
+      "unrealized_pct": -0.12,
       "opened_at": "2026-06-10T21:29:13.773015+00:00",
       "days_held": 0,
       "flag_classification": "RATIONAL",
@@ -21,14 +21,15 @@
       "flag_horizon": "days",
       "thesis": "no mechanism. Catalyst: Multi-item 8-K consistent with closing of a previously-telegraphed divestiture or spin-off. Falsified by: n/a.",
       "thesis_status": "intact",
-      "latest_reasoning": "Opened position at $180.13, +$0.39 fees.",
+      "latest_reasoning": "8-K items (1.02 terminated agreement, 2.01 completed disposition, 3.01/3.03/5.01/5.02/5.03) are the textbook fingerprint of a closed spin-off or divestiture. Stock flat on 3.17x volume indicates the market priced the transaction correctly — no surprise. Catalyst is closed (the event has executed), so the horizon is now medium-term: waiting for analyst re-rating and fundamental re-assessment of the remaining (non-Sound-United) Masimo business. No news yet suggesting the deal terms were worse than expected. Thesis intact, no exit trigger.",
       "next_action": "HOLD",
       "catalyst": "Multi-item 8-K consistent with closing of a previously-telegraphed divestiture or spin-off",
       "tier": "conviction",
       "benchmark_at_open": {
         "SPY": 733.39,
         "IWM": 284.59
-      }
+      },
+      "price_stale": false
     },
     {
       "ticker": "AYI",
@@ -37,25 +38,26 @@
       "shares": 2.223,
       "cost_basis": 296.306,
       "cost_total": 659.05,
-      "current_price": 296.306,
-      "value": 658.69,
-      "unrealized_pnl": -0.36,
-      "unrealized_pct": -0.05,
+      "current_price": 288.6,
+      "value": 641.56,
+      "unrealized_pnl": -17.49,
+      "unrealized_pct": -2.65,
       "opened_at": "2026-06-10T21:29:14.122507+00:00",
       "days_held": 0,
       "flag_classification": "OVERDONE",
       "flag_confidence": 3,
       "flag_horizon": "weeks",
       "thesis": "no mechanism. Catalyst: Sympathy with industrials sector (XLI -3.4%) on hot CPI + Iran headlines, no company-specific news. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Opened position at $296.31, +$0.36 fees.",
+      "thesis_status": "weakening",
+      "latest_reasoning": "Position was entered on OVERDONE logic: sympathy with XLI -3.4% on CPI/Iran macro without company-specific catalyst. Since entry, AYI has deteriorated to -10.37% over 5 days, 2x the sector beta. No 8-K has appeared to justify the magnitude. This pattern (quality industrial down 2x sector on macro alone) is historically mean-reversion, but horizon was 'weeks' and only 0 days have elapsed. Thesis is weakening (move is larger and more persistent than expected for pure sympathy), but not yet broken — no concrete news has emerged. Hold through 2-3 more days; if tape stabilizes and XLI stabilizes, AYI's outperformance to the downside will reverse. If an 8-K surfaces (restructuring, guidance withdrawal), exit immediately.",
       "next_action": "HOLD",
       "catalyst": "Sympathy with industrials sector (XLI -3.4%) on hot CPI + Iran headlines, no company-specific news",
       "tier": "exploratory",
       "benchmark_at_open": {
         "SPY": 733.39,
         "IWM": 284.59
-      }
+      },
+      "price_stale": false
     }
   ],
   "closed_positions": [
