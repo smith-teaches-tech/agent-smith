@@ -1,55 +1,10 @@
 {
-  "generated_at": "2026-05-27T06:16:34.275774+00:00",
+  "generated_at": "2026-06-12T21:03:52.071090+00:00",
   "screen_id": "screen_2",
-  "status": "OK",
+  "status": "SKIPPED",
   "discovery": {
-    "run_summary": "Three mid-cap pre-prints with very thin earnings-release data (all 8-K cover pages, no Exhibit 99.1 financials available). GTLB provides the strongest readable signal via a May 11 pre-announcement reaffirming Q1/FY27 guidance combined with a RIF announcement — a distinctive setup. VSCO and CIEN lack the press release detail needed for confident directional reads, with CIEN's 10-K disclosing $85M tariff hit and AI tailwind providing mixed signals.",
-    "discoveries": [
-      {
-        "ticker": "GTLB",
-        "name": "GitLab",
-        "sector": "saas_software",
-        "earnings_date": "2026-06-02",
-        "trading_days_out": 4,
-        "classification": "UNDERDONE",
-        "confidence": 3,
-        "filings_evidence": "May 11, 2026 8-K explicitly states Q1 FY27 results are tracking 'in-line with its guidance' issued March 3 AND reaffirms full-year FY27 guidance — a rare mid-quarter affirmative pre-announcement. Same 8-K announced a RIF with majority of savings to be reinvested in strategic growth initiatives. 10-K (filed March 17) shows FY26 revenue of $955.2M (+26% YoY), $100K+ ARR customers grew to 1,456 from 1,229, $1M+ ARR customers grew 26% to 155, operating cash flow margin swung from -8% to +24%. Board also authorized a $400M buyback in March.",
-        "guidance_pattern": "Limited press release detail available (all 8-Ks fell back to cover pages), but the May 11 mid-quarter reaffirmation is itself an unusual positive signal — companies rarely pre-affirm without confidence in the print.",
-        "setup": "Mid-quarter guide reaffirmation 3 weeks pre-print + RIF for margin reinvestment + $400M buyback + visible enterprise ARR cohort acceleration in 10-K.",
-        "thesis": "The May 11 pre-announcement is a deliberate de-risking move by management — they would not have reaffirmed guidance and announced a RIF (typically a negative-perception event) 3 weeks before print unless Q1 was tracking at or above plan. Combined with the buyback authorization and the FY26 cash flow inflection (-8% to +24% OCF margin) plus 26% growth in $1M+ ARR cohort, the filings posture is meaningfully more constructive than a stock that has had multiple CFO transitions (Robins out Sept 2025, Shen interim, Ross arriving Jan 2026) and a securities class action overhang would typically suggest.",
-        "what_confirms": "Q1 FY27 revenue and NDR at or above the reaffirmed guidance midpoint; $100K+ ARR customer cohort continuing to grow sequentially; operating margin showing benefit from cost discipline; FY27 guide maintained or raised.",
-        "what_kills": "NDR drops further below 118% reported in FY26 (already down from 123% prior year); large enterprise deals slip; Duo Agent Platform (GA Jan 2026) shows weak early monetization data; RIF framed defensively rather than reinvestment-driven on the call.",
-        "what_to_learn": "When a company files a Reg FD 8-K specifically to reaffirm guidance 3-4 weeks before the print (especially alongside structural moves like RIF + buyback), that is a tell — management has visibility and is signaling confidence. Track whether this pattern predicts a beat-and-raise.",
-        "catalyst": "Q1 FY27 earnings 2026-06-02",
-        "catalyst_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001653482",
-        "research_pointers": [
-          "Verify the actual Q1 FY27 revenue and NDR vs. the March 3 reaffirmed guidance",
-          "Check buy-side consensus for FY27 — pre-announcement may already be partly priced",
-          "Read CEO Staples' May 11 RIF letter for tone (reinvestment-driven vs. demand-driven)",
-          "Track Duo Agent Platform (GA January 2026) early adoption signals on the call",
-          "Watch for fresh guidance from new CFO Jessica Ross (her first print)"
-        ],
-        "time_horizon": "days"
-      }
-    ],
-    "skipped": [
-      {
-        "ticker": "VSCO",
-        "reason": "All earnings 8-Ks fell back to cover pages — no Exhibit 99.1 financials to read guidance pattern or trajectory. 10-K discloses $85M tariff hit and CFO transition, but without quarterly results detail the read is genuinely too thin — UNCLEAR."
-      },
-      {
-        "ticker": "CIEN",
-        "reason": "All earnings 8-Ks fell back to cover pages — no quarterly revenue/guidance language available. 10-K shows mixed signals (AI tailwinds, customer concentration, tariff exposure, Nubis acquisition) but without the quarterly cadence data the directional call doesn't survive the schema-survival gate — UNCLEAR."
-      }
-    ],
-    "no_signals_note": null,
-    "_status": "ok",
-    "_candidate_count": 3,
-    "_triggered_tickers": [
-      "GTLB",
-      "VSCO",
-      "CIEN"
-    ],
-    "_as_of": "2026-05-27"
+    "run_summary": "Screen 2 is disabled in config.SCREENS (enabled: False) — no discovery pass was run.",
+    "discoveries": [],
+    "skipped": []
   }
 }

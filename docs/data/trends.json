@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-11T21:19:59.411552+00:00",
+  "generated_at": "2026-06-12T21:03:53.888433+00:00",
   "logic_version": 4,
   "grading_params": {
     "hit_threshold_pct": 3.0,
@@ -9,30 +9,30 @@
       "months": 60
     },
     "default_horizon_days": 5,
-    "graded_classifications": "{'OVERDONE', 'UNDERDONE'}"
+    "graded_classifications": "{'UNDERDONE', 'OVERDONE'}"
   },
-  "n_total_calls": 316,
-  "n_not_graded": 237,
-  "n_pending": 20,
+  "n_total_calls": 320,
+  "n_not_graded": 239,
+  "n_pending": 21,
   "n_data_error": 0,
   "overall": {
-    "n_resolved": 59,
-    "n_decisive": 58,
+    "n_resolved": 60,
+    "n_decisive": 59,
     "n_hit": 30,
-    "n_miss": 28,
+    "n_miss": 29,
     "n_ambiguous": 1,
-    "hit_rate": 51.7,
-    "avg_return_pct": 3.08
+    "hit_rate": 50.8,
+    "avg_return_pct": 2.96
   },
   "by_classification": {
     "OVERDONE": {
-      "n_resolved": 49,
-      "n_decisive": 49,
+      "n_resolved": 50,
+      "n_decisive": 50,
       "n_hit": 25,
-      "n_miss": 24,
+      "n_miss": 25,
       "n_ambiguous": 0,
-      "hit_rate": 51.0,
-      "avg_return_pct": 2.62
+      "hit_rate": 50.0,
+      "avg_return_pct": 2.49
     },
     "UNDERDONE": {
       "n_resolved": 10,
@@ -64,13 +64,13 @@
       "avg_return_pct": 8.95
     },
     "3": {
-      "n_resolved": 34,
-      "n_decisive": 33,
+      "n_resolved": 35,
+      "n_decisive": 34,
       "n_hit": 16,
-      "n_miss": 17,
+      "n_miss": 18,
       "n_ambiguous": 1,
-      "hit_rate": 48.5,
-      "avg_return_pct": 2.47
+      "hit_rate": 47.1,
+      "avg_return_pct": 2.29
     },
     "4": {
       "n_resolved": 19,
@@ -92,14 +92,41 @@
     }
   },
   "by_sector": {
-    "saas_software": {
-      "n_resolved": 8,
-      "n_decisive": 8,
-      "n_hit": 5,
-      "n_miss": 3,
+    "Financial Services": {
+      "n_resolved": 0,
+      "n_decisive": 0,
+      "n_hit": 0,
+      "n_miss": 0,
       "n_ambiguous": 0,
-      "hit_rate": 62.5,
-      "avg_return_pct": 5.83
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Energy": {
+      "n_resolved": 0,
+      "n_decisive": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Healthcare - Biotechnology": {
+      "n_resolved": 0,
+      "n_decisive": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Healthcare": {
+      "n_resolved": 4,
+      "n_decisive": 4,
+      "n_hit": 2,
+      "n_miss": 2,
+      "n_ambiguous": 0,
+      "hit_rate": 50.0,
+      "avg_return_pct": 5.42
     },
     "industrials_specialty": {
       "n_resolved": 2,
@@ -110,6 +137,15 @@
       "hit_rate": 50.0,
       "avg_return_pct": -4.65
     },
+    "Communication Services": {
+      "n_resolved": 0,
+      "n_decisive": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
     "Technology": {
       "n_resolved": 29,
       "n_decisive": 29,
@@ -119,14 +155,32 @@
       "hit_rate": 51.7,
       "avg_return_pct": 4.3
     },
-    "Consumer Cyclical": {
-      "n_resolved": 3,
-      "n_decisive": 3,
-      "n_hit": 2,
-      "n_miss": 1,
+    "Utilities": {
+      "n_resolved": 0,
+      "n_decisive": 0,
+      "n_hit": 0,
+      "n_miss": 0,
       "n_ambiguous": 0,
-      "hit_rate": 66.7,
-      "avg_return_pct": 3.87
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Financial Services (misclassified as Tech)": {
+      "n_resolved": 0,
+      "n_decisive": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Consumer Defensive": {
+      "n_resolved": 0,
+      "n_decisive": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
     },
     "Basic Materials": {
       "n_resolved": 0,
@@ -146,41 +200,23 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Communication Services": {
-      "n_resolved": 0,
-      "n_decisive": 0,
+    "consumer_discretionary": {
+      "n_resolved": 2,
+      "n_decisive": 2,
       "n_hit": 0,
-      "n_miss": 0,
+      "n_miss": 2,
       "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
+      "hit_rate": 0.0,
+      "avg_return_pct": -6.17
     },
-    "Financial Services (misclassified as Tech)": {
-      "n_resolved": 0,
-      "n_decisive": 0,
-      "n_hit": 0,
-      "n_miss": 0,
+    "Consumer Cyclical": {
+      "n_resolved": 3,
+      "n_decisive": 3,
+      "n_hit": 2,
+      "n_miss": 1,
       "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Healthcare - Biotechnology": {
-      "n_resolved": 0,
-      "n_decisive": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Consumer Defensive": {
-      "n_resolved": 0,
-      "n_decisive": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
+      "hit_rate": 66.7,
+      "avg_return_pct": 3.87
     },
     "Industrials": {
       "n_resolved": 12,
@@ -191,61 +227,25 @@
       "hit_rate": 45.5,
       "avg_return_pct": -0.44
     },
-    "Financial Services": {
-      "n_resolved": 0,
-      "n_decisive": 0,
-      "n_hit": 0,
-      "n_miss": 0,
+    "saas_software": {
+      "n_resolved": 8,
+      "n_decisive": 8,
+      "n_hit": 5,
+      "n_miss": 3,
       "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Utilities": {
-      "n_resolved": 0,
-      "n_decisive": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Energy": {
-      "n_resolved": 0,
-      "n_decisive": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "consumer_discretionary": {
-      "n_resolved": 2,
-      "n_decisive": 2,
-      "n_hit": 0,
-      "n_miss": 2,
-      "n_ambiguous": 0,
-      "hit_rate": 0.0,
-      "avg_return_pct": -6.17
-    },
-    "Healthcare": {
-      "n_resolved": 3,
-      "n_decisive": 3,
-      "n_hit": 2,
-      "n_miss": 1,
-      "n_ambiguous": 0,
-      "hit_rate": 66.7,
-      "avg_return_pct": 8.55
+      "hit_rate": 62.5,
+      "avg_return_pct": 5.83
     }
   },
   "by_horizon_days": {
     "5": {
-      "n_resolved": 58,
-      "n_decisive": 57,
+      "n_resolved": 59,
+      "n_decisive": 58,
       "n_hit": 29,
-      "n_miss": 28,
+      "n_miss": 29,
       "n_ambiguous": 1,
-      "hit_rate": 50.9,
-      "avg_return_pct": 2.84
+      "hit_rate": 50.0,
+      "avg_return_pct": 2.73
     },
     "20": {
       "n_resolved": 1,
@@ -269,13 +269,13 @@
   "by_screen": {
     "screen_0": {
       "display_name": "General mispricing",
-      "n_resolved": 18,
-      "n_decisive": 17,
+      "n_resolved": 19,
+      "n_decisive": 18,
       "n_hit": 9,
-      "n_miss": 8,
+      "n_miss": 9,
       "n_ambiguous": 1,
-      "hit_rate": 52.9,
-      "avg_return_pct": 3.49
+      "hit_rate": 50.0,
+      "avg_return_pct": 3.1
     },
     "screen_1": {
       "display_name": "AI-event sympathy fade",
@@ -1365,13 +1365,13 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": -6.02,
-      "max_favorable_pct": 2.58,
+      "return_pct_in_horizon": 6.02,
+      "max_favorable_pct": 6.59,
       "max_adverse_pct": -12.32,
       "price_at_flag": 1.745,
-      "price_at_horizon_end": 1.64,
+      "price_at_horizon_end": 1.85,
       "logic_version": 4,
-      "notes": "only 3 bars elapsed",
+      "notes": "only 4 bars elapsed",
       "screen_id": "screen_1"
     },
     {
@@ -1386,13 +1386,13 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": 2.83,
-      "max_favorable_pct": 3.32,
+      "return_pct_in_horizon": 1.01,
+      "max_favorable_pct": 5.04,
       "max_adverse_pct": -1.59,
       "price_at_flag": 96.73,
-      "price_at_horizon_end": 99.47,
+      "price_at_horizon_end": 97.71,
       "logic_version": 4,
-      "notes": "only 3 bars elapsed",
+      "notes": "only 4 bars elapsed",
       "screen_id": "screen_1"
     },
     {
@@ -1407,13 +1407,13 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": 7.66,
+      "return_pct_in_horizon": 11.72,
       "max_favorable_pct": 15.91,
       "max_adverse_pct": -1.44,
       "price_at_flag": 4.18,
-      "price_at_horizon_end": 4.5,
+      "price_at_horizon_end": 4.67,
       "logic_version": 4,
-      "notes": "only 3 bars elapsed",
+      "notes": "only 4 bars elapsed",
       "screen_id": "screen_1"
     },
     {
@@ -1428,13 +1428,13 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": 0.08,
-      "max_favorable_pct": 2.56,
+      "return_pct_in_horizon": 3.09,
+      "max_favorable_pct": 3.91,
       "max_adverse_pct": -5.55,
       "price_at_flag": 65.75,
-      "price_at_horizon_end": 65.8,
+      "price_at_horizon_end": 67.78,
       "logic_version": 4,
-      "notes": "only 2 bars elapsed",
+      "notes": "only 3 bars elapsed",
       "screen_id": "screen_1"
     },
     {
@@ -1449,13 +1449,13 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": 0.67,
+      "return_pct_in_horizon": 0.41,
       "max_favorable_pct": 2.36,
       "max_adverse_pct": -3.11,
       "price_at_flag": 26.69,
-      "price_at_horizon_end": 26.87,
+      "price_at_horizon_end": 26.8,
       "logic_version": 4,
-      "notes": "only 2 bars elapsed",
+      "notes": "only 3 bars elapsed",
       "screen_id": "screen_1"
     },
     {
@@ -1470,13 +1470,13 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": -0.94,
-      "max_favorable_pct": 0.21,
+      "return_pct_in_horizon": -0.92,
+      "max_favorable_pct": 1.85,
       "max_adverse_pct": -4.27,
       "price_at_flag": 38.18,
-      "price_at_horizon_end": 37.82,
+      "price_at_horizon_end": 37.83,
       "logic_version": 4,
-      "notes": "only 1 bars elapsed",
+      "notes": "only 2 bars elapsed",
       "screen_id": "screen_1"
     },
     {
@@ -1491,13 +1491,13 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": 5.83,
-      "max_favorable_pct": 5.89,
+      "return_pct_in_horizon": 8.38,
+      "max_favorable_pct": 9.01,
       "max_adverse_pct": 0.68,
       "price_at_flag": 58.69,
-      "price_at_horizon_end": 62.11,
+      "price_at_horizon_end": 63.61,
       "logic_version": 4,
-      "notes": "only 1 bars elapsed",
+      "notes": "only 2 bars elapsed",
       "screen_id": "screen_1"
     },
     {
@@ -1512,13 +1512,13 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": 7.33,
-      "max_favorable_pct": 7.44,
-      "max_adverse_pct": -0.16,
+      "return_pct_in_horizon": 11.0,
+      "max_favorable_pct": 11.7,
+      "max_adverse_pct": -0.14,
       "price_at_flag": 28.63,
-      "price_at_horizon_end": 30.73,
+      "price_at_horizon_end": 31.78,
       "logic_version": 4,
-      "notes": "only 1 bars elapsed",
+      "notes": "only 2 bars elapsed",
       "screen_id": "screen_1"
     },
     {
@@ -1533,13 +1533,13 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": 2.5,
-      "max_favorable_pct": 6.25,
+      "return_pct_in_horizon": 15.62,
+      "max_favorable_pct": 16.25,
       "max_adverse_pct": -4.38,
       "price_at_flag": 1.6,
-      "price_at_horizon_end": 1.64,
+      "price_at_horizon_end": 1.85,
       "logic_version": 4,
-      "notes": "only 1 bars elapsed",
+      "notes": "only 2 bars elapsed",
       "screen_id": "screen_1"
     },
     {
@@ -1554,13 +1554,13 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": 5.06,
-      "max_favorable_pct": 5.27,
-      "max_adverse_pct": -0.06,
+      "return_pct_in_horizon": 8.22,
+      "max_favorable_pct": 9.08,
+      "max_adverse_pct": -0.05,
       "price_at_flag": 62.63,
-      "price_at_horizon_end": 65.8,
+      "price_at_horizon_end": 67.78,
       "logic_version": 4,
-      "notes": "only 1 bars elapsed",
+      "notes": "only 2 bars elapsed",
       "screen_id": "screen_1"
     },
     {
@@ -5964,13 +5964,13 @@
       "expected_direction": "up",
       "horizon_days": 20,
       "grade": "PENDING",
-      "return_pct_in_horizon": 10.3,
+      "return_pct_in_horizon": 9.18,
       "max_favorable_pct": 12.06,
       "max_adverse_pct": -4.7,
       "price_at_flag": 71.23,
-      "price_at_horizon_end": 78.57,
+      "price_at_horizon_end": 77.77,
       "logic_version": 4,
-      "notes": "only 15 bars elapsed",
+      "notes": "only 16 bars elapsed",
       "screen_id": "screen_0"
     },
     {
@@ -6363,13 +6363,13 @@
       "expected_direction": "down",
       "horizon_days": 20,
       "grade": "PENDING",
-      "return_pct_in_horizon": -1.42,
+      "return_pct_in_horizon": -0.39,
       "max_favorable_pct": 7.71,
-      "max_adverse_pct": -1.65,
+      "max_adverse_pct": -2.92,
       "price_at_flag": 77.47,
-      "price_at_horizon_end": 78.57,
+      "price_at_horizon_end": 77.77,
       "logic_version": 4,
-      "notes": "only 11 bars elapsed",
+      "notes": "only 12 bars elapsed",
       "screen_id": "screen_0"
     },
     {
@@ -6426,13 +6426,13 @@
       "expected_direction": "down",
       "horizon_days": 20,
       "grade": "PENDING",
-      "return_pct_in_horizon": 14.32,
+      "return_pct_in_horizon": 20.43,
       "max_favorable_pct": 21.17,
       "max_adverse_pct": -0.88,
       "price_at_flag": 214.39,
-      "price_at_horizon_end": 183.69,
+      "price_at_horizon_end": 170.58,
       "logic_version": 4,
-      "notes": "only 10 bars elapsed",
+      "notes": "only 11 bars elapsed",
       "screen_id": "screen_0"
     },
     {
@@ -6929,14 +6929,14 @@
       "move_pct_at_flag": -8.97,
       "expected_direction": "up",
       "horizon_days": 5,
-      "grade": "PENDING",
-      "return_pct_in_horizon": -3.11,
+      "grade": "MISS",
+      "return_pct_in_horizon": -3.94,
       "max_favorable_pct": 2.41,
-      "max_adverse_pct": -5.4,
+      "max_adverse_pct": -5.44,
       "price_at_flag": 51.84,
-      "price_at_horizon_end": 50.23,
+      "price_at_horizon_end": 49.8,
       "logic_version": 4,
-      "notes": "only 4 bars elapsed",
+      "notes": null,
       "screen_id": "screen_0"
     },
     {
@@ -7098,13 +7098,13 @@
       "expected_direction": "down",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": -1.33,
+      "return_pct_in_horizon": -0.3,
       "max_favorable_pct": 6.29,
-      "max_adverse_pct": -1.56,
+      "max_adverse_pct": -2.82,
       "price_at_flag": 77.54,
-      "price_at_horizon_end": 78.57,
+      "price_at_horizon_end": 77.77,
       "logic_version": 4,
-      "notes": "only 2 bars elapsed",
+      "notes": "only 3 bars elapsed",
       "screen_id": "screen_0"
     },
     {
@@ -7203,13 +7203,13 @@
       "expected_direction": "up",
       "horizon_days": 20,
       "grade": "PENDING",
-      "return_pct_in_horizon": 2.93,
-      "max_favorable_pct": 3.18,
+      "return_pct_in_horizon": 6.01,
+      "max_favorable_pct": 6.04,
       "max_adverse_pct": -0.17,
       "price_at_flag": 280.39,
-      "price_at_horizon_end": 288.6,
+      "price_at_horizon_end": 297.24,
       "logic_version": 4,
-      "notes": "only 1 bars elapsed",
+      "notes": "only 2 bars elapsed",
       "screen_id": "screen_0"
     },
     {
@@ -7224,13 +7224,13 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": 11.95,
-      "max_favorable_pct": 12.04,
-      "max_adverse_pct": -0.43,
+      "return_pct_in_horizon": 13.53,
+      "max_favorable_pct": 15.52,
+      "max_adverse_pct": -0.58,
       "price_at_flag": 41.68,
-      "price_at_horizon_end": 46.66,
+      "price_at_horizon_end": 47.32,
       "logic_version": 4,
-      "notes": "only 1 bars elapsed",
+      "notes": "only 2 bars elapsed",
       "screen_id": "screen_0"
     },
     {
@@ -7287,13 +7287,13 @@
       "expected_direction": "up",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": null,
-      "max_favorable_pct": null,
-      "max_adverse_pct": null,
-      "price_at_flag": 46.65999984741211,
-      "price_at_horizon_end": null,
+      "return_pct_in_horizon": 1.41,
+      "max_favorable_pct": 3.19,
+      "max_adverse_pct": -1.71,
+      "price_at_flag": 46.66,
+      "price_at_horizon_end": 47.32,
       "logic_version": 4,
-      "notes": "No post-flag bars yet",
+      "notes": "only 1 bars elapsed",
       "screen_id": "screen_0"
     },
     {
@@ -7308,13 +7308,13 @@
       "expected_direction": "down",
       "horizon_days": 5,
       "grade": "PENDING",
-      "return_pct_in_horizon": null,
-      "max_favorable_pct": null,
-      "max_adverse_pct": null,
-      "price_at_flag": 58.779998779296875,
-      "price_at_horizon_end": null,
+      "return_pct_in_horizon": 1.75,
+      "max_favorable_pct": 3.18,
+      "max_adverse_pct": -4.97,
+      "price_at_flag": 58.78,
+      "price_at_horizon_end": 57.75,
       "logic_version": 4,
-      "notes": "No post-flag bars yet",
+      "notes": "only 1 bars elapsed",
       "screen_id": "screen_0"
     },
     {
@@ -7350,13 +7350,97 @@
       "expected_direction": "down",
       "horizon_days": 5,
       "grade": "PENDING",
+      "return_pct_in_horizon": -0.82,
+      "max_favorable_pct": 3.56,
+      "max_adverse_pct": -1.72,
+      "price_at_flag": 119.32,
+      "price_at_horizon_end": 120.3,
+      "logic_version": 4,
+      "notes": "only 1 bars elapsed",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "AVAV",
+      "name": "AeroVironment, Inc.",
+      "sector": "Industrials",
+      "flagged_at": "2026-06-12T21:03:46+00:00",
+      "run_file": "us_20260612T210346Z.json",
+      "classification": "UNDERDONE",
+      "confidence": 3,
+      "move_pct_at_flag": -7.14,
+      "expected_direction": "down",
+      "horizon_days": 5,
+      "grade": "PENDING",
       "return_pct_in_horizon": null,
       "max_favorable_pct": null,
       "max_adverse_pct": null,
-      "price_at_flag": 119.31999969482422,
+      "price_at_flag": 170.5800018310547,
       "price_at_horizon_end": null,
       "logic_version": 4,
       "notes": "No post-flag bars yet",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "VECO",
+      "name": "Veeco Instruments Inc.",
+      "sector": "Technology",
+      "flagged_at": "2026-06-12T21:03:46+00:00",
+      "run_file": "us_20260612T210346Z.json",
+      "classification": "OVERDONE",
+      "confidence": 3,
+      "move_pct_at_flag": 8.29,
+      "expected_direction": "down",
+      "horizon_days": 5,
+      "grade": "PENDING",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": 77.4800033569336,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "No post-flag bars yet",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "ONTO",
+      "name": "Onto Innovation Inc.",
+      "sector": "Technology",
+      "flagged_at": "2026-06-12T21:03:46+00:00",
+      "run_file": "us_20260612T210346Z.json",
+      "classification": "RATIONAL",
+      "confidence": 2,
+      "move_pct_at_flag": 6.7,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "AEIS",
+      "name": "Advanced Energy Industries, Inc.",
+      "sector": "Industrials",
+      "flagged_at": "2026-06-12T21:03:46+00:00",
+      "run_file": "us_20260612T210346Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": 4.1,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "classification=UNCLEAR not in graded set",
       "screen_id": "screen_0"
     }
   ]

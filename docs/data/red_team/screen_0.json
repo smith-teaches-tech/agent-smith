@@ -288,5 +288,15 @@
     "weakest_link": "The thesis assumes the Iran deal will 'finalize in next few days' and drive crude lower, but the move has already captured 9.3% of the expected relief in just five days, leaving minimal alpha if the catalyst executes as priced.",
     "critique": "The five-day move of +9.3% already reflects substantial anticipation of fuel-cost relief from the oil decline. Haiku acknowledges the move is 'already extended' but frames this as 'buying early legs of a potential secondary fuel-cost leg'—a backwards read of the entry signal. If the Iran deal materializes as flagged, crude may have already moved enough to price most of the airline benefit into ALK's current level. Conversely, if the deal stalls or reverses (flagged as a kill condition), ALK has no other fundamental support and reverts to the 'prior decline' that preceded this bounce. The exploratory 6% position size is appropriate for idea strength but conflicts with a setup where price has already run hard on the same catalyst framework.",
     "confidence_in_critique": 4
+  },
+  {
+    "ts": "2026-06-12T21:04:29.389553+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio holds two 1-day-old positions (MASI, AYI) with minor unrealized moves. New flag batch contains six names spanning defense/geopolitical beta, semicap momentum, airline fuel relief, and a repeat MASI flag. Track record shows 51% overall hit rate (53% at conf4, 47% at conf3); OVERDONE calls have been marginal (50%) while UNDERDONE calls are stronger (56%). Decision: hold both positions (intact theses), buy ALK on UNDERDONE conviction (Iran deal resolution tilts airline fuel economics), watch AVAV (re-entry bar unmet), skip VECO/KTOS/MRCY/MASI as either momentum fades or already flagged/held.",
+    "ticker": "ALK",
+    "survived": false,
+    "weakest_link": "The Iran deal is framed as imminent ('coming days') but Trump's exact language ('subject to finalization') is equivocal and does not constitute a catalyst with high probability of near-term completion.",
+    "critique": "The bull thesis rests entirely on oil continuing lower into deal finalization within 3-5 days. However, Trump's statement 'subject to finalization in coming days' is notably non-committal phrasing—'subject to finalization' signals ongoing negotiation, not a closed deal. Geopolitical deal language is routinely aspirational; final execution often stalls for weeks or fails entirely. The 11.95% one-day move and 9.3% five-day move are already substantial, suggesting the market has front-run much of the optimism. If the deal slips past the 3-5 day window (the stated time_horizon), the fuel-cost tailwind thesis collapses and ALK faces mean reversion into a crowded trade, amplified by the fact that the move is already pronounced relative to the strength of the catalyst anchor.",
+    "confidence_in_critique": 4
   }
 ]
