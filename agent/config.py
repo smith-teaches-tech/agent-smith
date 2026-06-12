@@ -479,6 +479,18 @@ SCREENS: list[dict] = [
 
     {
         "id": "screen_2",
+        # DISABLED June 12, 2026. ~3 weeks live: discovery ran daily
+        # (~$1/day Opus filings reads across the curated universe) but
+        # produced only 3 round-trip trades (MOD, GTLB, MDB, all closed
+        # by the T+1 sweep within days) and then went quiet entirely.
+        # Cost/signal ratio doesn't justify the daily spend.
+        # enabled=False gates BOTH the discovery pass (main.run_us) and
+        # the portfolio decision pass (main.run_portfolio — with a
+        # drain-pass exception while positions remain open). Mark-to-
+        # market via pf.refresh_all() is NOT gated, so the dashboard
+        # equity stays current. Registry entry, code, and history files
+        # preserved for a future revisit.
+        "enabled": False,
         "display_name": "Pre-earnings filings read",
         "thesis_summary": (
             "Buys mid-caps where a careful read of the 10-K, 10-Q, and "

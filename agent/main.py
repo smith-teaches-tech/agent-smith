@@ -310,12 +310,36 @@ def run_us(tickers_override: list[str] | None = None) -> dict[str, Any]:
     # earnings calendar, not the mover set or the AI-event trigger.
     # Same defensive-try rationale as Screen 1 above.
     # ------------------------------------------------------------
-    try:
-        run_screen_2()
-    except Exception as e:
-        print(f"[us] run_screen_2 raised unexpectedly: {e}")
-        import traceback
-        traceback.print_exc()
+    if config.get_screen("screen_2").get("enabled", True):
+        try:
+            run_screen_2()
+        except Exception as e:
+            print(f"[us] run_screen_2 raised unexpectedly: {e}")
+            import traceback
+            traceback.print_exc()
+    else:
+        # Screen 2 disabled (config.SCREENS enabled=False). Skipping the
+        # discovery pass skips the expensive Opus filings read. Write a
+        # fresh SKIPPED envelope (latest file only — no history archive,
+        # it would be daily noise) so the dashboard renders a neutral
+        # "disabled" banner instead of serving a stale file.
+        print("[us] screen_2 disabled in config.SCREENS — discovery skipped")
+        try:
+            Path("docs/data/screen_2_us.json").write_text(json.dumps({
+                "generated_at": datetime.now(timezone.utc).isoformat(),
+                "screen_id": "screen_2",
+                "status": "SKIPPED",
+                "discovery": {
+                    "run_summary": (
+                        "Screen 2 is disabled in config.SCREENS "
+                        "(enabled: False) — no discovery pass was run."
+                    ),
+                    "discoveries": [],
+                    "skipped": [],
+                },
+            }, indent=2, ensure_ascii=False))
+        except OSError as e:
+            print(f"[us] could not write disabled screen_2 envelope: {e}")
 
     # Pass failures (parse error or exhausted-retry API outage) used to raise
     # RuntimeError here, which red-X'd the Actions run. The dashboard already
@@ -509,6 +533,25 @@ def run_portfolio(us_output: dict[str, Any] | None = None) -> dict[str, Any]:
     results: dict[str, Any] = {}
     for screen in config.SCREENS:
         sid = screen["id"]
+        if not screen.get("enabled", True):
+            # Disabled screen: discovery is already gated in run_us, so
+            # no fresh flags exist. Skip the decision pass too — EXCEPT
+            # while positions remain open, in which case the pass still
+            # runs so the holding-window exits (e.g. Screen 2's T+1
+            # force-exit sweep) can drain the book. The drain pass
+            # cannot open new positions (no flags inside the decision
+            # window); once flat, the screen is fully skipped and costs
+            # nothing.
+            _drain_state = pf.load_state(screen_id=sid)
+            if not _drain_state.get("open_positions"):
+                print(f"[portfolio] screen={sid} disabled — skipped (book is flat)")
+                results[sid] = {"skipped": "disabled"}
+                continue
+            print(
+                f"[portfolio] screen={sid} disabled but "
+                f"{len(_drain_state['open_positions'])} position(s) still "
+                f"open — running drain pass to flatten"
+            )
         try:
             print(f"[portfolio] === screen={sid} ({screen['display_name']}) ===")
             results[sid] = run_portfolio_for_screen(sid, us_output=us_output)
@@ -575,26 +618,21 @@ def run_portfolio_for_screen(
                 f"cash=${state['cash']:.2f} open={len(state['open_positions'])}"
             )
 
-    # ---- Screen 0 / Screen 1: stop-loss + horizon hard exits -----
-    # Code-enforced exit discipline, run in the same post-MTM /
-    # pre-decision slot as Screen 2's T+1 exit above. Two
-    # thesis-independent triggers per open position: a -STOP_LOSS_PCT
-    # catastrophe floor, and a grading-horizon expiry (days_held >=
-    # GRADING_HORIZON_DAYS[flag_horizon]). The Haiku prompt's EXIT
-    # instruction is the backstop; this is the discipline. Screen 2 is
-    # excluded -- its T+1 print exit is already its holding-window rule,
-    # so running both would double-handle the same position.
-    if screen_id in ("screen_0", "screen_1"):
-        code_exits = pf.force_exit_stop_and_horizon(state, screen_id=screen_id)
-        if code_exits["exited"] or code_exits["exit_failed"]:
-            pf.save_state(state, screen_id=screen_id)
-            print(
-                f"[portfolio] post-code-exit: "
-                f"{code_exits['by_stop']} stop, {code_exits['by_horizon']} horizon, "
-                f"{code_exits['exit_failed']} deferred, {code_exits['skipped']} skipped; "
-                f"equity=${pf.total_equity(state):.2f} cash=${state['cash']:.2f} "
-                f"open={len(state['open_positions'])}"
-            )
+    # ---- Screen 0 / Screen 1: code-enforced exit guards (REMOVED) -
+    # Tried, didn't work (May 28 - June 12, 2026). The guard pair
+    # (-15% stop + grading-horizon force-close via
+    # pf.force_exit_stop_and_horizon) was added after positions were
+    # held through full round-trips. It overcorrected: nearly every
+    # flag carries a "days" horizon, so the 5-day expiry mass-closed
+    # positions regardless of thesis or P&L (May 29 sweep: DCO, SHAK,
+    # BLDR, DECK -- DECK at +16.5% -- all force-closed in one pass).
+    # In ~2 weeks live the stop trigger never fired once; ALL premature
+    # selling came from the horizon trigger. Removed June 12, 2026 --
+    # exits are back to Haiku's judgement (EXIT/TRIM in the decision
+    # pass). The function is preserved un-wired in portfolio.py if a
+    # recalibrated version (e.g. stop-only, or horizon >> grading
+    # window) is ever wanted. Screen 2's T+1 exit is separate and
+    # untouched.
 
     # ---- Gather recent flags ----------------------------------
     # Screen 0 reads from us_output + history/us_*.json.
