@@ -518,5 +518,18 @@
     "fees": 0.3679,
     "notional": 541.94,
     "why": "Opened per flag: OVERDONE conf 4 — Apple's long-awaited AI Siri overhaul is finally here, with new Image Playground, Photos AI editing, and Shortcuts AI workflow builder"
+  },
+  {
+    "ts": "2026-06-15T21:46:37.602019+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-06-15T21:46:37.601735+00:00",
+    "side": "SELL",
+    "ticker": "LRN",
+    "shares": 3.0,
+    "fill_price": 96.1538,
+    "fees": 0.3681,
+    "notional": 288.46,
+    "why": "5 days held, -13.63% unrealized, move_pct -14.5. LRN is a regulated K-12 virtual school operator (per-pupil state funding model); filings evidence in new flag confirms thesis that AI tutoring sympathy is mechanically wrong. However, the stock has fallen sharply without recovery — sympathy may be morphing into genuine uncertainty on enrollment trends or state funding. Trim 50% to lock in some cash, reassess thesis integrity on next data release. If filings show actual enrollment headwinds, exit remainder."
   }
 ]

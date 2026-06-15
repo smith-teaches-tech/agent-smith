@@ -528,5 +528,15 @@
     "weakest_link": "The regulatory/accreditation moat is real, but the 5-day move of only +0.24% (essentially flat) combined with the 1-day -3.28% decline suggests the market has already normalized expectations and there is no sympathy-fade opportunity left to capture.",
     "critique": "LRN's filings support the thesis that state K-12 charter funding is orthogonal to Apple's AI-Siri announcement. However, the five-day price action—a near-flat +0.24%—indicates the market did not treat this as a major sympathy event to begin with. Entering an exploratory position on a name that showed minimal sympathy decline to a major Apple AI announcement means the edge (fade repricing) is already gone. The -3.28% one-day move is modest and could reflect normal noise rather than genuine thematic selling. For a sympathy-fade trade to work, the market needs to have been wrong (oversold on false thematic contagion); LRN's flat 5-day price action suggests the market never believed the contagion in the first place, which eliminates the repricing opportunity.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-15T21:46:37.239493+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 holds 6 positions from prior Anthropic catalysts (all 5-6 days held, mostly in recovery); three new Meta AI Mode flags present mixed conviction. LRN is deep underwater on a thesis that appears structurally sound; CGNX, PLAB show strong recoveries supporting the sympathy-fade read. New flags TYL and NCNO are borderline (confidence 3-4, threat_assessment 'indirect'/'minimal') but the basket rule applies — two flags from the same Meta trigger warrant exploratory tier if greenlit.",
+    "ticker": "TYL",
+    "survived": true,
+    "weakest_link": "The bull case assumes government RFP procurement cycles are sufficiently insulated from AI disruption narratives, but does not address whether sustained regulatory or appropriations uncertainty triggered by AI-governance debates could delay or reduce municipal IT budgets.",
+    "critique": "The bull thesis correctly identifies that Meta's consumer AI Mode has no direct displacement path into court management systems. However, the critique conflates two separate risk vectors: product displacement (implausible) and budget/procurement cycle disruption (unexamined). Municipal governments facing AI-governance pressure, budget sequestration, or political gridlock over AI appropriations could defer RFP cycles—a macro timing risk orthogonal to product merit. The 5-day move of -4.59% and volume 0.79x suggest modest panic, consistent with thematic sympathy, but the flag does not address whether government IT spending appetite itself is at risk during an AI-regulation inflection. If the true catalyst is macro government spending uncertainty rather than product displacement, TYL's moat becomes less relevant.",
+    "confidence_in_critique": 2
   }
 ]

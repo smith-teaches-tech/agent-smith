@@ -373,5 +373,44 @@
     "fees": 0.3571,
     "notional": 658.69,
     "why": "Opened per flag: OVERDONE conf 3 — Sympathy with industrials sector (XLI -3.4%) on hot CPI + Iran headlines, no company-specific news"
+  },
+  {
+    "ts": "2026-06-15T21:46:11.305090+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-06-15T21:46:11.304846+00:00",
+    "side": "SELL",
+    "ticker": "MASI",
+    "shares": 11.5465,
+    "fill_price": 179.77,
+    "fees": 0.4466,
+    "notional": 2075.71,
+    "why": "8-K (Item 2.01 + 3.01 + 5.01 + 5.03 bundle) confirms closing of Sound United divestiture—the specific catalyst flagged at entry. Stock appropriately flat on 3.17x volume, indicating market view matches prior expectations. Horizon was 'days,' and the event has now crystallized. Unrealized loss is -0.12%, immaterial, but thesis has fully resolved and there is no forward catalyst in the flag summary. Selling to redeploy capital to higher-conviction opportunities (NTLA binary, AEIS semi-cap tailwind)."
+  },
+  {
+    "ts": "2026-06-15T21:46:11.635646+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-06-15T21:46:11.635395+00:00",
+    "side": "BUY",
+    "ticker": "NTLA",
+    "shares": 41.8127,
+    "fill_price": 12.7928,
+    "fees": 0.4838,
+    "notional": 534.9,
+    "why": "Opened per flag: RATIONAL conf 3 — Same-day 8-K (Reg FD + other events) — likely clinical data or partnership disclosure"
+  },
+  {
+    "ts": "2026-06-15T21:46:11.941850+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-06-15T21:46:11.941564+00:00",
+    "side": "BUY",
+    "ticker": "ALK",
+    "shares": 12.7102,
+    "fill_price": 50.05,
+    "fees": 0.3907,
+    "notional": 636.15,
+    "why": "Opened per flag: UNDERDONE conf 3 — Trump's claim of Iran deal 'subject to finalization' → oil lower → airline fuel relief"
   }
 ]

@@ -298,5 +298,35 @@
     "weakest_link": "The Iran deal is framed as imminent ('coming days') but Trump's exact language ('subject to finalization') is equivocal and does not constitute a catalyst with high probability of near-term completion.",
     "critique": "The bull thesis rests entirely on oil continuing lower into deal finalization within 3-5 days. However, Trump's statement 'subject to finalization in coming days' is notably non-committal phrasing—'subject to finalization' signals ongoing negotiation, not a closed deal. Geopolitical deal language is routinely aspirational; final execution often stalls for weeks or fails entirely. The 11.95% one-day move and 9.3% five-day move are already substantial, suggesting the market has front-run much of the optimism. If the deal slips past the 3-5 day window (the stated time_horizon), the fuel-cost tailwind thesis collapses and ALK faces mean reversion into a crowded trade, amplified by the fact that the move is already pronounced relative to the strength of the catalyst anchor.",
     "confidence_in_critique": 4
+  },
+  {
+    "ts": "2026-06-15T21:46:10.542409+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "MASI catalyst has fully resolved (8-K confirms divestiture closing at expected terms, stock appropriately flat on heavy volume). AYI is correcting on sector sympathy after a strong entry; thesis intact but no near-term catalyst. New flagged pool is heavily weighted to geopolitical/sector momentum with several legitimate re-entry tensions (AVAV, KTOS). NTLA is the only genuine binary catalyst worth sizing; most others are sympathy trades or momentum fades. Building 1-2 exploratory positions and watching the broader Iran deal narrative play out.",
+    "ticker": "NTLA",
+    "survived": true,
+    "weakest_link": "The bull case infers positive news direction without accessing the 8-K exhibit, relying on peer sympathy (BEAM/CRSP) as the only concrete confirmation, which could reflect sector sentiment rather than company-specific validation.",
+    "critique": "Haiku acknowledges confidence=3 precisely because the exhibit is unread and news direction is inferred. While the 23.2% same-day move on 2.34x volume and 10.6% five-day concentration are consistent with a binary catalyst, the sympathy bid in BEAM/CRSP is a weak signal of directional validation—those names could be rising on their own catalysts or sector momentum unrelated to NTLA's specific outcome. The thesis correctly identifies what_kills as a dilutive offering or re-read negative data, both of which are plausible given biotech's binary outcome structure. The sizing (6%) and time horizon (days) are proportionate to the confidence level and setup quality.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-15T21:46:10.542409+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "MASI catalyst has fully resolved (8-K confirms divestiture closing at expected terms, stock appropriately flat on heavy volume). AYI is correcting on sector sympathy after a strong entry; thesis intact but no near-term catalyst. New flagged pool is heavily weighted to geopolitical/sector momentum with several legitimate re-entry tensions (AVAV, KTOS). NTLA is the only genuine binary catalyst worth sizing; most others are sympathy trades or momentum fades. Building 1-2 exploratory positions and watching the broader Iran deal narrative play out.",
+    "ticker": "AEIS",
+    "survived": false,
+    "weakest_link": "The 21.09% five-day move is substantially larger than the SMH sector move (+4.38%), and the thesis offers no company-specific mechanism to justify the idiosyncratic gap—making the position vulnerable to a sharp reversion if the 8-K is routine rather than a material guidance or order announcement.",
+    "critique": "Haiku frames this as sector-beta-plus-idiosyncratic-boost, but the math does not hold: SMH +4.38% over five days does not mechanistically lead to AEIS +21.09% unless AEIS has beta >4.8 or a standalone catalyst. The thesis hedges by noting 'Risk is if the 8-K is routine,' but that is precisely the weakest link—there is no independent evidence the 8-K contains a guide raise or major customer disclosure beyond the filing dates (June 12 8-K URL provided, but Haiku has not accessed it). The five-day move is already played out; the one-day move is only +4.6%, suggesting momentum is stalling even as Haiku proposes holding for 'weeks.' If the 8-K is slides or routine disclosure, AEIS will face a hard reversal into SMH weakness.",
+    "confidence_in_critique": 4
+  },
+  {
+    "ts": "2026-06-15T21:46:10.542409+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "MASI catalyst has fully resolved (8-K confirms divestiture closing at expected terms, stock appropriately flat on heavy volume). AYI is correcting on sector sympathy after a strong entry; thesis intact but no near-term catalyst. New flagged pool is heavily weighted to geopolitical/sector momentum with several legitimate re-entry tensions (AVAV, KTOS). NTLA is the only genuine binary catalyst worth sizing; most others are sympathy trades or momentum fades. Building 1-2 exploratory positions and watching the broader Iran deal narrative play out.",
+    "ticker": "ALK",
+    "survived": true,
+    "weakest_link": "The thesis depends on the Iran deal materializing 'in coming days' as Trump claims, but Trump's statements on geopolitical deals carry a history of non-completion or reversal, and oil has already begun repricing the possibility—the setup may already be partially digested.",
+    "critique": "The fuel-cost operating leverage thesis is mechanistically sound for a small-cap airline, and the five-day move of 9.3% is modest relative to the one-day 11.95% pop, suggesting today's move was concentrated catalyst rather than multi-day chase. However, the Iran deal is a binary event with low historical follow-through rates; Trump's 'next few days' claim is qualitative and not a dated catalyst. Oil is down ~2% according to Haiku's prose, but the specific WTI or crude price change is not provided in the numeric fields, making it impossible to assess whether the fuel benefit is already pricing in 50% probability of deal closure. The mechanics of the trade are sound, but the catalyst timing and probability are unanchored.",
+    "confidence_in_critique": 2
   }
 ]
