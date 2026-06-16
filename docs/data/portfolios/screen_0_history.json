@@ -412,5 +412,18 @@
     "fees": 0.3907,
     "notional": 636.15,
     "why": "Opened per flag: UNDERDONE conf 3 — Trump's claim of Iran deal 'subject to finalization' → oil lower → airline fuel relief"
+  },
+  {
+    "ts": "2026-06-16T21:45:50.900842+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-06-16T21:45:50.900524+00:00",
+    "side": "SELL",
+    "ticker": "AYI",
+    "shares": 2.223,
+    "fill_price": 304.695,
+    "fees": 0.3763,
+    "notional": 677.34,
+    "why": "Entered 6 days ago on OVERDONE (conf 3, weeks horizon) sympathy with industrials on CPI/Iran headlines. Today's flag pool re-flags AYI with identical thesis and same setup (XLI down, no 8-K). The problem: thesis horizon was 'weeks' but we are now six days in and the move is NEGATIVE (-6.5% today, -10.37% over 5 days). Entry thesis was that sympathy was OVERDONE and would fade; instead the sector/name is DOWN further and deteriorating. This is evidence the thesis was either wrong or that the 'sympathy fade' has not materialized and instead became real weakness. Either way, the original conviction to hold on a WEEKS horizon is broken because the direction has reversed. No 8-K has appeared (which was a confirm signal for thesis integrity). Selling to redeploy."
   }
 ]

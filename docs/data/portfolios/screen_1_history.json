@@ -531,5 +531,18 @@
     "fees": 0.3681,
     "notional": 288.46,
     "why": "5 days held, -13.63% unrealized, move_pct -14.5. LRN is a regulated K-12 virtual school operator (per-pupil state funding model); filings evidence in new flag confirms thesis that AI tutoring sympathy is mechanically wrong. However, the stock has fallen sharply without recovery — sympathy may be morphing into genuine uncertainty on enrollment trends or state funding. Trim 50% to lock in some cash, reassess thesis integrity on next data release. If filings show actual enrollment headwinds, exit remainder."
+  },
+  {
+    "ts": "2026-06-16T21:46:36.466180+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-06-16T21:46:36.465892+00:00",
+    "side": "SELL",
+    "ticker": "LRN",
+    "shares": 1.3,
+    "fill_price": 83.0768,
+    "fees": 0.3574,
+    "notional": 108.0,
+    "why": "Days held: 6 of 15. Unrealized P&L: -13.81% (largest loss in portfolio). Original Apple Siri/Image Playground catalyst. Today's flag (Meta AI Mode) is a SECOND AI-event trigger hitting the same name within 1 trading day—cumulative sympathy pile-on, not isolated. Volume spike (5.35x) on the -14.5% move signals genuine liquidation, not retail panic. Stride's core thesis (regulated K-12 virtual school funding model) is intact, but the dual-trigger acceleration suggests market repricing edtech exposure across the basket. TRIM 50% position (sell ~1.3 shares, ~50% of position) to lock in a half-size hold through day 15 and preserve capital for higher-conviction opportunities."
   }
 ]

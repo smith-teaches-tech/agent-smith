@@ -538,5 +538,35 @@
     "weakest_link": "The bull case assumes government RFP procurement cycles are sufficiently insulated from AI disruption narratives, but does not address whether sustained regulatory or appropriations uncertainty triggered by AI-governance debates could delay or reduce municipal IT budgets.",
     "critique": "The bull thesis correctly identifies that Meta's consumer AI Mode has no direct displacement path into court management systems. However, the critique conflates two separate risk vectors: product displacement (implausible) and budget/procurement cycle disruption (unexamined). Municipal governments facing AI-governance pressure, budget sequestration, or political gridlock over AI appropriations could defer RFP cycles—a macro timing risk orthogonal to product merit. The 5-day move of -4.59% and volume 0.79x suggest modest panic, consistent with thematic sympathy, but the flag does not address whether government IT spending appetite itself is at risk during an AI-regulation inflection. If the true catalyst is macro government spending uncertainty rather than product displacement, TYL's moat becomes less relevant.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-16T21:46:36.019260+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a basket-rule scenario: 10 fresh flags across two distinct triggers (Android 17 Gemini + Meta AI Mode), with 6 flags at conf 4 and 4 at conf 3, all OVERDONE with unjustified panic. Portfolio already holds 6 positions (all from earlier Anthropic-related triggers) at days 6–7, with mixed P&L. New positions must respect the basket rule and holding-window discipline.",
+    "ticker": "ONTO",
+    "survived": true,
+    "weakest_link": "The five-day +15.37% move combined with today's -5.9% reversal on 0.75x volume could represent real earnings-cycle risk or guidance revisions, not merely sympathy overshoot.",
+    "critique": "Haiku frames this as pure Android/Gemini sympathy fade, but the setup description notes 'sharp drop on light volume looks like ETF-driven semi-cap sympathy with an already-extended five-day base'—that already-extended characterization undermines the bull thesis that the move was irrational. A +15% five-day rally followed by a -5.9% one-day reversal on sub-average volume is consistent with either short-covering unwind or pre-earnings position trimming, not confidence in the core metrology thesis. Haiku provides no earnings date, guidance revision, or peer weakness data to rule out deteriorating fab capex sentiment within the semiconductor metrology subsector itself.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-16T21:46:36.019260+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a basket-rule scenario: 10 fresh flags across two distinct triggers (Android 17 Gemini + Meta AI Mode), with 6 flags at conf 4 and 4 at conf 3, all OVERDONE with unjustified panic. Portfolio already holds 6 positions (all from earlier Anthropic-related triggers) at days 6–7, with mixed P&L. New positions must respect the basket rule and holding-window discipline.",
+    "ticker": "AEIS",
+    "survived": true,
+    "weakest_link": "The company's 10-K disclosure of AI infrastructure as a tailwind is a lagging indicator if hyperscaler capex digestion narratives are already circulating in Q2 2026 earnings calls.",
+    "critique": "Haiku correctly identifies that a consumer OS release has no mechanical impact on data-center power conversion, and the 10-K evidence is strong. However, the what_kills criterion explicitly flags 'hyperscaler capex digestion narrative gaining traction'—a material risk that could already be reflected in the -5.45% move and 12.45% five-day fade on 0.67x volume. If large customers are already signaling slowdowns in their infrastructure spending (a near-term macro reality), the stock may be repricing on visibility, not sympathy. Haiku does not assess the current state of capex guidance from TSMC, Meta, or other AEIS end-markets.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-16T21:46:36.019260+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a basket-rule scenario: 10 fresh flags across two distinct triggers (Android 17 Gemini + Meta AI Mode), with 6 flags at conf 4 and 4 at conf 3, all OVERDONE with unjustified panic. Portfolio already holds 6 positions (all from earlier Anthropic-related triggers) at days 6–7, with mixed P&L. New positions must respect the basket rule and holding-window discipline.",
+    "ticker": "TYL",
+    "survived": true,
+    "weakest_link": "The five-day move of -4.59% followed by today's -3.01% shows a two-day downtrend that could signal deteriorating SaaS multiples rather than isolated Meta AI Mode sympathy.",
+    "critique": "Haiku argues government-vertical SaaS has a structural moat impervious to consumer AI releases, and that is credible. However, the two-day sequence (-4.59% over five days, -3.01% today) suggests continuous selling pressure, not a one-day sympathy flush. If the broader SaaS sector is experiencing multiple compression on generalist AI risk (even unfounded), TYL could be caught in a sector-wide rotation rather than a rational false-alarm. Haiku does not address whether TYL trades as part of a SaaS index or thematic basket that is itself under pressure independent of the Meta catalyst.",
+    "confidence_in_critique": 2
   }
 ]
