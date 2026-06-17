@@ -425,5 +425,18 @@
     "fees": 0.3763,
     "notional": 677.34,
     "why": "Entered 6 days ago on OVERDONE (conf 3, weeks horizon) sympathy with industrials on CPI/Iran headlines. Today's flag pool re-flags AYI with identical thesis and same setup (XLI down, no 8-K). The problem: thesis horizon was 'weeks' but we are now six days in and the move is NEGATIVE (-6.5% today, -10.37% over 5 days). Entry thesis was that sympathy was OVERDONE and would fade; instead the sector/name is DOWN further and deteriorating. This is evidence the thesis was either wrong or that the 'sympathy fade' has not materialized and instead became real weakness. Either way, the original conviction to hold on a WEEKS horizon is broken because the direction has reversed. No 8-K has appeared (which was a confirm signal for thesis integrity). Selling to redeploy."
+  },
+  {
+    "ts": "2026-06-17T21:08:52.184820+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-06-17T21:08:52.184532+00:00",
+    "side": "BUY",
+    "ticker": "PTCT",
+    "shares": 8.0063,
+    "fill_price": 75.6356,
+    "fees": 0.3756,
+    "notional": 605.56,
+    "why": "Opened per flag: RATIONAL conf 3 — PTCT 8-K (8.01) filed 6/16 plus broader biotech bid"
   }
 ]

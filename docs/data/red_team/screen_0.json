@@ -328,5 +328,15 @@
     "weakest_link": "The thesis depends on the Iran deal materializing 'in coming days' as Trump claims, but Trump's statements on geopolitical deals carry a history of non-completion or reversal, and oil has already begun repricing the possibility—the setup may already be partially digested.",
     "critique": "The fuel-cost operating leverage thesis is mechanistically sound for a small-cap airline, and the five-day move of 9.3% is modest relative to the one-day 11.95% pop, suggesting today's move was concentrated catalyst rather than multi-day chase. However, the Iran deal is a binary event with low historical follow-through rates; Trump's 'next few days' claim is qualitative and not a dated catalyst. Oil is down ~2% according to Haiku's prose, but the specific WTI or crude price change is not provided in the numeric fields, making it impossible to assess whether the fuel benefit is already pricing in 50% probability of deal closure. The mechanics of the trade are sound, but the catalyst timing and probability are unanchored.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-17T21:08:51.840464+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio up +$77 in two days on NTLA gene-editing tailwind and ALK airline fuel relief. Both theses remain intact: NTLA's 8-K catalyst is confirmed (UniQure FDA news + XBI +3%), ALK's Iran deal / oil downside frame holds. Today's flag pool includes three gene-editing re-ratings (NTLA re-entry, PTCT, BEAM), multiple defense names correcting off overshooting geopolitical moves (AVAV re-entry warning, KTOS, MRCY), and sector sympathy fades (VECO semi, AMR energy, AYI industrial). MASI re-entry warning is a closed-thesis name with no forward catalyst. Concentration in Healthcare (NTLA, PTCT, BEAM) will breach the 40% sector cap if all three are entered; prioritizing highest-conviction, smallest exploratory bets to preserve flexibility.",
+    "ticker": "PTCT",
+    "survived": true,
+    "weakest_link": "The bull case explicitly acknowledges it has not read the 8-K exhibit and cannot verify whether the catalyst is meaningful or routine, making the entire thesis dependent on an unvalidated assumption.",
+    "critique": "Haiku's reasoning rests on inferring catalyst substance from the *magnitude* of the move (7.18% on 2x volume) and sector support (XBI +3%), but this is circular logic: the move itself cannot prove the exhibit is non-trivial. The five-day change of 7.06% shows the stock has already moved in line with the single-day spike, suggesting the market has already priced the news. Without reading the exhibit, there is no way to distinguish between a genuine regulatory milestone and a routine corporate disclosure that the market temporarily overweighted. The exploratory tier (6% position) is appropriate risk management, but the thesis remains purely speculative on catalyst quality.",
+    "confidence_in_critique": 2
   }
 ]

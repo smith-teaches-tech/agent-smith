@@ -568,5 +568,95 @@
     "weakest_link": "The five-day move of -4.59% followed by today's -3.01% shows a two-day downtrend that could signal deteriorating SaaS multiples rather than isolated Meta AI Mode sympathy.",
     "critique": "Haiku argues government-vertical SaaS has a structural moat impervious to consumer AI releases, and that is credible. However, the two-day sequence (-4.59% over five days, -3.01% today) suggests continuous selling pressure, not a one-day sympathy flush. If the broader SaaS sector is experiencing multiple compression on generalist AI risk (even unfounded), TYL could be caught in a sector-wide rotation rather than a rational false-alarm. Haiku does not address whether TYL trades as part of a SaaS index or thematic basket that is itself under pressure independent of the Meta catalyst.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-17T21:10:01.083513+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a portfolio already deep in the Anthropic Claude Fable 5 / Gemini sympathy-fade thesis (6 positions, 8-6 days held, mixed P&L) while today's fresh flags span two new trigger events (Google Gemini smart home, Android 17, Meta AI Mode, Apple AI Siri). Portfolio positions remain intact on thesis; new flags cluster heavily (12+ names from 3-4 distinct triggers), triggering basket-rule discipline: most new BUYs default to exploratory tier, with conviction reserved only for names with materially sharper filings evidence and threat-free readings.",
+    "ticker": "VRRM",
+    "survived": true,
+    "weakest_link": "The bull case assumes the 0.52x volume and -6.18% move are purely sympathy-driven, but provides no evidence ruling out legitimate news flow specific to VRRM's municipal customer base or contract renewal risks.",
+    "critique": "The thesis rests on zero mechanical overlap between Google Home and photo-enforcement, which is sound. However, the bull case acknowledges NYCDOT represents ~17.9% of revenue and the 10-Q flagged one significant Commercial Services customer in negotiation—these are material tail risks that the 'indiscriminate basket selling' framing may obscure. The five-day change of +0.64% is positive, but the 1-day drop of -6.18% on light volume (0.52x) could reflect legitimate municipal customer sentiment unrelated to AI news. The bull case does not address whether munis are accelerating digital transformation or if any VRRM customer has signaled a shift toward AI-native enforcement models.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-17T21:10:01.083513+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a portfolio already deep in the Anthropic Claude Fable 5 / Gemini sympathy-fade thesis (6 positions, 8-6 days held, mixed P&L) while today's fresh flags span two new trigger events (Google Gemini smart home, Android 17, Meta AI Mode, Apple AI Siri). Portfolio positions remain intact on thesis; new flags cluster heavily (12+ names from 3-4 distinct triggers), triggering basket-rule discipline: most new BUYs default to exploratory tier, with conviction reserved only for names with materially sharper filings evidence and threat-free readings.",
+    "ticker": "MANH",
+    "survived": true,
+    "weakest_link": "The bull case attributes the -9.0% five-day decline to 'broad SaaS de-rating' rather than name-specific impairment, but does not verify this with comparable SaaS peer moves or explain why MANH's decline would be larger than the basket average if it were truly indiscriminate.",
+    "critique": "The thesis that Google Home has zero overlap with enterprise WMS is correct. However, the five-day decline of -9.0% on elevated volume (1.24x) is material and the bull case's attribution to 'broader SaaS de-rating' is asserted but not substantiated. If MANH is down 9% and the broader SaaS sector is down 3-5%, that delta suggests a name-specific risk (e.g., a customer or competitive announcement) rather than sympathy fade. The bull case does not address whether any large retailers or 3PLs have announced AI-native supply-chain initiatives that would pressure MANH's competitive position over the next 12 months.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-17T21:10:01.083513+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a portfolio already deep in the Anthropic Claude Fable 5 / Gemini sympathy-fade thesis (6 positions, 8-6 days held, mixed P&L) while today's fresh flags span two new trigger events (Google Gemini smart home, Android 17, Meta AI Mode, Apple AI Siri). Portfolio positions remain intact on thesis; new flags cluster heavily (12+ names from 3-4 distinct triggers), triggering basket-rule discipline: most new BUYs default to exploratory tier, with conviction reserved only for names with materially sharper filings evidence and threat-free readings.",
+    "ticker": "BLKB",
+    "survived": true,
+    "weakest_link": "The bull case cites Blackbaud's own filing language warning that AI sentiment can drive volatility independent of fundamentals, but does not address whether that disclaimer is forward-looking risk language or backward-looking acknowledgment of actual customer churn or renewal compression.",
+    "critique": "The setup is sound—a Gemini smart speaker does not compete with nonprofit fundraising software. However, the bull case leans heavily on Blackbaud's explicit AI-sentiment disclaimer as validation, when that disclaimer may actually indicate the company has already observed or modeled adverse customer sentiment in renewal negotiations. The five-day decline of -5.54% on near-normal volume (1.01x) is modest, but the bull case does not disclose whether the upcoming earnings will show any renewal-rate compression or SAC changes in the nonprofit segment.",
+    "confidence_in_critique": 1
+  },
+  {
+    "ts": "2026-06-17T21:10:01.083513+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a portfolio already deep in the Anthropic Claude Fable 5 / Gemini sympathy-fade thesis (6 positions, 8-6 days held, mixed P&L) while today's fresh flags span two new trigger events (Google Gemini smart home, Android 17, Meta AI Mode, Apple AI Siri). Portfolio positions remain intact on thesis; new flags cluster heavily (12+ names from 3-4 distinct triggers), triggering basket-rule discipline: most new BUYs default to exploratory tier, with conviction reserved only for names with materially sharper filings evidence and threat-free readings.",
+    "ticker": "OSPN",
+    "survived": true,
+    "weakest_link": "The bull case correctly identifies the product-market separation but does not address whether the Build38 acquisition closing (March 2026 per the flag) has introduced execution or integration risk that a sympathy fade might surface prematurely.",
+    "critique": "The mechanical thesis is sound—Gemini cannot authenticate or sign documents. However, the move is small (-3.72% on 0.87x volume) with a five-day change of -2.83%, which is within normal noise for a regulated-software company. The bull case does not flag whether Build38 integration timelines or banking-customer feedback on the acquisition could explain the move better than indiscriminate AI sympathy.",
+    "confidence_in_critique": 1
+  },
+  {
+    "ts": "2026-06-17T21:10:01.083513+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a portfolio already deep in the Anthropic Claude Fable 5 / Gemini sympathy-fade thesis (6 positions, 8-6 days held, mixed P&L) while today's fresh flags span two new trigger events (Google Gemini smart home, Android 17, Meta AI Mode, Apple AI Siri). Portfolio positions remain intact on thesis; new flags cluster heavily (12+ names from 3-4 distinct triggers), triggering basket-rule discipline: most new BUYs default to exploratory tier, with conviction reserved only for names with materially sharper filings evidence and threat-free readings.",
+    "ticker": "TYL",
+    "survived": true,
+    "weakest_link": "The bull case dismisses the move as indiscriminate AI fade on 'very light volume' (0.65x), but does not address whether government procurement sentiment on AI-native compliance tools or FedRAMP pathway changes might explain the move in advance of official announcements.",
+    "critique": "The moat argument is structurally sound—no government CIO replaces court records with a consumer device. However, the five-day decline of -4.99% on very light volume (0.65x) is small enough to be explained by normal daily volatility rather than meaningful alpha. The bull case does not disclose whether any major state RFPs have recently shifted criteria toward AI-native compliance frameworks, which would materialize in TYL's forward guidance well before market awareness.",
+    "confidence_in_critique": 1
+  },
+  {
+    "ts": "2026-06-17T21:10:01.083513+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a portfolio already deep in the Anthropic Claude Fable 5 / Gemini sympathy-fade thesis (6 positions, 8-6 days held, mixed P&L) while today's fresh flags span two new trigger events (Google Gemini smart home, Android 17, Meta AI Mode, Apple AI Siri). Portfolio positions remain intact on thesis; new flags cluster heavily (12+ names from 3-4 distinct triggers), triggering basket-rule discipline: most new BUYs default to exploratory tier, with conviction reserved only for names with materially sharper filings evidence and threat-free readings.",
+    "ticker": "ONTO",
+    "survived": true,
+    "weakest_link": "The bull case argues that AI chip manufacturing complexity drives demand for ONTO's metrology, but the five-day change of +15.37% (strongly positive) contradicts the framing of a sharp overreaction requiring reversal—if the base is already extended and positive, timing and entry risk become material.",
+    "critique": "The bull thesis that process-control metrology benefits from advanced-node complexity is sound. However, the data presents a puzzle: the move is -5.9% today on light volume (0.75x), yet the five-day change is +15.37%. This suggests ONTO was already extended prior to today's drop and the -5.9% move may be profit-taking rather than sympathy-driven. The bull case does not address whether memory-market weakness (which affects specialty-semi exposure) is the actual driver, or whether the Onto-Rigaku deal timeline adds execution risk that an AI sympathy fade might expose prematurely.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-17T21:10:01.083513+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a portfolio already deep in the Anthropic Claude Fable 5 / Gemini sympathy-fade thesis (6 positions, 8-6 days held, mixed P&L) while today's fresh flags span two new trigger events (Google Gemini smart home, Android 17, Meta AI Mode, Apple AI Siri). Portfolio positions remain intact on thesis; new flags cluster heavily (12+ names from 3-4 distinct triggers), triggering basket-rule discipline: most new BUYs default to exploratory tier, with conviction reserved only for names with materially sharper filings evidence and threat-free readings.",
+    "ticker": "AEIS",
+    "survived": true,
+    "weakest_link": "The bull case claims AEIS's 10-K explicitly identifies AI infrastructure as a growth driver, making an AI-news sympathy drop 'mechanically backwards,' but does not verify that statement against the actual 10-K disclosure or address whether 'data-center power-delivery margin compression' could be the real driver masked by sympathy framing.",
+    "critique": "The core thesis—power conversion for AI data centers is a tailwind, not a headwind—is plausible and the five-day change of +12.45% supports it. However, the bull case does not cite specific 10-K language or provide quantified data-center growth metrics to substantiate the claim that AI is a stated demand driver. The -5.45% move on 0.67x volume is modest, and if hyperscaler capex digestion narratives are genuinely gaining traction, AEIS margin compression from that segment growth could justify the move regardless of AI sympathy.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-17T21:10:01.083513+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a portfolio already deep in the Anthropic Claude Fable 5 / Gemini sympathy-fade thesis (6 positions, 8-6 days held, mixed P&L) while today's fresh flags span two new trigger events (Google Gemini smart home, Android 17, Meta AI Mode, Apple AI Siri). Portfolio positions remain intact on thesis; new flags cluster heavily (12+ names from 3-4 distinct triggers), triggering basket-rule discipline: most new BUYs default to exploratory tier, with conviction reserved only for names with materially sharper filings evidence and threat-free readings.",
+    "ticker": "DOCN",
+    "survived": true,
+    "weakest_link": "The bull case is marked confidence=3 (minimum threshold) and asserts SMB cloud is 'orthogonal' to Android/Gemini, but does not address whether hyperscaler SMB pricing pressure or consolidation of developer infrastructure onto integrated AI platforms could materially displace DOCN's indie-developer base.",
+    "critique": "The setup is sound—a consumer OS release has no direct mechanical link to SMB cloud subscriptions. However, confidence=3 signals the bull case itself is at the threshold, and the critique does not address the real long-term risk: if Google, AWS, and Azure embed AI inference into their developer consoles, indie developers may consolidate onto one platform rather than maintaining separate DOCN subscriptions. The five-day change of +3.48% is positive but modest, and the -3.92% move on 0.52x volume is noise. The bull case does not disclose DOCN's customer churn metrics or DNE expansion rate trends.",
+    "confidence_in_critique": 1
+  },
+  {
+    "ts": "2026-06-17T21:10:01.083513+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a portfolio already deep in the Anthropic Claude Fable 5 / Gemini sympathy-fade thesis (6 positions, 8-6 days held, mixed P&L) while today's fresh flags span two new trigger events (Google Gemini smart home, Android 17, Meta AI Mode, Apple AI Siri). Portfolio positions remain intact on thesis; new flags cluster heavily (12+ names from 3-4 distinct triggers), triggering basket-rule discipline: most new BUYs default to exploratory tier, with conviction reserved only for names with materially sharper filings evidence and threat-free readings.",
+    "ticker": "NCNO",
+    "survived": true,
+    "weakest_link": "The bull case is marked confidence=3 and threat_assessment='indirect' (not 'minimal' or 'none'), suggesting the bear case for AI-driven displacement in regulated banking workflows may have merit that the bull case acknowledges but downplays.",
+    "critique": "The mechanical thesis is sound—Meta's AI Mode for Facebook has no plausible connection to loan-origination software. However, the threat_assessment='indirect' signals unresolved risk: if major financial institutions begin piloting LLM-based compliance, audit, and workflow automation in-house, NCNO's competitive position could erode even if a specific Meta product is not the direct threat. The five-day decline of -1.99% on 0.6x volume is small, but the bull case does not address whether nCino's own AI/ML integration is keeping pace with bank appetite for generative workflow automation. An indirect threat to regulatory-software switching costs is genuine even if not proximate.",
+    "confidence_in_critique": 2
   }
 ]
