@@ -438,5 +438,31 @@
     "fees": 0.3756,
     "notional": 605.56,
     "why": "Opened per flag: RATIONAL conf 3 — PTCT 8-K (8.01) filed 6/16 plus broader biotech bid"
+  },
+  {
+    "ts": "2026-06-18T21:25:37.419641+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-06-18T21:25:37.419330+00:00",
+    "side": "SELL",
+    "ticker": "ALK",
+    "shares": 6.3551,
+    "fill_price": 49.8701,
+    "fees": 0.3802,
+    "notional": 316.93,
+    "why": "Original catalyst was Trump's Iran deal announcement → oil lower → airline fuel relief. Position is -1.64% after 2 days on a very binary, macro-dependent thesis. The flag classification was UNDERDONE (conf 3), but the catalyst has not materially progressed in 2 days. Trump said the Iran deal is 'subject to finalization' — that is not actual oil relief yet. XLE is still up, WTI has not collapsed, and the airline sector (XRU) shows no synchronized bid. The thesis is not broken, but it is clearly not playing out with urgency. Reduce to half position (sell 6.36 shares, ~50% of position) to lock in neutral price and preserve dry powder. If the Iran deal actually closes in the next 48-72 hours and oil cracks, I can re-enter. Otherwise, a binary geopolitical bet without confirmed execution is not a conviction hold."
+  },
+  {
+    "ts": "2026-06-18T21:25:37.661923+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-06-18T21:25:37.661619+00:00",
+    "side": "BUY",
+    "ticker": "ALGN",
+    "shares": 3.4735,
+    "fill_price": 176.8767,
+    "fees": 0.3611,
+    "notional": 614.38,
+    "why": "Opened per flag: UNDERDONE conf 3 — Apparent positioning shift / consumer discretionary risk-on; no specific filing"
   }
 ]

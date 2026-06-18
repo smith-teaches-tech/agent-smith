@@ -658,5 +658,85 @@
     "weakest_link": "The bull case is marked confidence=3 and threat_assessment='indirect' (not 'minimal' or 'none'), suggesting the bear case for AI-driven displacement in regulated banking workflows may have merit that the bull case acknowledges but downplays.",
     "critique": "The mechanical thesis is sound—Meta's AI Mode for Facebook has no plausible connection to loan-origination software. However, the threat_assessment='indirect' signals unresolved risk: if major financial institutions begin piloting LLM-based compliance, audit, and workflow automation in-house, NCNO's competitive position could erode even if a specific Meta product is not the direct threat. The five-day decline of -1.99% on 0.6x volume is small, but the bull case does not address whether nCino's own AI/ML integration is keeping pace with bank appetite for generative workflow automation. An indirect threat to regulatory-software switching costs is genuine even if not proximate.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-18T21:26:33.960539+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 is holding 6 positions (9-7 days old, mixed P&L) while 16 new flags from two distinct AI catalysts (Google Gemini/Android + Meta AI Mode) hit the desk. Most flags are clean sympathy fades, but several show signs of genuine underlying pressure or misalignment with the trigger. Basket rule applies to both triggers.",
+    "ticker": "VRRM",
+    "survived": true,
+    "weakest_link": "The 'what_kills' criterion about a municipality piloting AI-only enforcement is speculative; no current evidence suggests municipal customers are evaluating AI-native alternatives to physical camera enforcement.",
+    "critique": "The bull case is mechanically sound: Google's Gemini smart speaker has no overlap with municipal photo-enforcement contracts, regulatory compliance chains, or physical camera hardware. The five-day change of +0.64% shows no sustained downside momentum, and the -6.18% single-day move on 0.52x volume is consistent with light-volume sympathy selling. No specific news about NYCDOT contract execution delays, customer attrition, or competitive threat from AI-native enforcement systems was cited.",
+    "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-06-18T21:26:33.960539+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 is holding 6 positions (9-7 days old, mixed P&L) while 16 new flags from two distinct AI catalysts (Google Gemini/Android + Meta AI Mode) hit the desk. Most flags are clean sympathy fades, but several show signs of genuine underlying pressure or misalignment with the trigger. Basket rule applies to both triggers.",
+    "ticker": "MANH",
+    "survived": false,
+    "weakest_link": "The five-day decline of -9.0% combined with the -5.24% single-day move suggests the selloff has already materialized and may reflect broader SaaS sector concerns beyond AI-event sympathy.",
+    "critique": "While the bull thesis that enterprise WMS systems have deep switching costs is correct, the -9.0% five-day decline is material and extended. This is not light-volume sympathy noise; the 1.24x volume multiple indicates institutional participation in the selloff. The bull case acknowledges this is 'broad SaaS de-rating rather than name-specific impairment,' yet still classifies it as OVERDONE. If the move reflects genuine sector re-pricing of SaaS multiples on rising rates or growth deceleration concerns (separate from AI hype), then MANH may have legitimate downside ahead, not just sympathy overshoot.",
+    "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-06-18T21:26:33.960539+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 is holding 6 positions (9-7 days old, mixed P&L) while 16 new flags from two distinct AI catalysts (Google Gemini/Android + Meta AI Mode) hit the desk. Most flags are clean sympathy fades, but several show signs of genuine underlying pressure or misalignment with the trigger. Basket rule applies to both triggers.",
+    "ticker": "BLKB",
+    "survived": true,
+    "weakest_link": "The bull case relies on the explicit Risk Factor disclosure about AI sentiment driving volatility, but filings disclaiming a risk do not insulate a stock from repricing if the broader market remains unconvinced.",
+    "critique": "The five-day decline of -5.54% and single-day move of -4.43% on near-normal volume (1.01x) show moderate but not extended downside. The thesis that a Gemini smart speaker cannot replace nonprofit fundraising workflows with two decades of embedded donor data is mechanically sound. No concrete news about nonprofit customer migration to AI tools, renewal-rate compression, or new security incidents was cited as a driver of the decline.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-18T21:26:33.960539+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 is holding 6 positions (9-7 days old, mixed P&L) while 16 new flags from two distinct AI catalysts (Google Gemini/Android + Meta AI Mode) hit the desk. Most flags are clean sympathy fades, but several show signs of genuine underlying pressure or misalignment with the trigger. Basket rule applies to both triggers.",
+    "ticker": "OSPN",
+    "survived": true,
+    "weakest_link": "The bull case assumes FIDO2 standards-bound authentication is safe from disruption, but if a hyperscaler deploys a competing authentication standard endorsed by major banks, OSPN's regulatory moat could weaken.",
+    "critique": "The move is modest (-3.72%) on light volume (0.87x), and the five-day change of -2.83% shows minimal downside momentum. The mechanical claim that a consumer OS feature release cannot affect regulated authentication standards is sound. No news about FIDO Alliance changes, major bank authentication vendor switches, or competitive encroachment was cited.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-18T21:26:33.960539+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 is holding 6 positions (9-7 days old, mixed P&L) while 16 new flags from two distinct AI catalysts (Google Gemini/Android + Meta AI Mode) hit the desk. Most flags are clean sympathy fades, but several show signs of genuine underlying pressure or misalignment with the trigger. Basket rule applies to both triggers.",
+    "ticker": "TYL",
+    "survived": true,
+    "weakest_link": "The very light volume of 0.65x limits the credibility of the signal; a thin-volume move on a Google AI announcement is easily reversed and offers weak evidence of systematic repricing.",
+    "critique": "The -3.54% single-day move on 0.65x volume is classic noise on low participation. The five-day change of -4.99% is moderate but not extended. The thesis that government court-records systems are insulated from Gemini releases by FedRAMP compliance, year-long sales cycles, and decades of entrenched contracts is well-founded. No news about government-specific AI competitors, FedRAMP changes, or bookings deterioration was cited.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-18T21:26:33.960539+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 is holding 6 positions (9-7 days old, mixed P&L) while 16 new flags from two distinct AI catalysts (Google Gemini/Android + Meta AI Mode) hit the desk. Most flags are clean sympathy fades, but several show signs of genuine underlying pressure or misalignment with the trigger. Basket rule applies to both triggers.",
+    "ticker": "ONTO",
+    "survived": true,
+    "weakest_link": "The five-day change of +15.37% is strongly positive, suggesting the stock has already repriced upward on technical/semiconductor momentum; the -5.9% single-day drop may be a normal pullback on that run rather than a durable repricing from the Gemini announcement.",
+    "critique": "The bull case correctly identifies that advanced-node chip manufacturing drives demand for process-control metrology, and Gemini/Android releases are mechanically unrelated to wafer fab inspection. The five-day momentum of +15.37% contradicts any narrative of sustained selling pressure; the single-day -5.9% on 0.75x volume appears to be a pullback on an already-extended rally, not a new selloff. No news about memory-market downturns, Rigaku deal delays, or semi-capex reductions was cited.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-18T21:26:33.960539+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 is holding 6 positions (9-7 days old, mixed P&L) while 16 new flags from two distinct AI catalysts (Google Gemini/Android + Meta AI Mode) hit the desk. Most flags are clean sympathy fades, but several show signs of genuine underlying pressure or misalignment with the trigger. Basket rule applies to both triggers.",
+    "ticker": "AEIS",
+    "survived": true,
+    "weakest_link": "The 10-K disclosure that AI infrastructure is a growth driver does not guarantee that the data-center power-delivery segment will perform as expected; execution risk and competitive pricing pressure remain material.",
+    "critique": "The move is -5.45% on light volume (0.67x), but the five-day change of +12.45% is strongly positive and contradicts the sympathy-selling thesis. The bull case correctly observes that AEIS's own filings identify AI data-center infrastructure as a demand tailwind, making a Gemini announcement mechanically backwards as a bearish catalyst. No news about hyperscaler capex digestion, design-win losses, or margin compression in the Data Center Computing segment was cited.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-18T21:26:33.960539+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 is holding 6 positions (9-7 days old, mixed P&L) while 16 new flags from two distinct AI catalysts (Google Gemini/Android + Meta AI Mode) hit the desk. Most flags are clean sympathy fades, but several show signs of genuine underlying pressure or misalignment with the trigger. Basket rule applies to both triggers.",
+    "ticker": "DOCN",
+    "survived": true,
+    "weakest_link": "The confidence level in the bull decision is only 3 (at the minimum buyable threshold), and the SMB cloud narrative is less defensible than the infrastructure/government/vertical-SaaS theses in the rest of the basket.",
+    "critique": "The move is -3.92% on very light volume (0.52x), and the five-day change of +3.48% shows no downside momentum at all. The thesis that an SMB cloud platform is orthogonal to a consumer Android feature is sound, and DOCN's AI inference offerings actually align with the Gemini trend. The confidence level of 3 indicates marginal conviction, but no specific news about hyperscaler price-cutting, failure of AI/ML revenue traction, or SMB churn acceleration was cited to contradict the bull case.",
+    "confidence_in_critique": 2
   }
 ]

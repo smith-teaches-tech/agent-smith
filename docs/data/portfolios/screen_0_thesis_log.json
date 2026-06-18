@@ -350,5 +350,53 @@
     "tier": "exploratory",
     "decision_confidence": 3,
     "price_stale": false
+  },
+  {
+    "run_ts": "2026-06-18T21:25:37.420490+00:00",
+    "screen_id": "screen_0",
+    "ticker": "NTLA",
+    "thesis_status": "intact",
+    "next_action": "HOLD",
+    "unrealized_pct": 22.38,
+    "current_price": 15.67,
+    "days_held": 2,
+    "flag_horizon": "days",
+    "flag_classification": "RATIONAL",
+    "flag_confidence": 3,
+    "tier": "exploratory",
+    "decision_confidence": 4,
+    "price_stale": false
+  },
+  {
+    "run_ts": "2026-06-18T21:25:37.420490+00:00",
+    "screen_id": "screen_0",
+    "ticker": "ALK",
+    "thesis_status": "weakening",
+    "next_action": "TRIM",
+    "unrealized_pct": -1.64,
+    "current_price": 49.26,
+    "days_held": 2,
+    "flag_horizon": "days",
+    "flag_classification": "UNDERDONE",
+    "flag_confidence": 3,
+    "tier": "exploratory",
+    "decision_confidence": 3,
+    "price_stale": false
+  },
+  {
+    "run_ts": "2026-06-18T21:25:37.420490+00:00",
+    "screen_id": "screen_0",
+    "ticker": "PTCT",
+    "thesis_status": "intact",
+    "next_action": "HOLD",
+    "unrealized_pct": 4.36,
+    "current_price": 78.98,
+    "days_held": 1,
+    "flag_horizon": "days",
+    "flag_classification": "RATIONAL",
+    "flag_confidence": 3,
+    "tier": "exploratory",
+    "decision_confidence": 3,
+    "price_stale": false
   }
 ]
