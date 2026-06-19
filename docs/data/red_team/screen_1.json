@@ -738,5 +738,95 @@
     "weakest_link": "The confidence level in the bull decision is only 3 (at the minimum buyable threshold), and the SMB cloud narrative is less defensible than the infrastructure/government/vertical-SaaS theses in the rest of the basket.",
     "critique": "The move is -3.92% on very light volume (0.52x), and the five-day change of +3.48% shows no downside momentum at all. The thesis that an SMB cloud platform is orthogonal to a consumer Android feature is sound, and DOCN's AI inference offerings actually align with the Gemini trend. The confidence level of 3 indicates marginal conviction, but no specific news about hyperscaler price-cutting, failure of AI/ML revenue traction, or SMB churn acceleration was cited to contradict the bull case.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-19T20:31:18.170175+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 has 6 open positions at 8-9 days held, all trading Anthropic/Google AI-event sympathy fades with intact theses and mixed recovery. New flags span Anthropic-ban and Google-Gemini triggers, yielding 15 flags across multiple sectors; applying the basket rule (3+ flags per trigger), most tier as exploratory. Four flags fail BUY eligibility outright; two are conviction candidates after exemption from basket consolidation.",
+    "ticker": "VRRM",
+    "survived": true,
+    "weakest_link": "The bull case assumes Commercial Services contract renewal risk is the real threat, but provides no evidence of actual renewal negotiations or timing, leaving the true catalyst risk unquantified.",
+    "critique": "The flag correctly identifies that an Anthropic model ban has no mechanical bearing on traffic enforcement systems. However, the bull case leans heavily on 'real risk is Commercial Services renewal' without disclosing the renewal timeline, customer identity, or any recent negotiation signals. If the renewal was recently secured on favorable terms, the thesis strengthens; if it's at genuine risk, the move may be justified on fundamentals unrelated to today's AI trigger. The 5-day move of -1.33% and volume of 0.92x suggest minimal panic, but the lack of specificity on renewal status weakens conviction.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-19T20:31:18.170175+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 has 6 open positions at 8-9 days held, all trading Anthropic/Google AI-event sympathy fades with intact theses and mixed recovery. New flags span Anthropic-ban and Google-Gemini triggers, yielding 15 flags across multiple sectors; applying the basket rule (3+ flags per trigger), most tier as exploratory. Four flags fail BUY eligibility outright; two are conviction candidates after exemption from basket consolidation.",
+    "ticker": "TYL",
+    "survived": true,
+    "weakest_link": "Elevated volume (2.05x) on a 5-day decline of -5.61% suggests institutional selling beyond pure sympathy, and the bull case does not address whether govtech procurement cycles have actually accelerated in this rate-environment.",
+    "critique": "The thesis that government procurement cycles insulate Tyler from an AI ban is structurally sound, and the argument that the ban reinforces risk-aversion is clever. However, the 2.05x volume on a 5-day drop of -5.61% is more severe than typical sympathy fade and may indicate selling unrelated to the trigger—such as sector-wide SaaS headwinds or specific procurement deal delays not disclosed in the flag. The bull case does not distinguish between sympathy-fade volume and fundamental repricing volume.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-19T20:31:18.170175+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 has 6 open positions at 8-9 days held, all trading Anthropic/Google AI-event sympathy fades with intact theses and mixed recovery. New flags span Anthropic-ban and Google-Gemini triggers, yielding 15 flags across multiple sectors; applying the basket rule (3+ flags per trigger), most tier as exploratory. Four flags fail BUY eligibility outright; two are conviction candidates after exemption from basket consolidation.",
+    "ticker": "MANH",
+    "survived": true,
+    "weakest_link": "The five-day decline of -9.0% is material and described as 'already extended,' yet the bull case classifies this as broad SaaS de-rating without confirming whether MANH's WMS-specific bookings or churn data released recently justify a deeper discount than peers.",
+    "critique": "While the thesis that Google Home does not compete with warehouse management systems is correct, a -9.0% five-day move is substantial and the bull case attributes it to 'broad SaaS de-rating' without evidence. If MANH has underperformed relative to broader SaaS peers (e.g., NET, CRM) over the same period, the move may reflect specific weakness in vertical SaaS or WMS renewal trends rather than pure sympathy. The flag should have checked MANH's 5-day performance versus SaaS peers to confirm the 'broad de-rating' claim.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-19T20:31:18.170175+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 has 6 open positions at 8-9 days held, all trading Anthropic/Google AI-event sympathy fades with intact theses and mixed recovery. New flags span Anthropic-ban and Google-Gemini triggers, yielding 15 flags across multiple sectors; applying the basket rule (3+ flags per trigger), most tier as exploratory. Four flags fail BUY eligibility outright; two are conviction candidates after exemption from basket consolidation.",
+    "ticker": "BLKB",
+    "survived": true,
+    "weakest_link": "The bull case cites Blackbaud's own Risk Factors warning about AI sentiment driving volatility, but does not verify whether recent earnings or guidance changes actually warrant the -5.54% five-day move beyond sentiment.",
+    "critique": "The flag's invocation of Blackbaud's own Risk Factors disclosure is elegant, but circular—it confirms that AI sentiment *can* drive volatility, not that this volatility is unjustified. If Blackbaud reported weaker-than-expected nonprofit customer renewal rates, net revenue retention compression, or guidance cuts in recent earnings or updates, the -5.54% five-day move would be grounded in fundamentals, not just sentiment. The bull case assumes the move is pure panic without confirming recent earnings beat or unchanged guidance.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-19T20:31:18.170175+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 has 6 open positions at 8-9 days held, all trading Anthropic/Google AI-event sympathy fades with intact theses and mixed recovery. New flags span Anthropic-ban and Google-Gemini triggers, yielding 15 flags across multiple sectors; applying the basket rule (3+ flags per trigger), most tier as exploratory. Four flags fail BUY eligibility outright; two are conviction candidates after exemption from basket consolidation.",
+    "ticker": "OSPN",
+    "survived": true,
+    "weakest_link": "The bull case asserts that standards-bound regulated software is 'structurally insulated' from AI product launches, but does not address whether OneSpan's own 10-K discloses AI disruption risk to FIDO2 or e-signature workflows, or whether competitor activity in AI-native authentication is accelerating.",
+    "critique": "OneSpan's regulatory moat (PSD2/eIDAS) is real, but the claim of 'structural insulation' goes unvalidated. If OSPN's filings flag AI authentication as an emerging competitive threat, or if competitors like Okta or Auth0 have begun integrating AI-native features into their authentication offerings, the -2.83% five-day move may reflect legitimate competitive pressure rather than sympathy fade. The flag provides no evidence from OSPN's recent earnings or competitive positioning to support the 'insulation' thesis.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-19T20:31:18.170175+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 has 6 open positions at 8-9 days held, all trading Anthropic/Google AI-event sympathy fades with intact theses and mixed recovery. New flags span Anthropic-ban and Google-Gemini triggers, yielding 15 flags across multiple sectors; applying the basket rule (3+ flags per trigger), most tier as exploratory. Four flags fail BUY eligibility outright; two are conviction candidates after exemption from basket consolidation.",
+    "ticker": "OMCL",
+    "survived": true,
+    "weakest_link": "The promotion to conviction tier rests on OMCL having threat='none' (versus peers' 'minimal'), but the five-day move is already positive (+0.84%), suggesting the market has already priced in the non-threat, leaving limited upside from the current 'exploratory test' framing.",
+    "critique": "OMCL's Schedule II compliance moat is genuinely strong—Gemini cannot dispense narcotics. However, the flag is promoted to conviction tier while simultaneously described as an 'exploratory test position' sized at 6%, which is contradictory sizing for a conviction call. More critically, the five-day change is +0.84% (positive), meaning the market has already begun recovering from the sympathy fade; entering at -3.51% on a one-day basis when the five-day trend is already positive may mean the best entry is already passed. The 1.06x volume is also light, suggesting conviction entry may not be warranted at current levels.",
+    "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-06-19T20:31:18.170175+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 has 6 open positions at 8-9 days held, all trading Anthropic/Google AI-event sympathy fades with intact theses and mixed recovery. New flags span Anthropic-ban and Google-Gemini triggers, yielding 15 flags across multiple sectors; applying the basket rule (3+ flags per trigger), most tier as exploratory. Four flags fail BUY eligibility outright; two are conviction candidates after exemption from basket consolidation.",
+    "ticker": "ONTO",
+    "survived": true,
+    "weakest_link": "The five-day change of +15.37% directly contradicts the claim that the drop is a 'clean overshoot'—the stock has already recovered sharply, eliminating the alpha from a sympathy-fade entry at this price.",
+    "critique": "The thesis that process-control metrology benefits from AI-chip complexity is sound, but the timing critique is fatal: ONTO is up 15.37% over five days, meaning most or all of the sympathy-fade overshoot has already been recovered. Entering an 'exploratory' position after a 15% five-day recovery on light volume (0.75x) is poor entry discipline—the easy money has been made. The flag's own 'setup' narrative ('clean overshoot') is negated by the positive five-day performance, suggesting the panic was both shallow and brief.",
+    "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-06-19T20:31:18.170175+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 has 6 open positions at 8-9 days held, all trading Anthropic/Google AI-event sympathy fades with intact theses and mixed recovery. New flags span Anthropic-ban and Google-Gemini triggers, yielding 15 flags across multiple sectors; applying the basket rule (3+ flags per trigger), most tier as exploratory. Four flags fail BUY eligibility outright; two are conviction candidates after exemption from basket consolidation.",
+    "ticker": "AEIS",
+    "survived": true,
+    "weakest_link": "Like ONTO, AEIS has already recovered 12.45% over five days, eliminating the alpha from a sympathy-fade entry; the flag explicitly acknowledges this recovery but then still recommends an exploratory entry, which is inconsistent with best-entry discipline.",
+    "critique": "AEIS's threat='none' and explicit 10-K evidence that AI infrastructure is a growth driver are correct and strong. However, the five-day recovery of +12.45% on weak volume (0.67x) means the sympathy-fade opportunity has already been largely captured by early buyers. The flag's own statement—'position has already recovered 12%+ and thesis is better served as exploratory test position to capture any further washout'—is wishful thinking; there is no evidence of further washout, and entry here is chasing the rebound rather than buying the panic. At down only -5.45% on the day with a 12% five-day recovery, AEIS is no longer an 'overdone' opportunity.",
+    "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-06-19T20:31:18.170175+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 has 6 open positions at 8-9 days held, all trading Anthropic/Google AI-event sympathy fades with intact theses and mixed recovery. New flags span Anthropic-ban and Google-Gemini triggers, yielding 15 flags across multiple sectors; applying the basket rule (3+ flags per trigger), most tier as exploratory. Four flags fail BUY eligibility outright; two are conviction candidates after exemption from basket consolidation.",
+    "ticker": "DOCN",
+    "survived": true,
+    "weakest_link": "Confidence in the decision is set at the minimum threshold (3), and the flag does not verify whether DOCN's recent 10-K or 10-Q actually lists AI/ML as a growth opportunity or whether those revenue streams are material enough to offset any SMB cloud pressure.",
+    "critique": "The bull case rests on the claim that 'DOCN's own filings list AI/ML as a growth opportunity,' but this is stated without citation or verification. If AI/ML is a marginal revenue line item (<5% of total revenue), then the upside thesis is overstated. Additionally, the flag describes this as a 'separate basket' with only 1 flag, suggesting low conviction across the broader thesis. The 5-day move of +3.48% (already positive) on minimal volume (0.52x) suggests the market views this as immaterial; entering an exploratory position in DOCN after it has already recovered 3.48% in five days is poor timing relative to the sympathy-fade thesis.",
+    "confidence_in_critique": 2
   }
 ]

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-18T21:24:51.040837+00:00",
+  "generated_at": "2026-06-19T20:29:30.408784+00:00",
   "logic_version": 4,
   "grading_params": {
     "hit_threshold_pct": 3.0,
@@ -9,11 +9,11 @@
       "months": 60
     },
     "default_horizon_days": 5,
-    "graded_classifications": "{'OVERDONE', 'UNDERDONE'}"
+    "graded_classifications": "{'UNDERDONE', 'OVERDONE'}"
   },
-  "n_total_calls": 361,
-  "n_not_graded": 255,
-  "n_pending": 30,
+  "n_total_calls": 369,
+  "n_not_graded": 258,
+  "n_pending": 35,
   "n_data_error": 0,
   "overall": {
     "n_resolved": 76,
@@ -92,32 +92,14 @@
     }
   },
   "by_sector": {
-    "Industrials": {
-      "n_resolved": 18,
-      "n_decisive": 17,
-      "n_hit": 10,
-      "n_miss": 7,
-      "n_ambiguous": 1,
-      "hit_rate": 58.8,
-      "avg_return_pct": 2.22
-    },
-    "Consumer Defensive": {
-      "n_resolved": 1,
-      "n_decisive": 1,
-      "n_hit": 0,
+    "industrials_specialty": {
+      "n_resolved": 2,
+      "n_decisive": 2,
+      "n_hit": 1,
       "n_miss": 1,
       "n_ambiguous": 0,
-      "hit_rate": 0.0,
-      "avg_return_pct": -13.64
-    },
-    "Real Estate": {
-      "n_resolved": 0,
-      "n_decisive": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
+      "hit_rate": 50.0,
+      "avg_return_pct": -4.65
     },
     "Communication Services": {
       "n_resolved": 0,
@@ -128,52 +110,16 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "consumer_discretionary": {
-      "n_resolved": 2,
-      "n_decisive": 2,
-      "n_hit": 0,
-      "n_miss": 2,
-      "n_ambiguous": 0,
-      "hit_rate": 0.0,
-      "avg_return_pct": -6.17
-    },
-    "Financial Services (misclassified as Tech)": {
-      "n_resolved": 0,
-      "n_decisive": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Consumer Cyclical": {
-      "n_resolved": 3,
-      "n_decisive": 3,
-      "n_hit": 2,
-      "n_miss": 1,
-      "n_ambiguous": 0,
-      "hit_rate": 66.7,
-      "avg_return_pct": 3.87
+    "Industrials": {
+      "n_resolved": 18,
+      "n_decisive": 17,
+      "n_hit": 10,
+      "n_miss": 7,
+      "n_ambiguous": 1,
+      "hit_rate": 58.8,
+      "avg_return_pct": 2.22
     },
     "Basic Materials": {
-      "n_resolved": 0,
-      "n_decisive": 0,
-      "n_hit": 0,
-      "n_miss": 0,
-      "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "saas_software": {
-      "n_resolved": 8,
-      "n_decisive": 8,
-      "n_hit": 5,
-      "n_miss": 3,
-      "n_ambiguous": 0,
-      "hit_rate": 62.5,
-      "avg_return_pct": 5.83
-    },
-    "Financial Services": {
       "n_resolved": 0,
       "n_decisive": 0,
       "n_hit": 0,
@@ -191,23 +137,14 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "Healthcare - Biotechnology": {
-      "n_resolved": 0,
-      "n_decisive": 0,
-      "n_hit": 0,
-      "n_miss": 0,
+    "saas_software": {
+      "n_resolved": 8,
+      "n_decisive": 8,
+      "n_hit": 5,
+      "n_miss": 3,
       "n_ambiguous": 0,
-      "hit_rate": null,
-      "avg_return_pct": null
-    },
-    "Technology": {
-      "n_resolved": 35,
-      "n_decisive": 35,
-      "n_hit": 21,
-      "n_miss": 14,
-      "n_ambiguous": 0,
-      "hit_rate": 60.0,
-      "avg_return_pct": 4.88
+      "hit_rate": 62.5,
+      "avg_return_pct": 5.83
     },
     "Healthcare": {
       "n_resolved": 7,
@@ -218,6 +155,15 @@
       "hit_rate": 71.4,
       "avg_return_pct": 5.51
     },
+    "Healthcare - Biotechnology": {
+      "n_resolved": 0,
+      "n_decisive": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
     "Utilities": {
       "n_resolved": 0,
       "n_decisive": 0,
@@ -227,14 +173,68 @@
       "hit_rate": null,
       "avg_return_pct": null
     },
-    "industrials_specialty": {
+    "Financial Services (misclassified as Tech)": {
+      "n_resolved": 0,
+      "n_decisive": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "consumer_discretionary": {
       "n_resolved": 2,
       "n_decisive": 2,
-      "n_hit": 1,
+      "n_hit": 0,
+      "n_miss": 2,
+      "n_ambiguous": 0,
+      "hit_rate": 0.0,
+      "avg_return_pct": -6.17
+    },
+    "Financial Services": {
+      "n_resolved": 0,
+      "n_decisive": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Consumer Cyclical": {
+      "n_resolved": 3,
+      "n_decisive": 3,
+      "n_hit": 2,
       "n_miss": 1,
       "n_ambiguous": 0,
-      "hit_rate": 50.0,
-      "avg_return_pct": -4.65
+      "hit_rate": 66.7,
+      "avg_return_pct": 3.87
+    },
+    "Real Estate": {
+      "n_resolved": 0,
+      "n_decisive": 0,
+      "n_hit": 0,
+      "n_miss": 0,
+      "n_ambiguous": 0,
+      "hit_rate": null,
+      "avg_return_pct": null
+    },
+    "Consumer Defensive": {
+      "n_resolved": 1,
+      "n_decisive": 1,
+      "n_hit": 0,
+      "n_miss": 1,
+      "n_ambiguous": 0,
+      "hit_rate": 0.0,
+      "avg_return_pct": -13.64
+    },
+    "Technology": {
+      "n_resolved": 35,
+      "n_decisive": 35,
+      "n_hit": 21,
+      "n_miss": 14,
+      "n_ambiguous": 0,
+      "hit_rate": 60.0,
+      "avg_return_pct": 4.88
     }
   },
   "by_horizon_days": {
@@ -1703,7 +1703,7 @@
       "grade": "PENDING",
       "return_pct_in_horizon": -3.31,
       "max_favorable_pct": -0.33,
-      "max_adverse_pct": -5.73,
+      "max_adverse_pct": -6.3,
       "price_at_flag": 129.13,
       "price_at_horizon_end": 124.85,
       "logic_version": 4,
@@ -1745,7 +1745,7 @@
       "grade": "PENDING",
       "return_pct_in_horizon": -5.11,
       "max_favorable_pct": 1.0,
-      "max_adverse_pct": -8.48,
+      "max_adverse_pct": -8.59,
       "price_at_flag": 139.4,
       "price_at_horizon_end": 132.28,
       "logic_version": 4,
@@ -1808,7 +1808,7 @@
       "grade": "PENDING",
       "return_pct_in_horizon": 0.14,
       "max_favorable_pct": 1.0,
-      "max_adverse_pct": -3.41,
+      "max_adverse_pct": -3.53,
       "price_at_flag": 132.09,
       "price_at_horizon_end": 132.28,
       "logic_version": 4,
@@ -1850,7 +1850,7 @@
       "grade": "PENDING",
       "return_pct_in_horizon": 0.91,
       "max_favorable_pct": 2.09,
-      "max_adverse_pct": -1.6,
+      "max_adverse_pct": -2.2,
       "price_at_flag": 123.72,
       "price_at_horizon_end": 124.85,
       "logic_version": 4,
@@ -1933,7 +1933,7 @@
       "horizon_days": 5,
       "grade": "PENDING",
       "return_pct_in_horizon": -3.06,
-      "max_favorable_pct": -0.33,
+      "max_favorable_pct": 0.39,
       "max_adverse_pct": -4.73,
       "price_at_flag": 287.71,
       "price_at_horizon_end": 278.91,
@@ -1960,6 +1960,69 @@
       "price_at_horizon_end": 39.05,
       "logic_version": 4,
       "notes": "only 1 bars elapsed",
+      "screen_id": "screen_1"
+    },
+    {
+      "ticker": "VRRM",
+      "name": "Verra Mobility Corporation",
+      "sector": "Technology",
+      "flagged_at": "2026-06-19T20:29:28+00:00",
+      "run_file": "screen_1_us_20260619T202928Z.json",
+      "classification": "OVERDONE",
+      "confidence": 4,
+      "move_pct_at_flag": -5.73,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "PENDING",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": 4.440000057220459,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "No post-flag bars yet",
+      "screen_id": "screen_1"
+    },
+    {
+      "ticker": "NCNO",
+      "name": "nCino, Inc.",
+      "sector": "Technology",
+      "flagged_at": "2026-06-19T20:29:28+00:00",
+      "run_file": "screen_1_us_20260619T202928Z.json",
+      "classification": "OVERDONE",
+      "confidence": 3,
+      "move_pct_at_flag": -4.45,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "PENDING",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": 14.800000190734863,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "No post-flag bars yet",
+      "screen_id": "screen_1"
+    },
+    {
+      "ticker": "TYL",
+      "name": "Tyler Technologies, Inc.",
+      "sector": "Technology",
+      "flagged_at": "2026-06-19T20:29:28+00:00",
+      "run_file": "screen_1_us_20260619T202928Z.json",
+      "classification": "OVERDONE",
+      "confidence": 4,
+      "move_pct_at_flag": -3.06,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "PENDING",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": 278.9100036621094,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "No post-flag bars yet",
       "screen_id": "screen_1"
     },
     {
@@ -6764,7 +6827,7 @@
       "grade": "PENDING",
       "return_pct_in_horizon": -4.03,
       "max_favorable_pct": 7.71,
-      "max_adverse_pct": -6.73,
+      "max_adverse_pct": -6.74,
       "price_at_flag": 77.47,
       "price_at_horizon_end": 80.59,
       "logic_version": 4,
@@ -8302,6 +8365,111 @@
       "price_at_horizon_end": null,
       "logic_version": 4,
       "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "POOL",
+      "name": "Pool Corporation",
+      "sector": "Industrials",
+      "flagged_at": "2026-06-19T20:27:49+00:00",
+      "run_file": "us_20260619T202749Z.json",
+      "classification": "UNCLEAR",
+      "confidence": 2,
+      "move_pct_at_flag": 2.39,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "classification=UNCLEAR not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "JBLU",
+      "name": "JetBlue Airways Corporation",
+      "sector": "Industrials",
+      "flagged_at": "2026-06-19T20:27:49+00:00",
+      "run_file": "us_20260619T202749Z.json",
+      "classification": "OVERDONE",
+      "confidence": 3,
+      "move_pct_at_flag": 10.72,
+      "expected_direction": "down",
+      "horizon_days": 5,
+      "grade": "PENDING",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": 5.679999828338623,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "No post-flag bars yet",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "WSO",
+      "name": "Watsco, Inc.",
+      "sector": "Industrials",
+      "flagged_at": "2026-06-19T20:27:49+00:00",
+      "run_file": "us_20260619T202749Z.json",
+      "classification": "RATIONAL",
+      "confidence": 2,
+      "move_pct_at_flag": 4.33,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "ONTO",
+      "name": "Onto Innovation Inc.",
+      "sector": "Technology",
+      "flagged_at": "2026-06-19T20:27:49+00:00",
+      "run_file": "us_20260619T202749Z.json",
+      "classification": "RATIONAL",
+      "confidence": 4,
+      "move_pct_at_flag": 4.65,
+      "expected_direction": null,
+      "horizon_days": 5,
+      "grade": "NOT_GRADED",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": null,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "classification=RATIONAL not in graded set",
+      "screen_id": "screen_0"
+    },
+    {
+      "ticker": "EXEL",
+      "name": "Exelixis, Inc.",
+      "sector": "Healthcare",
+      "flagged_at": "2026-06-19T20:27:49+00:00",
+      "run_file": "us_20260619T202749Z.json",
+      "classification": "OVERDONE",
+      "confidence": 2,
+      "move_pct_at_flag": -1.01,
+      "expected_direction": "up",
+      "horizon_days": 5,
+      "grade": "PENDING",
+      "return_pct_in_horizon": null,
+      "max_favorable_pct": null,
+      "max_adverse_pct": null,
+      "price_at_flag": 51.90999984741211,
+      "price_at_horizon_end": null,
+      "logic_version": 4,
+      "notes": "No post-flag bars yet",
       "screen_id": "screen_0"
     }
   ]
