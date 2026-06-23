@@ -464,5 +464,18 @@
     "fees": 0.3611,
     "notional": 614.38,
     "why": "Opened per flag: UNDERDONE conf 3 — Apparent positioning shift / consumer discretionary risk-on; no specific filing"
+  },
+  {
+    "ts": "2026-06-23T21:05:43.505352+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-06-23T21:05:43.505015+00:00",
+    "side": "SELL",
+    "ticker": "ALK",
+    "shares": 3.1776,
+    "fill_price": 47.8321,
+    "fees": 0.3649,
+    "notional": 151.99,
+    "why": "Entered 7 days ago on UNDERDONE (conf 3, days horizon) conviction that Trump's Iran-deal narrative would drive oil lower and provide airline fuel relief. Position is now negative (-1.74%) and thesis is weakening: (1) Iran deal has not materially moved oil—XLE down only 1.65% today and no major oil break since entry; (2) macro tailwind is speculative and no company-specific catalyst has emerged to re-anchor the thesis; (3) industrials sector broadly weak (-2% today), providing headwind. The original conviction was that the move was UNDERDONE; instead, the backdrop has not delivered and ALK trades below cost. Reduce by 50% to preserve capital and cut duration exposure to an increasingly speculative macro thesis that has not played out over the original horizon."
   }
 ]

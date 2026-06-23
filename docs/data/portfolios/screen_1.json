@@ -1,65 +1,9 @@
 {
-  "generated_at": "2026-06-22T21:35:20.738576+00:00",
+  "generated_at": "2026-06-23T21:06:40.819699+00:00",
   "screen_id": "screen_1",
   "bankroll_start": 10000.0,
-  "cash": 6388.13,
+  "cash": 6507.79,
   "open_positions": [
-    {
-      "ticker": "AMBA",
-      "name": "Ambarella, Inc.",
-      "sector": "Technology",
-      "shares": 8.5839,
-      "cost_basis": 69.8097,
-      "cost_total": 599.62,
-      "current_price": 70.71,
-      "value": 606.97,
-      "unrealized_pnl": 7.35,
-      "unrealized_pct": 1.23,
-      "opened_at": "2026-06-09T20:59:41.939853+00:00",
-      "days_held": 13,
-      "flag_classification": "OVERDONE",
-      "flag_confidence": 4,
-      "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: Anthropic's Claude Fable 5 is a version of Mythos the public can access today. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Days held: 13/15. Up 1.23%, thesis (Claude Fable 5 has no mechanism to displace Ambarella's video-compression/AI-camera silicon) remains sound. No fresh negative news. One more day of hold tolerance before hard exit at day 15.",
-      "next_action": "HOLD",
-      "catalyst": "Anthropic's Claude Fable 5 is a version of Mythos the public can access today",
-      "tier": "exploratory",
-      "benchmark_at_open": {
-        "SPY": 743.63,
-        "IWM": 287.18
-      },
-      "price_stale": false
-    },
-    {
-      "ticker": "TENB",
-      "name": "Tenable Holdings, Inc.",
-      "sector": "Technology",
-      "shares": 21.1452,
-      "cost_basis": 27.1471,
-      "cost_total": 574.45,
-      "current_price": 26.34,
-      "value": 556.96,
-      "unrealized_pnl": -17.49,
-      "unrealized_pct": -3.04,
-      "opened_at": "2026-06-09T20:59:42.182075+00:00",
-      "days_held": 13,
-      "flag_classification": "OVERDONE",
-      "flag_confidence": 4,
-      "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: Anthropic's Claude Fable 5 is a version of Mythos the public can access today. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Days held: 13/15. Down 3.04%, but thesis (Claude Fable 5 irrelevant to vulnerability-management scanning/prioritization) intact. Holding window nearly exhausted; if no recovery by EOD tomorrow, exit mandatory. No fresh adverse catalyst.",
-      "next_action": "HOLD",
-      "catalyst": "Anthropic's Claude Fable 5 is a version of Mythos the public can access today",
-      "tier": "exploratory",
-      "benchmark_at_open": {
-        "SPY": 743.63,
-        "IWM": 287.18
-      },
-      "price_stale": false
-    },
     {
       "ticker": "OMCL",
       "name": "Omnicell, Inc.",
@@ -67,10 +11,10 @@
       "shares": 14.6637,
       "cost_basis": 40.5905,
       "cost_total": 595.61,
-      "current_price": 38.68,
-      "value": 567.19,
-      "unrealized_pnl": -28.42,
-      "unrealized_pct": -4.77,
+      "current_price": 38.41,
+      "value": 563.23,
+      "unrealized_pnl": -32.38,
+      "unrealized_pct": -5.44,
       "opened_at": "2026-06-10T21:29:53.750046+00:00",
       "days_held": 12,
       "flag_classification": "OVERDONE",
@@ -78,7 +22,7 @@
       "flag_horizon": "days",
       "thesis": "no mechanism. Catalyst: Anthropic releases Fable model with strict guardrails, drawing cybersecurity researcher pushback. Falsified by: n/a.",
       "thesis_status": "intact",
-      "latest_reasoning": "Days held: 12/15. Down 4.77%, but thesis (Fable guardrails + cybersecurity pushback do not mechanically impair pharmacy-automation hardware/software) unbroken. Three days remain; no fresh news kills the sympathy-fade read.",
+      "latest_reasoning": "days_held = 12, within window. P&L is -5.44%. Catalyst was Fable guardrails + cybersecurity pushback (unrelated to Omnicell's pharmacy automation/robotics); filings show no AI mechanism threat. Thesis is intact and holding window still open (12 < 15). Allow the sympathy fade 3 more trading days to develop before exit decision.",
       "next_action": "HOLD",
       "catalyst": "Anthropic releases Fable model with strict guardrails, drawing cybersecurity researcher pushback",
       "tier": "exploratory",
@@ -95,10 +39,10 @@
       "shares": 9.5389,
       "cost_basis": 60.2602,
       "cost_total": 575.2,
-      "current_price": 67.6,
-      "value": 644.83,
-      "unrealized_pnl": 69.63,
-      "unrealized_pct": 12.11,
+      "current_price": 63.96,
+      "value": 610.11,
+      "unrealized_pnl": 34.91,
+      "unrealized_pct": 6.07,
       "opened_at": "2026-06-10T21:29:53.973004+00:00",
       "days_held": 12,
       "flag_classification": "OVERDONE",
@@ -106,7 +50,7 @@
       "flag_horizon": "days",
       "thesis": "no mechanism. Catalyst: Anthropic releases Fable model with strict guardrails, drawing cybersecurity researcher pushback. Falsified by: n/a.",
       "thesis_status": "intact",
-      "latest_reasoning": "Days held: 12/15. Up 12.11%, thesis (Fable guardrails irrelevant to industrial-vision hardware) clearly intact and repricing. Hold for full window or exit on next day if recovery stalls (thesis would be played-out).",
+      "latest_reasoning": "days_held = 12, within window. P&L is +6.07% (recovered solidly). Today's flag re-assesses CGNX under Claude Tag catalyst (Slack AI integration unrelated to industrial machine vision) with threat_assessment='minimal' and confidence=3, identical reasoning to day-12 entry. The recovery is proceeding as the sympathy-fade thesis suggests; hold through day 15 to capture any continued repricing.",
       "next_action": "HOLD",
       "catalyst": "Anthropic releases Fable model with strict guardrails, drawing cybersecurity researcher pushback",
       "tier": "exploratory",
@@ -115,65 +59,234 @@
         "IWM": 284.59
       },
       "price_stale": false
+    },
+    {
+      "ticker": "ONTO",
+      "name": "Onto Innovation Inc.",
+      "sector": "Technology",
+      "shares": 1.7798,
+      "cost_basis": 320.9306,
+      "cost_total": 571.55,
+      "current_price": 320.9306,
+      "value": 571.19,
+      "unrealized_pnl": -0.36,
+      "unrealized_pct": -0.06,
+      "opened_at": "2026-06-23T21:06:37.883251+00:00",
+      "days_held": 0,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 4,
+      "flag_horizon": "days",
+      "thesis": "no mechanism. Catalyst: Anthropic's Claude Tag brings always-on AI teammate to Slack. Falsified by: n/a.",
+      "thesis_status": "intact",
+      "latest_reasoning": "Opened position at $320.93, +$0.36 fees.",
+      "next_action": "HOLD",
+      "catalyst": "Anthropic's Claude Tag brings always-on AI teammate to Slack",
+      "tier": "exploratory",
+      "benchmark_at_open": {
+        "SPY": null,
+        "IWM": 293.26
+      }
+    },
+    {
+      "ticker": "AEIS",
+      "name": "Advanced Energy Industries, Inc",
+      "sector": "Industrials",
+      "shares": 1.5404,
+      "cost_basis": 366.2959,
+      "cost_total": 564.59,
+      "current_price": 366.2959,
+      "value": 564.24,
+      "unrealized_pnl": -0.35,
+      "unrealized_pct": -0.06,
+      "opened_at": "2026-06-23T21:06:39.255375+00:00",
+      "days_held": 0,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 4,
+      "flag_horizon": "days",
+      "thesis": "no mechanism. Catalyst: Anthropic's Claude Tag brings always-on AI teammate to Slack. Falsified by: n/a.",
+      "thesis_status": "intact",
+      "latest_reasoning": "Opened position at $366.30, +$0.35 fees.",
+      "next_action": "HOLD",
+      "catalyst": "Anthropic's Claude Tag brings always-on AI teammate to Slack",
+      "tier": "exploratory",
+      "benchmark_at_open": {
+        "SPY": 733.81,
+        "IWM": 293.26
+      }
+    },
+    {
+      "ticker": "PHR",
+      "name": "Phreesia, Inc.",
+      "sector": "Healthcare",
+      "shares": 61.4379,
+      "cost_basis": 9.1391,
+      "cost_total": 562.04,
+      "current_price": 9.1391,
+      "value": 561.49,
+      "unrealized_pnl": -0.55,
+      "unrealized_pct": -0.1,
+      "opened_at": "2026-06-23T21:06:40.623650+00:00",
+      "days_held": 0,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 3,
+      "flag_horizon": "days",
+      "thesis": "no mechanism. Catalyst: The AI world is getting 'loopy'. Falsified by: n/a.",
+      "thesis_status": "intact",
+      "latest_reasoning": "Opened position at $9.14, +$0.55 fees.",
+      "next_action": "HOLD",
+      "catalyst": "The AI world is getting 'loopy'",
+      "tier": "exploratory",
+      "benchmark_at_open": {
+        "SPY": 733.81,
+        "IWM": 293.26
+      }
+    }
+  ],
+  "closed_positions": [
+    {
+      "ticker": "LRN",
+      "name": "Stride, Inc.",
+      "sector": "Consumer Defensive",
+      "shares": 0.8069000000000004,
+      "avg_cost": 96.6566,
+      "exit_price": 82.6073,
+      "opened_at": "2026-06-10T21:29:54.362403+00:00",
+      "closed_at": "2026-06-23T21:06:27.468469+00:00",
+      "days_held": 12,
+      "realized_pnl": -11.38,
+      "realized_pct": -14.59,
+      "fees_total": 0.3546,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 4,
+      "flag_horizon": "days",
+      "tier": "exploratory",
+      "exit_reasoning": "days_held = 12, but P&L is -14.2% (severe underperformance vs. the sympathy-fade thesis mandate). Catalyst was Apple's AI Siri overhaul (unrelated to Stride's k-12 online education delivery); filings show no structural AI threat. The 14% drawdown is well beyond sympathy-move noise and suggests either (1) a separate negative catalyst on LRN we are not tracking, or (2) the thesis was misclassified. Exit to stop the bleed and free capital.",
+      "benchmark_at_open": {
+        "SPY": 733.39,
+        "IWM": 284.59
+      },
+      "market_cap_at_close": 3528711424.0,
+      "benchmark_at_close": {
+        "SPY": 733.58,
+        "IWM": 295.32
+      },
+      "benchmark_return_pct": {
+        "SPY": 0.03,
+        "IWM": 3.77
+      },
+      "alpha_pct": {
+        "SPY": -14.62,
+        "IWM": -18.36
+      }
     },
     {
       "ticker": "PLAB",
       "name": "Photronics, Inc.",
       "sector": "Technology",
       "shares": 19.5534,
-      "cost_basis": 29.1992,
-      "cost_total": 571.35,
-      "current_price": 34.06,
-      "value": 665.99,
-      "unrealized_pnl": 94.64,
-      "unrealized_pct": 16.56,
+      "avg_cost": 29.1992,
+      "exit_price": 31.7882,
       "opened_at": "2026-06-10T21:29:54.181982+00:00",
+      "closed_at": "2026-06-23T21:06:27.021618+00:00",
       "days_held": 12,
+      "realized_pnl": 50.22,
+      "realized_pct": 8.79,
+      "fees_total": 0.4331,
       "flag_classification": "OVERDONE",
       "flag_confidence": 4,
       "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: Anthropic releases Fable model with strict guardrails, drawing cybersecurity researcher pushback. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Days held: 12/15. Up 16.56%, thesis (Fable guardrails have no bearing on photomask/semiconductor lithography) intact and repricing well. Hold through window close or exit if momentum breaks.",
-      "next_action": "HOLD",
-      "catalyst": "Anthropic releases Fable model with strict guardrails, drawing cybersecurity researcher pushback",
       "tier": "exploratory",
+      "exit_reasoning": "days_held = 12, but P&L is +7.97% (thesis has played out successfully). Today's flag re-scores PLAB under Claude Tag catalyst with identical threat_assessment='none' and confidence=4, but the sympathy fade has already reversed — position is up 8%. Holding to day 15 adds diminishing conviction-building value; lock in the sympathy-fade win and redeploy capital to fresh opportunities with earlier entry points and cleaner setups.",
       "benchmark_at_open": {
         "SPY": 733.39,
         "IWM": 284.59
       },
-      "price_stale": false
+      "market_cap_at_close": 1860304512.0,
+      "benchmark_at_close": {
+        "SPY": 733.58,
+        "IWM": 295.32
+      },
+      "benchmark_return_pct": {
+        "SPY": 0.03,
+        "IWM": 3.77
+      },
+      "alpha_pct": {
+        "SPY": 8.76,
+        "IWM": 5.02
+      }
     },
     {
-      "ticker": "LRN",
-      "name": "Stride, Inc.",
-      "sector": "Consumer Defensive",
-      "shares": 0.8069000000000004,
-      "cost_basis": 96.6566,
-      "cost_total": 78.04,
-      "current_price": 82.32,
-      "value": 66.42,
-      "unrealized_pnl": -11.62,
-      "unrealized_pct": -14.89,
-      "opened_at": "2026-06-10T21:29:54.362403+00:00",
-      "days_held": 12,
+      "ticker": "TENB",
+      "name": "Tenable Holdings, Inc.",
+      "sector": "Technology",
+      "shares": 21.1452,
+      "avg_cost": 27.1471,
+      "exit_price": 26.5734,
+      "opened_at": "2026-06-09T20:59:42.182075+00:00",
+      "closed_at": "2026-06-23T21:06:26.568663+00:00",
+      "days_held": 14,
+      "realized_pnl": -12.55,
+      "realized_pct": -2.18,
+      "fees_total": 0.4368,
       "flag_classification": "OVERDONE",
       "flag_confidence": 4,
       "flag_horizon": "days",
-      "thesis": "no mechanism. Catalyst: Apple's long-awaited AI Siri overhaul is finally here, with new Image Playground, Photos AI editing, and Shortcuts AI workflow builder. Falsified by: n/a.",
-      "thesis_status": "intact",
-      "latest_reasoning": "Days held: 12/15. Down 14.89%, but thesis (Apple Siri AI overhaul does not mechanically displace K-12 digital-learning curriculum and platforms) remains sound. This is the deepest draw, but it is sympathy to a different catalyst; holding window still open. Monitor for fresh adverse signal.",
-      "next_action": "HOLD",
-      "catalyst": "Apple's long-awaited AI Siri overhaul is finally here, with new Image Playground, Photos AI editing, and Shortcuts AI workflow builder",
       "tier": "exploratory",
+      "exit_reasoning": "days_held = 14, at holding-window boundary. P&L is +0.34%, virtually flat; thesis (cybersecurity researcher pushback on Fable guardrails doesn't impair Tenable's vulnerability-management business) is intact, but the 15-day holding window is the hard cutoff for Screen 1's sympathy-fade discipline. Position is neither recovering sharply nor showing conviction that the fade is sustained; exit per protocol.",
       "benchmark_at_open": {
-        "SPY": 733.39,
-        "IWM": 284.59
+        "SPY": 743.63,
+        "IWM": 287.18
       },
-      "price_stale": false
-    }
-  ],
-  "closed_positions": [
+      "market_cap_at_close": 3006014208.0,
+      "benchmark_at_close": {
+        "SPY": 733.58,
+        "IWM": 295.32
+      },
+      "benchmark_return_pct": {
+        "SPY": -1.35,
+        "IWM": 2.83
+      },
+      "alpha_pct": {
+        "SPY": -0.83,
+        "IWM": -5.01
+      }
+    },
+    {
+      "ticker": "AMBA",
+      "name": "Ambarella, Inc.",
+      "sector": "Technology",
+      "shares": 8.5839,
+      "avg_cost": 69.8097,
+      "exit_price": 66.3236,
+      "opened_at": "2026-06-09T20:59:41.939853+00:00",
+      "closed_at": "2026-06-23T21:06:24.281611+00:00",
+      "days_held": 14,
+      "realized_pnl": -30.3,
+      "realized_pct": -5.05,
+      "fees_total": 0.3947,
+      "flag_classification": "OVERDONE",
+      "flag_confidence": 4,
+      "flag_horizon": "days",
+      "tier": "exploratory",
+      "exit_reasoning": "days_held = 14, at the upper boundary of the 5-15 day holding window. P&L is -6.22% and the sympathy-fade thesis (Anthropic Claude Fable 5 irrelevant to Ambarella's video codec/compression business) remains intact on filings review, but holding-window discipline mandates exit at day 14 with no fresh recovery catalyst. The position has not recovered; Screen 1 is built to exit after 15 days regardless of P&L if sympathy fade hasn't materialized.",
+      "benchmark_at_open": {
+        "SPY": 743.63,
+        "IWM": 287.18
+      },
+      "market_cap_at_close": 2873804800.0,
+      "benchmark_at_close": {
+        "SPY": 733.58,
+        "IWM": 295.32
+      },
+      "benchmark_return_pct": {
+        "SPY": -1.35,
+        "IWM": 2.83
+      },
+      "alpha_pct": {
+        "SPY": -3.7,
+        "IWM": -7.88
+      }
+    },
     {
       "ticker": "LRN",
       "name": "Stride, Inc.",
@@ -932,6 +1045,76 @@
     }
   ],
   "trade_log": [
+    {
+      "date": "2026-06-23T21:06:40.623664+00:00",
+      "side": "BUY",
+      "ticker": "PHR",
+      "shares": 61.4379,
+      "fill_price": 9.1391,
+      "fees": 0.5466,
+      "notional": 561.49,
+      "why": "Opened per flag: OVERDONE conf 3 — The AI world is getting 'loopy'"
+    },
+    {
+      "date": "2026-06-23T21:06:39.255388+00:00",
+      "side": "BUY",
+      "ticker": "AEIS",
+      "shares": 1.5404,
+      "fill_price": 366.2959,
+      "fees": 0.3549,
+      "notional": 564.24,
+      "why": "Opened per flag: OVERDONE conf 4 — Anthropic's Claude Tag brings always-on AI teammate to Slack"
+    },
+    {
+      "date": "2026-06-23T21:06:37.883265+00:00",
+      "side": "BUY",
+      "ticker": "ONTO",
+      "shares": 1.7798,
+      "fill_price": 320.9306,
+      "fees": 0.3557,
+      "notional": 571.19,
+      "why": "Opened per flag: OVERDONE conf 4 — Anthropic's Claude Tag brings always-on AI teammate to Slack"
+    },
+    {
+      "date": "2026-06-23T21:06:27.468494+00:00",
+      "side": "SELL",
+      "ticker": "LRN",
+      "shares": 0.8069000000000004,
+      "fill_price": 82.6073,
+      "fees": 0.3546,
+      "notional": 66.66,
+      "why": "days_held = 12, but P&L is -14.2% (severe underperformance vs. the sympathy-fade thesis mandate). Catalyst was Apple's AI Siri overhaul (unrelated to Stride's k-12 online education delivery); filings show no structural AI threat. The 14% drawdown is well beyond sympathy-move noise and suggests either (1) a separate negative catalyst on LRN we are not tracking, or (2) the thesis was misclassified. Exit to stop the bleed and free capital."
+    },
+    {
+      "date": "2026-06-23T21:06:27.021648+00:00",
+      "side": "SELL",
+      "ticker": "PLAB",
+      "shares": 19.5534,
+      "fill_price": 31.7882,
+      "fees": 0.4331,
+      "notional": 621.57,
+      "why": "days_held = 12, but P&L is +7.97% (thesis has played out successfully). Today's flag re-scores PLAB under Claude Tag catalyst with identical threat_assessment='none' and confidence=4, but the sympathy fade has already reversed — position is up 8%. Holding to day 15 adds diminishing conviction-building value; lock in the sympathy-fade win and redeploy capital to fresh opportunities with earlier entry points and cleaner setups."
+    },
+    {
+      "date": "2026-06-23T21:06:26.568690+00:00",
+      "side": "SELL",
+      "ticker": "TENB",
+      "shares": 21.1452,
+      "fill_price": 26.5734,
+      "fees": 0.4368,
+      "notional": 561.9,
+      "why": "days_held = 14, at holding-window boundary. P&L is +0.34%, virtually flat; thesis (cybersecurity researcher pushback on Fable guardrails doesn't impair Tenable's vulnerability-management business) is intact, but the 15-day holding window is the hard cutoff for Screen 1's sympathy-fade discipline. Position is neither recovering sharply nor showing conviction that the fade is sustained; exit per protocol."
+    },
+    {
+      "date": "2026-06-23T21:06:24.281636+00:00",
+      "side": "SELL",
+      "ticker": "AMBA",
+      "shares": 8.5839,
+      "fill_price": 66.3236,
+      "fees": 0.3947,
+      "notional": 569.32,
+      "why": "days_held = 14, at the upper boundary of the 5-15 day holding window. P&L is -6.22% and the sympathy-fade thesis (Anthropic Claude Fable 5 irrelevant to Ambarella's video codec/compression business) remains intact on filings review, but holding-window discipline mandates exit at day 14 with no fresh recovery catalyst. The position has not recovered; Screen 1 is built to exit after 15 days regardless of P&L if sympathy fade hasn't materialized."
+    },
     {
       "date": "2026-06-18T21:26:34.421520+00:00",
       "side": "SELL",
