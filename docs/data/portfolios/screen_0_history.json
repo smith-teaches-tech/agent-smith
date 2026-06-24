@@ -477,5 +477,18 @@
     "fees": 0.3649,
     "notional": 151.99,
     "why": "Entered 7 days ago on UNDERDONE (conf 3, days horizon) conviction that Trump's Iran-deal narrative would drive oil lower and provide airline fuel relief. Position is now negative (-1.74%) and thesis is weakening: (1) Iran deal has not materially moved oil—XLE down only 1.65% today and no major oil break since entry; (2) macro tailwind is speculative and no company-specific catalyst has emerged to re-anchor the thesis; (3) industrials sector broadly weak (-2% today), providing headwind. The original conviction was that the move was UNDERDONE; instead, the backdrop has not delivered and ALK trades below cost. Reduce by 50% to preserve capital and cut duration exposure to an increasingly speculative macro thesis that has not played out over the original horizon."
+  },
+  {
+    "ts": "2026-06-24T20:52:12.304524+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-06-24T20:52:12.304213+00:00",
+    "side": "BUY",
+    "ticker": "AVAV",
+    "shares": 14.8525,
+    "fill_price": 147.9578,
+    "fees": 0.3975,
+    "notional": 2197.54,
+    "why": "Opened per flag: UNDERDONE conf 4 — 8-K dated 2026-06-22 disclosing non-reliance on previously issued financials (4.02) plus officer departure (5.02); earnings scheduled 2026-06-29 after hours"
   }
 ]
