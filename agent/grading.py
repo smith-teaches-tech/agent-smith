@@ -621,7 +621,10 @@ def _parse_history_filename(path: Path) -> Optional[tuple[datetime, str]]:
 _PREFIX_TO_SCREEN_ID: dict[str, Optional[str]] = {
     "us": "screen_0",
     "screen_1_us": "screen_1",
-    "screen_2_us": "screen_2",
+    # Screen 2 (pre-earnings) removed 2026-06-24; thesis abandoned. Its
+    # history files stay on disk as an audit trail but are excluded from
+    # grading (None) — same treatment as the Taiwan experiment below.
+    "screen_2_us": None,
     # Taiwan experiment ran Apr 2026, deleted in Session E.5. 23 history
     # files preserved on disk as audit trail. Excluded from grading
     # because Taiwan ran under a different universe + prompt; rolling

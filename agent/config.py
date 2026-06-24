@@ -476,62 +476,11 @@ SCREENS: list[dict] = [
         # while still bounding total exposure to 36% of bankroll. (L2)
         "exploratory_cap": 6,
     },
-
-    {
-        "id": "screen_2",
-        # DISABLED June 12, 2026. ~3 weeks live: discovery ran daily
-        # (~$1/day Opus filings reads across the curated universe) but
-        # produced only 3 round-trip trades (MOD, GTLB, MDB, all closed
-        # by the T+1 sweep within days) and then went quiet entirely.
-        # Cost/signal ratio doesn't justify the daily spend.
-        # enabled=False gates BOTH the discovery pass (main.run_us) and
-        # the portfolio decision pass (main.run_portfolio — with a
-        # drain-pass exception while positions remain open). Mark-to-
-        # market via pf.refresh_all() is NOT gated, so the dashboard
-        # equity stays current. Registry entry, code, and history files
-        # preserved for a future revisit.
-        "enabled": False,
-        "display_name": "Pre-earnings filings read",
-        "thesis_summary": (
-            "Buys mid-caps where a careful read of the 10-K, 10-Q, and "
-            "last ~4 quarters of 8-K earnings exhibits — done with the "
-            "same discipline across the whole curated universe — "
-            "suggests the upcoming earnings print will land better or "
-            "worse than the market expects. Proactive and event-timed: "
-            "fires on the earnings calendar, not on price action or "
-            "AI-lab news. Holds across the print only."
-        ),
-        "bankroll": PAPER_PORTFOLIO_BANKROLL,
-        # Guardrails: match Screen 0 / Screen 1 for now. May tighten
-        # once Screen 2's hit-rate distribution has live data.
-        "max_position_pct": PAPER_PORTFOLIO_MAX_POSITION_PCT,
-        "max_sector_pct": PAPER_PORTFOLIO_MAX_SECTOR_PCT,
-        "min_cash_pct": PAPER_PORTFOLIO_MIN_CASH_PCT,
-        # Confidence threshold: match Screen 0. Screen 2's confidence
-        # calibration lives in screen_2.py's discovery prompt; this
-        # threshold gates which flags reach the portfolio pass.
-        "min_buy_confidence": PAPER_PORTFOLIO_MIN_BUY_CONFIDENCE,
-        # Decision window: 3 trading days. A Screen 2 flag is tied to a
-        # specific earnings date; once the print has passed, the flag
-        # is stale. Tight window keeps the portfolio pass from acting
-        # on a flag whose event has already happened.
-        "decision_window_days": 3,
-        # Holding window: 4 trading days. Screen 2's edge is pre-print
-        # reading quality — the position spans the earnings print
-        # (T-2 entry, T+1 exit) and is force-exited after. No drift
-        # into post-earnings holding, which the screen has no edge on.
-        "holding_window_days": 4,
-        # Portfolio-pass model: Haiku 4.5 (matches the other screens).
-        # Discovery model is Opus, hardcoded in screen_2.py.
-        "claude_model": CLAUDE_PORTFOLIO_MODEL,
-        # Screen 2 deliberately does NOT use the two-tier model.
-        # Every pre-earnings BUY is conviction-sized — the screen's
-        # edge is a careful filings read, not opportunistic small
-        # tests. The portfolio prompt instructs Haiku to omit `tier`;
-        # main.py's tier-gate treats tier=None as conviction sizing
-        # when uses_tiers is False.
-        "uses_tiers": False,
-    },
+    # Screen 2 (pre-earnings filings read) REMOVED 2026-06-24 — thesis
+    # abandoned (poor cost/signal: ~$1/day Opus filings reads for 3
+    # round-trips over 3 weeks, then silent). Discovery orchestrator,
+    # portfolio branches, and screen_2 code modules deleted in the same
+    # change. docs/data/*screen_2* history kept as an audit trail.
 ]
 
 # ============================================================

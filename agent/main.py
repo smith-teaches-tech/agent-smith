@@ -305,41 +305,15 @@ def run_us(tickers_override: list[str] | None = None) -> dict[str, Any]:
         traceback.print_exc()
 
     # ------------------------------------------------------------
-    # Screen 2 (pre-earnings filings read) — sequenced after Screen 1.
-    # Independent of both Screen 0 and Screen 1: its trigger is the
-    # earnings calendar, not the mover set or the AI-event trigger.
-    # Same defensive-try rationale as Screen 1 above.
+    # Screen 2 (pre-earnings filings read) REMOVED 2026-06-24.
+    # Thesis abandoned. ~3 weeks live cost ~$1/day in Opus filings
+    # reads for only 3 round-trips (MOD/GTLB/MDB) then went quiet.
+    # The 2026-06-12 enabled:False soft-disable was never deployed, so
+    # the live cron kept running discovery and billing (~$5/week). The
+    # screen has been stripped entirely: registry entry, discovery
+    # orchestrator, portfolio branches, and code modules all deleted.
+    # docs/data/*screen_2* history is kept as an audit trail.
     # ------------------------------------------------------------
-    if config.get_screen("screen_2").get("enabled", True):
-        try:
-            run_screen_2()
-        except Exception as e:
-            print(f"[us] run_screen_2 raised unexpectedly: {e}")
-            import traceback
-            traceback.print_exc()
-    else:
-        # Screen 2 disabled (config.SCREENS enabled=False). Skipping the
-        # discovery pass skips the expensive Opus filings read. Write a
-        # fresh SKIPPED envelope (latest file only — no history archive,
-        # it would be daily noise) so the dashboard renders a neutral
-        # "disabled" banner instead of serving a stale file.
-        print("[us] screen_2 disabled in config.SCREENS — discovery skipped")
-        try:
-            Path("docs/data/screen_2_us.json").write_text(json.dumps({
-                "generated_at": datetime.now(timezone.utc).isoformat(),
-                "screen_id": "screen_2",
-                "status": "SKIPPED",
-                "discovery": {
-                    "run_summary": (
-                        "Screen 2 is disabled in config.SCREENS "
-                        "(enabled: False) — no discovery pass was run."
-                    ),
-                    "discoveries": [],
-                    "skipped": [],
-                },
-            }, indent=2, ensure_ascii=False))
-        except OSError as e:
-            print(f"[us] could not write disabled screen_2 envelope: {e}")
 
     # Pass failures (parse error or exhausted-retry API outage) used to raise
     # RuntimeError here, which red-X'd the Actions run. The dashboard already
@@ -448,74 +422,6 @@ def run_screen_1(us_output: dict[str, Any] | None = None) -> dict[str, Any]:
     return output
 
 
-# ============================================================
-# Screen 2 (pre-earnings filings read) — discovery orchestrator
-# ============================================================
-
-def run_screen_2() -> dict[str, Any]:
-    """
-    Run Screen 2's per-name pre-earnings discovery pass for one cron tick.
-
-    Sequenced AFTER run_us() and run_screen_1(). Takes no us_output:
-    Screen 2's trigger is the earnings calendar, fully independent of
-    Screen 0's movers and Screen 1's AI-event trigger.
-
-    Always returns a usable dict; never raises. Writes
-    docs/data/screen_2_us.json on every run — a no-trigger run (no
-    universe name reports earnings in the T+3..T+7 window) writes a
-    clean SKIPPED file, so the dashboard always has something fresh.
-
-    The Screen 2 portfolio pass that consumes these flags runs later
-    in run_portfolio()'s SCREENS-iteration loop — picked up
-    automatically now that screen_2 is registered in config.SCREENS.
-    NOTE: that pass currently routes through the generic
-    run_portfolio_pass (the run_portfolio_for_screen dispatch only
-    special-cases screen_1). A dedicated run_portfolio_pass_screen_2
-    with the T-2/T+1 holding-window discipline is a tracked follow-up,
-    not a blocker for producing flags.
-    """
-    from .screens import screen_2
-
-    print("[screen_2] === Screen 2: pre-earnings filings read ===")
-
-    try:
-        result = screen_2.run_screen_2_discovery()
-        if result.get("_status") == "ok":
-            screen_2_status = "OK"
-        elif result.get("_status") == "error":
-            screen_2_status = "FAILED"
-        else:
-            # no-trigger / no-candidates day — a clean skip, not a
-            # failure. SKIPPED keeps the dashboard banner neutral.
-            screen_2_status = "SKIPPED"
-    except Exception as e:
-        print(f"[screen_2] discovery raised unexpectedly: {e}")
-        import traceback
-        traceback.print_exc()
-        result = {
-            "run_summary": f"Screen 2 discovery failed: {e}",
-            "discoveries": [],
-            "skipped": [],
-            "_status": "error",
-            "_error": str(e),
-        }
-        screen_2_status = "FAILED"
-
-    output = {
-        "generated_at": datetime.now(timezone.utc).isoformat(),
-        "screen_id": "screen_2",
-        "status": screen_2_status,
-        "discovery": result,
-    }
-
-    # Distinct filename + latest path, same convention as Screen 1, so
-    # history archive doesn't collide and the dashboard reads each
-    # screen independently.
-    _write_output(output, "docs/data/screen_2_us.json", "screen_2_us")
-    print(f"[screen_2] === complete (status={screen_2_status}) ===")
-    return output
-
-
 def run_portfolio(us_output: dict[str, Any] | None = None) -> dict[str, Any]:
     """
     Outer portfolio orchestrator. Iterates every registered screen and
@@ -594,30 +500,6 @@ def run_portfolio_for_screen(
     pf.save_state(state, screen_id=screen_id)
     print(f"[portfolio] equity=${pf.total_equity(state):.2f} cash=${state['cash']:.2f} open={len(state['open_positions'])}")
 
-    # ---- Screen 2: T+1 hard exit (code-enforced holding window) -
-    # Screen 2's edge is pre-print reading; past T+1 the screen has no
-    # edge on the name. Close every position whose earnings print has
-    # passed BEFORE the decision pass runs, so Haiku never sees a
-    # post-print position to reason about. This is the structural
-    # enforcement of the holding window — the Haiku prompt also
-    # instructs EXIT on post-print names, but a prompt is a backstop,
-    # not the discipline. Screen-2-only: other screens have their own
-    # (or no) holding-window rules.
-    if screen_id == "screen_2":
-        from .screens import screen_2_portfolio
-        sweep = screen_2_portfolio.force_exit_elapsed_positions(
-            state, screen_id=screen_id
-        )
-        if sweep["exited"] or sweep["exit_failed"]:
-            # Positions changed (or attempted to) — persist immediately
-            # so the closed positions are on disk even if a later step
-            # in this pass fails.
-            pf.save_state(state, screen_id=screen_id)
-            print(
-                f"[portfolio] post-T+1-exit: equity=${pf.total_equity(state):.2f} "
-                f"cash=${state['cash']:.2f} open={len(state['open_positions'])}"
-            )
-
     # ---- Screen 0 / Screen 1: code-enforced exit guards (REMOVED) -
     # Tried, didn't work (May 28 - June 12, 2026). The guard pair
     # (-15% stop + grading-horizon force-close via
@@ -637,18 +519,12 @@ def run_portfolio_for_screen(
     # ---- Gather recent flags ----------------------------------
     # Screen 0 reads from us_output + history/us_*.json.
     # Screen 1 reads from screen_1_us.json + history/screen_1_us_*.json.
-    # Screen 2 reads from screen_2_us.json + history/screen_2_us_*.json.
     # The data shape is identical; only the source files differ.
     window_days = screen["decision_window_days"]
     print(f"[portfolio] gathering flags from last {window_days}d...")
     if screen_id == "screen_1":
         recent_flags = _collect_screen_1_flags(
             screen_1_output=None,  # always read from disk
-            window_days=window_days,
-        )
-    elif screen_id == "screen_2":
-        recent_flags = _collect_screen_2_flags(
-            screen_2_output=None,  # always read from disk
             window_days=window_days,
         )
     else:
@@ -702,21 +578,6 @@ def run_portfolio_for_screen(
         # matches Screen 0's, so the apply-decisions block below stays
         # screen-agnostic.
         decisions = analyze.run_portfolio_pass_screen_1(
-            portfolio_state=state,
-            recent_flags=recent_flags,
-            screen_config=screen,
-            trends_summary=trends_summary,
-        )
-    elif screen_id == "screen_2":
-        # Screen 2 uses its own portfolio prompt (pre-earnings filings-
-        # read framing, T-2/T+1 holding window, long-only UNDERDONE-only
-        # BUYs, no exploratory tier). Output schema matches Screen 0's,
-        # so the apply-decisions block below stays screen-agnostic.
-        # NOTE: Screen 2 decisions carry no `tier` field; main._try_buy
-        # treats tier=None as conviction sizing, which is exactly what
-        # Screen 2 wants — no special-casing needed downstream.
-        from .screens import screen_2_portfolio
-        decisions = screen_2_portfolio.run_screen_2_portfolio_pass(
             portfolio_state=state,
             recent_flags=recent_flags,
             screen_config=screen,
@@ -1462,71 +1323,6 @@ def _collect_screen_1_flags(
     return list(by_ticker.values())
 
 
-def _collect_screen_2_flags(
-    *,
-    screen_2_output: dict[str, Any] | None,
-    window_days: int,
-) -> list[dict[str, Any]]:
-    """
-    Return Screen 2 discovery flags from the last N days.
-    Newest first. Deduplicates by ticker (keeps the latest flag per name).
-
-    Mirrors _collect_screen_1_flags exactly, but reads Screen 2's
-    distinct files:
-      - newest run: screen_2_output param, OR screen_2_us.json on disk
-        if param is None
-      - older runs: history/screen_2_us_*.json
-
-    Screen 2's discovery output shape mirrors Screen 0's and Screen 1's:
-      {"discovery": {"discoveries": [...]}}
-    Only the filename differs. Screen 2 flags carry extra fields
-    (earnings_date, trading_days_out, filings_evidence, guidance_pattern)
-    that the Screen 2 portfolio pass consumes; this collector preserves
-    the whole flag dict, so those fields pass through untouched.
-    """
-    cutoff = datetime.now(timezone.utc) - timedelta(days=window_days)
-    by_ticker: dict[str, dict[str, Any]] = {}
-
-    # 1) Newest run — prefer the param, fall back to disk.
-    if screen_2_output is None:
-        s2_path = Path("docs/data/screen_2_us.json")
-        if s2_path.exists():
-            try:
-                screen_2_output = json.loads(s2_path.read_text())
-            except (json.JSONDecodeError, OSError) as e:
-                print(f"[screen_2] could not read {s2_path}: {e}")
-                screen_2_output = None
-
-    if screen_2_output:
-        for d in (screen_2_output.get("discovery") or {}).get("discoveries", []):
-            t = d.get("ticker")
-            if t:
-                by_ticker[t] = d
-
-    # 2) Older runs from history/screen_2_us_*.json.
-    hist_dir = Path(config.OUTPUT_HISTORY_DIR)
-    if hist_dir.exists():
-        for path in sorted(hist_dir.glob("screen_2_us_*.json"), reverse=True):
-            try:
-                data = json.loads(path.read_text())
-            except (json.JSONDecodeError, OSError):
-                continue
-            try:
-                generated = datetime.fromisoformat(
-                    data.get("generated_at", "").replace("Z", "+00:00")
-                )
-                if generated < cutoff:
-                    break  # sorted newest-first
-            except ValueError:
-                continue
-            for d in (data.get("discovery") or {}).get("discoveries", []):
-                t = d.get("ticker")
-                if t and t not in by_ticker:  # keep newest per ticker
-                    by_ticker[t] = d
-
-    return list(by_ticker.values())
-
-
 def _fetch_price_at_flag(ticker: str | None) -> float | None:
     """
     Best-effort current-price fetch for a suggestion entry at the
@@ -1666,11 +1462,6 @@ def _extend_with_ineligible_flags(
     if screen_id == "screen_1":
         flags = _collect_screen_1_flags(
             screen_1_output=None,
-            window_days=window_days,
-        )
-    elif screen_id == "screen_2":
-        flags = _collect_screen_2_flags(
-            screen_2_output=None,
             window_days=window_days,
         )
     else:
