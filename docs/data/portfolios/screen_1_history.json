@@ -661,5 +661,31 @@
     "fees": 0.407,
     "notional": 566.24,
     "why": "Opened per flag: OVERDONE conf 4 — Anthropic's Claude Tag brings always-on AI teammate to Slack"
+  },
+  {
+    "ts": "2026-06-25T20:58:05.209211+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-06-25T20:58:05.208840+00:00",
+    "side": "SELL",
+    "ticker": "OMCL",
+    "shares": 14.6637,
+    "fill_price": 39.4605,
+    "fees": 0.4154,
+    "notional": 578.64,
+    "why": "14 days held (at holding-window boundary); unrealized PnL -2.68% and no fresh recovery signal. Sympathy-fade thesis has run its 5-15 day window without repricing benefit. Exit per discipline regardless of P&L."
+  },
+  {
+    "ts": "2026-06-25T20:58:06.027113+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-06-25T20:58:06.026792+00:00",
+    "side": "BUY",
+    "ticker": "ONTO",
+    "shares": 1.6526,
+    "fill_price": 342.6823,
+    "fees": 0.3553,
+    "notional": 566.32,
+    "why": "Opened per flag: OVERDONE conf 4 — Anthropic's Claude Tag brings always-on AI teammate to Slack"
   }
 ]

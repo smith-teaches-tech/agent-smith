@@ -908,5 +908,65 @@
     "weakest_link": "The portfolio pass explicitly invokes a basket rule to cap conviction at exploratory tier despite rating the individual thesis as 'none' threat and confidence 4, creating a structural disconnect between the thesis quality and the position sizing.",
     "critique": "The individual thesis is sound: photomasks are structural inputs regardless of AI chip proliferation; Slack AI integration is mechanically unrelated to photomask demand. The five-day move of -3.63% is modest and volume multiple of 0.5 suggests passive de-risking rather than conviction selling. The real weakness is not in the thesis but in the meta-decision to limit position size to exploratory (6%) on the basis of basket-rule portfolio logic rather than the thesis itself. This is a portfolio-construction decision, not a fundamental weakness in PLAB's bull case. The thesis survives on filings and mechanism grounds, though the position size may be correct given Claude Tag trigger correlation risk.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-25T20:58:04.694551+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 is positioned defensively this run: four open positions at day 14-15 (holding-window boundary) are being held or exited per time discipline, while six fresh flags from three distinct catalysts are evaluated. Four of the six flags (ONTO, PLAB, AEIS from Claude Tag; DOCN from Jalapeno) present conviction-tier conviction strength (threat_assessment='none', high confidence, crisp filings evidence), but they cluster into two catalyst-driven baskets—the basket rule applies, forcing them to exploratory tier to avoid concentration. PHR and CGNX remain exploratory on their lower threat or confidence.",
+    "ticker": "ONTO",
+    "survived": true,
+    "weakest_link": "The bull case assumes Slack AI is truly unrelated to fab equipment demand, but if Claude Tag adoption accelerates enterprise software workloads that compete with on-premise AI chip demand, the knock-on effect on fab capex timing could materialize.",
+    "critique": "The five-day decline of -5.98% is modest and within normal sympathy-fade range, but the real vulnerability is timing: the bull case asserts 'more AI infrastructure buildout means more demand' without addressing whether the current phase is digestion rather than expansion. The Slack integration specifically targets enterprise adoption of agentic workflows, which could depress near-term capex as enterprises optimize software-first before capital-heavy chip deployments. ONTO is already held, making this a redundant position rather than a fresh conviction.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-25T20:58:04.694551+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 is positioned defensively this run: four open positions at day 14-15 (holding-window boundary) are being held or exited per time discipline, while six fresh flags from three distinct catalysts are evaluated. Four of the six flags (ONTO, PLAB, AEIS from Claude Tag; DOCN from Jalapeno) present conviction-tier conviction strength (threat_assessment='none', high confidence, crisp filings evidence), but they cluster into two catalyst-driven baskets—the basket rule applies, forcing them to exploratory tier to avoid concentration. PHR and CGNX remain exploratory on their lower threat or confidence.",
+    "ticker": "PLAB",
+    "survived": true,
+    "weakest_link": "Photomask demand is legitimately tied to design activity, but the thesis does not address whether design-cycle slowdowns precede capex cuts or whether recent design inflation is purely AI-accelerator-driven and thus vulnerable to margin compression.",
+    "critique": "Volume multiple of 0.5 signals weak conviction-level selling, consistent with sympathy rather than fundamental repricing. However, the bull case glosses over customer concentration: if the top-2 customers (29% of revenue) are accelerator makers and the Slack news reduces their near-term SKU roadmaps, design activity could decelerate faster than historical cycle. PLAB is already held, redundancy applies here as well.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-25T20:58:04.694551+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 is positioned defensively this run: four open positions at day 14-15 (holding-window boundary) are being held or exited per time discipline, while six fresh flags from three distinct catalysts are evaluated. Four of the six flags (ONTO, PLAB, AEIS from Claude Tag; DOCN from Jalapeno) present conviction-tier conviction strength (threat_assessment='none', high confidence, crisp filings evidence), but they cluster into two catalyst-driven baskets—the basket rule applies, forcing them to exploratory tier to avoid concentration. PHR and CGNX remain exploratory on their lower threat or confidence.",
+    "ticker": "AEIS",
+    "survived": true,
+    "weakest_link": "The bull case correctly notes AEIS's 10-K flags AI as a tailwind, but does not quantify the mix between fab and data-center power demand or address whether data-center capex cycle inflection points are near.",
+    "critique": "The five-day move of -1.54% is the smallest in the basket, and volume of 0.84x is tepid—classic sympathy fade noise. The real bear case would require evidence that data-center power conversions are already over-built relative to utilization, which is not presented. The thesis is strong and the sell-off is minor. AEIS is already held, making this redundant coverage.",
+    "confidence_in_critique": 1
+  },
+  {
+    "ts": "2026-06-25T20:58:04.694551+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 is positioned defensively this run: four open positions at day 14-15 (holding-window boundary) are being held or exited per time discipline, while six fresh flags from three distinct catalysts are evaluated. Four of the six flags (ONTO, PLAB, AEIS from Claude Tag; DOCN from Jalapeno) present conviction-tier conviction strength (threat_assessment='none', high confidence, crisp filings evidence), but they cluster into two catalyst-driven baskets—the basket rule applies, forcing them to exploratory tier to avoid concentration. PHR and CGNX remain exploratory on their lower threat or confidence.",
+    "ticker": "DOCN",
+    "survived": true,
+    "weakest_link": "The bull case assumes Jalapeno (OpenAI's custom chip) has zero read-through to SMB/developer clouds, but if a credible inference-on-edge story emerges (bringing frontier model inference to cheaper tiers), DOCN's AI/ML revenue could face longer-term compression.",
+    "critique": "The five-day decline of -14.69% is extended and suggests more than pure sympathy—this is a genuine crowd exit from cloud-infrastructure plays on Broadcom/OpenAI news. However, the timing and magnitude do not prove fundamental deterioration. DOCN's SMB customer base is structurally insulated from vertical integration at hyperscale inference economics. The single-day -5.47% move is material but consistent with thematic de-risking. Without a follow-up guidance cut or customer churn signal, this is a tradable fade rather than a broken thesis.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-25T20:58:04.694551+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 is positioned defensively this run: four open positions at day 14-15 (holding-window boundary) are being held or exited per time discipline, while six fresh flags from three distinct catalysts are evaluated. Four of the six flags (ONTO, PLAB, AEIS from Claude Tag; DOCN from Jalapeno) present conviction-tier conviction strength (threat_assessment='none', high confidence, crisp filings evidence), but they cluster into two catalyst-driven baskets—the basket rule applies, forcing them to exploratory tier to avoid concentration. PHR and CGNX remain exploratory on their lower threat or confidence.",
+    "ticker": "CGNX",
+    "survived": true,
+    "weakest_link": "The bull case asserts Slack AI has zero overlap with factory-floor QA, but if Slack adoption accelerates and enterprise AI adoption becomes visible-layer integrated (e.g., agents requesting QA data feeds), CGNX could face longer-term platform-risk pricing.",
+    "critique": "The five-day move of -2.94% is minimal, and volume of 0.84x shows weak selling pressure. The thesis that industrial machine vision is deterministic and moat-protected is sound. Slack AI teammate is an enterprise-collaboration tool, not a computer-vision replacement. CGNX is already held, so this is redundant flag coverage.",
+    "confidence_in_critique": 1
+  },
+  {
+    "ts": "2026-06-25T20:58:04.694551+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 is positioned defensively this run: four open positions at day 14-15 (holding-window boundary) are being held or exited per time discipline, while six fresh flags from three distinct catalysts are evaluated. Four of the six flags (ONTO, PLAB, AEIS from Claude Tag; DOCN from Jalapeno) present conviction-tier conviction strength (threat_assessment='none', high confidence, crisp filings evidence), but they cluster into two catalyst-driven baskets—the basket rule applies, forcing them to exploratory tier to avoid concentration. PHR and CGNX remain exploratory on their lower threat or confidence.",
+    "ticker": "PHR",
+    "survived": true,
+    "weakest_link": "The bull case dismisses agentic AI as unable to replicate HIPAA + EHR integration complexity, but if a major EHR vendor or payer network (United, CVS) announces native agentic intake, the moat narrative breaks and PHR's premium valuation becomes vulnerable.",
+    "critique": "The five-day move of -1.55% and volume of 0.7x indicate light, sympathy-driven selling. The thesis that HIPAA and EHR/payer integration create structural moats is credible and matches the data: the sell-off is shallow. No follow-up healthcare-specific AI announcement has occurred, so the primary risk (EHR vendor competitive response) remains theoretical. PHR is already held, making this a redundant position.",
+    "confidence_in_critique": 1
   }
 ]
