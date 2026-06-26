@@ -968,5 +968,15 @@
     "weakest_link": "The bull case dismisses agentic AI as unable to replicate HIPAA + EHR integration complexity, but if a major EHR vendor or payer network (United, CVS) announces native agentic intake, the moat narrative breaks and PHR's premium valuation becomes vulnerable.",
     "critique": "The five-day move of -1.55% and volume of 0.7x indicate light, sympathy-driven selling. The thesis that HIPAA and EHR/payer integration create structural moats is credible and matches the data: the sell-off is shallow. No follow-up healthcare-specific AI announcement has occurred, so the primary risk (EHR vendor competitive response) remains theoretical. PHR is already held, making this a redundant position.",
     "confidence_in_critique": 1
+  },
+  {
+    "ts": "2026-06-26T20:51:42.082314+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a portfolio management inflection: CGNX hits day 15 (exit discipline triggered), while ONTO/AEIS/PLAB show fresh OVERDONE flags on the same OpenAI-capex-cutback catalyst — applying the basket rule. DOCN flags on a separate Jalapeno catalyst.",
+    "ticker": "DOCN",
+    "survived": true,
+    "weakest_link": "The bull case assumes the panic is purely thematic sympathy, but the 5-day decline of -14.69% combined with volume only 1.06x average suggests weak conviction buying interest, leaving the door open for further deterioration if sentiment stays negative.",
+    "critique": "The bull thesis rests on customer-base segmentation (indie devs ≠ hyperscale labs) being self-evident and immediately re-priced. But the five-day move of -14.69% is extended, and volume_multiple of only 1.06x suggests the selloff lacked panic-flush characteristics—instead it looks like steady unwind without a corresponding bounce attempt or stabilization signal. If this were pure thematic panic, you'd expect either a spike to 2.0x+ volume on the initial shock, or a quick half-life fade; instead, DOCN appears to be leaking lower on ordinary volume, which is consistent with fundamental re-rating (investor confidence in cloud SMB growth under threat) rather than sympathy flush. The bull case names no concrete near-term catalyst to arrest the decline beyond 'the news cycle moves on,' which is passive rather than active conviction.",
+    "confidence_in_critique": 2
   }
 ]

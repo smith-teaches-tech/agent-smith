@@ -687,5 +687,44 @@
     "fees": 0.3553,
     "notional": 566.32,
     "why": "Opened per flag: OVERDONE conf 4 — Anthropic's Claude Tag brings always-on AI teammate to Slack"
+  },
+  {
+    "ts": "2026-06-26T20:51:42.590053+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-06-26T20:51:42.589717+00:00",
+    "side": "SELL",
+    "ticker": "CGNX",
+    "shares": 9.5389,
+    "fill_price": 65.2347,
+    "fees": 0.3994,
+    "notional": 622.27,
+    "why": "days_held = 15, holding window max reached. Thesis (Slack AI teammate is sympathy, not real threat to factory-floor vision) may remain intact, but Screen 1 discipline mandates exit after 15 trading days regardless of P&L. Current unrealized +10.38% is a win; exit and redeploy cash."
+  },
+  {
+    "ts": "2026-06-26T20:51:42.832200+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-06-26T20:51:42.831854+00:00",
+    "side": "SELL",
+    "ticker": "ONTO",
+    "shares": 3.4324000000000003,
+    "fill_price": 330.669,
+    "fees": 0.3931,
+    "notional": 1134.99,
+    "why": "days_held = 0 (same-day entry, likely a secondary fill or re-entry). Position is underwater (-5.54%). Given that the primary ONTO position (days_held=2) is already held and the thesis is intact across both, this duplicate entry violates position discipline — exit the day-0 tranche and consolidate into the 2-day position."
+  },
+  {
+    "ts": "2026-06-26T20:51:43.106588+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-06-26T20:51:43.106235+00:00",
+    "side": "BUY",
+    "ticker": "DOCN",
+    "shares": 4.0501,
+    "fill_price": 144.144,
+    "fees": 0.363,
+    "notional": 583.8,
+    "why": "Opened per flag: OVERDONE conf 3 — OpenAI unveils its first custom chip, built by Broadcom"
   }
 ]
