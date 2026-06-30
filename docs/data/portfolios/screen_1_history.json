@@ -726,5 +726,18 @@
     "fees": 0.363,
     "notional": 583.8,
     "why": "Opened per flag: OVERDONE conf 3 — OpenAI unveils its first custom chip, built by Broadcom"
+  },
+  {
+    "ts": "2026-06-30T21:00:55.590771+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-06-30T21:00:55.590436+00:00",
+    "side": "BUY",
+    "ticker": "EVH",
+    "shares": 105.5845,
+    "fill_price": 5.4655,
+    "fees": 0.7074,
+    "notional": 577.07,
+    "why": "Opened per flag: OVERDONE conf 3 — Anthropic launches Claude Sonnet 5 as a cheaper way to run agents"
   }
 ]

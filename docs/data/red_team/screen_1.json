@@ -978,5 +978,15 @@
     "weakest_link": "The bull case assumes the panic is purely thematic sympathy, but the 5-day decline of -14.69% combined with volume only 1.06x average suggests weak conviction buying interest, leaving the door open for further deterioration if sentiment stays negative.",
     "critique": "The bull thesis rests on customer-base segmentation (indie devs ≠ hyperscale labs) being self-evident and immediately re-priced. But the five-day move of -14.69% is extended, and volume_multiple of only 1.06x suggests the selloff lacked panic-flush characteristics—instead it looks like steady unwind without a corresponding bounce attempt or stabilization signal. If this were pure thematic panic, you'd expect either a spike to 2.0x+ volume on the initial shock, or a quick half-life fade; instead, DOCN appears to be leaking lower on ordinary volume, which is consistent with fundamental re-rating (investor confidence in cloud SMB growth under threat) rather than sympathy flush. The bull case names no concrete near-term catalyst to arrest the decline beyond 'the news cycle moves on,' which is passive rather than active conviction.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-06-30T21:00:55.259623+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 evaluates two new OVERDONE flags (EVH, DUOL) against four open positions all trading at 4–6 days held with positive thesis momentum. EVH clears the buy bar as exploratory; DUOL sits at the confidence threshold with 'indirect' threat and is sized exploratory if admitted. All open positions are held—sympathy fade intact, no fresh negatives, days_held well within window.",
+    "ticker": "EVH",
+    "survived": true,
+    "weakest_link": "The bull case depends on EVH's core business being mechanically insulated from AI displacement, but provides no evidence that the market recognizes this distinction or that the sympathy fade will reverse.",
+    "critique": "The bull thesis rests on a correct observation—that payer contracts and clinical networks are not threatened by cheaper agentic models—but conflates market logic with fundamental resilience. The 5-day recovery of +12.92% is cited as evidence of 'sympathy-fade thesis,' yet that same recovery is equally consistent with a temporary oversold bounce in a name whose risk profile has genuinely shifted. The thesis names no mechanism by which the market will re-rate EVH's insulation from AI displacement; it assumes the market will simply 'see through' the SaaS sympathy without evidence. The real kill condition ('customer-loss 8-K') is set so high that ordinary competitive pressures or margin pressure from payer pushback could easily persist without triggering it, leaving the position vulnerable to a slower grind lower.",
+    "confidence_in_critique": 2
   }
 ]
