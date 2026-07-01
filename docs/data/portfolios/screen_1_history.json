@@ -739,5 +739,18 @@
     "fees": 0.7074,
     "notional": 577.07,
     "why": "Opened per flag: OVERDONE conf 3 — Anthropic launches Claude Sonnet 5 as a cheaper way to run agents"
+  },
+  {
+    "ts": "2026-07-01T20:52:41.000526+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-07-01T20:52:41.000174+00:00",
+    "side": "BUY",
+    "ticker": "DOCN",
+    "shares": 3.9329,
+    "fill_price": 150.6505,
+    "fees": 0.3626,
+    "notional": 592.49,
+    "why": "Opened per flag: OVERDONE conf 4 — Gemini Spark, Google's agentic assistant, is now available on Mac"
   }
 ]
