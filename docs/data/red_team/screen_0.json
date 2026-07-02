@@ -418,5 +418,25 @@
     "weakest_link": "The thesis assumes sub-average volume (0.94x) on a -7.16% gap proves forced beta unwinding rather than informed selling, but a single-day volume multiple is insufficient to distinguish panic liquidation from genuine repositioning by informed participants.",
     "critique": "The bull case rests on the claim that low volume + large drop = forced unwinding without informed sellers. However, 0.94x volume on a high-volatility day is only marginally below average and does not rule out informed selling by sophisticated players who scale their volume during panics. The five-day context (+9.04%) is framing—it describes where the stock was, not why it fell today. The catalog of 'what_kills' (8-K, peer pre-announcement) describes tail risks, but the base case should acknowledge that sympathy selling to sector comps can persist for multiple days if the sector thesis remains in question, and a 6% position on a 3-confidence exploratory trade tied to sector reversion timing carries hidden roll risk if the buyer must exit before the stabilization materializes.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-02T20:22:02.445091+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio is up modestly (+$289 unrealized across 4 positions, all gainers). The risk is concentrated in healthcare (3 of 4 positions) and the gains are driven by sector tailwinds rather than specific catalysts playing out. On new flags: two aerospace/defense sympathy moves (AVAV re-entry, MRCY) warrant rejection—AVAV fails the confidence bar for re-entry and MRCY is pure low-volume sympathy without conviction. LSCC and ONTO present genuine tactical opportunities (new filing + sector noise, and low-volume sympathy selloff respectively) as exploratory trades. AEIS is similar to ONTO but already positioned in the semi-adjacent space. AYI re-entry fails the bar. BBIO is correctly RATIONAL but offers no actionable edge.",
+    "ticker": "LSCC",
+    "survived": true,
+    "weakest_link": "The bull thesis rests on the assumption that 1.01 + 2.03 filings automatically signal under-priced repricing, but without exhibit access the deal direction (accretive vs. dilutive) is genuinely unknown and could already be priced in by informed insiders.",
+    "critique": "The flag correctly identifies that deal terms are unknown, yet the entire bull case hinges on the idea that markets will reprice favorably once clarity arrives. However, a -6.68% single-day move on a material filing suggests the market may have already digested the announcement negatively (via early exhibit review or sell-side commentary), making the 'under-processing during sector noise' claim speculative. The thesis also assumes the selloff is purely sector-driven and not compounded by company-specific concern about the deal structure itself. Without evidence that informed traders are actually mispricing this (e.g., insider buying, options skew favoring upside), the setup is indistinguishable from a justified repricing that will continue.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-02T20:22:02.445091+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio is up modestly (+$289 unrealized across 4 positions, all gainers). The risk is concentrated in healthcare (3 of 4 positions) and the gains are driven by sector tailwinds rather than specific catalysts playing out. On new flags: two aerospace/defense sympathy moves (AVAV re-entry, MRCY) warrant rejection—AVAV fails the confidence bar for re-entry and MRCY is pure low-volume sympathy without conviction. LSCC and ONTO present genuine tactical opportunities (new filing + sector noise, and low-volume sympathy selloff respectively) as exploratory trades. AEIS is similar to ONTO but already positioned in the semi-adjacent space. AYI re-entry fails the bar. BBIO is correctly RATIONAL but offers no actionable edge.",
+    "ticker": "ONTO",
+    "survived": false,
+    "weakest_link": "The five_day_change_pct of +9.04% shows ONTO had already rallied hard into this selloff, making the current -7.16% move a partial correction of an extended position rather than a sympathy panic that will retrace in full.",
+    "critique": "The bull thesis claims sub-average volume (0.94x) signals beta unwinding without informed sellers and implies a high-probability retrace. However, a stock up +9% over 5 days that drops -7% on light volume is more consistent with profit-taking and mean reversion than panic liquidation. The volume being below average actually suggests limited conviction on either side—the earlier 9% run may have exhausted available buyers, and the -7% pullback could be the beginning of a longer consolidation or correction rather than a temporary washout. ONTO's outperformance during Q2 (as implied by the 5-day chart) makes it a prime target for rebalancing and lock-in selling during any sector stress, not a forced beta unwind.",
+    "confidence_in_critique": 4
   }
 ]

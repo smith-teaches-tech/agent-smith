@@ -752,5 +752,18 @@
     "fees": 0.3626,
     "notional": 592.49,
     "why": "Opened per flag: OVERDONE conf 4 — Gemini Spark, Google's agentic assistant, is now available on Mac"
+  },
+  {
+    "ts": "2026-07-02T20:22:42.188112+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-07-02T20:22:42.187826+00:00",
+    "side": "BUY",
+    "ticker": "ONTO",
+    "shares": 6.0165,
+    "fill_price": 349.0687,
+    "fees": 0.3693,
+    "notional": 2100.17,
+    "why": "Opened per flag: OVERDONE conf 4 — Meta quietly launches vibe-coded gaming app Pocket"
   }
 ]
