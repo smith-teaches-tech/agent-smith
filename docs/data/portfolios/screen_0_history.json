@@ -503,5 +503,18 @@
     "fees": 0.4582,
     "notional": 2093.59,
     "why": "Entered 1 day ago on UNDERDONE conf 4 (horizon: weeks) flagged for 4.02 (non-reliance restatement) + 5.02 (officer departure) + earnings on 6/29. Position is -7.64% unrealized after 1 day. The thesis was that restatement severity was being underpriced and that the stock would grind lower as the scope expanded and sell-side withdrew estimates. HOWEVER: on closer inspection of the new flag's own logic, the entry decision itself appears flawed. The original flag classified AVAV as UNDERDONE on the premise that a 4.02+5.02 combo 5 days before earnings would drift lower for weeks. But the flag's own 'what_kills' clause notes: 'If the restatement is narrowly scoped to a single non-cash item with no period-over-period EPS impact, and the departed officer is a planned transition unrelated to the restatement, the overhang dissipates quickly.' The 8-K (linked in the flag, dated 6/16, filed 6/22) needs to be reviewed for scope specificity. Given that we cannot access the full filing details in real time and the position has already moved -7.64% in 1 day (suggesting the market is not underpricing the risk), the entry conviction is insufficient. The position is too risky for a sub-10%-sized hold on what may be an earnings whipsaw. Exiting to preserve capital and redeploy."
+  },
+  {
+    "ts": "2026-07-06T20:53:35.648127+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-07-06T20:53:35.647748+00:00",
+    "side": "SELL",
+    "ticker": "ALK",
+    "shares": 1.6,
+    "fill_price": 51.5684,
+    "fees": 0.3577,
+    "notional": 82.51,
+    "why": "ALK entered on UNDERDONE (conf 3) with thesis: Trump Iran deal → oil lower → airline fuel relief. 20 days later, position is essentially flat (+0.66% unrealized). Crude prices have NOT declined in the envisioned manner — in fact, oil has been stable to firmer (per market backdrop). The catalyst (Iran deal 'subject to finalization') has not converted to lower energy prices. This is a weakening of the original thesis mechanism. Trim half the position to lock in a small gain and preserve dry powder; the remaining half can stay as a lottery ticket if oil finally breaks, but the core thesis is deteriorating. ALK shows this sector has moved on from the Trump-oil narrative."
   }
 ]

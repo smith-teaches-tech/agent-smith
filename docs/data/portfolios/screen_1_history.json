@@ -765,5 +765,31 @@
     "fees": 0.3693,
     "notional": 2100.17,
     "why": "Opened per flag: OVERDONE conf 4 — Meta quietly launches vibe-coded gaming app Pocket"
+  },
+  {
+    "ts": "2026-07-06T20:53:50.172859+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-07-06T20:53:50.172484+00:00",
+    "side": "SELL",
+    "ticker": "DOCN",
+    "shares": 2.0,
+    "fill_price": 130.6692,
+    "fees": 0.364,
+    "notional": 261.34,
+    "why": "First DOCN tranche: 10 days held, down 8.92%. OpenAI custom chip catalyst is thinner than Anthropic/Google agent catalysts (less direct sympathy spillover to a cloud infrastructure provider). Holding two tranches totaling 8.0 DOCN shares at cumulative 10.89% loss suggests position is overcrowded. Trim 2 shares from this tranche to raise cash and reduce sector concentration."
+  },
+  {
+    "ts": "2026-07-06T20:53:50.299648+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-07-06T20:53:50.299283+00:00",
+    "side": "SELL",
+    "ticker": "DOCN",
+    "shares": 1.5,
+    "fill_price": 130.6692,
+    "fees": 0.3605,
+    "notional": 196.0,
+    "why": "Second DOCN tranche: 5 days held, down 12.85%. Holding two separate DOCN entries (likely from distinct flag dates/catalysts) creates redundancy and sector drift. Trim 1.5 shares from this position to de-risk and align portfolio. Remaining 2.4 shares preserves exposure to either thesis that recovers."
   }
 ]
