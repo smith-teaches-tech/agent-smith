@@ -1078,5 +1078,35 @@
     "weakest_link": "The five-day change shows EVH UP 12.92% while the stock is classified as OVERDONE and rated a BUY, creating ambiguity about whether this is a sympathy-fade play or a false-positive signal (the stock may already be rebounding for unrelated reasons).",
     "critique": "EVH is the only ticker in the basket showing a positive five-day return (up 12.92%) while classified as OVERDONE and given a BUY signal. This contradicts the sympathy-fade thesis: if EVH has already bounced, then the entry point is less clear and the move may reflect idiosyncratic healthcare or payer-specific news rather than Anthropic Sonnet 5 sympathy. The threat assessment is 'minimal' not 'none,' and the filings show only generic AI risk mention per Haiku's own reasoning. The exploratory tier and 6% sizing are appropriate given the weaker threat rating and the confusing price action, but the fact that EVH is already up while peers are down suggests Haiku may be chasing a rebound that is already in price.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-07T20:53:17.227565+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 holds 7 open positions (2 DOCN duplicates) averaging 13 days into the fade window; 3 are near or past recovery targets, 1 showing gains. Four new flags on the Claude Cowork expansion trigger—three are basket-rule EXPLORATORY (ONTO, AEIS, PLAB all hit at days 5-13 already held, all fresh overlaps with existing positions), one weaker indirect threat (CGNX) stays WATCH.",
+    "ticker": "ONTO",
+    "survived": true,
+    "weakest_link": "The thesis assumes the five-day -20.35% drawdown is irrational sympathy fade, but doesn't rule out that broader semi-cap capex anxiety (unrelated to Claude Cowork) is the true driver and may persist.",
+    "critique": "The bull case rests on the premise that metrology/inspection tools have zero mechanical link to a coding-agent product release, which is sound. However, the -20.35% five-day move and -7.88% single-day move occur in a market context where WFE sentiment can shift rapidly on any macro signal. The flag acknowledges 'no company-specific bad news' but doesn't address whether the drawdown itself signals broader fab capex hesitation that ONTO filings haven't yet captured. The bull thesis treats this as a pure sympathy fade, but the data allows for a genuine capex-cycle inflection that the filings haven't disclosed yet.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-07T20:53:17.227565+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 holds 7 open positions (2 DOCN duplicates) averaging 13 days into the fade window; 3 are near or past recovery targets, 1 showing gains. Four new flags on the Claude Cowork expansion trigger—three are basket-rule EXPLORATORY (ONTO, AEIS, PLAB all hit at days 5-13 already held, all fresh overlaps with existing positions), one weaker indirect threat (CGNX) stays WATCH.",
+    "ticker": "AEIS",
+    "survived": true,
+    "weakest_link": "The thesis depends on power-delivery demand remaining robust despite the broader tech selloff, but volume_multiple of 0.7 (below average) suggests weak accumulation into the drawdown and may indicate institutional hesitation rather than pure sympathy.",
+    "critique": "The mechanical logic—that AI workloads require more power conversion—is solid and supported by the filings interpretation. However, the volume_multiple of 0.7 is a material red flag: if this were a genuine sympathy-driven mispricing, one would expect elevated volume on the way down as smart money accumulated. Instead, below-average volume combined with a -17.35% five-day drawdown suggests this may be a liquidity-driven flush or a signal that the market is discounting something beyond the catalyst alone. The bull case doesn't account for why institutional buyers are NOT showing up proportionally on this dip.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-07T20:53:17.227565+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 holds 7 open positions (2 DOCN duplicates) averaging 13 days into the fade window; 3 are near or past recovery targets, 1 showing gains. Four new flags on the Claude Cowork expansion trigger—three are basket-rule EXPLORATORY (ONTO, AEIS, PLAB all hit at days 5-13 already held, all fresh overlaps with existing positions), one weaker indirect threat (CGNX) stays WATCH.",
+    "ticker": "PLAB",
+    "survived": true,
+    "weakest_link": "The thesis correctly identifies photomasks as required for all chips, but the 'design release' driver of mask demand is not quantified or timed—the bull case doesn't establish when these design releases are actually expected to occur or whether current drawdown reflects a timing/execution risk.",
+    "critique": "The photomask argument is mechanically sound: more accelerators mean more mask orders. However, the flag cites 'IC design activity metrics remain strong' as a confirmer without naming which metrics, when they'll inflect, or what lag exists between design release and revenue recognition. The -11.92% five-day move is modest relative to the basket peers, which could imply PLAB has already been repriced, or could mean the market is unconvinced of the timing thesis. The bull case assumes design activity will translate to near-term mask orders, but doesn't address the rhythm or the risk that the AI chip cycle has already moved past peak design announcements.",
+    "confidence_in_critique": 2
   }
 ]
