@@ -458,5 +458,25 @@
     "weakest_link": "The thesis assumes sympathy moves without volume confirmation reliably fade within days, but the 5-day change of +10.34% suggests the move has already held for multiple days, weakening the 'imminent mean reversion' case.",
     "critique": "Haiku frames this as a tactical fade—sympathy without conviction volume that should unwind in 3-5 days. However, the data shows MRCY is up 10.99% on the day but only 10.34% over five days, indicating the bulk of the move happened today, not over multiple sessions. The thesis predicts near-term reversion of a move that just occurred; if institutions were going to participate on sympathy, the 5-day would show accumulation across multiple days rather than a single-day spike. The setup is plausible, but the 'imminent fade' timing is less certain than Haiku suggests. At 6% exploratory sizing with a named hard stop (volume >1.5x), the position sizing is appropriate for the uncertainty, which supports the trade structure even if the reversal timing is speculative.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-08T20:23:20.960492+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio up +2.4% on mark-to-market; all four open positions remain intact with original catalysts unresolved. NTLA and PTCT show strong unrealized gains, while ALK and ALGN are slightly underwater. New flag batch features four semi/semi-cap names (ONTO, AEIS, VECO) in a volatile sector tape, one defense fade (AVAV—re-entry warning applies), and one benign post-earnings pop (FIZZ). AVAV re-entry is rejected despite fresh flag due to insufficient confidence gain and no new information vs. exit rationale. ONTO and VECO pass the exploratory bar; others SKIP or WATCH.",
+    "ticker": "ONTO",
+    "survived": true,
+    "weakest_link": "The thesis assumes ONTO's prior overhang is 'known' and already priced in, but provides no evidence (no 8-K cited, no specific guidance cut quantified) that the market has actually digested this negative catalyst.",
+    "critique": "The bull case rests on the premise that ONTO's 22.99% five-day decline was ONTO-specific (guidance cut) and is now 'known,' leaving only sympathy participation to be filled. However, the flag itself states 'No new 8-K, so today's bounce is likely early beta re-engagement'—which means no public confirmation of what caused the drawdown. Without naming the catalyst that caused the 23% drop, the thesis conflates sector momentum (SMH +2%, AVGO +5%) with a belief that a company-specific problem has been resolved or priced. If the drawdown was driven by forward guidance, unresolved customer concentration, or margin concerns that the market hasn't yet front-run, today's 4.12% bounce could be a false start before re-acceleration of the decline. The low volume multiple (0.84) is cited as evidence of passive selling, but it equally supports the read that institutional buyers have not yet engaged—raising the question of whether they will.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-08T20:23:20.960492+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio up +2.4% on mark-to-market; all four open positions remain intact with original catalysts unresolved. NTLA and PTCT show strong unrealized gains, while ALK and ALGN are slightly underwater. New flag batch features four semi/semi-cap names (ONTO, AEIS, VECO) in a volatile sector tape, one defense fade (AVAV—re-entry warning applies), and one benign post-earnings pop (FIZZ). AVAV re-entry is rejected despite fresh flag due to insufficient confidence gain and no new information vs. exit rationale. ONTO and VECO pass the exploratory bar; others SKIP or WATCH.",
+    "ticker": "VECO",
+    "survived": true,
+    "weakest_link": "The thesis relies on the absence of an 8-K to infer the 23.3% drop is forced/passive selling, but absence of disclosure is not evidence of absence of fundamental damage.",
+    "critique": "The bull case hinges on a technical argument: VECO down 23.3% while SMH +2% and peers hold is 'asymmetrically' overdone, and low volume (0.62x) proves it's not informed selling. However, the 'what_kills' section explicitly flags that an 8-K disclosing customer concentration or capex cuts would validate the underperformance, and that ASML/AMAT commentary on memory or packaging weakness could justify VECO's drop. The problem is that the absence of an 8-K as of the date of this analysis does not mean no company-specific damage exists—it may mean the damage (customer order visibility, architectural shifts in advanced packaging) simply hasn't triggered a formal disclosure threshold yet. Memory and packaging end-markets are notoriously binary; a large customer's capex pause can take weeks to surface in filings. The low volume on the drop argues for illiquidity, not innocence of the underlying thesis. Without positive catalyst (earnings, customer reaffirmation, or peer commentary supporting demand) the trade is betting against a divergence that may be rational.",
+    "confidence_in_critique": 2
   }
 ]
