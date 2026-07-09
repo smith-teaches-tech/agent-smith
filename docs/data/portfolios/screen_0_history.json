@@ -516,5 +516,70 @@
     "fees": 0.3577,
     "notional": 82.51,
     "why": "ALK entered on UNDERDONE (conf 3) with thesis: Trump Iran deal → oil lower → airline fuel relief. 20 days later, position is essentially flat (+0.66% unrealized). Crude prices have NOT declined in the envisioned manner — in fact, oil has been stable to firmer (per market backdrop). The catalyst (Iran deal 'subject to finalization') has not converted to lower energy prices. This is a weakening of the original thesis mechanism. Trim half the position to lock in a small gain and preserve dry powder; the remaining half can stay as a lottery ticket if oil finally breaks, but the core thesis is deteriorating. ALK shows this sector has moved on from the Trump-oil narrative."
+  },
+  {
+    "ts": "2026-07-09T20:49:06.620727+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-07-09T20:49:06.620436+00:00",
+    "side": "SELL",
+    "ticker": "NTLA",
+    "shares": 20.9,
+    "fill_price": 16.5734,
+    "fees": 0.43,
+    "notional": 346.38,
+    "why": "23 days held, +20.6% gain. Original thesis was same-day 8-K (likely clinical data or partnership). That catalyst has fired and stock has moved. No new clinical catalyst on near horizon; the run is realized. Trimming half position (50%) locks in profit, keeps dry powder for new flags. Remaining 20.9 shares preserve exposure if there's a follow-up announcement, but position is aging past its information window."
+  },
+  {
+    "ts": "2026-07-09T20:49:07.057587+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-07-09T20:49:07.057302+00:00",
+    "side": "SELL",
+    "ticker": "ALK",
+    "shares": 1.5775000000000001,
+    "fill_price": 47.952,
+    "fees": 0.3574,
+    "notional": 75.64,
+    "why": "23 days held, flat (+0.13%). Original thesis was Iran de-escalation → oil lower → airline fuel relief. Oil has not moved meaningfully lower this week (data shows fuel tailwind is speculative rather than realized). Meanwhile JBLU +6% and broader airline sector rallying independently of ALK, suggesting ALK's positioning has become a laggard within its own peer set. Thesis is weakening: the macro catalyst did not produce the expected oil move, and ALK is not capturing any idiosyncratic strength. Exit and redeploy."
+  },
+  {
+    "ts": "2026-07-09T20:49:07.468749+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-07-09T20:49:07.468442+00:00",
+    "side": "SELL",
+    "ticker": "PTCT",
+    "shares": 4.0,
+    "fill_price": 88.921,
+    "fees": 0.3734,
+    "notional": 355.68,
+    "why": "21 days held, +18.3% gain. Original thesis was 8-K filed 6/16 (8.01 item) plus broader biotech bid sentiment. Catalyst has been realized; stock has moved. No new biotech M&A catalyst visible on near-term horizon. Similar to NTLA: trim 50% to lock in profit (realizes ~$111 gain), keep 4 shares as remaining-position hedge against follow-up announcements."
+  },
+  {
+    "ts": "2026-07-09T20:49:07.785462+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-07-09T20:49:07.785154+00:00",
+    "side": "SELL",
+    "ticker": "ALGN",
+    "shares": 3.4735,
+    "fill_price": 174.2456,
+    "fees": 0.3785,
+    "notional": 605.24,
+    "why": "20 days held, +0.67%. Original thesis was positioning shift / consumer discretionary risk-on with no specific catalyst filing. This was always a vague setup (flag notes 'no specific filing'). Stock has barely moved in 20 days despite a risk-on backdrop, suggesting either the positioning thesis was wrong or ALGN is not a reliable proxy for it. With flat returns and no new catalyst, thesis is weakening. Exit to raise cash for clearer-catalyst trades."
+  },
+  {
+    "ts": "2026-07-09T20:49:08.278864+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-07-09T20:49:08.278558+00:00",
+    "side": "BUY",
+    "ticker": "AEIS",
+    "shares": 2.0405,
+    "fill_price": 313.4281,
+    "fees": 0.3565,
+    "notional": 639.55,
+    "why": "Opened per flag: UNDERDONE conf 3 — Semi-cap sympathy rebound with SMH +2.48%"
   }
 ]

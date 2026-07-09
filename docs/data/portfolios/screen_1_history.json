@@ -791,5 +791,83 @@
     "fees": 0.3605,
     "notional": 196.0,
     "why": "Second DOCN tranche: 5 days held, down 12.85%. Holding two separate DOCN entries (likely from distinct flag dates/catalysts) creates redundancy and sector drift. Trim 1.5 shares from this position to de-risk and align portfolio. Remaining 2.4 shares preserves exposure to either thesis that recovers."
+  },
+  {
+    "ts": "2026-07-09T20:50:02.073047+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-07-09T20:50:02.072702+00:00",
+    "side": "SELL",
+    "ticker": "AEIS",
+    "shares": 1.5404,
+    "fill_price": 312.8019,
+    "fees": 0.3686,
+    "notional": 481.84,
+    "why": "Holding window maximum reached (days_held=15). Screen 1 discipline: sympathy-fade thesis has a fixed 5-15 day window; at 15 days with no recovery (-15.62% unrealized), the fade trade is exhausted. New flag on AEIS today (Claude Cowork, threat_assessment=none, filings-positive) is a separate buy signal, not a reason to hold the old position. Exit to free capital."
+  },
+  {
+    "ts": "2026-07-09T20:50:02.338636+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-07-09T20:50:02.338307+00:00",
+    "side": "SELL",
+    "ticker": "PHR",
+    "shares": 61.4379,
+    "fill_price": 10.4096,
+    "fees": 0.5746,
+    "notional": 639.54,
+    "why": "Holding window maximum reached (days_held=15). Despite strong recovery (+18.28% unrealized), the Screen 1 thesis window has expired. Thesis still intact (no fresh negative news), but discipline requires exit at day 15 to prevent drift into long-term hold. Lock in gains and redeploy."
+  },
+  {
+    "ts": "2026-07-09T20:50:02.592309+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-07-09T20:50:02.591979+00:00",
+    "side": "SELL",
+    "ticker": "PLAB",
+    "shares": 17.8221,
+    "fill_price": 29.4405,
+    "fees": 0.4246,
+    "notional": 524.69,
+    "why": "Holding window maximum reached (days_held=14, approaching boundary at 15). Thesis remains intact but new flag on PLAB today (Claude Cowork, threat_assessment=none, filings-positive for photomasks) is mechanically stronger than the original flag (Anthropic Claude Tag, unrelated). Exit original position and rebuy via new flag if conviction/exploratory tier warrants."
+  },
+  {
+    "ts": "2026-07-09T20:50:03.329950+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-07-09T20:50:03.329612+00:00",
+    "side": "BUY",
+    "ticker": "BLKB",
+    "shares": 18.6305,
+    "fill_price": 27.5375,
+    "fees": 0.4096,
+    "notional": 513.04,
+    "why": "Opened per flag: OVERDONE conf 4 — OpenAI releases new voice models for more natural live conversations"
+  },
+  {
+    "ts": "2026-07-09T20:50:03.688021+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-07-09T20:50:03.687691+00:00",
+    "side": "BUY",
+    "ticker": "NCNO",
+    "shares": 32.0807,
+    "fill_price": 16.8668,
+    "fees": 0.4527,
+    "notional": 541.1,
+    "why": "Opened per flag: OVERDONE conf 4 — OpenAI releases new voice models for more natural live conversations"
+  },
+  {
+    "ts": "2026-07-09T20:50:03.951423+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-07-09T20:50:03.951089+00:00",
+    "side": "BUY",
+    "ticker": "PAYC",
+    "shares": 0.3014,
+    "fill_price": 134.8847,
+    "fees": 0.351,
+    "notional": 40.65,
+    "why": "Opened per flag: OVERDONE conf 4 — OpenAI releases new voice models for more natural live conversations"
   }
 ]
