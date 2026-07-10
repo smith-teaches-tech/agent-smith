@@ -1218,5 +1218,55 @@
     "weakest_link": "The photomask-demand thesis is sound (every chip needs masks, more AI silicon = more masks), but the -11.92% five-day decline, combined with extreme customer concentration (top 2 = 29% of revenue), suggests either a top-customer loss is in play or the market is pricing China export controls or capex cuts harder than the flag acknowledges.",
     "critique": "PLAB's 29% customer concentration (top 2) is material risk that the flag mentions only in the 'what_kills' section. The -11.92% five-day move is not explained by sympathy alone; it likely reflects either a customer-specific event or broader China-related supply-chain repricing. The filings evidence on mask demand being design-driven is correct, but customer concentration on photomask supply is a known structural vulnerability in this cycle.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-10T20:25:20.913627+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a crowded new-flag landscape (14 flags, mostly confidence-4 OVERDONE) against an already-full portfolio (7 open positions, mostly recent entries). Portfolio thesis status is intact on all names—all are sub-15 days old and sit in sympathy-fade windows—but new-flag prioritization must respect bankroll and position limits. The GPT-5.6 and Claude Cowork catalysts have triggered a broad basket of security/SaaS/infrastructure sympathy drops; per the basket rule, flags from the same trigger must default to exploratory tier unless one name has materially stronger filings evidence. Execution layer will enforce hard caps.",
+    "ticker": "QLYS",
+    "survived": true,
+    "weakest_link": "The thesis assumes compliance audit trails remain non-substitutable, but does not address whether a hyperscaler-backed offering could achieve FedRAMP certification faster than the market is pricing in.",
+    "critique": "Haiku's case rests on the claim that compliance artifacts cannot be LLM-generated, which is sound in principle. However, the bull thesis does not meaningfully distinguish between the *technical* difficulty of generating audit trails (low) and the *regulatory* difficulty of certifying them (higher but not insurmountable for well-capitalized players). The move is only -4.2%, and five-day recovery of +3.09% suggests conviction in the fade is already waning. The real risk is not that GPT-5.6 makes vulnerability scanning obsolete, but that a Palo Alto or CrowdStrike bundle with AI-native compliance reporting could erode pricing power over 12–18 months—a longer horizon than the 'days' frame suggests.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-10T20:25:20.913627+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a crowded new-flag landscape (14 flags, mostly confidence-4 OVERDONE) against an already-full portfolio (7 open positions, mostly recent entries). Portfolio thesis status is intact on all names—all are sub-15 days old and sit in sympathy-fade windows—but new-flag prioritization must respect bankroll and position limits. The GPT-5.6 and Claude Cowork catalysts have triggered a broad basket of security/SaaS/infrastructure sympathy drops; per the basket rule, flags from the same trigger must default to exploratory tier unless one name has materially stronger filings evidence. Execution layer will enforce hard caps.",
+    "ticker": "DUOL",
+    "survived": true,
+    "weakest_link": "The thesis correctly identifies the dopamine loop as DUOL's core moat, but does not quantify how much of DUOL's growth is driven by content quality vs. habit formation, leaving exposure to a capability threshold at which AI-generated tutoring becomes 'good enough' for a meaningful cohort.",
+    "critique": "The -3.99% move and -0.8% five-day change indicate minimal conviction in the downside. Haiku's argument that GPT-5.6 is only a marginal step is reasonable, and the track record of DUOL surviving prior AI scares supports the fade hypothesis. However, the thesis does not address the possibility that a 'good enough' AI tutor at near-zero marginal cost could cannibalize DUOL's DAU among price-sensitive or ad-averse cohorts, even if the core gamification moat remains intact. The risk is cohort-specific, not wholesale replacement.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-10T20:25:20.913627+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a crowded new-flag landscape (14 flags, mostly confidence-4 OVERDONE) against an already-full portfolio (7 open positions, mostly recent entries). Portfolio thesis status is intact on all names—all are sub-15 days old and sit in sympathy-fade windows—but new-flag prioritization must respect bankroll and position limits. The GPT-5.6 and Claude Cowork catalysts have triggered a broad basket of security/SaaS/infrastructure sympathy drops; per the basket rule, flags from the same trigger must default to exploratory tier unless one name has materially stronger filings evidence. Execution layer will enforce hard caps.",
+    "ticker": "TENB",
+    "survived": true,
+    "weakest_link": "Haiku emphasizes TENB's own filings frame AI as a demand tailwind, but does not account for the possibility that if competitor products (CrowdStrike, Palo Alto, Wiz) integrate superior AI-powered prioritization faster, TENB could face share loss despite rising overall market demand.",
+    "critique": "The -3.84% move with +3.06% five-day recovery reflects weak conviction in the panic. The thesis is strong on why Nessus agents remain essential and why ExposureAI monetizes the AI trend. However, the 'what_kills' criterion requires a CrowdStrike bundle or Wiz integration to meaningfully cannibalize TENB, which is plausible but not yet evident. The real vulnerability is that TENB's filings acknowledge AI as a competitive dynamic without specifying TENB's relative speed of feature parity with larger competitors.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-10T20:25:20.913627+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a crowded new-flag landscape (14 flags, mostly confidence-4 OVERDONE) against an already-full portfolio (7 open positions, mostly recent entries). Portfolio thesis status is intact on all names—all are sub-15 days old and sit in sympathy-fade windows—but new-flag prioritization must respect bankroll and position limits. The GPT-5.6 and Claude Cowork catalysts have triggered a broad basket of security/SaaS/infrastructure sympathy drops; per the basket rule, flags from the same trigger must default to exploratory tier unless one name has materially stronger filings evidence. Execution layer will enforce hard caps.",
+    "ticker": "AEIS",
+    "survived": true,
+    "weakest_link": "The thesis correctly identifies AI as a demand tailwind for power conversion, but the five-day decline of -17.35% is substantially deeper than peers (QLYS -4.2%, DUOL -3.99%, TENB -3.84%), suggesting either material-specific bad news or a crowded position that has already been repriced.",
+    "critique": "The deeper five-day drawdown is a yellow flag. If AEIS is down -17.35% over five days on a generic AI-event fade (while competitors in the same 'threat_assessment none' basket show much shallower declines), the market may be pricing in company-specific risk: capex guidance, customer concentration, or competitive loss of share to Vicor or other rivals. Haiku does not address why AEIS is down nearly 4x more than QLYS or DUOL, which would indicate either priced-in bad news or a liquidity/crowding issue. The basket-rule exploratory tier is defensible, but the asymmetric move argues for caution.",
+    "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-07-10T20:25:20.913627+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a crowded new-flag landscape (14 flags, mostly confidence-4 OVERDONE) against an already-full portfolio (7 open positions, mostly recent entries). Portfolio thesis status is intact on all names—all are sub-15 days old and sit in sympathy-fade windows—but new-flag prioritization must respect bankroll and position limits. The GPT-5.6 and Claude Cowork catalysts have triggered a broad basket of security/SaaS/infrastructure sympathy drops; per the basket rule, flags from the same trigger must default to exploratory tier unless one name has materially stronger filings evidence. Execution layer will enforce hard caps.",
+    "ticker": "PLAB",
+    "survived": true,
+    "weakest_link": "The thesis that photomask demand is driven by design releases (and thus AI proliferation is a structural tailwind) is logically sound, but does not address the near-term risk that a cyclical trough in semiconductor capex could overwhelm the structural tailwind over a 'days' horizon.",
+    "critique": "The -5.65% move and -11.92% five-day decline are material, though not as severe as AEIS. Haiku's argument that coding agents increase chip demand is mechanically correct, but photomask cycles are driven by capex *expectations*, which can reverse quickly. If the market is pricing in a near-term semi slowdown (unrelated to Claude Cowork), PLAB's structural tailwind argument holds for 12+ months but not for a days/weeks horizon. The 'what_kills' criterion mentions customer concentration (top 2 = 29% of revenue) without quantifying the risk, and China export controls are a known overhang that the flag does not isolate.",
+    "confidence_in_critique": 2
   }
 ]

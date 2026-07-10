@@ -488,5 +488,15 @@
     "weakest_link": "The thesis assumes the 5-day selloff was peer-driven derating, but provides no mechanism to rule out a company-specific catalyst that simply hasn't surfaced yet in public filings.",
     "critique": "The bull case rests on the absence of an 8-K as evidence of no company-specific catalyst, but 8-K filing delays (especially for guidance cuts or material announcements) are common and can stretch days or weeks. A -13.2% five-day drop is severe enough that a real fundamental problem (customer loss, guidance cut, margin shock) is a material possibility that the flag lists as a what_kills criterion but doesn't weight heavily in the buy decision. The rebound on 0.69x volume (below average) is equally consistent with short-covering or algorithmic mean-reversion in a weakened name, not necessarily a reversal of a peer-wide derating. The SMH sympathy thesis is sound, but it doesn't shield AEIS from a delayed 8-K that proves the drop was company-specific.",
     "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-07-10T20:24:23.042064+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio up +2.8% in unrealized PnL with three open positions. NTLA and PTCT remain intact on clinical/M&A timelines (day 24 and day 22 respectively); both healthcare names supported by sector tailwinds. AEIS re-flagged today as UNDERDONE after a -13.2% five-day drawdown followed by +5.3% bounce—thesis is consistent with the original entry but portfolio already owns it. New flags include AXSM (OVERDONE on light-volume sympathy), JBLU (RATIONAL on oil tailwind, below-average volume), VECO (OVERDONE semi-equipment divergence, -23% in 5 days with no 8-K), and a duplicate AEIS flag. Given current sector limits and position sizing, only VECO qualifies for exploratory entry.",
+    "ticker": "VECO",
+    "survived": true,
+    "weakest_link": "The bull thesis relies on the absence of an 8-K as evidence of overshooting, but a -23.3% five-day decline without disclosure could equally signal that informed sellers (insiders, smart money) are already front-running a forthcoming announcement.",
+    "critique": "Haiku frames low volume (0.62x) as evidence of 'forced/passive selling' rather than informed repricing, but this inference is backward: if smart money knew a customer problem was coming, they would sell through the low-volume tape to minimize slippage—exactly what we observe. The divergence with SMH, TSM, and AVGO is real, but Haiku offers no mechanism to distinguish between (a) VECO is fundamentally broken and insiders know it, and (b) VECO is oversold on technicals. The 'no 8-K yet' is offered as reassurance, but the absence of disclosure is also consistent with the bad news arriving after market close or in a pre-emptive customer announcement. Haiku's own 51% hit rate on OVERDONE trades at 3-confidence is barely above flip-a-coin, and this entry point (already down -23% in five days) may be late in the repricing cycle rather than early.",
+    "confidence_in_critique": 3
   }
 ]

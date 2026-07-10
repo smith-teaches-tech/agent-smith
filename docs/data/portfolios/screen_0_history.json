@@ -581,5 +581,18 @@
     "fees": 0.3565,
     "notional": 639.55,
     "why": "Opened per flag: UNDERDONE conf 3 — Semi-cap sympathy rebound with SMH +2.48%"
+  },
+  {
+    "ts": "2026-07-10T20:24:23.600284+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-07-10T20:24:23.599993+00:00",
+    "side": "BUY",
+    "ticker": "VECO",
+    "shares": 10.9359,
+    "fill_price": 55.8858,
+    "fees": 0.385,
+    "notional": 611.16,
+    "why": "Opened per flag: OVERDONE conf 3 — No identified catalyst; possible customer concentration or memory capex fear"
   }
 ]
