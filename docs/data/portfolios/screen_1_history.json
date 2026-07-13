@@ -869,5 +869,44 @@
     "fees": 0.351,
     "notional": 40.65,
     "why": "Opened per flag: OVERDONE conf 4 — OpenAI releases new voice models for more natural live conversations"
+  },
+  {
+    "ts": "2026-07-13T20:16:19.833023+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-07-13T20:16:19.832609+00:00",
+    "side": "SELL",
+    "ticker": "DOCN",
+    "shares": 4.483,
+    "fill_price": 129.0408,
+    "fees": 0.3812,
+    "notional": 578.49,
+    "why": "16 days held, exceeds 15-day holding window max. Sympathy-fade thesis has expired regardless of recovery. Exit both DOCN positions (0.55 shares at -14.49% and 3.93 shares at -18.19%) to free sector/cash headroom for fresh basket trades."
+  },
+  {
+    "ts": "2026-07-13T20:16:20.214320+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-07-13T20:16:20.213902+00:00",
+    "side": "BUY",
+    "ticker": "DOCN",
+    "shares": 4.41,
+    "fill_price": 129.2992,
+    "fees": 0.3641,
+    "notional": 570.21,
+    "why": "Opened per flag: OVERDONE conf 4 — OpenAI launches its new family of models with GPT-5.6"
+  },
+  {
+    "ts": "2026-07-13T20:16:20.476558+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-07-13T20:16:20.476152+00:00",
+    "side": "BUY",
+    "ticker": "DUOL",
+    "shares": 0.3633,
+    "fill_price": 126.7566,
+    "fees": 0.3512,
+    "notional": 46.05,
+    "why": "Opened per flag: OVERDONE conf 4 — OpenAI launches its new family of models with GPT-5.6"
   }
 ]

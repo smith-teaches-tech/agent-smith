@@ -594,5 +594,18 @@
     "fees": 0.385,
     "notional": 611.16,
     "why": "Opened per flag: OVERDONE conf 3 — No identified catalyst; possible customer concentration or memory capex fear"
+  },
+  {
+    "ts": "2026-07-13T20:15:45.632539+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-07-13T20:15:45.632130+00:00",
+    "side": "SELL",
+    "ticker": "AEIS",
+    "shares": 2.0405,
+    "fill_price": 299.7,
+    "fees": 0.3739,
+    "notional": 611.54,
+    "why": "UNDERDONE conf-3 entry 3 days ago on semi-cap sympathy rebound thesis (SMH +2.48%). Position now -4.81% underwater on 0.2% of bankroll; thesis was narrow and time-bound (days horizon). New flag on AEIS shows +5.32% rebound today, suggesting the thesis is exhausted — entry was at peak drawdown, exit should be into today's partial bounce. Position size is manageable, but holding through intraday strength into a weakening catalyst (the SMH sympathy has already partly reversed) is poor risk/reward. Redeploy capital toward higher-conviction opportunities."
   }
 ]
