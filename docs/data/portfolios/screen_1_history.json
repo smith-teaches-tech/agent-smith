@@ -908,5 +908,18 @@
     "fees": 0.3512,
     "notional": 46.05,
     "why": "Opened per flag: OVERDONE conf 4 — OpenAI launches its new family of models with GPT-5.6"
+  },
+  {
+    "ts": "2026-07-14T20:13:30.572889+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-07-14T20:13:30.572551+00:00",
+    "side": "SELL",
+    "ticker": "ONTO",
+    "shares": 3.0,
+    "fill_price": 324.2354,
+    "fees": 0.3871,
+    "notional": 972.71,
+    "why": "11 days held, -8.57% unrealized; Meta's Pocket gaming app is a low-credibility catalyst (vibe-coded, niche consumer gaming has zero bearing on semiconductor process control). Thesis remains intact but position underwater after 11 days suggests market inefficiency is not healing. Trim half position to lock liquidity, let remainder ride to day-15 if thesis holds."
   }
 ]

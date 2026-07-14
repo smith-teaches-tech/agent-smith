@@ -1486,5 +1486,53 @@
     "tier": "exploratory",
     "decision_confidence": 2,
     "price_stale": false
+  },
+  {
+    "run_ts": "2026-07-14T20:12:48.543987+00:00",
+    "screen_id": "screen_0",
+    "ticker": "NTLA",
+    "thesis_status": "intact",
+    "next_action": "HOLD",
+    "unrealized_pct": 3.87,
+    "current_price": 13.3,
+    "days_held": 28,
+    "flag_horizon": "days",
+    "flag_classification": "RATIONAL",
+    "flag_confidence": 3,
+    "tier": "exploratory",
+    "decision_confidence": 3,
+    "price_stale": false
+  },
+  {
+    "run_ts": "2026-07-14T20:12:48.543987+00:00",
+    "screen_id": "screen_0",
+    "ticker": "PTCT",
+    "thesis_status": "intact",
+    "next_action": "HOLD",
+    "unrealized_pct": 3.14,
+    "current_price": 78.06,
+    "days_held": 26,
+    "flag_horizon": "days",
+    "flag_classification": "RATIONAL",
+    "flag_confidence": 3,
+    "tier": "exploratory",
+    "decision_confidence": 3,
+    "price_stale": false
+  },
+  {
+    "run_ts": "2026-07-14T20:12:48.543987+00:00",
+    "screen_id": "screen_0",
+    "ticker": "VECO",
+    "thesis_status": "weakening",
+    "next_action": "HOLD",
+    "unrealized_pct": 3.75,
+    "current_price": 58.02,
+    "days_held": 3,
+    "flag_horizon": "weeks",
+    "flag_classification": "OVERDONE",
+    "flag_confidence": 3,
+    "tier": "exploratory",
+    "decision_confidence": 3,
+    "price_stale": false
   }
 ]

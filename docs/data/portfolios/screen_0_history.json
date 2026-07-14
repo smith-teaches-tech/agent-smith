@@ -607,5 +607,18 @@
     "fees": 0.3739,
     "notional": 611.54,
     "why": "UNDERDONE conf-3 entry 3 days ago on semi-cap sympathy rebound thesis (SMH +2.48%). Position now -4.81% underwater on 0.2% of bankroll; thesis was narrow and time-bound (days horizon). New flag on AEIS shows +5.32% rebound today, suggesting the thesis is exhausted — entry was at peak drawdown, exit should be into today's partial bounce. Position size is manageable, but holding through intraday strength into a weakening catalyst (the SMH sympathy has already partly reversed) is poor risk/reward. Redeploy capital toward higher-conviction opportunities."
+  },
+  {
+    "ts": "2026-07-14T20:12:49.005393+00:00",
+    "screen_id": "screen_0",
+    "kind": "buy",
+    "date": "2026-07-14T20:12:49.005077+00:00",
+    "side": "BUY",
+    "ticker": "AXSM",
+    "shares": 2.6578,
+    "fill_price": 229.249,
+    "fees": 0.3585,
+    "notional": 609.3,
+    "why": "Opened per flag: OVERDONE conf 3 — Apparent sympathy with XBI selloff; no company-specific catalyst identified"
   }
 ]

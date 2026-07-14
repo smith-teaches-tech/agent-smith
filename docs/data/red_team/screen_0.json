@@ -498,5 +498,15 @@
     "weakest_link": "The bull thesis relies on the absence of an 8-K as evidence of overshooting, but a -23.3% five-day decline without disclosure could equally signal that informed sellers (insiders, smart money) are already front-running a forthcoming announcement.",
     "critique": "Haiku frames low volume (0.62x) as evidence of 'forced/passive selling' rather than informed repricing, but this inference is backward: if smart money knew a customer problem was coming, they would sell through the low-volume tape to minimize slippage—exactly what we observe. The divergence with SMH, TSM, and AVGO is real, but Haiku offers no mechanism to distinguish between (a) VECO is fundamentally broken and insiders know it, and (b) VECO is oversold on technicals. The 'no 8-K yet' is offered as reassurance, but the absence of disclosure is also consistent with the bad news arriving after market close or in a pre-emptive customer announcement. Haiku's own 51% hit rate on OVERDONE trades at 3-confidence is barely above flip-a-coin, and this entry point (already down -23% in five days) may be late in the repricing cycle rather than early.",
     "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-07-14T20:12:48.542351+00:00",
+    "screen_id": "screen_0",
+    "run_summary": "Portfolio up modestly on small biotech and semi-cap equipment holdings; VECO already owned so re-entry warning applies. Two recently-closed names (AEIS, ALK) are flagged again — both fail the confidence-4 bar required for re-entry, so they drop to WATCH despite interesting setups. Three new flags (ONTO, AXSM, JBLU) pass the exploratory threshold; ONTO and JBLU are pure sector sympathy (RATIONAL conf-3, not OVERDONE) so excluded; AXSM is genuine OVERDONE on light volume with no catalyst, worth a small test.",
+    "ticker": "AXSM",
+    "survived": true,
+    "weakest_link": "The thesis relies on mean-reversion to 'normal' volume and XBI stabilization, but offers no timeline or price target, making it difficult to falsify or grade the hypothesis.",
+    "critique": "The bull case identifies light volume (-0.67x) as evidence of forced ETF selling rather than fundamental repricing, but a 5-day decline of -4.3% alongside the 1-day -6.09% move suggests this is not a single-session overshoot—the selling has persisted over multiple days even as volume normalized. If XBI weakness and forced redemptions were the entire mechanism, a 5-day rolling decline would typically not accumulate this way on sub-average volume; instead, it suggests either a slow-drip of bad news or that the market is repricing Auvelity/Symbravo fundamentals genuinely, not just beta-dumping. The 'confirmation' criterion (AXSM retraces 2–3% as XBI stabilizes) is vague on timing and does not specify what would count as failed confirmation after how long.",
+    "confidence_in_critique": 2
   }
 ]

@@ -1298,5 +1298,45 @@
     "weakest_link": "The bull case cites TENB's filings as evidence that AI increases scanning demand, but does not reconcile the apparent contradiction that GPT-5.6 can generate exploits faster, which could compress the exploit-discovery window and devalue real-time scanning urgency.",
     "critique": "The bull case argues that faster exploit generation via LLMs increases scanning demand, but the inverse mechanism—that faster exploit discovery compresses the mean time to vulnerability and reduces the value of continuous scanning (since patches may already be in flight)—is not explicitly rebutted. TENB's five-day move of +3.06% already shows recovery, and filings evidence of AI as a tailwind is explicit in ExposureAI, but the filings do not address whether customers are extending scan intervals or deprioritizing agents in cloud-only infrastructure. The 0.67x volume is low, suggesting conviction is genuinely exploratory.",
     "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-14T20:13:30.145604+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a basket of 5 flags (TYL, BLKB, VRRM, LRN, DUOL) all triggered by Apple's Siri AI release. Four are high-confidence vertical-SaaS sympathy fades with minimal/no threat; DUOL is a weaker call with genuine (if partial) AI exposure. EVH and ONTO are near or at holding-window boundary and approaching full recovery; BLKB/NCNO/PAYC are 4 days in with modest gains; DOCN/DUOL entered at friction (0 days). The basket rule applies: treat TYL, BLKB, VRRM, LRN as exploratory tier despite conviction-grade filings, and isolate DUOL's weaker signal.",
+    "ticker": "TYL",
+    "survived": true,
+    "weakest_link": "The five-day move of -6.26% suggests meaningful selling pressure that may persist if vertical-SaaS panic broadens, even if the mechanical thesis about Siri's irrelevance to government workflows is sound.",
+    "critique": "The bull case correctly identifies that Siri has no mechanism into court records or municipal ERP systems. However, the -6.26% five-day decline and -4.1% one-day move indicate this is already a crowded unwind trade. If panic cascades across the entire vertical-SaaS cohort on this Apple catalyst (as the 'basket rule' itself suggests), TYL may continue to trade down for days regardless of fundamental strength, leaving an exploratory-tier trade subject to short-term momentum damage before the repricing thesis plays out. The low volume multiple (0.58) is also notable—thin selling could exacerbate moves.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-14T20:13:30.145604+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a basket of 5 flags (TYL, BLKB, VRRM, LRN, DUOL) all triggered by Apple's Siri AI release. Four are high-confidence vertical-SaaS sympathy fades with minimal/no threat; DUOL is a weaker call with genuine (if partial) AI exposure. EVH and ONTO are near or at holding-window boundary and approaching full recovery; BLKB/NCNO/PAYC are 4 days in with modest gains; DOCN/DUOL entered at friction (0 days). The basket rule applies: treat TYL, BLKB, VRRM, LRN as exploratory tier despite conviction-grade filings, and isolate DUOL's weaker signal.",
+    "ticker": "VRRM",
+    "survived": true,
+    "weakest_link": "The five-day change is +2.84%, which contradicts the 'overdone' classification and suggests this sell-off is not actually occurring or has already reversed, weakening the 'sympathy fade' thesis that justifies the buy.",
+    "critique": "VRRM is up 2.84% over five days while the catalyst (Siri launch) is fresh today. This positive 5-day performance undermines the claim that VRRM is experiencing 'sympathy fade' and is therefore a viable contrarian entry. The bull case rests on mechanical irrelevance between Siri and traffic enforcement hardware—which is sound—but the price action does not show panic selling to exploit. If the stock is already holding or climbing despite the catalyst, there is no overdone fade to buy into; the conviction-tier assignment may be justified on thesis strength, but the tactical entry point is questionable.",
+    "confidence_in_critique": 3
+  },
+  {
+    "ts": "2026-07-14T20:13:30.145604+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a basket of 5 flags (TYL, BLKB, VRRM, LRN, DUOL) all triggered by Apple's Siri AI release. Four are high-confidence vertical-SaaS sympathy fades with minimal/no threat; DUOL is a weaker call with genuine (if partial) AI exposure. EVH and ONTO are near or at holding-window boundary and approaching full recovery; BLKB/NCNO/PAYC are 4 days in with modest gains; DOCN/DUOL entered at friction (0 days). The basket rule applies: treat TYL, BLKB, VRRM, LRN as exploratory tier despite conviction-grade filings, and isolate DUOL's weaker signal.",
+    "ticker": "BLKB",
+    "survived": true,
+    "weakest_link": "The decision to SKIP because BLKB is already in the portfolio (entered 4 days ago) is operationally correct, but it is not a red-team critique of the bull thesis itself.",
+    "critique": "The red-team task is to critique whether the BUY decision survives on merits, not to apply portfolio rules. On the merits, BLKB's thesis (Siri irrelevant to nonprofit donor CRM) is sound. The -3.64% one-day and -0.8% five-day moves are moderate and do not signal a sustained panic that would justify calling this 'overdone.' If anything, the flat five-day action suggests the sympathy fade is either priced in or not materializing. The decision to skip is prudent position management, but it does not kill the bull thesis.",
+    "confidence_in_critique": 1
+  },
+  {
+    "ts": "2026-07-14T20:13:30.145604+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a basket of 5 flags (TYL, BLKB, VRRM, LRN, DUOL) all triggered by Apple's Siri AI release. Four are high-confidence vertical-SaaS sympathy fades with minimal/no threat; DUOL is a weaker call with genuine (if partial) AI exposure. EVH and ONTO are near or at holding-window boundary and approaching full recovery; BLKB/NCNO/PAYC are 4 days in with modest gains; DOCN/DUOL entered at friction (0 days). The basket rule applies: treat TYL, BLKB, VRRM, LRN as exploratory tier despite conviction-grade filings, and isolate DUOL's weaker signal.",
+    "ticker": "LRN",
+    "survived": false,
+    "weakest_link": "LRN has declined 5.51% in a single day and -4.52% over five days on a catalyst (Siri) with zero business model overlap, yet the bull case offers no explanation for why this sympathy fade is overdone versus merely extended.",
+    "critique": "The bull thesis correctly identifies that Siri does not issue diplomas or replace accredited K-12 charter schools. However, the flag itself classifies LRN as 'OVERDONE' based on vertical-SaaS sympathy, yet the stock is down -4.52% over five days—a meaningful move for a sympathy trade. The real threat is not Siri's capability but legislative risk to charter school funding (already flagged in 'what_kills'). If this sell-off is driven by a spike in charter-defunding sentiment or a political event correlated with the Apple catalyst window, the downside risk is material and unrelated to the bull's mechanical thesis. Without evidence that the -4.52% move is excessive relative to legislative tail risk, this is not an overdone entry.",
+    "confidence_in_critique": 4
   }
 ]
