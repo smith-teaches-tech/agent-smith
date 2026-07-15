@@ -1338,5 +1338,55 @@
     "weakest_link": "LRN has declined 5.51% in a single day and -4.52% over five days on a catalyst (Siri) with zero business model overlap, yet the bull case offers no explanation for why this sympathy fade is overdone versus merely extended.",
     "critique": "The bull thesis correctly identifies that Siri does not issue diplomas or replace accredited K-12 charter schools. However, the flag itself classifies LRN as 'OVERDONE' based on vertical-SaaS sympathy, yet the stock is down -4.52% over five days—a meaningful move for a sympathy trade. The real threat is not Siri's capability but legislative risk to charter school funding (already flagged in 'what_kills'). If this sell-off is driven by a spike in charter-defunding sentiment or a political event correlated with the Apple catalyst window, the downside risk is material and unrelated to the bull's mechanical thesis. Without evidence that the -4.52% move is excessive relative to legislative tail risk, this is not an overdone entry.",
     "confidence_in_critique": 4
+  },
+  {
+    "ts": "2026-07-15T20:12:45.030702+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a 9-flag basket from two major catalysts (OpenAI GPT-5.6 file deletion + Apple Siri public beta). Portfolio is heavily concentrated in 7 existing positions across the same triggers, with 5 of 7 at early hold windows (1-5 days). Discipline requires exiting or trimming mature positions, holding intact ones, and applying basket-rule logic to new flags: 5 qualify as BUY-eligible from the GPT-5.6 trigger alone, triggering mandatory exploratory tier across the basket; Apple Siri basket has 3 BUY-eligible (TYL, BLKB, VRRM), also triggering exploratory tier.",
+    "ticker": "TENB",
+    "survived": true,
+    "weakest_link": "The bull case assumes a V-shaped rebound within days without requiring any positive catalyst or operational confirmation, relying entirely on sympathy-fade mechanics.",
+    "critique": "The bull thesis rests on the claim that mid-single-digit drops on thematic headlines are 'textbook' fades, but Tenable has experienced a -5.77% one-day drop and +1.67% five-day recovery—the latter is still underwater from a weekly perspective. The filings do mention AI-driven exploit acceleration as a tailwind, but this is risk-factor boilerplate; it does not prove market participants misread the thesis or that the trade will reverse on its own. If the OpenAI file-deletion story is broadening into enterprise confidence concerns about AI safety in supply chains (which the flag itself acknowledges as a live concern in filings), then Tenable's customer base may rationally reduce discretionary software spending until clarity improves. The basket-rule framing (exploratory tier due to multi-name GPT-5.6 trigger) is sound protocol, but it does not address whether the underlying sympathy mechanism has actually run its course.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-15T20:12:45.030702+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a 9-flag basket from two major catalysts (OpenAI GPT-5.6 file deletion + Apple Siri public beta). Portfolio is heavily concentrated in 7 existing positions across the same triggers, with 5 of 7 at early hold windows (1-5 days). Discipline requires exiting or trimming mature positions, holding intact ones, and applying basket-rule logic to new flags: 5 qualify as BUY-eligible from the GPT-5.6 trigger alone, triggering mandatory exploratory tier across the basket; Apple Siri basket has 3 BUY-eligible (TYL, BLKB, VRRM), also triggering exploratory tier.",
+    "ticker": "AMBA",
+    "survived": true,
+    "weakest_link": "The bull case claims edge-inference SoC demand is orthogonal to cloud-model safety risk, but supply-chain anxiety and customer order-delay risk (already flagged in the 10-Q) could amplify if enterprises perceive broader AI safety concerns.",
+    "critique": "Ambarella's threat_assessment is rated 'none,' which is the cleanest signal in the basket. However, the five-day move is -7.84% (worse than the one-day -5.51%), suggesting the sympathy sell is not yet exhausted or is accumulating with broader semis weakness. The flag correctly notes memory supply tightening and customer order delays from the 10-Q; if the OpenAI file-deletion headline catalyzes a broader customer pause on AI infrastructure spending (including edge deployment), Ambarella's order flow could suffer near-term even if the long-term TAM thesis is sound. The bull case assumes the sympathy will fade quickly, but multi-day deterioration and acknowledged supply-chain friction in filings create execution risk over the stated 'days' horizon.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-15T20:12:45.030702+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a 9-flag basket from two major catalysts (OpenAI GPT-5.6 file deletion + Apple Siri public beta). Portfolio is heavily concentrated in 7 existing positions across the same triggers, with 5 of 7 at early hold windows (1-5 days). Discipline requires exiting or trimming mature positions, holding intact ones, and applying basket-rule logic to new flags: 5 qualify as BUY-eligible from the GPT-5.6 trigger alone, triggering mandatory exploratory tier across the basket; Apple Siri basket has 3 BUY-eligible (TYL, BLKB, VRRM), also triggering exploratory tier.",
+    "ticker": "LRN",
+    "survived": true,
+    "weakest_link": "The bull case asserts that K-12 charter schools are mechanically immune to AI chatbot disruption, but does not address whether parents, regulators, or school boards may pause enrollment growth or defund virtual charters in response to broader AI safety headlines.",
+    "critique": "Stride's business model (state-funded per-pupil charter schools) is indeed orthogonal to consumer chatbots, and the -3.95% one-day move on an OpenAI headline is a textbook sympathy fade. However, the five-day decline of -7.16% and elevated volume (1.34x) suggest the selling is either broader-based or accumulating—not yet exhausted. The flag notes state legislative action targeting virtual charters as a recurring risk in filings, but does not explore whether an OpenAI safety narrative could embolden anti-charter politicians or parents nervous about AI in education. The basket-rule exploratory tier is appropriate, but the assumption that a 'bounce over 1-5 days' will occur without operational or regulatory confirmation is unmoored.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-15T20:12:45.030702+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a 9-flag basket from two major catalysts (OpenAI GPT-5.6 file deletion + Apple Siri public beta). Portfolio is heavily concentrated in 7 existing positions across the same triggers, with 5 of 7 at early hold windows (1-5 days). Discipline requires exiting or trimming mature positions, holding intact ones, and applying basket-rule logic to new flags: 5 qualify as BUY-eligible from the GPT-5.6 trigger alone, triggering mandatory exploratory tier across the basket; Apple Siri basket has 3 BUY-eligible (TYL, BLKB, VRRM), also triggering exploratory tier.",
+    "ticker": "TYL",
+    "survived": true,
+    "weakest_link": "The bull case assumes government RFP cycles are orthogonal to Apple Siri news, but does not quantify exposure to discretionary IT procurement freezes if enterprise AI safety concerns broaden.",
+    "critique": "Tyler Technologies' government-vertical SaaS moat is real and procurement cycles are indeed measured in years, not days. However, the one-day move of -4.1% and five-day move of -6.26% with low volume (0.58x) suggest the selling is structural rather than exhausted sympathy. The flag cites competitive bidding and compliance as core risks but does not weigh the risk that a broader enterprise IT spending pause (if customer confidence in AI safety declines) could delay RFP issuance or budget approvals. The bull case assumes the sympathy tag is 'mechanically wrong' without addressing whether the Apple Siri headline could trigger a wider regulatory or IT-procurement-cycle slowdown.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-15T20:12:45.030702+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a 9-flag basket from two major catalysts (OpenAI GPT-5.6 file deletion + Apple Siri public beta). Portfolio is heavily concentrated in 7 existing positions across the same triggers, with 5 of 7 at early hold windows (1-5 days). Discipline requires exiting or trimming mature positions, holding intact ones, and applying basket-rule logic to new flags: 5 qualify as BUY-eligible from the GPT-5.6 trigger alone, triggering mandatory exploratory tier across the basket; Apple Siri basket has 3 BUY-eligible (TYL, BLKB, VRRM), also triggering exploratory tier.",
+    "ticker": "VRRM",
+    "survived": true,
+    "weakest_link": "The bull case claims municipal infrastructure and toll systems are structurally invulnerable to Siri news, but does not address whether enterprise or government spending on discretionary tech projects (including smart-traffic systems) could slow if AI safety anxiety spreads.",
+    "critique": "Verra Mobility's core asset (traffic cameras, toll infrastructure) is indeed physical and non-substitutable by a voice assistant, and the threat_assessment is 'none.' However, the one-day move is -3.98% but the five-day move is +2.84%—suggesting a partial rebound already occurred. The low volume (0.46x) indicates light selling. The flag highlights the Jan 2026 NYCDOT contract as stabilizing revenue, but does not quantify whether municipal capex budgets for smart-city or toll-system upgrades could slow if procurement managers become risk-averse on the back of broader AI headlines. The bull case is strong on business-model orthogonality but weak on macro discretionary-spending risk.",
+    "confidence_in_critique": 1
   }
 ]

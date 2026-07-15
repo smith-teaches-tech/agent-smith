@@ -921,5 +921,31 @@
     "fees": 0.3871,
     "notional": 972.71,
     "why": "11 days held, -8.57% unrealized; Meta's Pocket gaming app is a low-credibility catalyst (vibe-coded, niche consumer gaming has zero bearing on semiconductor process control). Thesis remains intact but position underwater after 11 days suggests market inefficiency is not healing. Trim half position to lock liquidity, let remainder ride to day-15 if thesis holds."
+  },
+  {
+    "ts": "2026-07-15T20:12:45.975170+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-07-15T20:12:45.974753+00:00",
+    "side": "SELL",
+    "ticker": "DOCN",
+    "shares": 2.205,
+    "fill_price": 128.6512,
+    "fees": 0.3653,
+    "notional": 283.68,
+    "why": "1 day held, -7.58% unrealized, five-day drop -14.88%. Original flag (from yesterday's run) cited 'partial' panic calibration due to potential earnings whisper. Today's received flag reiterates that risk, noting hyperscaler price competition and SMB churn risk. The deep 5-day drawdown suggests real business concern beyond sympathy fade. Trim 50% position to lock in downside while retaining exposure in case sympathy fade does recover; exit the remainder if thesis breaks further."
+  },
+  {
+    "ts": "2026-07-15T20:12:46.346541+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-07-15T20:12:46.346118+00:00",
+    "side": "SELL",
+    "ticker": "DUOL",
+    "shares": 0.1817,
+    "fill_price": 130.4494,
+    "fees": 0.2383,
+    "notional": 23.7,
+    "why": "1 day held, +2.74% unrealized, five-day change -2.73%. Today's flag (received this run) acknowledges DUOL's genuine AI exposure: filings explicitly name free ChatGPT competitors and improving translation as real threats. Confidence is only 3 (vs. 4 for other Siri-basket names), and threat_assessment is 'indirect' not 'none'. Unlike accredited K-12 (LRN) or vertical SaaS (TYL/BLKB/VRRM), language learning IS materially AI-exposed. The gamified habit loop is a moat, but it's thinner than the court-records/ERP moat. Trim 50% to reduce conviction; retain 50% as a test."
   }
 ]
