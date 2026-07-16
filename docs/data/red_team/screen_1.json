@@ -1388,5 +1388,65 @@
     "weakest_link": "The bull case claims municipal infrastructure and toll systems are structurally invulnerable to Siri news, but does not address whether enterprise or government spending on discretionary tech projects (including smart-traffic systems) could slow if AI safety anxiety spreads.",
     "critique": "Verra Mobility's core asset (traffic cameras, toll infrastructure) is indeed physical and non-substitutable by a voice assistant, and the threat_assessment is 'none.' However, the one-day move is -3.98% but the five-day move is +2.84%—suggesting a partial rebound already occurred. The low volume (0.46x) indicates light selling. The flag highlights the Jan 2026 NYCDOT contract as stabilizing revenue, but does not quantify whether municipal capex budgets for smart-city or toll-system upgrades could slow if procurement managers become risk-averse on the back of broader AI headlines. The bull case is strong on business-model orthogonality but weak on macro discretionary-spending risk.",
     "confidence_in_critique": 1
+  },
+  {
+    "ts": "2026-07-16T20:07:35.536036+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a mature portfolio with 7 open positions (2 at or past the 15-day holding window) and a strong basket of 11 fresh flags across three distinct catalysts (Google Vids, OpenAI GPT-5.6 file-deletion, Apple Siri iOS 27). The portfolio is showing mixed results; EVH has hit the window, ONTO is deeply underwater but thesis-intact, and BLKB/NCNO/PAYC are in early recovery. The fresh flags include 3 high-conviction sympathy fades (AMBA, AEIS, VRRM with threat_assessment='none') but the basket rule applies: 8 flags from the Google Vids + OpenAI catalysts alone warrant exploratory tier capping to prevent concentration.",
+    "ticker": "AMBA",
+    "survived": true,
+    "weakest_link": "The basket-rule downgrade to exploratory tier assumes the 3-name sympathy basket is mechanically similar, but AMBA's -19.25% five-day move suggests either deeper fundamentals or crowding that pure sympathy alone doesn't explain.",
+    "critique": "AMBA's five-day drop of -19.25% paired with volume_multiple of only 1.03 is a specific red flag—the move appears to have momentum/conviction behind it rather than being a thin algo-sympathy fade. The critique correctly identifies zero fundamental threat from Google Vids, but a -19.25% five-day move on 'pure sympathy' is inconsistent with the characterization of the sell as unjustified panic. Either (a) there is other negative news not captured in the flag, or (b) the market is pricing a deeper semis downcycle that the bull case dismisses. The thesis survives on merit (Vids→edge AI is a category non-sequitur), but the magnitude of the move warrants skepticism about whether this is truly isolated to a single headline.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-16T20:07:35.536036+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a mature portfolio with 7 open positions (2 at or past the 15-day holding window) and a strong basket of 11 fresh flags across three distinct catalysts (Google Vids, OpenAI GPT-5.6 file-deletion, Apple Siri iOS 27). The portfolio is showing mixed results; EVH has hit the window, ONTO is deeply underwater but thesis-intact, and BLKB/NCNO/PAYC are in early recovery. The fresh flags include 3 high-conviction sympathy fades (AMBA, AEIS, VRRM with threat_assessment='none') but the basket rule applies: 8 flags from the Google Vids + OpenAI catalysts alone warrant exploratory tier capping to prevent concentration.",
+    "ticker": "AEIS",
+    "survived": true,
+    "weakest_link": "Volume multiple of 0.67 combined with a -7.56% five-day move suggests retail exit rather than institutionally-driven sympathy selling, indicating possible conviction on a genuine concern the bull case hasn't addressed.",
+    "critique": "AEIS presents an unusual pattern: the five-day decline of -7.56% is coupled with below-average volume (0.67x), which contradicts the 'algo sympathy' diagnosis. Below-normal volume on a down move typically signals conviction selling (informed exits) rather than reflex panic. This suggests either (a) informed investors believe power-conversion capex is softening independent of Google Vids, or (b) there is AEIS-specific bad news not reflected in the flag. The bull thesis (power equipment has zero exposure to consumer video) is sound in isolation, but the volume profile suggests the market may be pricing a broader capex slowdown that the thesis glosses over.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-16T20:07:35.536036+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a mature portfolio with 7 open positions (2 at or past the 15-day holding window) and a strong basket of 11 fresh flags across three distinct catalysts (Google Vids, OpenAI GPT-5.6 file-deletion, Apple Siri iOS 27). The portfolio is showing mixed results; EVH has hit the window, ONTO is deeply underwater but thesis-intact, and BLKB/NCNO/PAYC are in early recovery. The fresh flags include 3 high-conviction sympathy fades (AMBA, AEIS, VRRM with threat_assessment='none') but the basket rule applies: 8 flags from the Google Vids + OpenAI catalysts alone warrant exploratory tier capping to prevent concentration.",
+    "ticker": "TENB",
+    "survived": true,
+    "weakest_link": "The five-day move of +1.67% contradicts the setup of a sympathy fade, and with threat_assessment=minimal (not 'none'), the critique may be overstating the unjustified-panic case when the stock has already recovered.",
+    "critique": "TENB's five-day change of +1.67% directly contradicts the framing of it as an AI-event sympathy fade—the stock is already up over five days, meaning today's -5.77% one-day move appears to be a correction in an already-rebounded name, not sustained panic. If the thesis is sound (AI accelerates vuln demand), the recovery is consistent with that thesis being repriced positively. The only genuine bear case would be if the rebound is itself a false hope and the market is correctly sensing that AI-native security tools (built into models themselves) eventually cannibalize demand for bolt-on scanning. The Tenable filings note is helpful, but the magnitude and direction of the five-day move does not support the 'unjustified panic' framing.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-16T20:07:35.536036+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a mature portfolio with 7 open positions (2 at or past the 15-day holding window) and a strong basket of 11 fresh flags across three distinct catalysts (Google Vids, OpenAI GPT-5.6 file-deletion, Apple Siri iOS 27). The portfolio is showing mixed results; EVH has hit the window, ONTO is deeply underwater but thesis-intact, and BLKB/NCNO/PAYC are in early recovery. The fresh flags include 3 high-conviction sympathy fades (AMBA, AEIS, VRRM with threat_assessment='none') but the basket rule applies: 8 flags from the Google Vids + OpenAI catalysts alone warrant exploratory tier capping to prevent concentration.",
+    "ticker": "LRN",
+    "survived": true,
+    "weakest_link": "The volume multiple of 1.34 on a -3.95% one-day move and -7.16% five-day decline suggests retail conviction selling rather than thin algo sympathy, indicating potential real concerns about enrollment or funding that the 'textbook sympathy fade' framing may underweight.",
+    "critique": "LRN's volume profile is notably heavy (1.34x multiple) combined with a -7.16% five-day move, which is inconsistent with the characterization of a light sympathy fade. Elevated volume on a down move signals informed selling pressure, not algorithmic panic. The bull case (state charter schools cannot be substituted by AI tutors) is structurally sound, but the volume pattern suggests institutional investors may be pricing a real threat that the flag dismisses—either enrollment pressure from AI-native alternatives (even if not direct substitutes) or state-level funding concerns independent of the GPT-5.6 headline. The regulatory moat is real, but elevated conviction selling on this move deserves more weight.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-16T20:07:35.536036+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a mature portfolio with 7 open positions (2 at or past the 15-day holding window) and a strong basket of 11 fresh flags across three distinct catalysts (Google Vids, OpenAI GPT-5.6 file-deletion, Apple Siri iOS 27). The portfolio is showing mixed results; EVH has hit the window, ONTO is deeply underwater but thesis-intact, and BLKB/NCNO/PAYC are in early recovery. The fresh flags include 3 high-conviction sympathy fades (AMBA, AEIS, VRRM with threat_assessment='none') but the basket rule applies: 8 flags from the Google Vids + OpenAI catalysts alone warrant exploratory tier capping to prevent concentration.",
+    "ticker": "TYL",
+    "survived": true,
+    "weakest_link": "Volume multiple of 0.58 on a -6.26% five-day move suggests informed exit rather than sympathy selling, raising the possibility that institutional investors are pricing a genuine threat to Tyler's government procurement moat that the bull case underestimated.",
+    "critique": "TYL's below-average volume (0.58x) combined with a -6.26% five-day decline is the opposite of a sympathy-fade signature. Low volume on sustained down move suggests informed, conviction-based selling by holders who believe something material has changed. The bull thesis (government procurement moats + decades of embeddedness) is sound in isolation, but the volume pattern indicates professional investors may be pricing a scenario the flag dismisses—either (a) AI-native competitors actually winning government RFPs faster than traditional analysis suggests, or (b) Tyler's own ability to upgrade customers on AI-powered features is being questioned. The procurement cycle is indeed slow, but that makes the conviction selling more notable, not less.",
+    "confidence_in_critique": 2
+  },
+  {
+    "ts": "2026-07-16T20:07:35.536036+00:00",
+    "screen_id": "screen_1",
+    "run_summary": "Screen 1 faces a mature portfolio with 7 open positions (2 at or past the 15-day holding window) and a strong basket of 11 fresh flags across three distinct catalysts (Google Vids, OpenAI GPT-5.6 file-deletion, Apple Siri iOS 27). The portfolio is showing mixed results; EVH has hit the window, ONTO is deeply underwater but thesis-intact, and BLKB/NCNO/PAYC are in early recovery. The fresh flags include 3 high-conviction sympathy fades (AMBA, AEIS, VRRM with threat_assessment='none') but the basket rule applies: 8 flags from the Google Vids + OpenAI catalysts alone warrant exploratory tier capping to prevent concentration.",
+    "ticker": "VRRM",
+    "survived": true,
+    "weakest_link": "The five-day move of +2.84% directly contradicts the sympathy-fade diagnosis, and a volume multiple of 0.46 suggests the stock has already been discounted by informed sellers; the setup assumes panic that the price action does not support.",
+    "critique": "VRRM's five-day change is positive (+2.84%) despite the flag's classification as a sympathy-fade victim, and volume is well below average (0.46x). This price-and-volume pattern indicates either (a) the stock was already repriced downward in prior periods and today is a rebound, or (b) the market never fully believed the sympathy thesis in the first place. The bull case (Siri cannot photograph cars) is sound, but the positive five-day drift and low volume together suggest the market is efficiently pricing the irrelevance of Siri to toll infrastructure—not panicking. The flag's framing as a 'panic fade' is not supported by the price action.",
+    "confidence_in_critique": 1
   }
 ]

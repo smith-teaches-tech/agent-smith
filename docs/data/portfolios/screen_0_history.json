@@ -620,5 +620,44 @@
     "fees": 0.3585,
     "notional": 609.3,
     "why": "Opened per flag: OVERDONE conf 3 — Apparent sympathy with XBI selloff; no company-specific catalyst identified"
+  },
+  {
+    "ts": "2026-07-16T20:06:37.199208+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-07-16T20:06:37.198847+00:00",
+    "side": "SELL",
+    "ticker": "NTLA",
+    "shares": 20.9127,
+    "fill_price": 12.4176,
+    "fees": 0.4276,
+    "notional": 259.69,
+    "why": "RATIONAL flag on same-day 8-K (Reg FD likely clinical/partnership). 30 days held; 8-K catalyst has fully elapsed. Current price $11.86 vs. cost basis $12.79 = -7.38% unrealized. No new catalyst on horizon and thesis was time-bound (days). Original rationale for entry was the 8-K event; that event occurred and thesis is now exhausted. No evidence of follow-up catalyst."
+  },
+  {
+    "ts": "2026-07-16T20:06:37.631172+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-07-16T20:06:37.630829+00:00",
+    "side": "SELL",
+    "ticker": "PTCT",
+    "shares": 4.0062999999999995,
+    "fill_price": 79.4205,
+    "fees": 0.3723,
+    "notional": 318.18,
+    "why": "RATIONAL flag on 8-K (8.01 filing 6/16) plus broader biotech bid. 28 days held; original catalyst (8-K filing + sector M&A backdrop) has elapsed. Currently +3.75% but thesis was narrow and time-bound (days horizon). Biotech sector bid is now a month old; no new company-specific or sector catalyst to extend thesis. Reduce reallocate capital to higher-conviction plays."
+  },
+  {
+    "ts": "2026-07-16T20:06:38.016238+00:00",
+    "screen_id": "screen_0",
+    "kind": "sell",
+    "date": "2026-07-16T20:06:38.015885+00:00",
+    "side": "SELL",
+    "ticker": "VECO",
+    "shares": 10.9359,
+    "fill_price": 54.905,
+    "fees": 0.4035,
+    "notional": 600.44,
+    "why": "Entered 5 days ago on OVERDONE conf-3 basis (customer concentration/memory capex fear). New flag today shows VECO +4.05% (5-day +8.75%), classified RATIONAL on semi-cap equipment sympathy with NVDA H200 China news. The new flag explicitly states 'no company-specific catalyst' and describes the move as sympathy-driven beta, not a mispricing correction. This contradicts the OVERDONE thesis that underpinned the entry. Position is small (-2.79%) but thesis is flipping from 'overshoot lower' to 'sector beta rebound.' Exit and avoid holding conflicting signals."
   }
 ]

@@ -947,5 +947,57 @@
     "fees": 0.2383,
     "notional": 23.7,
     "why": "1 day held, +2.74% unrealized, five-day change -2.73%. Today's flag (received this run) acknowledges DUOL's genuine AI exposure: filings explicitly name free ChatGPT competitors and improving translation as real threats. Confidence is only 3 (vs. 4 for other Siri-basket names), and threat_assessment is 'indirect' not 'none'. Unlike accredited K-12 (LRN) or vertical SaaS (TYL/BLKB/VRRM), language learning IS materially AI-exposed. The gamified habit loop is a moat, but it's thinner than the court-records/ERP moat. Trim 50% to reduce conviction; retain 50% as a test."
+  },
+  {
+    "ts": "2026-07-16T20:07:36.451650+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-07-16T20:07:36.451272+00:00",
+    "side": "SELL",
+    "ticker": "EVH",
+    "shares": 105.5845,
+    "fill_price": 5.964,
+    "fees": 0.7424,
+    "notional": 629.71,
+    "why": "days_held = 15, at the Screen 1 holding window max. Thesis was unjustified sympathy on Anthropic Claude announcement; five_day_change_pct is +0.89 (slight recovery), but window discipline requires exit. Prevent drift into 'wait for recovery' mindset on a trade built for 5-15 days."
+  },
+  {
+    "ts": "2026-07-16T20:07:36.797253+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-07-16T20:07:36.796884+00:00",
+    "side": "SELL",
+    "ticker": "DOCN",
+    "shares": 1.1025,
+    "fill_price": 116.3835,
+    "fees": 0.3573,
+    "notional": 128.31,
+    "why": "days_held = 2, but five_day_change_pct = -14.88 (deep move) and threat_assessment = 'indirect' with 'partial' panic_calibration. Filings show real AI/ML competitive pressure and hyperscaler risk, not pure sympathy. The move may contain genuine negative sentiment beyond the GPT-5.6 headline. Trim 50% to lock in downside protection; hold remainder through window in case it's still sympathy fade, but reduce exposure given the deeper drawdown and higher threat profile vs. peers."
+  },
+  {
+    "ts": "2026-07-16T20:07:37.180382+00:00",
+    "screen_id": "screen_1",
+    "kind": "sell",
+    "date": "2026-07-16T20:07:37.180038+00:00",
+    "side": "SELL",
+    "ticker": "DUOL",
+    "shares": 0.0908,
+    "fill_price": 133.866,
+    "fees": 0.1222,
+    "notional": 12.16,
+    "why": "days_held = 2, confidence = 3, threat_assessment = 'indirect' with 'partial' panic_calibration. Unlike accredited K-12 or government SaaS, consumer language learning faces genuine AI-native competition (free ChatGPT, translation APIs). Filings explicitly flag this. The -2.73% five-day move is modest, suggesting market is pricing real risk, not just sympathy. Trim 50% to de-risk; hold remainder through window but at reduced size given structural AI exposure."
+  },
+  {
+    "ts": "2026-07-16T20:07:38.116531+00:00",
+    "screen_id": "screen_1",
+    "kind": "buy",
+    "date": "2026-07-16T20:07:38.116181+00:00",
+    "side": "BUY",
+    "ticker": "AMBA",
+    "shares": 8.6205,
+    "fill_price": 66.6566,
+    "fees": 0.3776,
+    "notional": 574.61,
+    "why": "Opened per flag: OVERDONE conf 4 — Google Vids now lets you star in your own AI videos with Gemini Omni-powered generation and editing"
   }
 ]
